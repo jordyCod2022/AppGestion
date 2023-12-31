@@ -1,17 +1,15 @@
-
-
-const express = require("express");
+const express = require('express');
 const app = express();
-const path = require("path");  // Necesitamos el módulo 'path' para trabajar con rutas de archivos
+const path = require('path');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 
 dotenv.config();
 
 const connectionTimeoutMillis = 40000;
 
 // Configuración para el pool de conexiones a PostgreSQL
-
 const pool = new Pool({
   connectionString: process.env.conexion,
   ssl: {
@@ -37,46 +35,35 @@ process.on('SIGINT', () => {
 
 // Configurar Express para servir archivos estáticos
 app.use(express.static('public'));
+app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
 // Ruta para la página principal
-app.get("/", (req, res) => {
-  // Usamos path.join para obtener la ruta completa del archivo index.html
+app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, 'public', 'index.html');
   res.sendFile(indexPath);
 });
 
+// Ruta para el inicio de sesión
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    // Realizar un JOIN entre las tablas para obtener la información del colaborador y el token
-    const result = await pool.query(
-      'SELECT c.id_colaborador, c.cedula, t.token FROM public.colaboradores c JOIN public.httptoken t ON c.id_colaborador = t.id_colaboradorfk WHERE c.cedula = $1',
-      [username]
-    );
+    // Realizar la consulta a la base de datos para verificar las credenciales
+    const result = await pool.query('SELECT * FROM usuarios WHERE nombre_usuario = $1 AND contrasena = $2', [username, password]);
 
     if (result.rows.length > 0) {
-      const user = result.rows[0];
-      // Aquí puedes realizar la validación de la contraseña o cualquier otra lógica que necesites
-      // También puedes verificar el token si es necesario
-      if (password_valida) {
-        // Aquí puedes generar un token de sesión, establecer cookies, etc.
-        res.send('Inicio de sesión exitoso');
-      } else {
-        res.status(401).send('Credenciales incorrectas');
-      }
+      res.json({ authenticated: true });
     } else {
-      res.status(401).send('Usuario no encontrado');
+      res.json({ authenticated: false });
     }
   } catch (error) {
-    console.error('Error en el inicio de sesión:', error);
-    res.status(500).send('Error en el servidor');
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error en la autenticación' });
   }
 });
 
+const PORT = process.env.PORT || 3000;
 
-const PORT = 3000;
-
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Servidor en ejecución en el puerto ${PORT}`);
 });
