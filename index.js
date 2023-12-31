@@ -47,6 +47,9 @@ app.get('/', (req, res) => {
 app.post('/login', async (req, res) => {
   const { cedula, password } = req.body;
 
+  console.log('Cédula recibida:', cedula);
+  console.log('Contraseña recibida:', password);
+
   try {
     // Realizar la consulta a la base de datos para verificar las credenciales
     const result = await pool.query(`
@@ -68,7 +71,6 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Error en la autenticación' });
   }
 });
-
 
 const PORT = process.env.PORT || 3000;
 
