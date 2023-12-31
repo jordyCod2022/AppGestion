@@ -45,9 +45,9 @@ app.get('/', (req, res) => {
 
 // Ruta para el inicio de sesión
 app.post('/login', async (req, res) => {
-  const { cedula, password } = req.body;
+  const { username, password } = req.body;
 
-  console.log('Cédula recibida:', cedula);
+  console.log('Cédula recibida:', username);
   console.log('Contraseña recibida:', password);
 
   try {
@@ -57,7 +57,7 @@ app.post('/login', async (req, res) => {
       FROM public.httptoken AS t
       JOIN public.colaboradores AS c ON t.id_colaboradorfk = c.id_colaborador
       WHERE c.cedula = $1 AND t.token = $2
-    `, [cedula, password]);
+    `, [username, password]);
 
     if (result.rows.length > 0) {
       console.log('Inicio de sesión exitoso');
