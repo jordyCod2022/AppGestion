@@ -45,11 +45,16 @@ app.get('/', (req, res) => {
 
 // Ruta para el inicio de sesión
 app.post('/login', async (req, res) => {
-  const { username, password } = req.body;
+  const { cedula, password } = req.body;
 
   try {
     // Realizar la consulta a la base de datos para verificar las credenciales
-    const result = await pool.query('SELECT * FROM usuarios WHERE nombre_usuario = $1 AND contrasena = $2', [username, password]);
+    const result = await pool.query(`
+      SELECT t.token
+      FROM public.httptoken AS t
+      JOIN public.colaboradores AS c ON t.id_colaboradorfk = c.id_colaborador
+      WHERE c.cedula = $1 AND t.token = $2
+    `, [cedula, password]);
 
     if (result.rows.length > 0) {
       res.json({ authenticated: true });
@@ -61,6 +66,7 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Error en la autenticación' });
   }
 });
+
 
 const PORT = process.env.PORT || 3000;
 
