@@ -57,8 +57,10 @@ app.post('/login', async (req, res) => {
     `, [cedula, password]);
 
     if (result.rows.length > 0) {
+      console.log('Inicio de sesión exitoso');
       res.json({ authenticated: true });
     } else {
+      console.log('Inicio de sesión fallido');
       res.json({ authenticated: false });
     }
   } catch (error) {
