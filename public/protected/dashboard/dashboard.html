@@ -1,36 +1,104 @@
-<!-- dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="dashboard.css">
-        <title>Dashboard - Administrador de TICs</title>
-    </head>
+<head>
+  <title>Dashboard de gestión de incidencias</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
 <body>
-    <header>
-        <h1>Dashboard</h1>
-        <nav>
-            <ul>
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Usuarios</a></li>
-                <li><a href="#">Configuración</a></li>
-                <!-- Agrega más enlaces según sea necesario -->
-            </ul>
-        </nav>
-    </header>
 
-    <section class="main-content">
-        <!-- Contenido principal del dashboard -->
-        <h2>Bienvenido al Dashboard</h2>
-        <p>¡Aquí puedes administrar tus tareas!</p>
-        <!-- Agrega más contenido según sea necesario -->
+  <header>
+    <h1>Dashboard de gestión de incidencias</h1>
+  </header>
+
+  <main>
+
+    <section class="dashboard-section">
+      <h2>Tickets por prioridad</h2>
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>Prioridad</th>
+            <th>Total</th>
+            <th>Abiertos</th>
+            <th>Cerrados</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Alta</td>
+            <td>10</td>
+            <td>7</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Media</td>
+            <td>8</td>
+            <td>5</td>
+            <td>3</td>
+          </tr>
+          <tr>
+            <td>Baja</td>
+            <td>2</td>
+            <td>2</td>
+            <td>0</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
 
-    <footer>
-        <p>&copy; 2023 Administrador de TICs</p>
-    </footer>
+    <section class="dashboard-section">
+      <h2>Tickets por estado</h2>
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>Estado</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Abierto</td>
+            <td>12</td>
+          </tr>
+          <tr>
+            <td>En curso</td>
+            <td>5</td>
+          </tr>
+          <tr>
+            <td>Cerrado</td>
+            <td>3</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-   
+    <section class="dashboard-section">
+      <h2>Tickets por propietario</h2>
+      <table class="tickets-table">
+        <thead>
+          <tr>
+            <th>Propietario</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Sara</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Carlos</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>Marta</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+  </main>
+
 </body>
 </html>
