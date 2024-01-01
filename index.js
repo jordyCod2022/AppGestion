@@ -42,9 +42,10 @@ app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, 'public', 'index.html');
   res.sendFile(indexPath);
 });
+
 app.get('/getNombre', async (req, res) => {
   // Obtener la cédula del usuario autenticado desde la solicitud
-  const cedula = req.body.username; // Asumiendo que el nombre de usuario contiene la cédula
+  const cedula = req.query.username; // Cambiado de req.body a req.query
 
   try {
     // Realizar la consulta a la base de datos para obtener el nombre
@@ -70,6 +71,7 @@ app.get('/getNombre', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el nombre' });
   }
 });
+
 
 
 // Ruta para el inicio de sesión
