@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
-  // Hacer algo con los datos en el dashboard
-  if (nombreData) {
-    console.log('Datos en el dashboard:', nombreData);
-    // Realiza las acciones necesarias con los datos en el dashboard
+  // Actualiza el contenido del span con el nombre del usuario
+  if (nombreData && nombreData.nombre) {
+    const userWelcomeSpan = document.querySelector('.user-welcome span');
+    userWelcomeSpan.textContent = 'Bienvenido, ' + nombreData.nombre;
   } else {
     console.log('No hay datos disponibles en el dashboard');
   }
