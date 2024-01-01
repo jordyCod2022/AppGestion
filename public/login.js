@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Realizar automáticamente la llamada a /getNombre después del inicio de sesión exitoso
       const nombreResponse = await fetch('/getNombre?username=' + username);
       const nombreData = await nombreResponse.json();
+      const userWelcomeElement = document.querySelector('.user-welcome span');
+      userWelcomeElement.textContent = `Bienvenido, ${nombreData.nombre || 'Usuario'}`;
 
       // Trabajar con los datos obtenidos de /getNombre
       console.log('Datos de /getNombre:', nombreData);
