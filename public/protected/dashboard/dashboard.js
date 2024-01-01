@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (confirmLogout) {
         // Limpiar datos de localStorage y redirigir a la página de inicio de sesión
         localStorage.removeItem('nombreData');
-        window.location.replace('/public/index.html'); // Redirige y reemplaza la entrada en el historial
+        window.location.href ='/public/index.html'; // Redirige y reemplaza la entrada en el historial
       }
     });
   } else {
