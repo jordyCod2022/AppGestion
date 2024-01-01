@@ -39,7 +39,7 @@ app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar e
 
 // Ruta para la página principal
 app.get('/', (req, res) => {
-  const indexPath = path.join(__dirname, 'login', 'login.html');
+  const indexPath = path.join(__dirname, 'public', 'index.html');
   res.sendFile(indexPath);
 });
 
