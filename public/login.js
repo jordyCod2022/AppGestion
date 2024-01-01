@@ -1,3 +1,12 @@
+
+const express = require('express');
+const app = express();
+const path = require('path');
+const { Pool } = require('pg');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const loginForm = document.getElementById('loginForm');
   
@@ -11,6 +20,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
       if (authenticated) {
         alert('Inicio de sesión exitoso');
+        const rutaArchivo = path.join(__dirname, 'protected', 'dashboard', 'dashboard.html');
+        return res.redirect(rutaArchivo);
+
   
         // Redirigir o realizar acciones adicionales después del inicio de sesión exitoso
       } else {
