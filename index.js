@@ -42,7 +42,6 @@ app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, 'public', 'index.html');
   res.sendFile(indexPath);
 });
-// Ruta para obtener el nombre del usuario autenticado
 app.get('/getNombre', async (req, res) => {
   // Obtener la cédula del usuario autenticado desde la solicitud
   const cedula = req.body.username; // Asumiendo que el nombre de usuario contiene la cédula
@@ -57,6 +56,11 @@ app.get('/getNombre', async (req, res) => {
 
     if (result.rows.length > 0) {
       const nombre = result.rows[0].nombre_colaborador;
+
+      // Imprimir los resultados en la consola del servidor
+      console.log('Nombre del usuario:', nombre);
+      console.log('Nombre de usuario (cedula):', cedula);
+
       res.json({ nombre: nombre, username: cedula });
     } else {
       res.json({ nombre: null, username: null });
