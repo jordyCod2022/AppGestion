@@ -42,6 +42,31 @@ app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, 'public', 'index.html');
   res.sendFile(indexPath);
 });
+// Ruta para obtener el nombre del usuario autenticado
+app.get('/getNombre', async (req, res) => {
+  // Obtener la cédula del usuario autenticado desde la solicitud
+  const cedula = req.body.username; // Asumiendo que el nombre de usuario contiene la cédula
+
+  try {
+    // Realizar la consulta a la base de datos para obtener el nombre
+    const result = await pool.query(`
+      SELECT nombre_colaborador
+      FROM public.colaboradores
+      WHERE cedula = $1
+    `, [cedula]);
+
+    if (result.rows.length > 0) {
+      const nombre = result.rows[0].nombre_colaborador;
+      res.json({ nombre: nombre, username: cedula });
+    } else {
+      res.json({ nombre: null, username: null });
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener el nombre' });
+  }
+});
+
 
 // Ruta para el inicio de sesión
 app.post('/login', async (req, res) => {
