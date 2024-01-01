@@ -17,9 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutButton.addEventListener('click', () => {
       const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
       if (confirmLogout) {
-        // Limpiar datos de localStorage y redirigir a la página de inicio de sesión
+       
         localStorage.removeItem('nombreData');
         window.location.href = '../../index.html'; // Redirige y reemplaza la entrada en el historial
+        window.history.replaceState(null, '', '../../index.html');
       }
     });
   } else {
