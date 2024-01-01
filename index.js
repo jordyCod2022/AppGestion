@@ -34,12 +34,12 @@ process.on('SIGINT', () => {
 });
 
 // Configurar Express para servir archivos estáticos
-app.use(express.static('public'));
+app.use(express.static('login'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
 // Ruta para la página principal
 app.get('/', (req, res) => {
-  const indexPath = path.join(__dirname, 'public', 'login', 'login.html');
+  const indexPath = path.join(__dirname, 'login', 'login', 'login.html');
   res.sendFile(indexPath);
 });
 
