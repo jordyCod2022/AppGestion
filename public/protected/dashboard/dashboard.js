@@ -1,17 +1,13 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-      // Hacer una solicitud al backend para obtener el nombre del usuario
-      const response = await fetch('/getNombre');
-      const data = await response.json();
-  
-      // Verificar la respuesta completa en la consola
-      console.log('Respuesta del servidor:', data);
-  
-      // Actualizar el contenido del elemento con el nuevo nombre
-      const userWelcomeElement = document.querySelector('.user-welcome span');
-      userWelcomeElement.textContent = `Bienvenido, ${data.nombre || 'Usuario'}`;
-    } catch (error) {
-      console.error('Error al obtener el nombre del usuario:', error);
-    }
-  });
-  
+document.addEventListener('DOMContentLoaded', () => {
+  // Recupera los datos almacenados en localStorage
+  const storedNombreData = localStorage.getItem('nombreData');
+  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+
+  // Hacer algo con los datos en el dashboard
+  if (nombreData) {
+    console.log('Datos en el dashboard:', nombreData);
+    // Realiza las acciones necesarias con los datos en el dashboard
+  } else {
+    console.log('No hay datos disponibles en el dashboard');
+  }
+});
