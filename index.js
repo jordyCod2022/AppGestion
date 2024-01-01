@@ -61,7 +61,8 @@ app.post('/login', async (req, res) => {
 
     if (result.rows.length > 0) {
       console.log('Inicio de sesión exitoso');
-      res.json({ authenticated: true });
+      // Redirige al usuario a la página de dashboard después del inicio de sesión exitoso
+      res.redirect('/protected/dashboard');
     } else {
       console.log('Inicio de sesión fallido');
       res.json({ authenticated: false });
@@ -71,6 +72,13 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Error en la autenticación' });
   }
 });
+
+// Ruta para la página de dashboard
+app.get('/protected/dashboard', (req, res) => {
+  const dashboardPath = path.join(__dirname, 'public', 'protected', 'dashboard', 'dashboard.html');
+  res.sendFile(dashboardPath);
+});
+
 
 const PORT = process.env.PORT || 3000;
 
