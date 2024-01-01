@@ -1,11 +1,4 @@
 
-const express = require('express');
-const app = express();
-const path = require('path');
-const { Pool } = require('pg');
-const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
-
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
 
