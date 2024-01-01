@@ -61,16 +61,9 @@ app.post('/login', async (req, res) => {
 
     if (result.rows.length > 0) {
       console.log('Inicio de sesión exitoso');
-      res.json({ authenticated: true });
       const rutaArchivo = path.join(__dirname, 'public', 'protected', 'dashboard', 'dashboard.html');
-      return res.redirect(rutaArchivo); 
-      
-    
-    
-
-    } 
-    
-    else {
+      return res.redirect(rutaArchivo);
+    } else {
       console.log('Inicio de sesión fallido');
       return res.json({ authenticated: false });
     }
