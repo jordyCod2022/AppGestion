@@ -3,102 +3,24 @@
 <head>
   <title>Dashboard de gestión de incidencias</title>
   <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-d29+hO8yV9pC2O6yTDDo6Z9T8whRmVb5V9snKfqQhKsXKS0A2+39Jbxk9aH7ccQb+fe0efrM1ODz9bKjJXhkCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
   <header>
-    <h1>Dashboard de gestión de incidencias</h1>
+    <div class="brand">
+      <i class="fas fa-chart-area"></i>
+      <span>Dashboard</span>
+    </div>
+
+    <div class="user-info">
+      <div class="user-welcome">
+        <i class="fas fa-user-circle"></i>
+        <span>Bienvenido, Usuario</span>
+      </div>
+      <button class="logout-button">Cerrar Sesión</button>
+    </div>
   </header>
-
-  <main>
-
-    <section class="dashboard-section">
-      <h2>Tickets por prioridad</h2>
-      <table class="tickets-table">
-        <thead>
-          <tr>
-            <th>Prioridad</th>
-            <th>Total</th>
-            <th>Abiertos</th>
-            <th>Cerrados</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Alta</td>
-            <td>10</td>
-            <td>7</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>Media</td>
-            <td>8</td>
-            <td>5</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>Baja</td>
-            <td>2</td>
-            <td>2</td>
-            <td>0</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="dashboard-section">
-      <h2>Tickets por estado</h2>
-      <table class="tickets-table">
-        <thead>
-          <tr>
-            <th>Estado</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Abierto</td>
-            <td>12</td>
-          </tr>
-          <tr>
-            <td>En curso</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>Cerrado</td>
-            <td>3</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section class="dashboard-section">
-      <h2>Tickets por propietario</h2>
-      <table class="tickets-table">
-        <thead>
-          <tr>
-            <th>Propietario</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Sara</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>Carlos</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>Marta</td>
-            <td>1</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-  </main>
 
 </body>
 </html>
