@@ -59,10 +59,16 @@ app.post('/login', async (req, res) => {
       WHERE c.cedula = $1 AND t.token = $2
     `, [username, password]);
 
-    if (result.rows.length > 0) {
-      console.log('Inicio de sesión exitoso');
-      res.json({ authenticated: true });
-    } else {
+    // Dentro del bloque que maneja la respuesta exitosa del inicio de sesión
+      if (result.rows.length > 0) {
+        console.log('Inicio de sesión exitoso');
+        // Redirige a la nueva página usando una ruta relativa desde donde se encuentra dashboard.js
+        window.location.href = '../protected/dashboard/dashboard.html';
+        return;
+      }
+
+    
+    else {
       console.log('Inicio de sesión fallido');
       res.json({ authenticated: false });
     }
