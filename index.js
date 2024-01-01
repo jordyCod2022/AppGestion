@@ -62,7 +62,9 @@ app.post('/login', async (req, res) => {
     if (result.rows.length > 0) {
       console.log('Inicio de sesión exitoso');
       res.json({ authenticated: true });
-      location.replace("/protected/dashboard/dashboard.html");
+      const indexPath = path.join(__dirname, 'public', 'protected','dashboard','dashboard.html');
+      res.sendFile(indexPath);
+     
 
 
     } 
