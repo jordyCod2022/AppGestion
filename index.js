@@ -63,7 +63,8 @@ app.post('/login', async (req, res) => {
       console.log('Inicio de sesión exitoso');
       res.json({ authenticated: true });
       const rutaArchivo = path.join(__dirname, 'public', 'protected', 'dashboard', 'dashboard.html');
-      res.redirect(rutaArchivo);
+      return res.redirect(rutaArchivo); 
+      
     
     
 
@@ -71,7 +72,7 @@ app.post('/login', async (req, res) => {
     
     else {
       console.log('Inicio de sesión fallido');
-      res.json({ authenticated: false });
+      return res.json({ authenticated: false });
     }
   } catch (error) {
     console.error('Error en la consulta a la base de datos:', error);
