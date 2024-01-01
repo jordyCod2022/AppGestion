@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     try {
       // Hacer una solicitud al backend para obtener el nombre del usuario
-      const response = await fetch('/getNombre');
+      const response = await fetch(`/getNombre?username=${nombreDeUsuario}`);
       const data = await response.json();
   
       // Verificar la respuesta completa en la consola
