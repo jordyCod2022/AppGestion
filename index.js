@@ -60,12 +60,12 @@ app.post('/login', async (req, res) => {
     `, [username, password]);
 
     // Dentro del bloque que maneja la respuesta exitosa del inicio de sesión
-      if (result.rows.length > 0) {
-        console.log('Inicio de sesión exitoso');
-        // Redirige a la nueva página usando una ruta relativa desde donde se encuentra dashboard.js
-        window.location.href = '../protected/dashboard/dashboard.html';
-        return;
-      }
+    if (result.rows.length > 0) {
+      console.log('Inicio de sesión exitoso');
+      // Envía una respuesta al cliente para indicar la autenticación exitosa
+      res.json({ authenticated: true, redirect: '/protected/dashboard/dashboard.html' });
+      return;
+    }
 
     
     else {
