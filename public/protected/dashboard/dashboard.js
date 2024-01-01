@@ -7,9 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (nombreData && nombreData.nombre) {
     const userWelcomeSpan = document.querySelector('.user-welcome span');
     userWelcomeSpan.textContent = 'Bienvenido, ' + nombreData.nombre;
-    history.pushState(null, null, window.location.href);
+    history.replaceState(null, '', window.location.href);
   } else {
     console.log('No hay datos disponibles en el dashboard');
+    window.location.replace('../../index.html');
   }
 
   // Agrega la funcionalidad al botón de cerrar sesión
@@ -18,10 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutButton.addEventListener('click', () => {
       const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
       if (confirmLogout) {
-       
         localStorage.removeItem('nombreData');
-        window.location.href = '../../index.html'; // Redirige y reemplaza la entrada en el historial
-        window.history.replaceState(null, '', '../../index.html');
+        window.location.replace('../../index.html');
       }
     });
   } else {
