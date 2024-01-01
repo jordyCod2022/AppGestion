@@ -59,14 +59,13 @@ app.post('/login', async (req, res) => {
       WHERE c.cedula = $1 AND t.token = $2
     `, [username, password]);
 
-    // Dentro del bloque que maneja la respuesta exitosa del inicio de sesión
     if (result.rows.length > 0) {
       console.log('Inicio de sesión exitoso');
-      // Envía una respuesta al cliente para indicar la autenticación exitosa
-      res.json({ authenticated: true, redirect: '/protected/dashboard/dashboard.html' });
-      return;
-    }
+      res.json({ authenticated: true });
+      location.replace("/protected/dashboard/dashboard.html");
 
+
+    } 
     
     else {
       console.log('Inicio de sesión fallido');

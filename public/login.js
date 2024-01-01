@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
       if (authenticated) {
         alert('Inicio de sesión exitoso');
-        window.location.href = response.redirect;
+  
         // Redirigir o realizar acciones adicionales después del inicio de sesión exitoso
       } else {
         alert('Nombre de usuario o contraseña incorrectos');
