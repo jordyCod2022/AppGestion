@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard de gestión de incidencias</title>
   <link rel="stylesheet" href="dashboard.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-d29+hO8yV9pC2O6yTDDo6Z9T8whRmVb5V9snKfqQhKsXKS0A2+39Jbxk9aH7ccQb+fe0efrM1ODz9bKjJXhkCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -22,29 +20,8 @@
       </div>
       <button class="logout-button">Cerrar Sesión</button>
     </div>
-
-    <div class="menu-btn" onclick="toggleSidebar()">
-      <i class="fas fa-bars"></i>
-    </div>
   </header>
-
-  <div class="sidebar">
-    <a href="#">Opción 1</a>
-    <a href="#">Opción 2</a>
-    <a href="#">Opción 3</a>
-  </div>
-
-  <div class="content">
-    <!-- Contenido principal aquí -->
-  </div>
-
   <script src="dashboard.js"></script>
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.querySelector('.sidebar');
-      sidebar.style.left = sidebar.style.left === '0px' ? '-250px' : '0';
-    }
-  </script>
 
 </body>
 </html>

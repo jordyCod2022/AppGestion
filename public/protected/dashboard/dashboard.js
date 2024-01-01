@@ -7,10 +7,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (nombreData && nombreData.nombre) {
     const userWelcomeSpan = document.querySelector('.user-welcome span');
     userWelcomeSpan.textContent = 'Bienvenido, ' + nombreData.nombre;
-    history.replaceState(null, '', window.location.href);
+    history.pushState(null, null, window.location.href);
   } else {
     console.log('No hay datos disponibles en el dashboard');
-    window.location.replace('../../index.html');
   }
 
   // Agrega la funcionalidad al botón de cerrar sesión
@@ -19,24 +18,13 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutButton.addEventListener('click', () => {
       const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
       if (confirmLogout) {
+       
         localStorage.removeItem('nombreData');
-        window.location.replace('../../index.html');
+        window.location.href = '../../index.html'; // Redirige y reemplaza la entrada en el historial
+        window.history.replaceState(null, '', '../../index.html');
       }
     });
   } else {
     console.log('No se encontró el botón de cerrar sesión');
   }
-
-    // Funcionalidad para el menú lateral
-    const menuBtn = document.querySelector('.menu-btn');
-    const sidebar = document.querySelector('.sidebar');
-    const content = document.querySelector('.content');
-  
-    menuBtn.addEventListener('click', () => {
-      const sidebarWidth = sidebar.offsetWidth;
-      sidebar.style.left = sidebar.style.left === '0px' ? `-${sidebarWidth}px` : '0';
-      content.style.marginLeft = sidebar.style.left === '0px' ? `${sidebarWidth}px` : '0';
-    });
-
-
 });
