@@ -26,4 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     console.log('No se encontró el botón de cerrar sesión');
   }
+
+    // Funcionalidad para el menú lateral
+    const menuBtn = document.querySelector('.menu-btn');
+    const sidebar = document.querySelector('.sidebar');
+    const content = document.querySelector('.content');
+  
+    menuBtn.addEventListener('click', () => {
+      const sidebarWidth = sidebar.offsetWidth;
+      sidebar.style.left = sidebar.style.left === '0px' ? `-${sidebarWidth}px` : '0';
+      content.style.marginLeft = sidebar.style.left === '0px' ? `${sidebarWidth}px` : '0';
+    });
+
+
 });
