@@ -57,7 +57,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     const idReportacionUser = nombreDataUpdated.id_colaborador;
     const totalesResponse = await fetch(`/getTotalesIncidencias?id_reportacion_user=${idReportacionUser}`);
     const totalesData = await totalesResponse.json();
-
+    showTotalesIncidencias(totalesData);
     console.log('Resultados de incidencias:', totalesData);
   }
 });
+
+function showTotalesIncidencias(totalesData) {
+  // Mapea los íconos a sus respectivos estados
+  const iconMapping = {
+    'total_pendientes': 'error', // Ícono para Tickets Pendientes
+    'total_cerrados': 'check_circle', // Ícono para Tickets Resueltos
+  };
+
+  // Itera sobre los datos de totales y actualiza los elementos correspondientes
+  Object.keys(totalesData).forEach(key => {
+    const iconName = iconMapping[key];
+    const ticketCountElement = document.querySelector(`.dashboard-item .${iconName} .ticket-count`);
+
+    if (ticketCountElement) {
+      ticketCountElement.textContent = totalesData[key] || '0';
+    }
+  });
+}
