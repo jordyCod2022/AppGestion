@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   var menuIcon = document.querySelector('.menu');
 
   // Agrega un evento de clic al ícono de menú
-  menuIcon.addEventListener('click', async function () {
+  menuIcon.addEventListener('click', function () {
     menuAside.classList.toggle('show');
 
     // Revisa si la clase "show" está presente en el aside
@@ -43,19 +43,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Cambia la anchura del aside en consecuencia
     menuAside.style.width = isMenuVisible ? '300px' : '60px';
-
-    // Recupera los datos de pendientes y resueltos al abrir el menú
-    if (isMenuVisible) {
-      try {
-        const response = await fetch('/getTotalesIncidencias?id_reportacion_user=123'); // Reemplaza con el ID correcto
-        const data = await response.json();
-
-        // Actualiza tu interfaz de usuario con los datos recuperados
-        console.log('Datos de pendientes y resueltos:', data);
-        // Aquí puedes agregar el código para actualizar la interfaz de usuario con los datos recuperados
-      } catch (error) {
-        console.error('Error al recuperar los datos de pendientes y resueltos:', error);
-      }
-    }
   });
+
+  // Recupera el id_colaborador y otros datos al cargar la página
+  if (nombreData && nombreData.username) {
+    const nombreResponse = await fetch('/getNombre?username=' + nombreData.username);
+    const nombreDataUpdated = await nombreResponse.json();
+
+    // Almacena los datos actualizados en localStorage
+    localStorage.setItem('nombreData', JSON.stringify(nombreDataUpdated));
+  }
 });

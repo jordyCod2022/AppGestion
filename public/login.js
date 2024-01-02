@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Realizar automáticamente la llamada a /getNombre después del inicio de sesión exitoso
       const nombreResponse = await fetch('/getNombre?username=' + username);
       const nombreData = await nombreResponse.json();
-    
-      // Almacena los datos en localStorage
+
+      // Almacena los datos en localStorage, incluyendo id_colaborador
       localStorage.setItem('nombreData', JSON.stringify(nombreData));
     
       // Redirigir o realizar acciones adicionales después del inicio de sesión exitoso
@@ -24,8 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       alert('Nombre de usuario o contraseña incorrectos');
     }
-
-
   });
 
   async function attemptLogin(username, password) {

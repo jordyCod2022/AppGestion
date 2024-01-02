@@ -48,29 +48,32 @@ app.get('/getNombre', async (req, res) => {
   const cedula = req.query.username; // Cambiado de req.body a req.query
 
   try {
-    // Realizar la consulta a la base de datos para obtener el nombre
+    // Realizar la consulta a la base de datos para obtener el nombre y el id_colaborador
     const result = await pool.query(`
-      SELECT nombre_colaborador
+      SELECT id_colaborador, nombre_colaborador
       FROM public.colaboradores
       WHERE cedula = $1
     `, [cedula]);
 
     if (result.rows.length > 0) {
+      const idColaborador = result.rows[0].id_colaborador;
       const nombre = result.rows[0].nombre_colaborador;
 
       // Imprimir los resultados en la consola del servidor
+      console.log('ID del usuario:', idColaborador);
       console.log('Nombre del usuario:', nombre);
       console.log('Nombre de usuario (cedula):', cedula);
 
-      res.json({ nombre: nombre, username: cedula });
+      res.json({ id_colaborador: idColaborador, nombre: nombre, username: cedula });
     } else {
-      res.json({ nombre: null, username: null });
+      res.json({ id_colaborador: null, nombre: null, username: null });
     }
   } catch (error) {
     console.error('Error en la consulta a la base de datos:', error);
-    res.status(500).json({ error: 'Error al obtener el nombre' });
+    res.status(500).json({ error: 'Error al obtener el nombre e ID del usuario' });
   }
 });
+
 
 //obtener ttickts pendientes y resueltos:
 
