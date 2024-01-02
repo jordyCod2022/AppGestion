@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   var menuIcon = document.querySelector('.menu');
 
   // Agrega un evento de clic al ícono de menú
-  menuIcon.addEventListener('click', function () {
+  menuIcon.addEventListener('click', async function () {
     menuAside.classList.toggle('show');
 
     // Revisa si la clase "show" está presente en el aside
@@ -43,5 +43,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Cambia la anchura del aside en consecuencia
     menuAside.style.width = isMenuVisible ? '300px' : '60px';
+
+    // Recupera los datos de pendientes y resueltos al abrir el menú
+    if (isMenuVisible) {
+      try {
+        const response = await fetch('/getTotalesIncidencias?id_reportacion_user=123'); // Reemplaza con el ID correcto
+        const data = await response.json();
+
+        // Actualiza tu interfaz de usuario con los datos recuperados
+        console.log('Datos de pendientes y resueltos:', data);
+        // Aquí puedes agregar el código para actualizar la interfaz de usuario con los datos recuperados
+      } catch (error) {
+        console.error('Error al recuperar los datos de pendientes y resueltos:', error);
+      }
+    }
   });
 });

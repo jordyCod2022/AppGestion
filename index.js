@@ -72,6 +72,49 @@ app.get('/getNombre', async (req, res) => {
   }
 });
 
+//obtener ttickts pendientes y resueltos:
+
+app.get('/getTotalesIncidencias', async (req, res) => {
+  const idReportacionUser = req.query.id_reportacion_user;
+
+  try {
+    const result = await pool.query(`
+      SELECT
+        id_reportacion_user,
+        COUNT(*) FILTER (WHERE id_estado = 2) AS total_pendientes,
+        COUNT(*) FILTER (WHERE id_estado = 3) AS total_cerrados
+      FROM
+        public.incidente
+      WHERE
+        id_reportacion_user = $1
+      GROUP BY
+        id_reportacion_user;
+    `, [idReportacionUser]);
+
+    if (result.rows.length > 0) {
+      const { id_reportacion_user, total_pendientes, total_cerrados } = result.rows[0];
+      
+      console.log('Resultados de incidencias:', { id_reportacion_user, total_pendientes, total_cerrados });
+
+      res.json({ 
+        id_reportacion_user,
+        total_pendientes,
+        total_cerrados
+      });
+    } else {
+      res.json({ 
+        id_reportacion_user: null,
+        total_pendientes: null,
+        total_cerrados: null
+      });
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener los totales de incidencias' });
+  }
+});
+
+
 
 
 // Ruta para el inicio de sesión
