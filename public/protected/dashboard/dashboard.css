@@ -117,14 +117,7 @@ aside ul li a span {
   color: #000000;
   width: 38px;
 }
-article {
 
-  width: 92%;
-  height: 100vh;
-  margin-left: 7%;
-  border-radius: 5px;
-  box-shadow: 0px 2px 7px #6d6d6d;
-}
 aside ul li:hover {
   background: #fff;
   box-shadow: inset 0px 0px 77px #dedede;
@@ -234,3 +227,196 @@ p.blink.mah span {
   left: 360px;
 }
 /*  */
+
+
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 92%;
+  height: 100vh;
+  margin-left: 7%;
+  border-radius: 5px;
+  box-shadow: 0px 2px 7px #6d6d6d;
+  justify-content: space-around;
+}
+
+.row {
+display: flex;
+justify-content: space-around;
+width: 100%;
+}
+
+.dashboard-item {
+text-align: center;
+background-color: #fff;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+overflow: hidden;
+transition: transform 0.3s ease-in-out;
+height: 200px; /* Altura fija, puedes ajustar según tu preferencia */
+margin-bottom: 20px; /* Añadido margen inferior */
+margin-top: 20px;
+}
+
+.dashboard-item:hover {
+transform: translateY(-5px);
+}
+
+.info-container {
+padding: 20px;
+flex-direction: column;
+justify-content: space-between;
+height: 100%; /* La altura del .info-container será igual a la altura del .dashboard-item */
+}
+.bar-chart {
+display: flex;
+align-items: flex-end;
+justify-content: space-around;
+height: 100px; /* Ajusta según sea necesario */
+margin-top: 10px;
+}
+
+.bar {
+width: 30px; /* Ajusta según sea necesario */
+border-radius: 5px;
+margin: 0 10px; /* Espaciado entre barras */
+}
+
+
+
+.bar-name {
+font-size: 14px;
+color: #333;
+margin: 0 10px; /* Espaciado entre nombres */
+}
+
+
+
+
+
+/* Estilos para los elementos de la primera fila */
+.dashboard-item {
+text-align: center;
+background-color: #ffffff;
+box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+overflow: hidden;
+transition: transform 0.3s ease-in-out;
+height: 200px;
+margin-bottom: 20px;
+}
+
+.dashboard-item:hover {
+transform: translateY(-5px);
+}
+
+.info-container {
+padding: 20px;
+flex-direction: column;
+justify-content: space-between;
+height: 100%;
+}
+
+.icon-container {
+padding: 20px;
+border-radius: 50%;
+margin: 0 auto 15px;
+display: flex;
+align-items: center;
+justify-content: center;
+
+}
+
+.icon-container i {
+font-size: 40px;
+color: #000000; /* Color del icono */
+}
+
+.dashboard-info {
+flex-grow: 1;
+}
+
+.dashboard-info span {
+display: block;
+margin-top: 10px;
+font-size: 16px;
+color: #333;
+}
+
+.ticket-count {
+font-size: 24px;
+font-weight: bold;
+color: #e74c3c; /* Color del contador */
+}
+
+/* Estilos para la fila de prioridades */
+.priority-container {
+display: flex;
+justify-content: space-around;
+margin-top: 10px;
+}
+
+.priority {
+color: #ffffff; /* Color del texto en la prioridad */
+padding: 20px;
+border-radius: 5px;
+text-align: center;
+width: 100px; /* Ancho de cada prioridad */
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0 10px;
+background-color: #3498db; /* Color de fondo de cada prioridad */
+}
+
+.priority-label {
+font-size: 16px;
+margin-bottom: 5px;
+}
+
+.priority-count {
+font-size: 20px;
+font-weight: bold;
+}
+
+
+.priority-alto {
+color: #ffffff; /* Color del texto en la prioridad */
+padding: 20px;
+border-radius: 5px;
+text-align: center;
+width: 100px; /* Ancho de cada prioridad */
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0 10px;
+background-color: #e22020; /* Color de fondo de cada prioridad */
+}
+
+.priority-medio {
+color: #000000; /* Color del texto en la prioridad */
+padding: 20px;
+border-radius: 5px;
+text-align: center;
+width: 100px; /* Ancho de cada prioridad */
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0 10px;
+background-color: #faf604; /* Color de fondo de cada prioridad */
+}
+
+.priority-bajo {
+color: #000000; /* Color del texto en la prioridad */
+padding: 20px;
+border-radius: 5px;
+text-align: center;
+width: 100px; /* Ancho de cada prioridad */
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: 0 10px;
+background-color: #18fa04; /* Color de fondo de cada prioridad */
+}
