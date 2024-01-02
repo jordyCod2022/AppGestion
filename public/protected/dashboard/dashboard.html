@@ -1,27 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Dashboard de gestión de incidencias</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-d29+hO8yV9pC2O6yTDDo6Z9T8whRmVb5V9snKfqQhKsXKS0A2+39Jbxk9aH7ccQb+fe0efrM1ODz9bKjJXhkCg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 </head>
 <body>
 
   <header>
     <div class="brand">
-      <i class="fas fa-chart-area"></i>
+      <span class="menu"><i class="material-icons">menu</i></span>
       <span>Dashboard</span>
     </div>
 
     <div class="user-info">
       <div class="user-welcome">
-        <i class="fas fa-user-circle"></i>
         <span>Bienvenido, Usuario</span>
       </div>
       <button class="logout-button">Cerrar Sesión</button>
     </div>
   </header>
-  <script src="dashboard.js"></script>
 
+  <section class="main">
+    <aside id="menuAside" class="keep">
+      <ul>
+        <li>
+          <a href="/">
+            <span><i class="material-icons">location_on</i></span>
+            Incidentes reportados
+            <span class="notif red">1</span>
+          </a>
+        </li>      
+        <li>
+          <a href="/">
+            <span><i class="material-icons">stay_current_portrait</i></span>
+            Usuarios
+            <span class="notif yellow">2</span>
+          </a>
+        </li>
+        <li>
+          <a href="/">
+            <span><i class="material-icons">event</i></span>
+            Asignación de Tareas
+            <span class="notif green">6</span>
+          </a>
+        </li>      
+        <!-- Agrega más elementos según sea necesario -->
+      </ul>
+    </aside>
+    <article>
+     
+    </article>
+  </section>
+
+  <script src="dashboard.js"></script>
 </body>
 </html>
