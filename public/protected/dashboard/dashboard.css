@@ -422,18 +422,14 @@ background-color: #18fa04; /* Color de fondo de cada prioridad */
 }
 
 .change-date-button {
-  background-color: #4CAF50; /* Color de fondo verde */
-  color: white; /* Color del texto blanco */
-  border: none; /* Sin borde */
-  padding: 10px 20px; /* Espaciado interno */
-  text-align: center; /* Alineación del texto al centro */
-  text-decoration: none; /* Sin decoración de texto */
-  display: inline-block; /* Muestra como un elemento en línea */
-  font-size: 16px; /* Tamaño de la fuente */
-  margin: 4px 2px; /* Margen exterior */
-  cursor: pointer; /* Cambia el cursor al pasar el ratón */
-  border-radius: 4px; /* Borde redondeado */
-  transition: background-color 0.3s; /* Efecto de transición en el color de fondo */
+  background-color: #3a8f4c;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: -5px !important; /* Ajusta el valor según sea necesario */
 }
 
 .change-date-button:hover {
