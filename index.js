@@ -119,6 +119,49 @@ app.get('/getTotalesIncidencias', async (req, res) => {
 });
 
 
+app.get('/getIncidencias', async (req, res) => {
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const fechaIncidencia = req.query.fecha_incidencia; // Asegúrate de validar y formatear la fecha según tus necesidades
+
+  try {
+    // Consulta para obtener incidencias pendientes y cerradas
+    const result = await pool.query(`
+      SELECT
+        i.id_incidente,
+        i.incidente_nombre,
+        i.incidente_descrip,
+        i.fecha_incidente,
+        c.nombre_colaborador,
+        c.apellido_colaborador,
+        c.telefono_colaborador,
+        i.id_estado
+      FROM
+        public.incidente i
+      JOIN
+        public.colaboradores c ON i.id_reportacion_user = c.id_colaborador
+      WHERE
+        i.id_asignacion_user = $1
+        AND i.id_estado IN (2, 3)
+        AND i.fecha_incidente::date = $2::date;
+    `, [idAsignacionUser, fechaIncidencia]);
+
+    if (result.rows.length > 0) {
+      const incidencias = result.rows;
+      
+      console.log('Resultados de incidencias:', incidencias);
+
+      res.json(incidencias);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener las incidencias' });
+  }
+});
+
+
+
 
 
 
