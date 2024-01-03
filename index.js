@@ -208,7 +208,7 @@ async function enviarMensajeTelegram(telefonoColaborador) {
     const chatId = telefonoColaborador;
     const mensajeTelegram = 'hola informando';
     console.log(mensajeTelegram)
-
+    console.log("Teléfono:", telefonoColaborador);
     // Enviar mensaje a Telegram
     await bot.sendMessage(chatId, mensajeTelegram);
   } catch (error) {
@@ -221,6 +221,7 @@ app.post('/enviarMensajeTelegram', async (req, res) => {
   const { telefonoColaborador } = req.body;
 
   try {
+    console.log("Recibiendo telefono:", telefonoColaborador);
     // Llama a la función para enviar el mensaje a Telegram
     await enviarMensajeTelegram(telefonoColaborador);
 
