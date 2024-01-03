@@ -50,6 +50,8 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function abrirModal(telefonoColaborador) {
+  console.log('Abriendo modal para', telefonoColaborador);
+
   // Limpia el contenido del textarea del modal
   document.getElementById('mensajeUsuario').value = '';
 
