@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const ticketsPendientesElement = document.getElementById('ticketsPendientes');
       if (ticketsPendientesElement) {
         ticketsPendientesElement.addEventListener('click', () => {
-          window.location.href = '../index.html';
+          window.location.href = '../pendIncidentes/pendIncidentes.html';
         });
       } else {
         console.error('Elemento "ticketsPendientes" no encontrado');
