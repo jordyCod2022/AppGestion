@@ -58,7 +58,7 @@ body {
   }
   
 
-  /* Estilos para el modal */
+ /* Estilos para el modal */
 .modal {
   display: none;
   position: fixed;
@@ -72,23 +72,39 @@ body {
 }
 
 .modal-content {
-  background-color: #fefefe;
-  margin: 15% auto;
+  background-color: #fff;
+  margin: 10% auto;
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
+  border: 1px solid #ccc;
+  width: 60%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
 }
 
 .close {
-  color: #aaa;
+  color: #333;
   float: right;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
+  cursor: pointer;
 }
 
-.close:hover,
-.close:focus {
-  color: black;
-  text-decoration: none;
+.close:hover {
+  color: #555;
+}
+
+/* Estilo para el botón dentro del modal */
+.modal-content button {
+  background-color: #3498db;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
   cursor: pointer;
+  font-size: 16px;
+}
+
+/* Estilo para el botón al pasar el mouse */
+.modal-content button:hover {
+  background-color: #007bb5;
 }
