@@ -57,8 +57,7 @@ body {
     border: none;
   }
   
-
- /* Estilos para el modal */
+/* Estilos para el modal */
 .modal {
   display: none;
   position: fixed;
@@ -73,10 +72,10 @@ body {
 
 .modal-content {
   background-color: #fff;
-  margin: 10% auto;
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #ccc;
-  width: 60%;
+  width: 300px; /* Ajusta el ancho del modal según tus necesidades */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -97,14 +96,21 @@ body {
 .modal-content button {
   background-color: #3498db;
   color: #fff;
-  padding: 10px 15px;
+  padding: 12px 20px; /* Ajusta el tamaño del botón según tus necesidades */
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  margin-top: 10px; /* Espaciado superior al botón */
 }
 
-/* Estilo para el botón al pasar el mouse */
-.modal-content button:hover {
-  background-color: #007bb5;
+/* Estilo para la barra de texto dentro del modal */
+.modal-content input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-size: 16px;
 }
