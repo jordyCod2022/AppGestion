@@ -64,6 +64,8 @@ function informarIncidente(telefonoColaborador) {
 function cerrarModal() {
   const modal = document.getElementById('modal');
   modal.style.display = 'none';
+  document.getElementById('mensajeInput').value = '';
+
 }
 
 // Función para informar desde el modal
@@ -82,7 +84,7 @@ function informarDesdeModal() {
       });
 
     // Simula la acción de informar incidente
-    alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador} y mensaje: ${mensajeUsuario}`);
+    alert(`Mensaje enviado con exito`);
 
     // Cierra el modal después de informar
     cerrarModal();
