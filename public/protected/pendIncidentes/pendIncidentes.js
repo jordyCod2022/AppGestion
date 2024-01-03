@@ -80,7 +80,7 @@ async function enviarMensajeTelegram(telefonoColaborador) {
 
   try {
     const response = await fetch(url, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json'
         // Puedes agregar otros encabezados según sea necesario
