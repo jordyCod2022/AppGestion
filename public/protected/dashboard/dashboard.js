@@ -60,8 +60,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('Resultados de incidencias:', totalesData);
 
     // Actualizar elementos HTML con los resultados
-    updateTotalIncidencias(totalesData);
-
     const ticketsPendientesElement = document.getElementById('ticketsPendientes');
     const ticketsResueltosElement = document.getElementById('ticketsResueltos');
 
@@ -99,80 +97,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Configurar flatpickr para el selector de fecha
   const flatpickrInstance = flatpickr('.change-date-button', {
     dateFormat: 'Y-m-d',
-    onClose: async function (selectedDates, dateStr) {
+    onClose: function (selectedDates, dateStr) {
       dateContainer.innerText = dateStr;
 
-      // Obtener id_colaborador al cargar la página
-      if (nombreData && nombreData.username) {
-        const idReportacionUser = nombreData.id_colaborador;
-
-        // Llamar a la función con los parámetros necesarios
-        const totalesResponse = await fetch(`/getTotalesIncidencias?id_reportacion_user=${idReportacionUser}&fecha_incidencia=${dateStr}`);
-        const totalesData = await totalesResponse.json();
-
-        // Actualizar elementos HTML con los resultados
-        updateTotalIncidencias(totalesData);
-
-        // Llamar a la función para obtener y mostrar incidencias
-        getAndShowIncidencias(idReportacionUser, dateStr);
-      }
+      // Actualizar los totales de incidencias con la nueva fecha
+      updateTotalesIncidencias(dateStr);
     },
   });
 
-  // Función para actualizar el total de incidencias en el HTML
-  function updateTotalIncidencias(totalesData) {
-    const ticketsPendientesElement = document.getElementById('ticketsPendientes');
-    const ticketsResueltosElement = document.getElementById('ticketsResueltos');
+  // Función para actualizar los totales de incidencias con la nueva fecha
+  async function updateTotalesIncidencias(newDate) {
+    // Obtener id_asignacion_user y otros datos del localStorage
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
-    if (ticketsPendientesElement && ticketsResueltosElement) {
-      ticketsPendientesElement.querySelector('.ticket-count').textContent = totalesData.total_pendientes || 'N/A';
-      ticketsResueltosElement.querySelector('.ticket-count').textContent = totalesData.total_cerrados || 'N/A';
-    } else {
-      console.error('Elementos no encontrados');
-    }
-  }
+    // Verificar si hay datos y obtener id_asignacion_user
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
 
-  // Función para obtener y mostrar incidencias
-  async function getAndShowIncidencias(idReportacionUser, newDate) {
-    try {
-      // Obtener incidencias con la nueva fecha
-      const incidenciasResponse = await fetch(`/getIncidencias?id_asignacion_user=${idReportacionUser}&fecha_incidencia=${newDate}`);
-      const incidenciasData = await incidenciasResponse.json();
-      console.log('Resultados de incidencias:', incidenciasData);
+      // Obtener totales de incidencias con la nueva fecha
+      const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+      const totalesData = await totalesResponse.json();
+      console.log('Resultados de incidencias:', totalesData);
 
       // Actualizar elementos HTML con los resultados
-      const incidenciasContainer = document.getElementById('incidenciasContainer');
-      
-      if (incidenciasContainer) {
-        // Limpiar contenido actual
-        incidenciasContainer.innerHTML = '';
+      const ticketsPendientesElement = document.getElementById('ticketsPendientes');
+      const ticketsResueltosElement = document.getElementById('ticketsResueltos');
 
-        // Verificar si hay incidencias
-        if (incidenciasData.length > 0) {
-          incidenciasData.forEach(incidencia => {
-            // Crear elementos HTML para cada incidencia
-            const incidenciaElement = document.createElement('div');
-            incidenciaElement.innerHTML = `
-              <div>ID: ${incidencia.id_incidente}</div>
-              <div>Nombre: ${incidencia.incidente_nombre}</div>
-              <div>Descripción: ${incidencia.incidente_descrip}</div>
-              <div>Fecha: ${incidencia.fecha_incidente}</div>
-              <div>Colaborador: ${incidencia.nombre_colaborador} ${incidencia.apellido_colaborador}</div>
-              <div>Teléfono: ${incidencia.telefono_colaborador}</div>
-              <div>Estado: ${incidencia.id_estado}</div>
-              <hr>
-            `;
-            // Agregar cada incidencia al contenedor
-            incidenciasContainer.appendChild(incidenciaElement);
-          });
-        } else {
-          incidenciasContainer.innerHTML = '<p>No hay incidencias disponibles.</p>';
-        }
+      if (ticketsPendientesElement && ticketsResueltosElement) {
+        ticketsPendientesElement.querySelector('.ticket-count').textContent = totalesData.total_pendientes || 'N/A';
+        ticketsResueltosElement.querySelector('.ticket-count').textContent = totalesData.total_cerrados || 'N/A';
       } else {
-        console.error('Contenedor de incidencias no encontrado');
+        console.error('Elementos no encontrados');
       }
-    } catch (error) {
-      console.error('Error al obtener las incidencias:', error);
     }
   }
 });
