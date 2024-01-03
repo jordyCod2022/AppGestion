@@ -115,10 +115,24 @@ document.addEventListener('DOMContentLoaded', async () => {
       const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaIncidencia}`);
       const incidencias = await response.json();
       console.log('Respuesta de incidencias:', incidencias);
-    
+
+      // Almacenar incidencias en localStorage
+      localStorage.setItem('incidencias', JSON.stringify(incidencias));
+
+      // Redirigir a la otra página al hacer clic en "ticketsPendientes"
+      const ticketsPendientesElement = document.getElementById('ticketsPendientes');
+      if (ticketsPendientesElement) {
+        ticketsPendientesElement.addEventListener('click', () => {
+          window.location.href = '/protected/pendIncidentes/pendIncidentes.html';
+        });
+      } else {
+        console.error('Elemento "ticketsPendientes" no encontrado');
+      }
     } catch (error) {
       console.error('Error al obtener y mostrar incidencias:', error);
     }
   }
   
 });
+
+export { getAndShowIncidencias };
