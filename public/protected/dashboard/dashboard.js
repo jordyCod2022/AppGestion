@@ -56,6 +56,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Utiliza el id_colaborador para obtener los totales de incidencias
     const idReportacionUser = nombreDataUpdated.id_colaborador;
+    console.log(idReportacionUser)
+    console.log(getCurrentDate)
     const totalesResponse = await fetch(`/getTotalesIncidencias?id_reportacion_user=${idReportacionUser}&fecha_incidencia=${getCurrentDate()}`);
     const totalesData = await totalesResponse.json();
     console.log('Resultados de incidencias:', totalesData);
