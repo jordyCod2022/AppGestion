@@ -105,6 +105,20 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         console.error('Elementos no encontrados');
       }
+      getAndShowIncidencias(idAsignacionUser, newDate);
     }
   }
+
+  async function getAndShowIncidencias(idAsignacionUser, fechaIncidencia) {
+    try {
+      // Obtener incidencias pendientes y cerradas
+      const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaIncidencia}`);
+      const incidencias = await response.json();
+      console.log('Respuesta de incidencias:', incidencias);
+    
+    } catch (error) {
+      console.error('Error al obtener y mostrar incidencias:', error);
+    }
+  }
+  
 });
