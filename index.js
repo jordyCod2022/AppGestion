@@ -134,14 +134,15 @@ app.get('/getIncidencias', async (req, res) => {
         c.nombre_colaborador,
         c.apellido_colaborador,
         c.telefono_colaborador,
-        i.id_estado
+        i.id_estado,
+        i.id_reportacion_user
       FROM
         public.incidente i
       JOIN
         public.colaboradores c ON i.id_reportacion_user = c.id_colaborador
       WHERE
         i.id_asignacion_user = $1
-        AND i.id_estado IN (2, 3)
+        AND i.id_estado IN (2)
         AND i.fecha_incidente::date = $2::date;
     `, [idAsignacionUser, fechaIncidencia]);
 
