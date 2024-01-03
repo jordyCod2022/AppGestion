@@ -74,9 +74,8 @@ function informarIncidente(telefonoColaborador) {
   alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador}`);
 }
 
-
 async function enviarMensajeTelegram(telefonoColaborador) {
-  const url = `/enviarMensajeTelegram?telefono_colaborador=${telefonoColaborador}`;
+  const url = `/enviarMensajeTelegram`;
 
   try {
     const response = await fetch(url, {
@@ -84,7 +83,8 @@ async function enviarMensajeTelegram(telefonoColaborador) {
       headers: {
         'Content-Type': 'application/json'
         // Puedes agregar otros encabezados según sea necesario
-      }
+      },
+      body: JSON.stringify({ telefono_colaborador: telefonoColaborador })
     });
 
     if (!response.ok) {

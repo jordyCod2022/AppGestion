@@ -207,6 +207,7 @@ async function enviarMensajeTelegram(telefonoColaborador) {
   try {
     const chatId = telefonoColaborador;
     const mensajeTelegram = 'hola informando';
+    console.log(mensajeTelegram)
 
     // Enviar mensaje a Telegram
     await bot.sendMessage(chatId, mensajeTelegram);
