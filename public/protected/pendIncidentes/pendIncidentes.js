@@ -52,10 +52,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador) {
-  // Pregunta al usuario por el mensaje usando un modal
-  const mensajeUsuario = prompt('Ingrese el mensaje para informar el incidente:');
+  // Muestra el modal
+  const modal = document.getElementById('modal');
+  modal.style.display = 'block';
 
-  // Si el usuario proporciona un mensaje, llama a la función para enviar mensaje a Telegram
+  // Guarda el teléfono del colaborador en un atributo del modal
+  modal.setAttribute('data-telefono', telefonoColaborador);
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+  const modal = document.getElementById('modal');
+  modal.style.display = 'none';
+}
+
+// Función para informar desde el modal
+function informarDesdeModal() {
+  const modal = document.getElementById('modal');
+  const telefonoColaborador = modal.getAttribute('data-telefono');
+  const mensajeUsuario = document.getElementById('mensajeInput').value;
+
   if (mensajeUsuario) {
     enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
       .then(response => {
@@ -67,8 +83,12 @@ function informarIncidente(telefonoColaborador) {
 
     // Simula la acción de informar incidente
     alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador} y mensaje: ${mensajeUsuario}`);
+
+    // Cierra el modal después de informar
+    cerrarModal();
   }
 }
+
 
 async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   const url = `/enviarMensajeTelegram`;
