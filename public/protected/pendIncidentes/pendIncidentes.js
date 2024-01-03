@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const botonInformar = document.createElement('button');
       botonInformar.textContent = 'Informar';
       botonInformar.onclick = function () {
-        abrirModal();
+       
         informarIncidente(incidencia.telefono_colaborador);
       };
       celdaAccion.appendChild(botonInformar);
