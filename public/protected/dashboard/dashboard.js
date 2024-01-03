@@ -84,13 +84,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
-    console.log(currentDate)
-    return currentDate.toLocaleDateString('es-ES', {
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit'
-    });
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
+  
   
   // Configurar la prentación de la fecha
   dateContainer.innerText = getCurrentDate();
