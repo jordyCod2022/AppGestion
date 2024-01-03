@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('No se encontró el botón de cerrar sesión');
   }
 
-  // Nuevo bloque de código para el menú aside
+
   // Obtiene el elemento aside
   var menuAside = document.getElementById('menuAside');
 
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Utiliza el id_colaborador para obtener los totales de incidencias
     const idReportacionUser = nombreDataUpdated.id_colaborador;
-    const totalesResponse = await fetch(`/getTotalesIncidencias?id_reportacion_user=${idReportacionUser}`);
+    const totalesResponse = await fetch(`/getTotalesIncidencias?id_reportacion_user=${idReportacionUser}&fecha_incidencia=${getCurrentDate()}`);
     const totalesData = await totalesResponse.json();
     console.log('Resultados de incidencias:', totalesData);
 
