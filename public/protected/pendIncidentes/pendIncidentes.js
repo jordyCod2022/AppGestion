@@ -53,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador) {
   // Pregunta al usuario por el mensaje usando un modal
+  abrirModal()
   const mensajeUsuario = prompt('Ingrese el mensaje para informar el incidente:');
 
   // Si el usuario proporciona un mensaje, llama a la función para enviar mensaje a Telegram
@@ -92,5 +93,23 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
     throw error;
   }
 }
+
+
+function abrirModal() {
+  const customDialog = document.getElementById('customDialog');
+  customDialog.style.display = 'block';
+
+  const modal = document.getElementById('informarModal');
+  modal.style.display = 'block';
+}
+
+function cerrarModal() {
+  const customDialog = document.getElementById('customDialog');
+  customDialog.style.display = 'none';
+
+  const modal = document.getElementById('informarModal');
+  modal.style.display = 'none';
+}
+
 
 
