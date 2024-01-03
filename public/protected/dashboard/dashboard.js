@@ -46,34 +46,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     menuAside.style.width = isMenuVisible ? '300px' : '60px';
   });
 
-  // Recupera el id_colaborador y otros datos al cargar la página
-  if (nombreData && nombreData.username) {
-    const nombreResponse = await fetch('/getNombre?username=' + nombreData.username);
-    const nombreDataUpdated = await nombreResponse.json();
-
-    // Almacena los datos actualizados en localStorage
-    localStorage.setItem('nombreData', JSON.stringify(nombreDataUpdated));
-
-    // Utiliza el id_colaborador para obtener los totales de incidencias
-    const idReportacionUser = nombreDataUpdated.id_colaborador;
-    console.log(idReportacionUser)
-    console.log(getCurrentDate)
-  
-    const totalesData = await totalesResponse.json();
-    console.log('Resultados de incidencias:', totalesData);
-
-    // Actualizar elementos HTML con los resultados
-    const ticketsPendientesElement = document.getElementById('ticketsPendientes');
-    const ticketsResueltosElement = document.getElementById('ticketsResueltos');
-
-    if (ticketsPendientesElement && ticketsResueltosElement) {
-      ticketsPendientesElement.querySelector('.ticket-count').textContent = totalesData.total_pendientes || 'N/A';
-      ticketsResueltosElement.querySelector('.ticket-count').textContent = totalesData.total_cerrados || 'N/A';
-    } else {
-      console.error('Elementos no encontrados');
-    }
-  }
-
   // Obtener elementos del DOM
   const currentDateContainer = document.querySelector('.current-date-container');
   const changeDateButton = document.querySelector('.change-date-button');
@@ -88,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
   const day = currentDate.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}`;
+  
 }
 
   
