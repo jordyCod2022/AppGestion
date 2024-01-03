@@ -82,15 +82,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
+    console.log(currentDate)
     return currentDate.toLocaleDateString('es-ES', {
-      weekday: 'long',
       year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+      month: '2-digit',
+      day: '2-digit'
     });
   }
-
-  // Configurar la presentación de la fecha
+  
+  // Configurar la prentación de la fecha
   dateContainer.innerText = getCurrentDate();
   dateContainer.className = 'current-date';
   currentDateContainer.appendChild(dateContainer);
