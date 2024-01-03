@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const botonInformar = document.createElement('button');
       botonInformar.textContent = 'Informar';
       botonInformar.onclick = function () {
-        abrirModal();
+        
         informarIncidente(incidencia.telefono_colaborador);
       };
       celdaAccion.appendChild(botonInformar);
@@ -36,9 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
         realizarIncidente(incidencia.id_incidente);
-       
-        
-
       };
       celdaAccion.appendChild(botonRealizado);
     });
@@ -56,11 +53,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador) {
   // Pregunta al usuario por el mensaje usando un modal
-  const mensajeEnviado = enviarMensaje();
+  const mensajeUsuario = prompt('Ingrese el mensaje para informar el incidente:');
 
   // Si el usuario proporciona un mensaje, llama a la función para enviar mensaje a Telegram
-  if (mensajeEnviado) {
-    enviarMensajeTelegram(telefonoColaborador, mensajeEnviado)
+  if (mensajeUsuario) {
+    enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
       .then(response => {
         console.log('Mensaje enviado correctamente:', response);
       })
@@ -69,7 +66,7 @@ function informarIncidente(telefonoColaborador) {
       });
 
     // Simula la acción de informar incidente
-    alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador} y mensaje: ${mensajeEnviado}`);
+    alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador} y mensaje: ${mensajeUsuario}`);
   }
 }
 
@@ -96,19 +93,4 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   }
 }
 
-function abrirModal() {
-  const modal = document.getElementById('informarModal');
-  modal.style.display = 'block';
-}
 
-
-function cerrarModal() {
-  document.getElementById('informarModal').style.display = 'none';
-}
-
-function enviarMensaje() {
-  const mensajeUsuario = document.getElementById('mensajeUsuario').value;
-  console.log('Mensaje a enviar:', mensajeUsuario);
-  cerrarModal(); // Cierra el modal después de recuperar el mensaje
-  return mensajeUsuario; // Devuelve el mensaje
-}
