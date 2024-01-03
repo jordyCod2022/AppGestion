@@ -59,10 +59,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const totalesData = await totalesResponse.json();
     console.log('Resultados de incidencias:', totalesData);
 
-    const incidenciasResponse = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaSeleccionada}`);
-    const incidenciasData = await incidenciasResponse.json();
-    console.log('Resultados de incidencias:', incidenciasData);
-
     // Actualizar elementos HTML con los resultados
     const ticketsPendientesElement = document.getElementById('ticketsPendientes');
     const ticketsResueltosElement = document.getElementById('ticketsResueltos');
