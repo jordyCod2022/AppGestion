@@ -58,7 +58,7 @@ function informarIncidente(telefonoColaborador) {
   if (mensajeUsuario) {
     enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
       .then(response => {
-        console.log('Mensaje enviado correctamente:', response);
+        console.log('Mensaje enviad correctamente:', response);
       })
       .catch(error => {
         console.error('Error al enviar mensaje:', error);
