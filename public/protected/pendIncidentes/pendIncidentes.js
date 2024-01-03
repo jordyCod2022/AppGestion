@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const botonInformar = document.createElement('button');
       botonInformar.textContent = 'Informar';
       botonInformar.onclick = function () {
-        informarIncidente(incidencia.id_incidente);
+        informarIncidente(incidencia.telefono_colaborador);
       };
       celdaAccion.appendChild(botonInformar);
 
@@ -52,9 +52,47 @@ document.addEventListener('DOMContentLoaded', () => {
 // Función para simular acción al informar incidente
 function informarIncidente(id) {
   alert(`Informando incidente con ID ${id}`);
+
 }
 
 // Función para simular acción al marcar incidente como realizado
 function realizarIncidente(id) {
   alert(`Marcando incidente con ID ${id} como realizado`);
+}
+
+function informarIncidente(telefonoColaborador) {
+  // Llama a la función para enviar mensaje a Telegram a través de la ruta en el backend
+  enviarMensajeTelegram(telefonoColaborador)
+    .then(response => {
+      console.log('Mensaje enviado correctamente:', response);
+    })
+    .catch(error => {
+      console.error('Error al enviar mensaje:', error);
+    });
+
+  // Simula la acción de informar incidente
+  alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador}`);
+}
+
+
+async function enviarMensajeTelegram(telefonoColaborador) {
+  const url = `/enviarMensajeTelegram?telefono_colaborador=${telefonoColaborador}`;
+
+  try {
+    const response = await fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+        // Puedes agregar otros encabezados según sea necesario
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error('Error en la solicitud');
+    }
+
+    return response.json();
+  } catch (error) {
+    throw error;
+  }
 }
