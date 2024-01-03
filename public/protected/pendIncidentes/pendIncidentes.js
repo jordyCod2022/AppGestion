@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fila.insertCell(1).textContent = incidencia.nombre_colaborador;
       fila.insertCell(2).textContent = incidencia.incidente_descrip;
       fila.insertCell(3).textContent = incidencia.id_estado === 2 ? 'Pendiente' : 'Cerrado';
-    
+
       // Agregar botones con eventos onclick
       const celdaAccion = fila.insertCell(4);
       const botonInformar = document.createElement('button');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         informarIncidente(incidencia.telefono_colaborador);
       };
       celdaAccion.appendChild(botonInformar);
-    
+
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
@@ -50,33 +50,26 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Función para simular acción al informar incidente
-function informarIncidente(id) {
-  alert(`Informando incidente con ID ${id}`);
-
-}
-
-// Función para simular acción al marcar incidente como realizado
-function realizarIncidente(id) {
-  alert(`Marcando incidente con ID ${id} como realizado`);
-}
-
-
 function informarIncidente(telefonoColaborador) {
-  // Llama a la función para enviar mensaje a Telegram a través de la ruta en el backend
-  enviarMensajeTelegram(telefonoColaborador)
-    .then(response => {
-      console.log('Mensaje enviado correctamente:', response);
-    })
-    .catch(error => {
-      console.error('Error al enviar mensaje:', error);
-    });
+  // Pregunta al usuario por el mensaje usando un modal
+  const mensajeUsuario = prompt('Ingrese el mensaje para informar el incidente:');
 
-  // Simula la acción de informar incidente
-  alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador}`);
+  // Si el usuario proporciona un mensaje, llama a la función para enviar mensaje a Telegram
+  if (mensajeUsuario) {
+    enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
+      .then(response => {
+        console.log('Mensaje enviado correctamente:', response);
+      })
+      .catch(error => {
+        console.error('Error al enviar mensaje:', error);
+      });
+
+    // Simula la acción de informar incidente
+    alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador} y mensaje: ${mensajeUsuario}`);
+  }
 }
 
-
-async function enviarMensajeTelegram(telefonoColaborador) {
+async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   const url = `/enviarMensajeTelegram`;
 
   try {
@@ -86,7 +79,7 @@ async function enviarMensajeTelegram(telefonoColaborador) {
         'Content-Type': 'application/json'
         // Puedes agregar otros encabezados según sea necesario
       },
-      body: JSON.stringify({ telefono_colaborador: telefonoColaborador })
+      body: JSON.stringify({ telefono_colaborador: telefonoColaborador, mensajeTelegram: mensajeTelegram })
     });
 
     if (!response.ok) {
