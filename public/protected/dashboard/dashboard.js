@@ -54,7 +54,14 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Almacena los datos actualizados en localStorage
     localStorage.setItem('nombreData', JSON.stringify(nombreDataUpdated));
 
-  
+    // Utiliza el id_colaborador para obtener los totales de incidencias
+    const idReportacionUser = nombreDataUpdated.id_colaborador;
+    console.log(idReportacionUser)
+    console.log(getCurrentDate)
+    const totalesResponse = await fetch(`/getTotalesIncidencias?id_reportacion_user=${idReportacionUser}&fecha_incidencia=${getCurrentDate()}`);
+    const totalesData = await totalesResponse.json();
+    console.log('Resultados de incidencias:', totalesData);
+
     // Actualizar elementos HTML con los resultados
     const ticketsPendientesElement = document.getElementById('ticketsPendientes');
     const ticketsResueltosElement = document.getElementById('ticketsResueltos');
@@ -76,13 +83,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Función para obtener la fecha actual
   function getCurrentDate() {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-    const day = currentDate.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}`;
-  }
-  
+  const currentDate = new Date();
+  const year = currentDate.getFullYear();
+  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = currentDate.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
   
   // Configurar la prentación de la fecha
   dateContainer.innerText = getCurrentDate();
