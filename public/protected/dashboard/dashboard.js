@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log('Resultados de incidencias:', totalesData);
 
     // Actualizar elementos HTML con los resultados
+    updateTotalIncidencias(totalesData);
+
     const ticketsPendientesElement = document.getElementById('ticketsPendientes');
     const ticketsResueltosElement = document.getElementById('ticketsResueltos');
 
@@ -97,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Configurar flatpickr para el selector de fecha
   const flatpickrInstance = flatpickr('.change-date-button', {
     dateFormat: 'Y-m-d',
-    onClose: function (selectedDates, dateStr) {
+    onClose: async function (selectedDates, dateStr) {
       dateContainer.innerText = dateStr;
 
       // Obtener id_colaborador al cargar la página
@@ -105,10 +107,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         const idReportacionUser = nombreData.id_colaborador;
 
         // Llamar a la función con los parámetros necesarios
+        const totalesResponse = await fetch(`/getTotalesIncidencias?id_reportacion_user=${idReportacionUser}&fecha_incidencia=${dateStr}`);
+        const totalesData = await totalesResponse.json();
+
+        // Actualizar elementos HTML con los resultados
+        updateTotalIncidencias(totalesData);
+
+        // Llamar a la función para obtener y mostrar incidencias
         getAndShowIncidencias(idReportacionUser, dateStr);
       }
     },
   });
+
+  // Función para actualizar el total de incidencias en el HTML
+  function updateTotalIncidencias(totalesData) {
+    const ticketsPendientesElement = document.getElementById('ticketsPendientes');
+    const ticketsResueltosElement = document.getElementById('ticketsResueltos');
+
+    if (ticketsPendientesElement && ticketsResueltosElement) {
+      ticketsPendientesElement.querySelector('.ticket-count').textContent = totalesData.total_pendientes || 'N/A';
+      ticketsResueltosElement.querySelector('.ticket-count').textContent = totalesData.total_cerrados || 'N/A';
+    } else {
+      console.error('Elementos no encontrados');
+    }
+  }
 
   // Función para obtener y mostrar incidencias
   async function getAndShowIncidencias(idReportacionUser, newDate) {
