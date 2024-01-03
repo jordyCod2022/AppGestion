@@ -4,6 +4,7 @@
   <title>Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
 
@@ -12,14 +13,20 @@
       <span class="menu"><i class="material-icons">menu</i></span>
       <span>Dashboard</span>
     </div>
-
+  
     <div class="user-info">
+      <div class="current-date-container">
+        <span class="current-date"></span>
+        <button class="change-date-button">Cambiar Fecha</button>
+      </div>
+  
       <div class="user-welcome">
         <span>Bienvenido, Usuario</span>
       </div>
       <button class="logout-button">Cerrar Sesión</button>
     </div>
   </header>
+  
 
   <section class="main">
     <aside id="menuAside" class="keep">

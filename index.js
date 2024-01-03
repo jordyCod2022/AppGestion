@@ -76,37 +76,38 @@ app.get('/getNombre', async (req, res) => {
 
 
 //obtener ttickts pendientes y resueltos:
-
 app.get('/getTotalesIncidencias', async (req, res) => {
-  const idReportacionUser = req.query.id_reportacion_user;
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const fechaIncidencia = req.query.fecha_incidencia; // Asegúrate de validar y formatear la fecha según tus necesidades
 
   try {
     const result = await pool.query(`
       SELECT
-      id_asignacion_user,
+        id_asignacion_user,
         COUNT(*) FILTER (WHERE id_estado = 2) AS total_pendientes,
         COUNT(*) FILTER (WHERE id_estado = 3) AS total_cerrados
       FROM
         public.incidente
       WHERE
-      id_asignacion_user = $1
+        id_asignacion_user = $1
+        AND fecha_incidente::date = $2::date
       GROUP BY
-      id_asignacion_user;
-    `, [idReportacionUser]);
+        id_asignacion_user;
+    `, [idAsignacionUser, fechaIncidencia]);
 
     if (result.rows.length > 0) {
-      const { id_reportacion_user, total_pendientes, total_cerrados } = result.rows[0];
+      const { id_asignacion_user, total_pendientes, total_cerrados } = result.rows[0];
       
-      console.log('Resultados de incidencias:', { id_reportacion_user, total_pendientes, total_cerrados });
+      console.log('Resultados de incidencias:', { id_asignacion_user, total_pendientes, total_cerrados });
 
       res.json({ 
-        id_reportacion_user,
+        id_asignacion_user,
         total_pendientes,
         total_cerrados
       });
     } else {
       res.json({ 
-        id_reportacion_user: null,
+        id_asignacion_user: null,
         total_pendientes: null,
         total_cerrados: null
       });
@@ -116,6 +117,7 @@ app.get('/getTotalesIncidencias', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener los totales de incidencias' });
   }
 });
+
 
 
 

@@ -64,13 +64,72 @@ document.addEventListener('DOMContentLoaded', async () => {
     const ticketsResueltosElement = document.getElementById('ticketsResueltos');
 
     if (ticketsPendientesElement && ticketsResueltosElement) {
+      ticketsPendientesElement.querySelector('.ticket-count').textContent = totalesData.total_pendientes || 'N/A';
+      ticketsResueltosElement.querySelector('.ticket-count').textContent = totalesData.total_cerrados || 'N/A';
+    } else {
+      console.error('Elementos no encontrados');
+    }
+  }
+
+  // Obtener elementos del DOM
+  const currentDateContainer = document.querySelector('.current-date-container');
+  const changeDateButton = document.querySelector('.change-date-button');
+
+  // Crear elemento para la fecha
+  const dateContainer = document.createElement('span');
+
+  // Función para obtener la fecha actual
+  function getCurrentDate() {
+    const currentDate = new Date();
+    return currentDate.toLocaleDateString('es-ES', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  // Configurar la presentación de la fecha
+  dateContainer.innerText = getCurrentDate();
+  dateContainer.className = 'current-date';
+  currentDateContainer.appendChild(dateContainer);
+
+  // Configurar flatpickr para el selector de fecha
+  const flatpickrInstance = flatpickr('.change-date-button', {
+    dateFormat: 'Y-m-d',
+    onClose: function (selectedDates, dateStr) {
+      dateContainer.innerText = dateStr;
+
+      // Actualizar los totales de incidencias con la nueva fecha
+      updateTotalesIncidencias(dateStr);
+    },
+  });
+
+  // Función para actualizar los totales de incidencias con la nueva fecha
+  async function updateTotalesIncidencias(newDate) {
+    // Obtener id_asignacion_user y otros datos del localStorage
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+
+    // Verificar si hay datos y obtener id_asignacion_user
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
+
+      // Obtener totales de incidencias con la nueva fecha
+      const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+      const totalesData = await totalesResponse.json();
+      console.log('Resultados de incidencias:', totalesData);
+
+      // Actualizar elementos HTML con los resultados
+      const ticketsPendientesElement = document.getElementById('ticketsPendientes');
+      const ticketsResueltosElement = document.getElementById('ticketsResueltos');
+
+      if (ticketsPendientesElement && ticketsResueltosElement) {
         ticketsPendientesElement.querySelector('.ticket-count').textContent = totalesData.total_pendientes || 'N/A';
         ticketsResueltosElement.querySelector('.ticket-count').textContent = totalesData.total_cerrados || 'N/A';
-    } else {
+      } else {
         console.error('Elementos no encontrados');
+      }
     }
-}
-
-
+  }
 });
-
