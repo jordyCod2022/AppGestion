@@ -49,50 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
   incidenciasContainer.appendChild(tablaIncidencias);
 });
 
-function abrirModal(telefonoColaborador) {
-  console.log('Abriendo modal para', telefonoColaborador);
-
-  // Limpia el contenido del textarea del modal
-  document.getElementById('mensajeUsuario').value = '';
-
-  // Guarda el teléfono del colaborador en un atributo del botón enviar del modal
-  const botonEnviar = document.getElementById('botonEnviar');
-  botonEnviar.setAttribute('data-telefono-colaborador', telefonoColaborador);
-
-  // Abre el modal
-  $('#informarModal').modal('show');
-}
-
-// Función para enviar el mensaje del usuario
-function enviarMensaje() {
-  // Obtiene el mensaje del usuario desde el textarea del modal
-  const mensajeUsuario = document.getElementById('mensajeUsuario').value;
-
-  // Obtiene el teléfono del colaborador desde el atributo del botón enviar del modal
-  const telefonoColaborador = document.getElementById('botonEnviar').getAttribute('data-telefono-colaborador');
-
-  // Llama a la función para enviar mensaje a Telegram
-  enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
-    .then(response => {
-      console.log('Mensaje enviado correctamente:', response);
-    })
-    .catch(error => {
-      console.error('Error al enviar mensaje:', error);
-    });
-
-  // Simula la acción de informar incidente
-  alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador} y mensaje: ${mensajeUsuario}`);
-
-  // Cierra el modal
-  $('#informarModal').modal('hide');
-}
-
-// Función para simular acción al marcar incidente como realizado
-function realizarIncidente(id) {
-  alert(`Marcando incidente con ID ${id} como realizado`);
-}
-
-
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador) {
   // Pregunta al usuario por el mensaje usando un modal
@@ -102,7 +58,7 @@ function informarIncidente(telefonoColaborador) {
   if (mensajeUsuario) {
     enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
       .then(response => {
-        console.log('Mensaje enviad correctamente:', response);
+        console.log('Mensaje enviado correctamente:', response);
       })
       .catch(error => {
         console.error('Error al enviar mensaje:', error);
