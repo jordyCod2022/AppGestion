@@ -83,15 +83,15 @@ app.get('/getTotalesIncidencias', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT
-        id_reportacion_user,
+      id_asignacion_user,
         COUNT(*) FILTER (WHERE id_estado = 2) AS total_pendientes,
         COUNT(*) FILTER (WHERE id_estado = 3) AS total_cerrados
       FROM
         public.incidente
       WHERE
-        id_reportacion_user = $1
+      id_asignacion_user = $1
       GROUP BY
-        id_reportacion_user;
+      id_asignacion_user;
     `, [idReportacionUser]);
 
     if (result.rows.length > 0) {
