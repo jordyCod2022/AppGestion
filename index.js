@@ -5,10 +5,13 @@ const { Pool } = require('pg');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 
+const TelegramBot = require('node-telegram-bot-api');
+
 dotenv.config();
 
 const connectionTimeoutMillis = 40000;
-
+const telegramToken = '6777426387:AAHvHB1oJdcMqt6hutj2D1ZqcI7y0a2dFBg';
+const bot = new TelegramBot(telegramToken, { polling: false });
 // Configuración para el pool de conexiones a PostgreSQL
 const pool = new Pool({
   connectionString: process.env.conexion,
@@ -161,11 +164,6 @@ app.get('/getIncidencias', async (req, res) => {
   }
 });
 
-
-
-
-
-
 // Ruta para el inicio de sesión
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -202,3 +200,34 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Servidor en ejecución en el puerto ${PORT}`);
 });
+
+
+
+async function enviarMensajeTelegram(telefonoColaborador) {
+  try {
+    const chatId = telefonoColaborador;
+    const mensajeTelegram = 'hola informando';
+
+    // Enviar mensaje a Telegram
+    await bot.sendMessage(chatId, mensajeTelegram);
+  } catch (error) {
+    console.error('ERROR al enviar mensaje a Telegram', error);
+  }
+}
+
+// Ruta para enviar mensajes a través de Telegram
+app.post('/enviarMensajeTelegram', async (req, res) => {
+  const { telefonoColaborador } = req.body;
+
+  try {
+    // Llama a la función para enviar el mensaje a Telegram
+    await enviarMensajeTelegram(telefonoColaborador);
+
+    // Respuesta exitosa
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al enviar mensaje a Telegram:', error);
+    res.status(500).json({ error: 'Error al enviar mensaje a Telegram' });
+  }
+});
+

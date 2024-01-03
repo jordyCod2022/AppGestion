@@ -1,9 +1,3 @@
-const TelegramBot = require('node-telegram-bot-api');
-
-
-const telegramToken = '6777426387:AAHvHB1oJdcMqt6hutj2D1ZqcI7y0a2dFBg';
-const bot = new TelegramBot(telegramToken, { polling: false });
-
 document.addEventListener('DOMContentLoaded', () => {
   // Recupera las incidencias almacenadas en localStorage
   const storedIncidencias = localStorage.getItem('incidencias');
@@ -30,10 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Agregar botones con eventos onclick
       const celdaAccion = fila.insertCell(4);
-      const botonInformar = document.createElement("button");
-      botonInformar.textContent = "Informar";
+      const botonInformar = document.createElement('button');
+      botonInformar.textContent = 'Informar';
       botonInformar.onclick = function () {
-        informarIncidente(incidencia.id_incidente, incidencia.telefono_colaborador);
+        informarIncidente(incidencia.id_incidente);
       };
       celdaAccion.appendChild(botonInformar);
 
@@ -56,26 +50,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Función para simular acción al informar incidente
-// Función para simular acción al informar incidente
-function informarIncidente(id, telefonoColaborador) {
+function informarIncidente(id) {
   alert(`Informando incidente con ID ${id}`);
-  enviarMensajeTelegram(telefonoColaborador);
 }
 
 // Función para simular acción al marcar incidente como realizado
 function realizarIncidente(id) {
   alert(`Marcando incidente con ID ${id} como realizado`);
-}
-
-
-async function enviarMensajeTelegram(telefonoColaborador) {
-  try {
-    const chatId = telefonoColaborador;
-    const mensajeTelegram = `🚨 Nuevo incidente reportado 🚨\n\n‼️ Título: ${nombreTituloGlobal}\n📄 Descripción: ${descripcionInciGlobal}\n\n👤 Información del Colaborador:\n👉 Nombre: ${infoColaborador.nombre_colaborador}\n👉 Apellido: ${infoColaborador.apellido_colaborador}\n🏢 Departamento:${infoColaborador.nombre_departamento}\n📞 Teléfono: ${telefonoColaborador}`;
-
-    // Enviar mensaje a Telegram
-    await bot.sendMessage(chatId, mensajeTelegram);
-  } catch (error) {
-    console.error('ERROR al enviar mensaje a Telegram', error);
-  }
 }
