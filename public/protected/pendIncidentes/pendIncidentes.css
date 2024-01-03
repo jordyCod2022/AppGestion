@@ -1,0 +1,59 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  .incidentes-container {
+    margin-top: 20px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+  }
+  
+  button {
+    padding: 5px 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  /* Estilos adicionales para mejorar la apariencia */
+  button:hover {
+    background-color: #ddd;
+  }
+  
+  .incidentia {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  /* Estilos para botones específicos si es necesario */
+  button.informar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+  }
+  
+  button.realizado {
+    background-color: #008CBA;
+    color: white;
+    border: none;
+  }
+  
