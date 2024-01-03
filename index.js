@@ -218,12 +218,12 @@ async function enviarMensajeTelegram(telefonoColaborador) {
 
 // Ruta para enviar mensajes a través de Telegram
 app.post('/enviarMensajeTelegram', async (req, res) => {
-  const { telefonoColaborador } = req.body;
+  const { telefono_colaborador } = req.body;
 
   try {
-    console.log("Recibiendo telefono:", telefonoColaborador);
+    console.log("Recibiendo telefono:", telefono_colaborador);
     // Llama a la función para enviar el mensaje a Telegram
-    await enviarMensajeTelegram(telefonoColaborador);
+    await enviarMensajeTelegram(telefono_colaborador);
 
     // Respuesta exitosa
     res.json({ success: true });
@@ -232,4 +232,5 @@ app.post('/enviarMensajeTelegram', async (req, res) => {
     res.status(500).json({ error: 'Error al enviar mensaje a Telegram' });
   }
 });
+
 

@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fila.insertCell(1).textContent = incidencia.nombre_colaborador;
       fila.insertCell(2).textContent = incidencia.incidente_descrip;
       fila.insertCell(3).textContent = incidencia.id_estado === 2 ? 'Pendiente' : 'Cerrado';
-
+    
       // Agregar botones con eventos onclick
       const celdaAccion = fila.insertCell(4);
       const botonInformar = document.createElement('button');
@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         informarIncidente(incidencia.telefono_colaborador);
       };
       celdaAccion.appendChild(botonInformar);
-
+    
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
@@ -60,6 +60,7 @@ function realizarIncidente(id) {
   alert(`Marcando incidente con ID ${id} como realizado`);
 }
 
+
 function informarIncidente(telefonoColaborador) {
   // Llama a la función para enviar mensaje a Telegram a través de la ruta en el backend
   enviarMensajeTelegram(telefonoColaborador)
@@ -73,6 +74,7 @@ function informarIncidente(telefonoColaborador) {
   // Simula la acción de informar incidente
   alert(`Informando incidente al colaborador con teléfono ${telefonoColaborador}`);
 }
+
 
 async function enviarMensajeTelegram(telefonoColaborador) {
   const url = `/enviarMensajeTelegram`;
