@@ -24,26 +24,16 @@
   </div>
 
   <!-- Modal de Informar Incidente -->
-  <div class="modal fade" id="informarModal" tabindex="-1" role="dialog" aria-labelledby="informarModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="informarModalLabel">Informar Incidente</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <label for="mensajeUsuario">Mensaje:</label>
-          <textarea id="mensajeUsuario" class="form-control"></textarea>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="enviarMensaje()">Enviar</button>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        </div>
-      </div>
+  <div class="modal" id="informarModal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarModal()">&times;</span>
+      <label for="mensajeUsuario">Mensaje:</label>
+      <textarea id="mensajeUsuario" class="form-control"></textarea>
+      <button type="button" class="btn btn-primary" onclick="enviarMensaje()">Enviar</button>
+      <button type="button" class="btn btn-secondary" onclick="cerrarModal()">Cancelar</button>
     </div>
   </div>
+
 
 
 
