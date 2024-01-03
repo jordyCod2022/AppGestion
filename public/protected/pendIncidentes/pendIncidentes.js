@@ -97,8 +97,10 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
 }
 
 function abrirModal() {
-  document.getElementById('informarModal').style.display = 'block';
+  const modal = document.getElementById('informarModal');
+  modal.style.display = 'block';
 }
+
 
 function cerrarModal() {
   document.getElementById('informarModal').style.display = 'none';
