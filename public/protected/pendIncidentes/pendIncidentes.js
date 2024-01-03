@@ -59,8 +59,8 @@ function informarIncidente(telefonoColaborador) {
   const mensajeEnviado = enviarMensaje();
 
   // Si el usuario proporciona un mensaje, llama a la función para enviar mensaje a Telegram
-  if (mensajeUsuario) {
-    enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
+  if (mensajeEnviado) {
+    enviarMensajeTelegram(telefonoColaborador, mensajeEnviado)
       .then(response => {
         console.log('Mensaje enviado correctamente:', response);
       })
