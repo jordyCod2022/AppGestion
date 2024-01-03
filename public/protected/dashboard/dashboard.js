@@ -59,6 +59,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     const totalesData = await totalesResponse.json();
     console.log('Resultados de incidencias:', totalesData);
 
+    const incidenciasResponse = await fetch(`/getIncidencias?id_asignacion_user=${idReportacionUser}&fecha_incidencia=${fechaSeleccionada}`);
+    const incidenciasData = await incidenciasResponse.json();
+    console.log('Resultados:', incidenciasData);
+
     // Actualizar elementos HTML con los resultados
     const ticketsPendientesElement = document.getElementById('ticketsPendientes');
     const ticketsResueltosElement = document.getElementById('ticketsResueltos');
@@ -119,6 +123,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de incidencias:', totalesData);
+
+      const incidenciasResponse = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+      const incidenciasData = await incidenciasResponse.json();
+      console.log('Resultados:', incidenciasData);
 
       // Actualizar elementos HTML con los resultados
       const ticketsPendientesElement = document.getElementById('ticketsPendientes');
