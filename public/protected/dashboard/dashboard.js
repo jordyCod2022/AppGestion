@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  updateTotalesIncidencias(getCurrentDate());
 
   // Actualiza el contenido del span con el nombre del usuario
   if (nombreData && nombreData.nombre) {
