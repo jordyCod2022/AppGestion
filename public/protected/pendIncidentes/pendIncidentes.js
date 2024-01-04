@@ -149,7 +149,7 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
     });
 
     if (!response.ok) {
-      throw new Error('Error en la solicitu');
+      throw new Error('Error en la solicitud');
     }
 
     return response.json();
