@@ -59,26 +59,37 @@ function informarIncidente(telefonoColaborador) {
   // Guarda el teléfono del colaborador en un atributo del modal
   modal.setAttribute('data-telefono', telefonoColaborador);
 }
-
 function autogenerarMensaje() {
   const mensajeInput = document.getElementById('mensajeInput');
 
+  // Recupera las incidencias almacenadas en localStorage
+  const storedIncidencias = localStorage.getItem('incidencias');
+  const incidencias = storedIncidencias ? JSON.parse(storedIncidencias) : [];
+
   // Plantillas de mensajes
   const plantillas = [
-    'Tu incidencia está siendo atendida. En unos minutos te notificaremos su avance.',
-    'Gracias por informarnos. Estamos trabajando para resolver tu incidencia.',
-    'Hemos recibido tu reporte. Estamos investigando la situación.',
-    'Estamos tomando medidas para resolver tu incidencia. Pronto recibirás más información.',
-    'Tu reporte ha sido registrado. Estamos trabajando en ello.'
-   
+    'Hola {nombre}, tu incidencia con ID {idIncidencia} está siendo atendida. En unos minutos te notificaremos su avance.',
+    'Estimado/a {nombre}, gracias por informarnos. Estamos trabajando para resolver tu incidencia con ID {idIncidencia}.',
+    'Hola {nombre}, hemos recibido tu reporte con ID {idIncidencia}. Estamos investigando la situación.',
+    'Saludos {nombre}, estamos tomando medidas para resolver tu incidencia con ID {idIncidencia}. Pronto recibirás más información.',
+    '¡Hola {nombre}!, tu reporte con ID {idIncidencia} ha sido registrado. Estamos trabajando en ello.'
   ];
 
   // Selecciona aleatoriamente una plantilla
-  const mensajeAleatorio = plantillas[Math.floor(Math.random() * plantillas.length)];
+  const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
 
-  // Asigna el mensaje aleatorio al cuadro de texto
-  mensajeInput.value = mensajeAleatorio;
+  // Selecciona una incidencia aleatoria
+  const incidenciaSeleccionada = incidencias[Math.floor(Math.random() * incidencias.length)];
+
+  // Reemplaza placeholders en la plantilla con datos de la incidencia seleccionada
+  const mensajePersonalizado = plantillaAleatoria
+    .replace('{nombre}', incidenciaSeleccionada.nombre_colaborador)
+    .replace('{idIncidencia}', incidenciaSeleccionada.id_incidente);
+
+  // Asigna el mensaje personalizado al cuadro de texto
+  mensajeInput.value = mensajePersonalizado;
 }
+
 
 
 // Función para cerrar el modal
