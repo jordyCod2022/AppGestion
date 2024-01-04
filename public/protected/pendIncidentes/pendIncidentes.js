@@ -50,6 +50,16 @@ document.addEventListener('DOMContentLoaded', () => {
   incidenciasContainer.appendChild(tablaIncidencias);
 });
 
+// Función para simular acción al informar incidente
+function informarIncidente(telefonoColaborador) {
+  // Muestra el modal
+  const modal = document.getElementById('modal');
+  modal.style.display = 'block';
+
+  // Guarda el teléfono del colaborador en un atributo del modal
+  modal.setAttribute('data-telefono', telefonoColaborador);
+}
+
 function autogenerarMensaje() {
   const mensajeInput = document.getElementById('mensajeInput');
 
@@ -84,7 +94,6 @@ function autogenerarMensaje() {
     alert('No hay filas en la tabla.');
   }
 }
-
 
 
 
