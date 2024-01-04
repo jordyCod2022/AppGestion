@@ -27,10 +27,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const botonInformar = document.createElement('button');
       botonInformar.textContent = 'Informar';
       botonInformar.onclick = function () {
-        informarIncidente(incidencia.telefono_colaborador);
+        informarIncidente(incidencia.telefono_colaborador, fila);
         autogenerarMensaje(incidencia.nombre_colaborador, incidencia.id_incidente);
       };
       celdaAccion.appendChild(botonInformar);
+      
     
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
@@ -53,13 +54,14 @@ let filaSeleccionada = null;
 
 
 // Función para simular acción al informar incidente
-function informarIncidente(telefonoColaborador) {
+function informarIncidente(telefonoColaborador, fila) {
   // Muestra el modal
   const modal = document.getElementById('modal');
   modal.style.display = 'block';
 
-  // Guarda el teléfono del colaborador en un atributo del modal
+  // Guarda el teléfono del colaborador y la fila en atributos del modal
   modal.setAttribute('data-telefono', telefonoColaborador);
+  modal.setAttribute('data-fila', fila.rowIndex);
   filaSeleccionada = fila;
 }
 function autogenerarMensaje() {
