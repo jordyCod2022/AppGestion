@@ -183,6 +183,7 @@ button.realizado {
   font-size: 26px; /* Tamaño del nuevo icono */
   margin-right: 10px;
   color: #ddd;
+  cursor: pointer;
 }
 
 
