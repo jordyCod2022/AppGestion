@@ -60,6 +60,11 @@ function informarIncidente(telefonoColaborador) {
   modal.setAttribute('data-telefono', telefonoColaborador);
 }
 
+function autogenerarMensaje() {
+  const mensajeInput = document.getElementById('mensajeInput');
+  mensajeInput.value = 'Tu incidencia está siendo atendida. En unos minutos te notificaremos su avance.';
+}
+
 // Función para cerrar el modal
 function cerrarModal() {
   const modal = document.getElementById('modal');
