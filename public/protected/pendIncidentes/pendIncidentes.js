@@ -49,6 +49,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const incidenciasContainer = document.getElementById('incidenciasContainer');
   incidenciasContainer.appendChild(tablaIncidencias);
 });
+let filaSeleccionada = null;
+
 
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador) {
@@ -58,30 +60,36 @@ function informarIncidente(telefonoColaborador) {
 
   // Guarda el teléfono del colaborador en un atributo del modal
   modal.setAttribute('data-telefono', telefonoColaborador);
+  filaSeleccionada = fila;
 }
-
-function autogenerarMensaje(nombre, id) {
+function autogenerarMensaje() {
   const mensajeInput = document.getElementById('mensajeInput');
 
-  // Plantillas de mensajes
-  const plantillas = [
-    'Hola {nombre}, tu incidencia con ID {idIncidencia} está siendo atendida. En unos minutos te notificaremos su avance.',
-    'Estimado/a {nombre}, gracias por informarnos. Estamos trabajando para resolver tu incidencia con ID {idIncidencia}.',
-    'Hola {nombre}, hemos recibido tu reporte con ID {idIncidencia}. Estamos investigando la situación.',
-    'Saludos {nombre}, estamos tomando medidas para resolver tu incidencia con ID {idIncidencia}. Pronto recibirás más información.',
-    '¡Hola {nombre}!, tu reporte con ID {idIncidencia} ha sido registrado. Estamos trabajando en ello.'
-  ];
+  // Verifica si hay una fila seleccionada
+  if (filaSeleccionada) {
+    const nombre = filaSeleccionada.querySelector('td:nth-child(2)').textContent;
+    const id = filaSeleccionada.querySelector('td:nth-child(1)').textContent;
 
-  // Selecciona aleatoriamente una plantilla
-  const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+    // Plantillas de mensajes
+    const plantillas = [
+      'Hola {nombre}, tu incidencia con ID {idIncidencia} está siendo atendida. En unos minutos te notificaremos su avance.',
+      'Estimado/a {nombre}, gracias por informarnos. Estamos trabajando para resolver tu incidencia con ID {idIncidencia}.',
+      'Hola {nombre}, hemos recibido tu reporte con ID {idIncidencia}. Estamos investigando la situación.',
+      'Saludos {nombre}, estamos tomando medidas para resolver tu incidencia con ID {idIncidencia}. Pronto recibirás más información.',
+      '¡Hola {nombre}!, tu reporte con ID {idIncidencia} ha sido registrado. Estamos trabajando en ello.'
+    ];
 
-  // Reemplaza placeholders en la plantilla con datos de la incidencia seleccionada
-  const mensajePersonalizado = plantillaAleatoria
-    .replace('{nombre}', nombre)
-    .replace('{idIncidencia}', id);
+    // Selecciona aleatoriamente una plantilla
+    const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
 
-  // Asigna el mensaje personalizado al cuadro de texto
-  mensajeInput.value = mensajePersonalizado;
+    // Reemplaza placeholders en la plantilla con datos de la incidencia seleccionada
+    const mensajePersonalizado = plantillaAleatoria
+      .replace('{nombre}', nombre)
+      .replace('{idIncidencia}', id);
+
+    // Asigna el mensaje personalizado al cuadro de texto
+    mensajeInput.value = mensajePersonalizado;
+  }
 }
 
 
@@ -90,6 +98,7 @@ function cerrarModal() {
   const modal = document.getElementById('modal');
   modal.style.display = 'none';
   document.getElementById('mensajeInput').value = '';
+  filaSeleccionada = null;
 
 }
 
