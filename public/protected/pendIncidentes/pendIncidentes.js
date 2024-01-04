@@ -43,6 +43,14 @@ function showAndProcessIncidencias(incidencias) {
       botonRealizado.onclick = function () {
         
         abrirConfirmacionModal(incidencia, fila);
+        resultado=confirmarRealizadoDesdeModal
+        if(!resultado){
+          alert(`Error al ejecutar `);
+
+        }else{
+          const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
+          enviarMensajeTelegram(incidencia.telefono_colaborador,mensaje)
+        }
 
        
       };
@@ -163,50 +171,41 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   }
 }
 
-
 async function realizarIncidente(idIncidencia, fila) {
   // Verifica si hay una fila seleccionada
   if (!fila) {
     console.error('Error: No hay fila seleccionada para la incidencia');
-    return;
+    return false;
   }
 
-  // Muestra una ventana de confirmación
-  const confirmacion = confirm(`¿Estás seguro de marcar la incidencia con ID ${idIncidencia} como "Realizado"?`);
+  try {
+    // Realiza una solicitud HTTP para cerrar la incidencia en el servidor
+    const response = await fetch('/cerrarIncidencia', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id_incidencia: idIncidencia })
+    });
 
-  // Verifica la respuesta del usuario
-  if (confirmacion) {
-    try {
-      // Realiza una solicitud HTTP para cerrar la incidencia en el servidor
-      const response = await fetch('/cerrarIncidencia', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-         
-        },
-        body: JSON.stringify({ id_incidencia: idIncidencia })
-      });
+    const responseData = await response.json();
 
-      const responseData = await response.json();
-
-      if (responseData.success) {
-       
-        await new Promise(resolve => setTimeout(resolve, 500)); 
-        window.location.reload();// Puedes ajustar el tiempo de espera según sea necesario
-        
-      } else {
-        // Acción fallida
-        alert(`Error al cerrar la incidencia ${idIncidencia}`);
-      }
-    } catch (error) {
-      console.error('Error en la solicitud HTTP:', error);
-      alert('Error al realizar la solicitud HTTP');
+    if (responseData.success) {
+      await new Promise(resolve => setTimeout(resolve, 500));
+      window.location.reload(); // Puedes ajustar el tiempo de espera según sea necesario
+      return true;
+    } else {
+      // Acción fallida
+      alert(`Error al cerrar la incidencia ${idIncidencia}`);
+      return false;
     }
-  } else {
-    // No realiza la acción si el usuario cancela la confirmación
-    console.log('Acción de cerrar incidencia cancelada por el usuario');
+  } catch (error) {
+    console.error('Error en la solicitud HTTP:', error);
+    alert('Error al realizar la solicitud HTTP');
+    return false;
   }
 }
+
 
 
 
@@ -246,17 +245,11 @@ function confirmarRealizadoDesdeModal() {
   const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
   const fila = confirmacionModal.getAttribute('data-fila');
 
-  realizarIncidente(idIncidencia, fila)
-    .then(() => {
-      const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${idIncidencia} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
+  const resultado = realizarIncidente(idIncidencia, fila);
 
-      enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje);
-    })
-    .catch(error => {
-      console.error('Error al realizar la incidencia:', error);
-    })
-    .finally(() => {
-      // Cierra el modal después de realizar la incidencia (éxito o error)
-      cerrarConfirmacionModal();
-    });
+
+  return resultado
+
+
+   
 }
