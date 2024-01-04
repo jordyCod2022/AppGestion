@@ -41,9 +41,9 @@ function showAndProcessIncidencias(incidencias) {
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
-       
-        const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
         realizarIncidente(incidencia.id_incidente, fila);
+        const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
+
         enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje);
       };
       celdaAccion.appendChild(botonRealizado);
@@ -163,6 +163,7 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   }
 }
 
+
 async function realizarIncidente(idIncidencia, fila) {
   // Verifica si hay una fila seleccionada
   if (!fila) {
@@ -171,30 +172,7 @@ async function realizarIncidente(idIncidencia, fila) {
   }
 
   // Muestra una ventana de confirmación
-  const confirmacionModal = document.getElementById('confirmacionModal');
-  confirmacionModal.style.display = 'block';
-
-  // Guarda el idIncidencia y la filaSeleccionada como atributos del modal
-  confirmacionModal.setAttribute('data-id-incidencia', idIncidencia);
-  filaSeleccionada = fila;
-
-  // Espera la respuesta del usuario
-  const confirmacion = await new Promise(resolve => {
-    const botonConfirmar = document.getElementById('botonConfirmar');
-    const botonCancelar = document.getElementById('botonCancelar');
-
-    // Resuelve la promesa al hacer clic en Confirmar
-    botonConfirmar.onclick = () => {
-      cerrarConfirmacionModal();
-      resolve(true);
-    };
-
-    // Resuelve la promesa al hacer clic en Cancelar
-    botonCancelar.onclick = () => {
-      cerrarConfirmacionModal();
-      resolve(false);
-    };
-  });
+  const confirmacion = confirm(`¿Estás seguro de marcar la incidencia con ID ${idIncidencia} como "Realizado"?`);
 
   // Verifica la respuesta del usuario
   if (confirmacion) {
@@ -204,6 +182,7 @@ async function realizarIncidente(idIncidencia, fila) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
+         
         },
         body: JSON.stringify({ id_incidencia: idIncidencia })
       });
@@ -211,12 +190,13 @@ async function realizarIncidente(idIncidencia, fila) {
       const responseData = await response.json();
 
       if (responseData.success) {
-        // Acción exitosa
-        await new Promise(resolve => setTimeout(resolve, 500));
-        window.location.reload(); // Puedes ajustar el tiempo de espera según sea necesario
+       
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+        window.location.reload();// Puedes ajustar el tiempo de espera según sea necesario
+        
       } else {
-        // Maneja el error específico si es necesario
-        alert(`Error al cerrar la incidencia ${idIncidencia}: ${responseData.message || 'Error desconocido'}`);
+        // Acción fallida
+        alert(`Error al cerrar la incidencia ${idIncidencia}`);
       }
     } catch (error) {
       console.error('Error en la solicitud HTTP:', error);
@@ -240,18 +220,4 @@ async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
   } catch (error) {
     console.error('Error al obtener y mostrar incidencias:', error);
   }
-}
-
-function confirmarRealizado() {
-  const confirmacionModal = document.getElementById('confirmacionModal');
-  const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
-
-  // Llama a tu función realizarIncidente con el ID de la incidencia
-  realizarIncidente(idIncidencia, filaSeleccionada);
-}
-
-
-function cerrarConfirmacionModal() {
-  const confirmacionModal = document.getElementById('confirmacionModal');
-  confirmacionModal.style.display = 'none';
 }
