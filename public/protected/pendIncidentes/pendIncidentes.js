@@ -163,7 +163,6 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   }
 }
 
-
 async function realizarIncidente(idIncidencia, fila) {
   // Verifica si hay una fila seleccionada
   if (!fila) {
@@ -175,9 +174,24 @@ async function realizarIncidente(idIncidencia, fila) {
   const confirmacionModal = document.getElementById('confirmacionModal');
   confirmacionModal.style.display = 'block';
 
+  // Guarda el idIncidencia y la filaSeleccionada como atributos del modal
   confirmacionModal.setAttribute('data-id-incidencia', idIncidencia);
-  console.log (idIncidencia)
   filaSeleccionada = fila;
+
+  // Espera la respuesta del usuario
+  const confirmacion = await new Promise(resolve => {
+    const botonConfirmar = document.getElementById('botonConfirmar');
+    const botonCancelar = document.getElementById('botonCancelar');
+
+    // Resuelve la promesa al hacer clic en Confirmar
+    botonConfirmar.onclick = () => resolve(true);
+
+    // Resuelve la promesa al hacer clic en Cancelar
+    botonCancelar.onclick = () => resolve(false);
+  });
+
+  // Cierra el modal después de obtener la respuesta del usuario
+  confirmacionModal.style.display = 'none';
 
   // Verifica la respuesta del usuario
   if (confirmacion) {
@@ -187,7 +201,6 @@ async function realizarIncidente(idIncidencia, fila) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-         
         },
         body: JSON.stringify({ id_incidencia: idIncidencia })
       });
@@ -195,10 +208,9 @@ async function realizarIncidente(idIncidencia, fila) {
       const responseData = await response.json();
 
       if (responseData.success) {
-       
-        await new Promise(resolve => setTimeout(resolve, 500)); 
-        window.location.reload();// Puedes ajustar el tiempo de espera según sea necesario
-        
+        // Acción exitosa
+        await new Promise(resolve => setTimeout(resolve, 500));
+        window.location.reload(); // Puedes ajustar el tiempo de espera según sea necesario
       } else {
         // Acción fallida
         alert(`Error al cerrar la incidencia ${idIncidencia}`);
@@ -212,6 +224,7 @@ async function realizarIncidente(idIncidencia, fila) {
     console.log('Acción de cerrar incidencia cancelada por el usuario');
   }
 }
+
 
 
 
