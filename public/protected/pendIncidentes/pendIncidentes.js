@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Recupera las incidencias almacenadas en localStorage
+  
+  const storedDashboardFecha = localStorage.getItem('dashboardFecha');
+  const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
+
   getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
   const storedIncidencias = localStorage.getItem('incidencias');
   const incidencias = storedIncidencias ? JSON.parse(storedIncidencias) : [];
 
   console.log('Incidencias almacenadas:', incidencias);
-
-  const storedDashboardFecha = localStorage.getItem('dashboardFecha');
-  const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
 
   // Muestra las incidencias en la HTML
   const tablaIncidencias = document.createElement('table');
