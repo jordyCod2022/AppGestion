@@ -203,7 +203,7 @@ async function realizarIncidente(idIncidencia, fila) {
 
         // Espera a que la eliminación de la fila se complete antes de recargar la página
         await new Promise(resolve => setTimeout(resolve, 500)); // Puedes ajustar el tiempo de espera según sea necesario
-        location.reload();
+        
       } else {
         // Acción fallida
         alert(`Error al cerrar la incidencia ${idIncidencia}`);
