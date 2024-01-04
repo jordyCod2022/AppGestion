@@ -176,6 +176,7 @@ async function realizarIncidente(idIncidencia, fila) {
   confirmacionModal.style.display = 'block';
 
   confirmacionModal.setAttribute('data-id-incidencia', idIncidencia);
+  console.log (idIncidencia)
   filaSeleccionada = fila;
 
   // Verifica la respuesta del usuario

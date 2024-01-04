@@ -83,7 +83,6 @@ button.informar {
 button.realizado {
   background-color: #3498db;
 }
-
 /* Estilos para el modal */
 .modal {
   display: none;
@@ -105,6 +104,7 @@ button.realizado {
   width: 400px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   border-radius: 12px;
+  text-align: center;
 }
 
 .close {
@@ -119,9 +119,22 @@ button.realizado {
   color: #555;
 }
 
-/* Estilo para el botón dentro del modal */
-.modal-content button {
+/* Estilo para el botón de color azul */
+.modal-content .btn-blue {
   background-color: #3498db;
+  color: #fff;
+  padding: 15px 25px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para el botón de color verde */
+.modal-content .btn-green {
+  background-color: #2ecc71;
   color: #fff;
   padding: 15px 25px;
   border: none;
@@ -144,8 +157,9 @@ button.realizado {
   outline: none;
   height: 100px;
   resize: none;
-  word-wrap: break-word; /* Hace que las palabras se envuelvan si no caben en una línea */
+  word-wrap: break-word;
 }
+
 /* Estilo para el enlace dentro del modal */
 .modal-content a {
   color: #3498db;
@@ -156,6 +170,7 @@ button.realizado {
 .modal-content a:hover {
   text-decoration: underline;
 }
+
 
 
 
