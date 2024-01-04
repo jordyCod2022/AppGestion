@@ -63,8 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const incidenciasContainer = document.getElementById('incidenciasContainer');
   incidenciasContainer.appendChild(tablaIncidencias);
   getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
-  document.location.reload(true);
+  
 });
+
+document.location.reload(true);
 
 let filaSeleccionada = null;
 
