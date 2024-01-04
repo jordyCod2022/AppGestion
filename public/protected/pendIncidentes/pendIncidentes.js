@@ -41,9 +41,9 @@ function showAndProcessIncidencias(incidencias) {
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
-        realizarIncidente(incidencia.id_incidente, fila);
+       
         const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
-
+        realizarIncidente(incidencia.id_incidente, fila);
         enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje);
       };
       celdaAccion.appendChild(botonRealizado);
@@ -184,14 +184,17 @@ async function realizarIncidente(idIncidencia, fila) {
     const botonCancelar = document.getElementById('botonCancelar');
 
     // Resuelve la promesa al hacer clic en Confirmar
-    botonConfirmar.onclick = () => resolve(true);
+    botonConfirmar.onclick = () => {
+      cerrarConfirmacionModal();
+      resolve(true);
+    };
 
     // Resuelve la promesa al hacer clic en Cancelar
-    botonCancelar.onclick = () => resolve(false);
+    botonCancelar.onclick = () => {
+      cerrarConfirmacionModal();
+      resolve(false);
+    };
   });
-
-  // Cierra el modal después de obtener la respuesta del usuario
-  confirmacionModal.style.display = 'none';
 
   // Verifica la respuesta del usuario
   if (confirmacion) {
@@ -212,8 +215,8 @@ async function realizarIncidente(idIncidencia, fila) {
         await new Promise(resolve => setTimeout(resolve, 500));
         window.location.reload(); // Puedes ajustar el tiempo de espera según sea necesario
       } else {
-        // Acción fallida
-        alert(`Error al cerrar la incidencia ${idIncidencia}`);
+        // Maneja el error específico si es necesario
+        alert(`Error al cerrar la incidencia ${idIncidencia}: ${responseData.message || 'Error desconocido'}`);
       }
     } catch (error) {
       console.error('Error en la solicitud HTTP:', error);
@@ -224,7 +227,6 @@ async function realizarIncidente(idIncidencia, fila) {
     console.log('Acción de cerrar incidencia cancelada por el usuario');
   }
 }
-
 
 
 
@@ -240,17 +242,6 @@ async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
   }
 }
 
-
-function confirmarRealizado() {
-  const confirmacionModal = document.getElementById('confirmacionModal');
-  const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
-
-  // Cierra el modal de confirmación
-  cerrarConfirmacionModal();
-
-  // Llama a la función original de realizar incidencia con el ID y la fila
-  realizarIncidente(idIncidencia, filaSeleccionada);
-}
 
 function cerrarConfirmacionModal() {
   const confirmacionModal = document.getElementById('confirmacionModal');
