@@ -1,62 +1,89 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-  }
-  
-  h1 {
-    color: #333;
-  }
-  
-  .incidentes-container {
-    margin-top: 20px;
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-  }
-  
-  button {
-    padding: 5px 10px;
-    margin: 5px;
-    cursor: pointer;
-  }
-  
-  /* Estilos adicionales para mejorar la apariencia */
-  button:hover {
-    background-color: #ddd;
-  }
-  
-  .incidentia {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  /* Estilos para botones específicos si es necesario */
-  button.informar {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-  }
-  
-  button.realizado {
-    background-color: #008CBA;
-    color: white;
-    border: none;
-  }
-  
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+}
+
+h1 {
+  color: #333;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.incidentes-container {
+  margin-top: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+th, td {
+  border: 1px solid #dddddd;
+  padding: 15px;
+  text-align: left;
+}
+
+th {
+  background-color: #f5f5f5;
+}
+
+/* Estilo para alternar colores de fondo en filas */
+tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Estilo para el encabezado de la tabla */
+th {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+/* Estilo para celdas en hover */
+td:hover {
+  background-color: #e0e0e0;
+  transition: background-color 0.3s ease;
+}
+
+
+button {
+  padding: 12px 18px;
+  margin: 5px;
+  cursor: pointer;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #267bb5;
+}
+
+.incidentia {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+button.informar {
+  background-color: #2ecc71;
+}
+
+button.realizado {
+  background-color: #3498db;
+}
+
 /* Estilos para el modal */
 .modal {
   display: none;
@@ -67,23 +94,23 @@ body {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
   background-color: #fff;
   margin: 15% auto;
-  padding: 20px;
+  padding: 30px;
   border: 1px solid #ccc;
-  width: 300px; /* Ajusta el ancho del modal según tus necesidades */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
 }
 
 .close {
   color: #333;
   float: right;
-  font-size: 24px;
+  font-size: 28px;
   font-weight: bold;
   cursor: pointer;
 }
@@ -96,21 +123,110 @@ body {
 .modal-content button {
   background-color: #3498db;
   color: #fff;
-  padding: 12px 20px; /* Ajusta el tamaño del botón según tus necesidades */
+  padding: 15px 25px;
   border: none;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px; /* Espaciado superior al botón */
+  font-size: 18px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
 }
 
 /* Estilo para la barra de texto dentro del modal */
 .modal-content input[type="text"] {
   width: calc(100% - 20px);
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  padding: 15px;
+  margin: 20px 0;
+  border: 2px solid #3498db;
+  border-radius: 8px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 18px;
+  outline: none;
+}
+
+/* Estilo para el enlace dentro del modal */
+.modal-content a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+/* Estilo para el enlace dentro del modal al pasar el ratón sobre él */
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand i {
+  font-size: 32px; /* Tamaño del nuevo icono */
+  margin-right: 10px;
+}
+
+
+.brand span {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff; /* Cambiado a blanco para que sea visible en el fondo oscuro */
+}
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+
+.user-info span {
+  margin-right: 20px;
+}
+
+.logout-button {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: -5px !important; /* Ajusta el valor según sea necesario */
+}
+.logout-button:hover {
+  background-color: #c0392b; /* Nuevo color al pasar el ratón sobre el botón */
+}
+
+
+header {
+  background: #41347a;
+  padding: 10px 20px;
+  box-shadow: 0px -8px 25px #6d6d6d;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%; /* Cambiado de 97% a 100% para ajustar completamente al ancho */
+  z-index: 991;
+  display: flex;
+  justify-content: space-between; /* Para alinear los elementos en los extremos */
+}
+
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  height: 87vh;
+  margin-left: 3%;
+  border-radius: 5px;
+  box-shadow: 0px 2px 7px #6d6d6d;
+  justify-content: space-around;
+  margin-top: 63px;
+}
+
+
+.menu{
+  display:inline-block;
+  cursor: pointer;
 }
