@@ -74,12 +74,13 @@ function autogenerarMensaje() {
 
     // Plantillas de mensajes
     const plantillas = [
-      'Hola {nombre}, tu incidencia con ID {idIncidencia} está siendo atendida. En unos minutos te notificaremos su avance.',
-      'Estimado/a {nombre}, gracias por informarnos. Estamos trabajando para resolver tu incidencia con ID {idIncidencia}.',
-      'Hola {nombre}, hemos recibido tu reporte con ID {idIncidencia}. Estamos investigando la situación.',
-      'Saludos {nombre}, estamos tomando medidas para resolver tu incidencia con ID {idIncidencia}. Pronto recibirás más información.',
-      '¡Hola {nombre}!, tu reporte con ID {idIncidencia} ha sido registrado. Estamos trabajando en ello.'
+      '👋 Hola {nombre}, tu incidencia con ID {idIncidencia} está siendo atendida. En unos minutos te notificaremos su avance.',
+      '🙏 Estimado/a {nombre}, gracias por informarnos. Estamos trabajando para resolver tu incidencia con ID {idIncidencia}.',
+      '👋 Hola {nombre}, hemos recibido tu reporte con ID {idIncidencia}. Estamos investigando la situación.',
+      '👋 Saludos {nombre}, estamos tomando medidas para resolver tu incidencia con ID {idIncidencia}. Pronto recibirás más información.',
+      '🚀 ¡Hola {nombre}!, tu reporte con ID {idIncidencia} ha sido registrado. Estamos trabajando en ello.'
     ];
+    
 
     // Selecciona aleatoriamente una plantilla
     const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
