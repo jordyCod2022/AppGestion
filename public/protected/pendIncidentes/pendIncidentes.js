@@ -157,3 +157,43 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
     throw error;
   }
 }
+
+
+// Función para marcar la incidencia como "Realizado"
+async function realizarIncidente(idIncidencia) {
+  // Muestra una ventana de confirmación
+  const confirmacion = confirm(`¿Estás seguro de marcar la incidencia con ID ${idIncidencia} como "Realizado"?`);
+
+
+  // Verifica la respuesta del usuario
+  if (confirmacion) {
+    try {
+      // Realiza una solicitud HTTP para cerrar la incidencia en el servidor
+      const response = await fetch('/cerrarIncidencia', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // Puedes agregar otros encabezados según sea necesario
+        },
+        body: JSON.stringify({ id_incidencia: idIncidencia })
+      });
+
+      const responseData = await response.json();
+
+      if (responseData.success) {
+        // Acción exitosa
+        alert(`Incidencia ${idIncidencia} cerrada con éxito`);
+      } else {
+        // Acción fallida
+        alert(`Error al cerrar la incidencia ${idIncidencia}`);
+      }
+    } catch (error) {
+      console.error('Error en la solicitud HTTP:', error);
+      alert('Error al realizar la solicitud HTTP');
+    }
+  } else {
+    // No realiza la acción si el usuario cancela la confirmación
+    console.log('Acción de cerrar incidencia cancelada por el usuario');
+  }
+}
+

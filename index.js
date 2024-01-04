@@ -234,3 +234,24 @@ app.post('/enviarMensajeTelegram', async (req, res) => {
   }
 });
 
+// Ruta para actualizar el estado de la incidencia a "Cerrado"
+app.post('/cerrarIncidencia', async (req, res) => {
+  const idIncidencia = req.body.id_incidencia; // Asegúrate de pasar el ID correcto desde el cliente
+
+  try {
+    // Realizar la consulta de actualización en la base de datos
+    await pool.query(`
+      UPDATE public.incidente
+      SET id_estado = 3
+      WHERE id_incidente = $1;
+    `, [idIncidencia]);
+
+    console.log(`Incidencia ${idIncidencia} actualizada a estado "Cerrado"`);
+
+    // Respuesta exitosa
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error en la actualización de la incidencia:', error);
+    res.status(500).json({ error: 'Error al actualizar la incidencia' });
+  }
+});
