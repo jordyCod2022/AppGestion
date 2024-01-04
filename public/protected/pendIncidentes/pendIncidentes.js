@@ -41,10 +41,10 @@ function showAndProcessIncidencias(incidencias) {
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
-        realizarIncidente(incidencia.id_incidente, fila);
-        const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
+        
+        abrirConfirmacionModal(incidencia, fila);
 
-        enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje);
+       
       };
       celdaAccion.appendChild(botonRealizado);
     });
@@ -220,4 +220,43 @@ async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
   } catch (error) {
     console.error('Error al obtener y mostrar incidencias:', error);
   }
+}
+
+
+
+function abrirConfirmacionModal(incidencia, fila) {
+  const confirmacionModal = document.getElementById('confirmacionModal');
+  confirmacionModal.style.display = 'block';
+
+  // Asigna el ID de la incidencia y la fila al modal de confirmación
+  confirmacionModal.setAttribute('data-id-incidencia', incidencia.id_incidente);
+  confirmacionModal.setAttribute('data-fila', fila.rowIndex);
+  filaSeleccionada = fila;
+}
+
+// Función para cerrar el modal de confirmación
+function cerrarConfirmacionModal() {
+  const confirmacionModal = document.getElementById('confirmacionModal');
+  confirmacionModal.style.display = 'none';
+}
+
+// Función para confirmar el realizado desde el modal de confirmación
+function confirmarRealizadoDesdeModal() {
+  const confirmacionModal = document.getElementById('confirmacionModal');
+  const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
+  const fila = confirmacionModal.getAttribute('data-fila');
+
+  realizarIncidente(idIncidencia, fila)
+    .then(() => {
+      const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${idIncidencia} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
+
+      enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje);
+    })
+    .catch(error => {
+      console.error('Error al realizar la incidencia:', error);
+    })
+    .finally(() => {
+      // Cierra el modal después de realizar la incidencia (éxito o error)
+      cerrarConfirmacionModal();
+    });
 }
