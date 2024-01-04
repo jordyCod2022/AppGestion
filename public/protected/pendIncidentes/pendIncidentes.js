@@ -176,7 +176,8 @@ async function enviarMensajeTelegramResuelto(descripcion) {
     : null;
 
   try {
-    const response = await enviarMensajeTelegram(telefonoColaborador, `Incidencia resuelta: ${descripcion}`);
+    console.log(telefonoColaborador)
+    const response = enviarMensajeTelegram(telefonoColaborador, `Incidencia resuelta: ${descripcion}`);
     
     console.log('Mensaje de resolución enviado correctamente', response);
   } catch (error) {
