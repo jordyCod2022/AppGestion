@@ -142,8 +142,9 @@ button.realizado {
   box-sizing: border-box;
   font-size: 18px;
   outline: none;
-  height: 100px; /* Ajusta la altura según sea necesario */
-  resize: none; /* Evita que el usuario redimensione el cuadro de texto */
+  height: 100px;
+  resize: none;
+  word-wrap: break-word; /* Hace que las palabras se envuelvan si no caben en una línea */
 }
 /* Estilo para el enlace dentro del modal */
 .modal-content a {
