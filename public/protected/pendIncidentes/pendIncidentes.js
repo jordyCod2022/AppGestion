@@ -169,8 +169,6 @@ async function realizarIncidente(idIncidencia, fila) {
     return;
   }
 
-  filaSeleccionada = fila;
-
   // Muestra una ventana de confirmación
   const confirmacion = confirm(`¿Estás seguro de marcar la incidencia con ID ${idIncidencia} como "Realizado"?`);
 
@@ -191,8 +189,10 @@ async function realizarIncidente(idIncidencia, fila) {
 
       if (responseData.success) {
         // Acción exitosa
-        alert(`Incidencia ${idIncidencia} cerrada con éxito`);
-        filaSeleccionada.remove();
+        fila.remove(); // Elimina la fila
+
+        // Espera a que la eliminación de la fila se complete antes de recargar la página
+        await new Promise(resolve => setTimeout(resolve, 500)); // Puedes ajustar el tiempo de espera según sea necesario
         location.reload();
       } else {
         // Acción fallida
@@ -207,5 +207,4 @@ async function realizarIncidente(idIncidencia, fila) {
     console.log('Acción de cerrar incidencia cancelada por el usuario');
   }
 }
-
 
