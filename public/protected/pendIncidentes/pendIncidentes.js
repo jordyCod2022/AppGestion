@@ -66,8 +66,6 @@ document.addEventListener('DOMContentLoaded', () => {
   
 });
 
-document.location.reload(true);
-
 let filaSeleccionada = null;
 
 
