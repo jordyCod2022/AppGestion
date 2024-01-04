@@ -170,6 +170,21 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   }
 }
 
+async function enviarMensajeTelegramResuelto(descripcion) {
+  const telefonoColaborador = filaSeleccionada
+    ? filaSeleccionada.querySelector('td:nth-child(1)').textContent
+    : null;
+
+  try {
+    const response = await enviarMensajeTelegram(telefonoColaborador, `Incidencia resuelta: ${descripcion}`);
+    
+    console.log('Mensaje de resolución enviado correctamente', response);
+  } catch (error) {
+    console.error('Error al enviar mensaje de resolución:', error);
+    // Puedes manejar el error según tus necesidades
+  }
+}
+
 
 // Función para marcar la incidencia como "Realizado"
 // Función para marcar la incidencia como "Realizado"
@@ -200,6 +215,9 @@ async function realizarIncidente(idIncidencia, fila) {
 
       if (responseData.success) {
         // Acción exitosa
+
+        const descripcion = fila.querySelector('td:nth-child(3)').textContent;
+        await enviarMensajeTelegramResuelto(descripcion);
       
         actualizarLocalStorage(idIncidencia);
 
