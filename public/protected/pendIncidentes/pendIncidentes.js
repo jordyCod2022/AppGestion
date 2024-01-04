@@ -183,6 +183,7 @@ async function realizarIncidente(idIncidencia) {
       if (responseData.success) {
         // Acción exitosa
         alert(`Incidencia ${idIncidencia} cerrada con éxito`);
+        filaSeleccionada.remove(); 
         location.reload();
       } else {
         // Acción fallida
