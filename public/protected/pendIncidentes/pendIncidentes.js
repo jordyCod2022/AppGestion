@@ -166,6 +166,7 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
 
 // Función para marcar la incidencia como "Realizado"
 // Función para marcar la incidencia como "Realizado"
+// Función para marcar la incidencia como "Realizado"
 async function realizarIncidente(idIncidencia, fila) {
   // Verifica si hay una fila seleccionada
   if (!fila) {
@@ -193,8 +194,7 @@ async function realizarIncidente(idIncidencia, fila) {
 
       if (responseData.success) {
         // Acción exitosa
-      
-        actualizarLocalStorage(idIncidencia);
+        // Aquí puedes realizar cualquier acción adicional necesaria después de cerrar la incidencia
 
         // Espera a que la eliminación de la fila se complete antes de recargar la página
         await new Promise(resolve => setTimeout(resolve, 500)); // Puedes ajustar el tiempo de espera según sea necesario
@@ -212,6 +212,7 @@ async function realizarIncidente(idIncidencia, fila) {
     console.log('Acción de cerrar incidencia cancelada por el usuario');
   }
 }
+
 
 
 async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
