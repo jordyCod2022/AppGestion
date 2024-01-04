@@ -183,6 +183,7 @@ async function realizarIncidente(idIncidencia) {
       if (responseData.success) {
         // Acción exitosa
         alert(`Incidencia ${idIncidencia} cerrada con éxito`);
+        location.reload();
       } else {
         // Acción fallida
         alert(`Error al cerrar la incidencia ${idIncidencia}`);
