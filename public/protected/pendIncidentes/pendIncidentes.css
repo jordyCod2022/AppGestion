@@ -41,7 +41,7 @@ tr:nth-child(even) {
 
 /* Estilo para el encabezado de la tabla */
 th {
-  background-color: #3498db;
+  background-color: #41347a;
   color: #ffffff;
 }
 
@@ -219,12 +219,12 @@ article {
   flex-direction: column;
   align-items: center;
   width: 95%;
-  height: 87vh;
+  height: 84vh;
   margin-left: 3%;
   border-radius: 5px;
   box-shadow: 0px 2px 7px #6d6d6d;
   justify-content: space-around;
-  margin-top: 63px;
+  margin-top: 77px;
 }
 
 
