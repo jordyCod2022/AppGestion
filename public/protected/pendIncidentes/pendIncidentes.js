@@ -62,8 +62,24 @@ function informarIncidente(telefonoColaborador) {
 
 function autogenerarMensaje() {
   const mensajeInput = document.getElementById('mensajeInput');
-  mensajeInput.value = 'Tu incidencia está siendo atendida. En unos minutos te notificaremos su avance.';
+
+  // Plantillas de mensajes
+  const plantillas = [
+    'Tu incidencia está siendo atendida. En unos minutos te notificaremos su avance.',
+    'Gracias por informarnos. Estamos trabajando para resolver tu incidencia.',
+    'Hemos recibido tu reporte. Estamos investigando la situación.',
+    'Estamos tomando medidas para resolver tu incidencia. Pronto recibirás más información.',
+    'Tu reporte ha sido registrado. Estamos trabajando en ello.'
+   
+  ];
+
+  // Selecciona aleatoriamente una plantilla
+  const mensajeAleatorio = plantillas[Math.floor(Math.random() * plantillas.length)];
+
+  // Asigna el mensaje aleatorio al cuadro de texto
+  mensajeInput.value = mensajeAleatorio;
 }
+
 
 // Función para cerrar el modal
 function cerrarModal() {
