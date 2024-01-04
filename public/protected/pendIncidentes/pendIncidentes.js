@@ -115,6 +115,10 @@ function autogenerarMensaje() {
 
 function regresar() {
  
+ 
+  localStorage.removeItem('dashboardFecha');
+  localStorage.removeItem('idAsignacionUser');
+  localStorage.removeItem('incidencias');
   window.history.back();
 }
 
