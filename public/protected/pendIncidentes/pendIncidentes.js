@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log(storedDashboardFecha)
   console.log(storedIdAsignacionUser)
   
-  getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
+
   const storedIncidencias = localStorage.getItem('incidencias');
   const incidencias = storedIncidencias ? JSON.parse(storedIncidencias) : [];
 
@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Agrega la tabla al contenedor de incidencias
   const incidenciasContainer = document.getElementById('incidenciasContainer');
   incidenciasContainer.appendChild(tablaIncidencias);
+  getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
 });
 
 let filaSeleccionada = null;
