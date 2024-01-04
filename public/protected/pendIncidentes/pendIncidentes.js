@@ -201,6 +201,7 @@ async function realizarIncidente(idIncidencia, fila) {
       if (responseData.success) {
         // Acción exitosa
         fila.remove(); // Elimina la fila
+        actualizarLocalStorage();
 
         // Espera a que la eliminación de la fila se complete antes de recargar la página
         await new Promise(resolve => setTimeout(resolve, 500)); // Puedes ajustar el tiempo de espera según sea necesario
@@ -217,6 +218,24 @@ async function realizarIncidente(idIncidencia, fila) {
     // No realiza la acción si el usuario cancela la confirmación
     console.log('Acción de cerrar incidencia cancelada por el usuario');
   }
+}
+
+function actualizarLocalStorage() {
+  const tablaIncidencias = document.querySelector('table'); // Suponiendo que solo hay una tabla en la página
+  const filas = tablaIncidencias.querySelectorAll('tbody tr');
+
+  // Construye un array con los datos de las filas restantes
+  const incidenciasActualizadas = Array.from(filas).map(fila => {
+    return {
+      id_incidente: fila.cells[0].textContent,
+      nombre_colaborador: fila.cells[1].textContent,
+      incidente_descrip: fila.cells[2].textContent,
+      id_estado: fila.cells[3].textContent === 'Pendiente' ? 2 : 1
+    };
+  });
+
+  // Actualiza el almacenamiento localStorage con los datos actualizados
+  localStorage.setItem('incidencias', JSON.stringify(incidenciasActualizadas));
 }
 
 
