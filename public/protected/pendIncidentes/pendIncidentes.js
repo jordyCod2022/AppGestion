@@ -1,7 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
   // Recupera las incidencias almacenadas en localStorage
+  getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
   const storedIncidencias = localStorage.getItem('incidencias');
   const incidencias = storedIncidencias ? JSON.parse(storedIncidencias) : [];
+
+  console.log('Incidencias almacenadas:', incidencias);
+
+  const storedDashboardFecha = localStorage.getItem('dashboardFecha');
+  const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
 
   // Muestra las incidencias en la HTML
   const tablaIncidencias = document.createElement('table');
@@ -208,3 +214,19 @@ async function realizarIncidente(idIncidencia, fila) {
   }
 }
 
+
+async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
+  try {
+    // Obtener incidencias pendientes y cerradas
+    const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaDashboard}`);
+    const incidencias = await response.json();
+    console.log('Respuesta de incidencias:', incidencias);
+
+    // Almacenar incidencias en localStorage
+    localStorage.setItem('incidencias', JSON.stringify(incidencias));
+
+    // Redirigir a la otra página al hacer clic en "ticketsPendientes"
+  } catch (error) {
+    console.error('Error al obtener y mostrar incidencias:', error);
+  }
+}

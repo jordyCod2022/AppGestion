@@ -77,11 +77,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
+      localStorage.setItem('dashboardFecha', dateStr);
     },
   });
 
   // Función para actualizar los totales de incidencias con la nueva fecha
   async function updateTotalesIncidencias(newDate) {
+    localStorage.setItem('dashboardFecha', newDate);
     // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
@@ -105,33 +107,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         console.error('Elementos no encontrados');
       }
-      getAndShowIncidencias(idAsignacionUser, newDate);
+      
     }
   }
 
-  async function getAndShowIncidencias(idAsignacionUser, fechaIncidencia) {
-    try {
-      // Obtener incidencias pendientes y cerradas
-      const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaIncidencia}`);
-      const incidencias = await response.json();
-      console.log('Respuesta de incidencias:', incidencias);
 
-      // Almacenar incidencias en localStorage
-      localStorage.setItem('incidencias', JSON.stringify(incidencias));
-
-      // Redirigir a la otra página al hacer clic en "ticketsPendientes"
-      const ticketsPendientesElement = document.getElementById('ticketsPendientes');
-      if (ticketsPendientesElement) {
-        ticketsPendientesElement.addEventListener('click', () => {
-          window.location.href = '../pendIncidentes/pendIncidentes.html';
-        });
-      } else {
-        console.error('Elemento "ticketsPendientes" no encontrado');
-      }
-    } catch (error) {
-      console.error('Error al obtener y mostrar incidencias:', error);
-    }
-  }
   
 });
 
