@@ -1,29 +1,26 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Recupera las incidencias almacenadas en localStorage
-  
   const storedDashboardFecha = localStorage.getItem('dashboardFecha');
   const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
 
-  console.log(storedDashboardFecha)
-  console.log(storedIdAsignacionUser)
-  
+  console.log(storedDashboardFecha);
+  console.log(storedIdAsignacionUser);
 
-  const storedIncidencias = localStorage.getItem('incidencias');
-  const incidencias = storedIncidencias ? JSON.parse(storedIncidencias) : [];
+  // Obtener y mostrar incidencias
+  getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
+});
 
-  console.log('Incidencias almacenadas:', incidencias);
+let filaSeleccionada = null;
 
-  // Muestra las incidencias en la HTML
+
+function showAndProcessIncidencias(incidencias) {
   const tablaIncidencias = document.createElement('table');
   tablaIncidencias.border = '1';
 
   if (incidencias.length > 0) {
-    // Crea la cabecera de la tabla
     const cabecera = tablaIncidencias.createTHead();
     const filaCabecera = cabecera.insertRow();
     filaCabecera.innerHTML = '<th>ID Incidente</th><th>Nombre Colaborador</th><th>Descripción</th><th>Estado</th><th>Acción</th>';
 
-    // Llena la tabla con los datos de incidencias
     const cuerpoTabla = tablaIncidencias.createTBody();
     incidencias.forEach(incidencia => {
       const fila = cuerpoTabla.insertRow();
@@ -31,8 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
       fila.insertCell(1).textContent = incidencia.nombre_colaborador;
       fila.insertCell(2).textContent = incidencia.incidente_descrip;
       fila.insertCell(3).textContent = incidencia.id_estado === 2 ? 'Pendiente' : 'Cerrado';
-    
-      // Agregar botones con eventos onclick
+
       const celdaAccion = fila.insertCell(4);
       const botonInformar = document.createElement('button');
       botonInformar.textContent = 'Informar';
@@ -41,33 +37,26 @@ document.addEventListener('DOMContentLoaded', () => {
         autogenerarMensaje(incidencia.nombre_colaborador, incidencia.id_incidente);
       };
       celdaAccion.appendChild(botonInformar);
-      
-    
+
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
-        realizarIncidente(incidencia.id_incidente,fila);
+        realizarIncidente(incidencia.id_incidente, fila);
         const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
 
-        enviarMensajeTelegram(incidencia.telefono_colaborador,mensaje)
+        enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje);
       };
       celdaAccion.appendChild(botonRealizado);
     });
+
+    const incidenciasContainer = document.getElementById('incidenciasContainer');
+    incidenciasContainer.appendChild(tablaIncidencias);
   } else {
     const mensajeElement = document.createElement('p');
     mensajeElement.textContent = 'No hay incidencias para mostrar';
     document.body.appendChild(mensajeElement);
   }
-
-  // Agrega la tabla al contenedor de incidencias
-  const incidenciasContainer = document.getElementById('incidenciasContainer');
-  incidenciasContainer.appendChild(tablaIncidencias);
-  getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
-  
-});
-
-let filaSeleccionada = null;
-
+}
 
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador, fila) {
@@ -224,18 +213,6 @@ async function realizarIncidente(idIncidencia, fila) {
   }
 }
 
-function actualizarLocalStorage(idIncidencia) {
-  // Obtiene el array de incidencias almacenado en localStorage
-  const storedIncidencias = localStorage.getItem('incidencias');
-  const incidencias = storedIncidencias ? JSON.parse(storedIncidencias) : [];
-
-  // Encuentra y elimina la incidencia específica del array
-  const incidenciasActualizadas = incidencias.filter(incidencia => incidencia.id_incidente !== idIncidencia);
-
-  // Actualiza el almacenamiento localStorage con los datos actualizados
-  localStorage.setItem('incidencias', JSON.stringify(incidenciasActualizadas));
-  location.reload();
-}
 
 async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
   try {
@@ -243,11 +220,7 @@ async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
     const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaDashboard}`);
     const incidencias = await response.json();
     console.log('Respuesta de incidencias:', incidencias);
-
-    // Almacenar incidencias en localStorage
-    localStorage.setItem('incidencias', JSON.stringify(incidencias));
-
-    // Redirigir a la otra página al hacer clic en "ticketsPendientes"
+    showAndProcessIncidencias(incidencias);
   } catch (error) {
     console.error('Error al obtener y mostrar incidencias:', error);
   }
