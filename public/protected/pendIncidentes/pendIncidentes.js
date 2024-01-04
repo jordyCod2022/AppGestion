@@ -242,6 +242,14 @@ async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
   }
 }
 
+function confirmarRealizado() {
+  const confirmacionModal = document.getElementById('confirmacionModal');
+  const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
+
+  // Llama a tu función realizarIncidente con el ID de la incidencia
+  realizarIncidente(idIncidencia, filaSeleccionada);
+}
+
 
 function cerrarConfirmacionModal() {
   const confirmacionModal = document.getElementById('confirmacionModal');
