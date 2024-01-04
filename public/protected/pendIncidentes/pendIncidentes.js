@@ -172,7 +172,11 @@ async function realizarIncidente(idIncidencia, fila) {
   }
 
   // Muestra una ventana de confirmación
-  const confirmacion = confirm(`¿Estás seguro de marcar la incidencia con ID ${idIncidencia} como "Realizado"?`);
+  const confirmacionModal = document.getElementById('confirmacionModal');
+  confirmacionModal.style.display = 'block';
+
+  confirmacionModal.setAttribute('data-id-incidencia', idIncidencia);
+  filaSeleccionada = fila;
 
   // Verifica la respuesta del usuario
   if (confirmacion) {
@@ -220,4 +224,21 @@ async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
   } catch (error) {
     console.error('Error al obtener y mostrar incidencias:', error);
   }
+}
+
+
+function confirmarRealizado() {
+  const confirmacionModal = document.getElementById('confirmacionModal');
+  const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
+
+  // Cierra el modal de confirmación
+  cerrarConfirmacionModal();
+
+  // Llama a la función original de realizar incidencia con el ID y la fila
+  realizarIncidente(idIncidencia, filaSeleccionada);
+}
+
+function cerrarConfirmacionModal() {
+  const confirmacionModal = document.getElementById('confirmacionModal');
+  confirmacionModal.style.display = 'none';
 }
