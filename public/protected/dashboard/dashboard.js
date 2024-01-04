@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Obtener totales de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-      localStorage.setItem('c', idAsignacionUser);
+      localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de incidencias:', totalesData);
 
