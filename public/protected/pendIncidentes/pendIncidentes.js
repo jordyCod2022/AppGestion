@@ -97,8 +97,12 @@ function autogenerarMensaje() {
   }
 }
 
+function regresar() {
+ 
+  window.history.back();
+}
 
-// Función para cerrar el modal
+
 function cerrarModal() {
   const modal = document.getElementById('modal');
   modal.style.display = 'none';

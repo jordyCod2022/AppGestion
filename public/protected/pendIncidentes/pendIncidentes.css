@@ -232,3 +232,12 @@ article {
   display:inline-block;
   cursor: pointer;
 }
+
+button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  margin-right: 10px;
+  cursor: pointer;
+}
