@@ -107,9 +107,19 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         console.error('Elementos no encontrados');
       }
+
+      if (ticketsPendientesElement) {
+        ticketsPendientesElement.addEventListener('click', () => {
+          window.location.href = '../pendIncidentes/pendIncidentes.html';
+        });
+      } else {
+        console.error('Elemento "ticketsPendientes" no encontrado');
+      }
       
     }
   }
+
+
 
 
   
