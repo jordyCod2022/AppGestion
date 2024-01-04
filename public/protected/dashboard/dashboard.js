@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  location.reload();
+  
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
