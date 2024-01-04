@@ -164,9 +164,6 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
 }
 
 
-// Función para marcar la incidencia como "Realizado"
-// Función para marcar la incidencia como "Realizado"
-// Función para marcar la incidencia como "Realizado"
 async function realizarIncidente(idIncidencia, fila) {
   // Verifica si hay una fila seleccionada
   if (!fila) {
@@ -185,7 +182,7 @@ async function realizarIncidente(idIncidencia, fila) {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
-          // Puedes agregar otros encabezados según sea necesario
+         
         },
         body: JSON.stringify({ id_incidencia: idIncidencia })
       });
@@ -193,11 +190,9 @@ async function realizarIncidente(idIncidencia, fila) {
       const responseData = await response.json();
 
       if (responseData.success) {
-        // Acción exitosa
-        // Aquí puedes realizar cualquier acción adicional necesaria después de cerrar la incidencia
-
-        // Espera a que la eliminación de la fila se complete antes de recargar la página
-        await new Promise(resolve => setTimeout(resolve, 500)); // Puedes ajustar el tiempo de espera según sea necesario
+       
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+        window.location.reload();// Puedes ajustar el tiempo de espera según sea necesario
         
       } else {
         // Acción fallida
