@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
-        realizarIncidente(incidencia.id_incidente);
+        realizarIncidente(incidencia.id_incidente,fila);
       };
       celdaAccion.appendChild(botonRealizado);
     });
@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const incidenciasContainer = document.getElementById('incidenciasContainer');
   incidenciasContainer.appendChild(tablaIncidencias);
 });
+
 let filaSeleccionada = null;
 
 
@@ -160,10 +161,18 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
 
 
 // Función para marcar la incidencia como "Realizado"
-async function realizarIncidente(idIncidencia) {
+// Función para marcar la incidencia como "Realizado"
+async function realizarIncidente(idIncidencia, fila) {
+  // Verifica si hay una fila seleccionada
+  if (!fila) {
+    console.error('Error: No hay fila seleccionada para la incidencia');
+    return;
+  }
+
+  filaSeleccionada = fila;
+
   // Muestra una ventana de confirmación
   const confirmacion = confirm(`¿Estás seguro de marcar la incidencia con ID ${idIncidencia} como "Realizado"?`);
-
 
   // Verifica la respuesta del usuario
   if (confirmacion) {
@@ -183,7 +192,7 @@ async function realizarIncidente(idIncidencia) {
       if (responseData.success) {
         // Acción exitosa
         alert(`Incidencia ${idIncidencia} cerrada con éxito`);
-        filaSeleccionada.remove(); 
+        filaSeleccionada.remove();
         location.reload();
       } else {
         // Acción fallida
@@ -198,4 +207,5 @@ async function realizarIncidente(idIncidencia) {
     console.log('Acción de cerrar incidencia cancelada por el usuario');
   }
 }
+
 
