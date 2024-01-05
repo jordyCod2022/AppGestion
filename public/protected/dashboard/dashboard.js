@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   updateTotalesIncidencias(getCurrentDate());
+  updateGrafica(getCurrentDate());
 
   // Actualiza el contenido del span con el nombre del usuario
   if (nombreData && nombreData.nombre) {
@@ -118,6 +119,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Elemento "ticketsPendientes" no encontrado');
       }
       
+    }
+  }
+
+
+  async function updateGrafica(newDate) {
+    localStorage.setItem('dashboardFecha', newDate);
+    // Obtener id_asignacion_user y otros datos del localStorage
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+
+    // Verificar si hay datos y obtener id_asignacion_user
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
+
+      // Obtener totales de incidencias con la nueva fecha
+      const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+      localStorage.setItem('idAsignacionUser', idAsignacionUser);
+      const totalesData = await totalesResponse.json();
+      console.log('Resultados de las graficas:', totalesData);
+
+      // Actualizar elementos HTML con los resultados
+     
+
     }
   }
 
