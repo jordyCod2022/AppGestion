@@ -36,12 +36,15 @@
 
     <div id="modal" class="modal">
       <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <p>Ingrese el mensaje para informar el incidente:</p>
-        <input type="text" id="mensajeInput">
-        <button onclick="informarDesdeModal()">Informar</button>
+          <span class="close" onclick="cerrarModal()">&times;</span>
+          <p>Ingrese el mensaje para informar el incidente:</p>
+          <textarea id="mensajeInput" rows="4" cols="50"></textarea>
+          <button onclick="informarDesdeModal()">Informar</button>
+          <button onclick="autogenerarMensaje()">Autogenerar</button>
       </div>
     </div>
+
+
   </div>
 
   <div id="modal" class="modal">
