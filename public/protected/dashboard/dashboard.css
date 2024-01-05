@@ -84,7 +84,7 @@ header {
 }
 aside {
   width: 60px;
-  background: #fff;
+  background:#2c3e50; 
   padding: 0px 0px 10px 0px;
   position: absolute;
   left: 0;
@@ -106,7 +106,7 @@ aside ul li {
 }
 aside ul li a {
   font-size: 14px;
-  color: #4a4a4a;
+  color: #ffffff;
   text-decoration: none;
   text-transform:uppercase;   
   white-space: nowrap;
@@ -115,7 +115,7 @@ aside ul li a {
 aside ul li a span {
   display: inline-block;
   vertical-align: middle;
-  color: #000000;
+  color: #ffffff;
   width: 38px;
 }
 
