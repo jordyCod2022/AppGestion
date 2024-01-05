@@ -123,64 +123,69 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  async function updateGrafica(newDate) {
-    localStorage.setItem('dashboardFecha', newDate);
-    // Obtener id_asignacion_user y otros datos del localStorage
-    const storedNombreData = localStorage.getItem('nombreData');
-    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  
-    // Verificar si hay datos y obtener id_asignacion_user
-    if (nombreData && nombreData.username) {
-      const idAsignacionUser = nombreData.id_colaborador;
-  
-      // Obtener totales de incidencias con la nueva fecha
-      const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-      localStorage.setItem('idAsignacionUser', idAsignacionUser);
-      const totalesData = await totalesResponse.json();
-      console.log('Resultados de las graficas:', totalesData);
-  
-      // Limpiar el contenedor antes de agregar los nuevos elementos
-      const barChartContainer = document.getElementById('barChartContainer');
-      barChartContainer.innerHTML = '';
-  
-      // Iterar sobre los datos y agregar dinámicamente los elementos al contenedor
-      totalesData.forEach(({ nombre_reportador, total_incidentes }) => {
-        const barContainer = document.createElement('div');
-        barContainer.className = 'bar-container';
-  
-        const barName = document.createElement('span');
-        barName.className = 'bar-name';
-        barName.textContent = nombre_reportador;
-  
-        const bar = document.createElement('div');
-        bar.className = 'bar';
-        bar.style.height = total_incidentes + '%'; // Establecer la altura proporcional
-        bar.style.backgroundColor = getColor(); // Ajustar según tus necesidades
-  
-        const barLabel = document.createElement('span');
-        barLabel.className = 'bar-label';
-        barLabel.textContent = total_incidentes;
-  
-        // Agregar elementos al contenedor
-        barContainer.appendChild(barName);
-        barContainer.appendChild(bar);
-        barContainer.appendChild(barLabel);
-  
-        // Agregar el contenedor al contenedor principal
-        barChartContainer.appendChild(barContainer);
-      });
-    }
+ // ... (otro código)
+
+async function updateGrafica(newDate) {
+  localStorage.setItem('dashboardFecha', newDate);
+  // Obtener id_asignacion_user y otros datos del localStorage
+  const storedNombreData = localStorage.getItem('nombreData');
+  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+
+  // Verificar si hay datos y obtener id_asignacion_user
+  if (nombreData && nombreData.username) {
+    const idAsignacionUser = nombreData.id_colaborador;
+
+    // Obtener totales de incidencias con la nueva fecha
+    const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+    localStorage.setItem('idAsignacionUser', idAsignacionUser);
+    const totalesData = await totalesResponse.json();
+    console.log('Resultados de las graficas:', totalesData);
+
+    // Limpiar el contenedor antes de agregar los nuevos elementos
+    const barChartContainer = document.getElementById('barChartContainer');
+    barChartContainer.innerHTML = '';
+
+    // Iterar sobre los datos y agregar dinámicamente los elementos al contenedor
+    totalesData.forEach(({ nombre_reportador, total_incidentes }) => {
+      const barContainer = document.createElement('div');
+      barContainer.className = 'bar-container';
+
+      const barName = document.createElement('span');
+      barName.className = 'bar-name';
+      barName.textContent = nombre_reportador;
+
+      const bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = total_incidentes + '%'; // Establecer la altura proporcional
+      bar.style.backgroundColor = getRandomColor(); // Usar la función para obtener colores aleatorios
+
+      const barLabel = document.createElement('span');
+      barLabel.className = 'bar-label';
+      barLabel.textContent = total_incidentes;
+
+      // Agregar elementos al contenedor
+      barContainer.appendChild(barName);
+      barContainer.appendChild(bar);
+      barContainer.appendChild(barLabel);
+
+      // Agregar el contenedor al contenedor principal
+      barChartContainer.appendChild(barContainer);
+    });
   }
-  
-  // Función de ejemplo para obtener un color aleatorio
-  function getColor() {
-    const letters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+}
+
+// Función para obtener colores aleatorios
+function getRandomColor() {
+  const letters = '0123456789ABCDEF';
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
   }
+  return color;
+}
+
+// ... (otro código)
+
 
 
 
