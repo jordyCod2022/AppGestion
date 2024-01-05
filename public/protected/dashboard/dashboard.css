@@ -281,29 +281,30 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   align-items: flex-start; /* Ajuste para alinear a la izquierda */
   margin-top: 10px;
 }
+.bar-chart {
+  display: flex;
+  flex-direction: row;
+}
 
 .bar-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.bar-name {
-  font-size: 14px;
-  color: #333;
-  margin-right: 10px;
-  width: 80px; /* Ajuste para que haya espacio suficiente para los nombres */
+  margin: 0 10px;
 }
 
 .bar {
-  flex-grow: 1; /* Permite que las barras ocupen el espacio restante */
+  width: 40px; /* Ajusta el ancho de la barra según sea necesario */
   border-radius: 5px;
+  margin-top: auto;
+}
+
+.bar-name {
+  margin-bottom: 5px;
 }
 
 .bar-label {
   font-size: 14px;
-  color: #333;
 }
 
 
