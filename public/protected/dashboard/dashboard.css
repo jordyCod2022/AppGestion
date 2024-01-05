@@ -84,7 +84,7 @@ header {
 }
 aside {
   width: 60px;
-  background:#2c3e50; 
+  background:#41347a; 
   padding: 0px 0px 10px 0px;
   position: absolute;
   left: 0;
@@ -121,7 +121,7 @@ aside ul li a span {
 
 aside ul li:hover {
   background: #fff;
-  box-shadow: inset 0px 0px 77px #dedede;
+  box-shadow: inset 0px 0px 77px #a848fe;
 }
 aside ul li a span.notif {
   position: absolute;
