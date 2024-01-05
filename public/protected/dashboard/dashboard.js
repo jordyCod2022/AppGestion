@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
+      updateGrafica(dateStr)
       localStorage.setItem('dashboardFecha', dateStr);
     },
   });
