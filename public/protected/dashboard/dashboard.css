@@ -438,3 +438,50 @@ background-color: #18fa04; /* Color de fondo de cada prioridad */
 .change-date-button:hover {
   background-color: #45a049; /* Cambia el color de fondo al pasar el ratón */
 }
+
+
+
+
+@media only screen and (max-width: 768px) {
+  header {
+    padding: 10px; /* Ajusta el espaciado en la barra de navegación */
+  }
+
+  .brand i {
+    font-size: 24px; /* Ajusta el tamaño del icono en el encabezado */
+  }
+
+  .brand span {
+    font-size: 18px; /* Ajusta el tamaño del texto en el encabezado */
+  }
+
+  .user-info span {
+    margin-right: 10px; /* Ajusta el espaciado en la información del usuario */
+  }
+
+  /* Agrega más ajustes según sea necesario */
+  
+  /* Ajustes para el diseño de la sección principal */
+  .main {
+    padding-top: 10px;
+  }
+
+  aside {
+    width: 100%;
+    position: static;
+    height: auto;
+    box-shadow: none;
+    margin-top: 0;
+  }
+
+  /* Ajustes para elementos específicos en pantallas más pequeñas */
+  .dashboard-item {
+    width: 100%;
+  }
+
+  .bar-chart {
+    flex-wrap: wrap; /* Ajusta el diseño de la gráfica de barras */
+  }
+
+  /* Ajustes para otras clases y elementos según sea necesario */
+}
