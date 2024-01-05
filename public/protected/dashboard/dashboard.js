@@ -157,7 +157,7 @@ async function updateGrafica(newDate) {
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.height = total_incidentes + '%'; // Establecer la altura proporcional
-      bar.style.backgroundColor = getRandomColor(); // Usar la función para obtener colores aleatorios
+    
 
       const barLabel = document.createElement('span');
       barLabel.className = 'bar-label';
@@ -175,14 +175,6 @@ async function updateGrafica(newDate) {
 }
 
 // Función para obtener colores aleatorios
-function getRandomColor() {
-  const letters = '0123456789ABCDEF';
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 // ... (otro código)
 
