@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
  // ... (otro código)
 
-async function updateGrafica(newDate) {
+ async function updateGrafica(newDate) {
   localStorage.setItem('dashboardFecha', newDate);
   // Obtener id_asignacion_user y otros datos del localStorage
   const storedNombreData = localStorage.getItem('nombreData');
@@ -157,7 +157,7 @@ async function updateGrafica(newDate) {
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.height = total_incidentes + '%'; // Establecer la altura proporcional
-    
+      bar.style.backgroundColor = '#3498db'; // Establecer el color directamente
 
       const barLabel = document.createElement('span');
       barLabel.className = 'bar-label';
