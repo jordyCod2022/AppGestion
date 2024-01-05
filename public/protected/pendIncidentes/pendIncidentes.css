@@ -14,15 +14,20 @@ h1 {
 .incidentes-container {
   margin-top: 20px;
 }
+
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
   background-color: #ffffff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
+  position: relative;
+  z-index: 0;
+  height: 100%; 
+  margin-top: 10px;/* Asegura que la tabla ocupe toda la altura del contenedor */
 }
+
 
 th, td {
   border: 1px solid #dddddd;
@@ -231,20 +236,6 @@ header {
 }
 
 
-article {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 95%;
-  height: 84vh;
-  margin-left: 3%;
-  border-radius: 5px;
-  box-shadow: 0px 2px 7px #6d6d6d;
-  justify-content: space-around;
-  margin-top: 77px;
-}
-
-
 .menu{
   display:inline-block;
   cursor: pointer;
@@ -257,4 +248,27 @@ button {
   padding: 10px;
   margin-right: 10px;
   cursor: pointer;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  min-height: 100vh; /* Establece un mínimo del 100% de la altura de la ventana */
+  margin-left: 3%;
+  border-radius: 5px;
+  box-shadow: 0px 2px 7px #6d6d6d;
+  justify-content: flex-start; /* Alinea el contenido al principio */
+  margin-top: 63px;
+  position: relative;
+  z-index: 1;
+}
+
+#contenidoArticle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  flex-grow: 1; /* Hace que este div crezca para llenar el espacio restante */
 }

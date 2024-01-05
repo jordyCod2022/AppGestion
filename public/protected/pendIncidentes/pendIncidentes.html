@@ -21,17 +21,27 @@
   <article>
 
     
-  <div id="incidenciasContainer">
-    <table border="1">
-      <thead>
-        <tr>
-         
-        </tr>
-      </thead>
-      <tbody id="tablaIncidencias">
-        <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
-      </tbody>
-    </table>
+    <div id="incidenciasContainer">
+      <table border="1">
+        <thead>
+          <tr>
+           
+          </tr>
+        </thead>
+        <tbody id="tablaIncidencias">
+          <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
+        </tbody>
+      </table>
+    </div>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <p>Ingrese el mensaje para informar el incidente:</p>
+        <input type="text" id="mensajeInput">
+        <button onclick="informarDesdeModal()">Informar</button>
+      </div>
+    </div>
   </div>
 
   <div id="modal" class="modal">
