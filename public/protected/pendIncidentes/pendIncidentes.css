@@ -278,6 +278,7 @@ article {
   font-size: 20px;
   color: #333; /* Color negro para el icono de tres rayas */
 }
+
 .menu-contenedor {
   display: none;
   position: absolute;
@@ -285,8 +286,6 @@ article {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   z-index: 1;
-  left: 40px; /* Ajusta el valor según sea necesario para dar espacio entre el icono y el menú */
-  top: 10px; /* Ajusta el valor según sea necesario para dar espacio entre el icono y el menú */
 }
 
 .icono-tres-rayas:hover + .menu-contenedor,
