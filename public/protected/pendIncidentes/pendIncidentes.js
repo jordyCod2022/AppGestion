@@ -43,7 +43,8 @@ function showAndProcessIncidencias(incidencias) {
       botonRealizado.onclick = function () {
         
         abrirConfirmacionModal(incidencia, fila);
-        
+       
+
        
       };
       celdaAccion.appendChild(botonRealizado);
@@ -184,7 +185,9 @@ async function realizarIncidente(idIncidencia, fila) {
 
     if (responseData.success) {
       await new Promise(resolve => setTimeout(resolve, 500));
-      window.location.reload(); // Puedes ajustar el tiempo de espera según sea necesario
+      const mensaje = `¡Hola ${fila.cells[1].textContent}! Tu incidente con ID: ${idIncidencia} ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
+      await enviarMensajeTelegram(fila.cells[0].textContent, mensaje);
+      window.location.reload(); 
       return true;
     } else {
       // Acción fallida
@@ -223,33 +226,6 @@ function abrirConfirmacionModal(incidencia, fila) {
   confirmacionModal.setAttribute('data-id-incidencia', incidencia.id_incidente);
   confirmacionModal.setAttribute('data-fila', fila.rowIndex);
   filaSeleccionada = fila;
-
-  // Maneja el botón "Realizado" del modal de confirmación
-  const botonRealizadoModal = document.getElementById('botonRealizadoModal');
-  botonRealizadoModal.onclick = function() {
-    cerrarConfirmacionModal(); // Cierra el modal de confirmación
-
-    const resultado = confirmarRealizadoDesdeModal();
-    console.log(resultado);
-    if (resultado) {
-      console.log(incidencia.telefono_colaborador)
-      console.log(mensaje)
-      const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
-      enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje)
-        .then(response => {
-          console.log('Mensaje enviado correctamente', response);
-          // Puedes realizar más acciones si es necesario
-        })
-        .catch(error => {
-          console.error('Error al enviar mensaje:', error);
-          alert('Error al enviar mensaje');
-        });
-
-      // Puedes realizar más acciones si es necesario
-    } else {
-      alert(`Error al ejecutar la acción`);
-    }
-  };
 }
 
 // Función para cerrar el modal de confirmación
