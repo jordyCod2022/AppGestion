@@ -63,7 +63,7 @@ header {
 }
 
 header {
-  background: #41347a;
+  background: #1b2838;
   padding: 10px 20px;
   box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
   top: 0;
@@ -84,7 +84,7 @@ header {
 }
 aside {
   width: 60px;
-  background:#41347a; 
+  background:#1b2838; 
   padding: 0px 0px 10px 0px;
   position: absolute;
   left: 0;
@@ -239,7 +239,7 @@ article {
   height: 89vh;
   margin-left: 6%;
   border-radius: 5px;
-  box-shadow: 0px 2px 7px #6d6d6d;
+  box-shadow: 0px 2px 7px #99aab5;
   justify-content: space-around;
 }
 
@@ -253,7 +253,7 @@ width: 100%;
 
 .dashboard-item {
 text-align: center;
-background-color: #6e2e2e;
+background-color: #d3d3d3;
 box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 border-radius: 8px;
 overflow: hidden;
