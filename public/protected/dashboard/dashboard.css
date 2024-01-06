@@ -415,7 +415,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 margin: 0 10px;
-background-color: #e22020; /* Color de fondo de cada prioridad */
+background-color: #d9534f; /* Color de fondo de cada prioridad */
 }
 
 .priority-medio {
@@ -428,7 +428,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 margin: 0 10px;
-background-color: #faf604; /* Color de fondo de cada prioridad */
+background-color: #ffd83d; /* Color de fondo de cada prioridad */
 }
 
 .priority-bajo {
@@ -441,7 +441,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 margin: 0 10px;
-background-color: #18fa04; /* Color de fondo de cada prioridad */
+background-color: #5cb85c; /* Color de fondo de cada prioridad */
 }
 
 .change-date-button {
