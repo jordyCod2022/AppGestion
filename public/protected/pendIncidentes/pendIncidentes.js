@@ -175,7 +175,7 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
 async function realizarIncidente(idIncidencia, fila) {
   // Verifica si hay una fila seleccionada
   if (!fila) {
-    console.error('Error: No hay fila seleccionada para la incidencia');
+    console.error('Error No hay fila seleccionada para la incidencia');
     return false;
   }
 
