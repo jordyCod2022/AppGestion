@@ -278,11 +278,13 @@ article {
   font-size: 20px;
   color: #333; /* Color negro para el icono de tres rayas */
 }
+
 .menu-contenedor {
   display: none;
-  position: fixed; /* Cambiado a posición fija para que se muestre fuera de la tabla */
-  top: 30px; /* Ajusta la posición superior según tus necesidades */
-  left: 30px; /* Ajusta la posición izquierda según tus necesidades */
+  position: absolute;
+  top: 0;
+  left: 100%; /* Coloca el menú a la derecha del icono */
+  margin-left: 10px; /* Ajusta el espacio entre el icono y el menú */
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -307,4 +309,3 @@ article {
 .menu-contenedor button:hover {
   background-color: #f9f9f9;
 }
-
