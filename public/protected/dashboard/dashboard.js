@@ -146,8 +146,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
   
       // Crear arrays para etiquetas (nombres) y datos (cantidades)
-      const etiquetas = totalesData.map(item => item.nombre);
-      const datos = totalesData.map(item => item.cantidad);
+      const etiquetas = totalesData.map(item => item.nombre_reportador);
+      const datos = totalesData.map(item => item.total_incidentes);
   
       // Crear el gráfico de barras vertical
       window.barChart = new Chart(barChartContainer, {
