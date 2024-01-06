@@ -171,8 +171,23 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
       });
+  
+      // Ajustar la altura de los elementos según la cantidad de nombres
+      const dashboardItems = document.querySelectorAll('.dashboard-item');
+      const maxHeight = Math.max(...datos) * 20; // Ajusta el factor según tus necesidades
+  
+      dashboardItems.forEach((item, index) => {
+        const barHeight = datos[index] * 20; // Ajusta el factor según tus necesidades
+        const infoContainer = item.querySelector('.info-container');
+  
+        // Establecer la altura mínima y máxima
+        infoContainer.style.minHeight = '50px'; // Altura mínima
+        infoContainer.style.maxHeight = maxHeight + 'px'; // Altura máxima
+        infoContainer.style.height = barHeight + 'px'; // Altura dinámica
+      });
     }
   }
+  
   
  // ... (otro código)
  
