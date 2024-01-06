@@ -25,9 +25,9 @@
     border-radius: 30px;
     box-shadow: 0 0 2em #e6e9f9;
     gap: 2em;
-    max-width: 100%; /* Ajuste para que ocupe todo el ancho */
+    max-width: 30%; /* Ajuste para que ocupe todo el ancho */
     width: 100%;
-    margin: 0; /* Elimina el margen horizontal */
+    margin: 0 auto; /* Elimina el margen horizontal */
 } 
 
   .screen-1 .logo {
@@ -123,6 +123,7 @@
   @media only screen and (max-width: 600px) {
     .screen-1 {
         padding: 1em;
+        max-width: 30%;
     }
 
     .screen-1 .email,
