@@ -1,31 +1,21 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const iconoTresRayas = document.querySelector('.icono-tres-rayas');
-  const menuContenedor = document.querySelector('.menu-contenedor');
-
-  iconoTresRayas.addEventListener('click', function (event) {
-    // Obtén la posición del icono clicado
-    const rect = iconoTresRayas.getBoundingClientRect();
-
-    // Posiciona el menú al lado del icono
-    menuContenedor.style.display = 'block';
-    menuContenedor.style.top = rect.bottom + 'px';  // Ajusta según sea necesario
-    menuContenedor.style.left = rect.right + 'px'; // Ajusta según sea necesario
-  });
-
-  document.addEventListener('click', function (event) {
-    // Cerrar el menú si se hace clic fuera de él o del icono
-    if (event.target !== iconoTresRayas && !menuContenedor.contains(event.target)) {
-      menuContenedor.style.display = 'none';
-    }
-  });
-
-  // Resto del código JavaScript
+document.addEventListener('DOMContentLoaded', () => {
   const storedDashboardFecha = localStorage.getItem('dashboardFecha');
   const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
 
+  console.log(storedDashboardFecha);
+  console.log(storedIdAsignacionUser);
+
   // Obtener y mostrar incidencias
   getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
+
+  // Agregar un manejador de eventos para cerrar el menú al hacer clic en cualquier lugar fuera del menú
+  document.addEventListener('click', function (event) {
+    if (!event.target.classList.contains('icono-tres-rayas')) {
+      cerrarMenus();
+    }
+  });
 });
+
 let filaSeleccionada = null;
 
 function showAndProcessIncidencias(incidencias) {
