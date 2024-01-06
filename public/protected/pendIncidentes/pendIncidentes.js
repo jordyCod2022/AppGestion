@@ -43,6 +43,7 @@ function showAndProcessIncidencias(incidencias) {
       botonRealizado.onclick = function () {
         
         abrirConfirmacionModal(incidencia, fila);
+        let resultado;
         console.log(resultado)
         if(resultado){
           const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
