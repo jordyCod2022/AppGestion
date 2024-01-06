@@ -185,8 +185,13 @@ async function realizarIncidente(idIncidencia, fila) {
 
     if (responseData.success) {
       await new Promise(resolve => setTimeout(resolve, 500));
+      console.log('Datos enviados para Telegram:');
+      console.log('Nombre Colaborador:', fila.cells[1].textContent);
+      console.log('ID Incidencia:', idIncidencia);
+      
       const mensaje = `¡Hola ${fila.cells[1].textContent}! Tu incidente con ID: ${idIncidencia} ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
       await enviarMensajeTelegram(fila.cells[0].textContent, mensaje);
+
       window.location.reload(); 
       return true;
     } else {
@@ -200,7 +205,6 @@ async function realizarIncidente(idIncidencia, fila) {
     return false;
   }
 }
-
 
 
 
