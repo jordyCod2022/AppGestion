@@ -20,11 +20,14 @@
     padding: 2em;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     border-radius: 30px;
     box-shadow: 0 0 2em #e6e9f9;
     gap: 2em;
-    max-width: 400px; /* Agregado para limitar el ancho máximo */
-    width: 100%; /* Hace que el contenedor ocupe el 100% del ancho disponible */
+    max-width: 400px;
+    width: 100%;
+    margin: auto; /* Centra horizontalmente en dispositivos móviles */
   }
   .screen-1 .logo {
     margin-top: -3em;
@@ -120,15 +123,22 @@
     .screen-1 {
       padding: 1em;
     }
-    
+  
     .screen-1 .email,
     .screen-1 .password {
-      margin-top: 0; /* Elimina el margen superior */
+      text-align: center;
+    }
+  
+    .screen-1 .email input,
+    .screen-1 .password input,
+    .screen-1 .login {
+      width: 100%;
     }
   
     .screen-1 .footer {
       gap: 1em;
       padding-bottom: 1em;
-      flex-direction: column; /* Cambia la dirección de la columna en pantallas pequeñas */
+      flex-direction: column;
+      text-align: center;
     }
   }
