@@ -7,13 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Obtener y mostrar incidencias
   getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
-
-  // Agregar un manejador de eventos para cerrar el menú al hacer clic en cualquier lugar fuera del menú
-  document.addEventListener('click', function (event) {
-    if (!event.target.classList.contains('icono-tres-rayas')) {
-      cerrarMenus();
-    }
-  });
 });
 
 let filaSeleccionada = null;
@@ -36,12 +29,14 @@ function showAndProcessIncidencias(incidencias) {
       fila.insertCell(3).textContent = incidencia.id_estado === 2 ? 'Pendiente' : 'Cerrado';
 
       const celdaAccion = fila.insertCell(4);
+      const accionesDropdown = document.createElement('div');
+      accionesDropdown.classList.add('acciones-dropdown');
 
-      // Icono de tres rayas (menú hamburguesa)
-      const iconoTresRayas = document.createElement('div');
-      iconoTresRayas.classList.add('icono-tres-rayas');
-      iconoTresRayas.innerHTML = '&#9776;'; // Puedes cambiarlo según tus necesidades
-      celdaAccion.appendChild(iconoTresRayas);
+      // Botón con los tres puntitos
+      const botonTresPuntos = document.createElement('button');
+      botonTresPuntos.innerHTML = 'more_vert'; // Icono de tres puntitos (puedes cambiarlo según tus necesidades)
+      botonTresPuntos.classList.add('tres-puntos');
+      accionesDropdown.appendChild(botonTresPuntos);
 
       // Contenedor para los botones del menú
       const menuContenedor = document.createElement('div');
@@ -53,7 +48,6 @@ function showAndProcessIncidencias(incidencias) {
       botonInformar.onclick = function () {
         informarIncidente(incidencia.telefono_colaborador, fila);
         autogenerarMensaje(incidencia.nombre_colaborador, incidencia.id_incidente);
-        cerrarMenus();
       };
       menuContenedor.appendChild(botonInformar);
 
@@ -61,19 +55,14 @@ function showAndProcessIncidencias(incidencias) {
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
         abrirConfirmacionModal(incidencia, fila);
-        cerrarMenus();
       };
       menuContenedor.appendChild(botonRealizado);
 
       // Agrega el menú al contenedor de acciones
-      celdaAccion.appendChild(menuContenedor);
+      accionesDropdown.appendChild(menuContenedor);
 
-      // Agrega un manejador de eventos para abrir el menú al hacer clic en el icono
-      iconoTresRayas.addEventListener('click', function (event) {
-        event.stopPropagation(); // Evita que el clic llegue al documento y cierre el menú
-        cerrarOtrosMenus(menuContenedor);
-        menuContenedor.style.display = (menuContenedor.style.display === 'block') ? 'none' : 'block';
-      });
+      // Agrega el contenedor de acciones a la celda de acciones
+      celdaAccion.appendChild(accionesDropdown);
     });
 
     const incidenciasContainer = document.getElementById('incidenciasContainer');
@@ -84,25 +73,6 @@ function showAndProcessIncidencias(incidencias) {
     document.body.appendChild(mensajeElement);
   }
 }
-
-// Agregar una función para cerrar todos los menús desplegables
-function cerrarMenus() {
-  const menus = document.querySelectorAll('.menu-contenedor');
-  menus.forEach(menu => {
-    menu.style.display = 'none';
-  });
-}
-
-// Agregar una función para cerrar todos los menús excepto el proporcionado
-function cerrarOtrosMenus(menuActual) {
-  const menus = document.querySelectorAll('.menu-contenedor');
-  menus.forEach(menu => {
-    if (menu !== menuActual) {
-      menu.style.display = 'none';
-    }
-  });
-}
-
 
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador, fila) {
