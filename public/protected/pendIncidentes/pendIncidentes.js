@@ -10,7 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let filaSeleccionada = null;
-
 function showAndProcessIncidencias(incidencias) {
   const tablaIncidencias = document.createElement('table');
   tablaIncidencias.border = '1';
@@ -58,6 +57,11 @@ function showAndProcessIncidencias(incidencias) {
 
       // Agrega el menú al contenedor de acciones
       celdaAccion.appendChild(menuContenedor);
+
+      // Agrega un manejador de eventos para abrir el menú al hacer clic en el icono
+      iconoTresRayas.addEventListener('click', function () {
+        menuContenedor.style.display = (menuContenedor.style.display === 'block') ? 'none' : 'block';
+      });
     });
 
     const incidenciasContainer = document.getElementById('incidenciasContainer');

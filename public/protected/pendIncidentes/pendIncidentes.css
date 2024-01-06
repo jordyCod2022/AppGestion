@@ -273,10 +273,10 @@ article {
   width: 100%;
   flex-grow: 1; /* Hace que este div crezca para llenar el espacio restante */
 }
-
 .icono-tres-rayas {
   cursor: pointer;
   font-size: 20px;
+  color: #333; /* Color negro para el icono de tres rayas */
 }
 
 .menu-contenedor {
@@ -301,8 +301,9 @@ article {
   border: none;
   background-color: transparent;
   cursor: pointer;
+  color: #333; /* Color negro para el texto de los botones */
 }
 
 .menu-contenedor button:hover {
-  background-color: #f9f9f9;
+  background-color: #c5c4c4;
 }
