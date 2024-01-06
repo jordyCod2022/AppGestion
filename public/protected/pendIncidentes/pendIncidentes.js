@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let filaSeleccionada = null;
 
-
 function showAndProcessIncidencias(incidencias) {
   const tablaIncidencias = document.createElement('table');
   tablaIncidencias.border = '1';
@@ -30,22 +29,40 @@ function showAndProcessIncidencias(incidencias) {
       fila.insertCell(3).textContent = incidencia.id_estado === 2 ? 'Pendiente' : 'Cerrado';
 
       const celdaAccion = fila.insertCell(4);
+      const accionesDropdown = document.createElement('div');
+      accionesDropdown.classList.add('acciones-dropdown');
+
+      // Botón con los tres puntitos
+      const botonTresPuntos = document.createElement('button');
+      botonTresPuntos.innerHTML = 'more_vert'; // Icono de tres puntitos (puedes cambiarlo según tus necesidades)
+      botonTresPuntos.classList.add('tres-puntos');
+      accionesDropdown.appendChild(botonTresPuntos);
+
+      // Contenedor para los botones del menú
+      const menuContenedor = document.createElement('div');
+      menuContenedor.classList.add('menu-contenedor');
+
+      // Botones dentro del menú
       const botonInformar = document.createElement('button');
       botonInformar.textContent = 'Informar';
       botonInformar.onclick = function () {
         informarIncidente(incidencia.telefono_colaborador, fila);
         autogenerarMensaje(incidencia.nombre_colaborador, incidencia.id_incidente);
       };
-      celdaAccion.appendChild(botonInformar);
+      menuContenedor.appendChild(botonInformar);
 
       const botonRealizado = document.createElement('button');
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
-        
         abrirConfirmacionModal(incidencia, fila);
-       
       };
-      celdaAccion.appendChild(botonRealizado);
+      menuContenedor.appendChild(botonRealizado);
+
+      // Agrega el menú al contenedor de acciones
+      accionesDropdown.appendChild(menuContenedor);
+
+      // Agrega el contenedor de acciones a la celda de acciones
+      celdaAccion.appendChild(accionesDropdown);
     });
 
     const incidenciasContainer = document.getElementById('incidenciasContainer');
