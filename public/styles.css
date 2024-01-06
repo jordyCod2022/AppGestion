@@ -121,24 +121,24 @@
 
   @media only screen and (max-width: 600px) {
     .screen-1 {
-      padding: 1em;
+        padding: 1em;
     }
-  
+
     .screen-1 .email,
     .screen-1 .password {
-      text-align: center;
+        text-align: center;
     }
-  
+
     .screen-1 .email input,
     .screen-1 .password input,
     .screen-1 .login {
-      width: 100%;
+        width: 100%;
+        margin: 0; /* Añadido para eliminar el margen horizontal */
     }
-  
+
     .screen-1 .footer {
-      gap: 1em;
-      padding-bottom: 1em;
-      flex-direction: column;
-      text-align: center;
-    }
-  }
+        gap: 1em;
+        padding-bottom: 1em;
+        flex-direction: column;
+        text-align: center;
+    }}
