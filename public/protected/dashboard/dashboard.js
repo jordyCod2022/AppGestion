@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
  // ... (otro código)
-
  async function updateGrafica(newDate) {
   localStorage.setItem('dashboardFecha', newDate);
   // Obtener id_asignacion_user y otros datos del localStorage
@@ -145,6 +144,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const barChartContainer = document.getElementById('barChartContainer');
     barChartContainer.innerHTML = '';
 
+    // Color específico para todas las barras (puedes cambiarlo)
+    const barColor = '#3498db'; // Por ejemplo, azul
+
     // Iterar sobre los datos y agregar dinámicamente los elementos al contenedor
     totalesData.forEach(({ nombre_reportador, total_incidentes }) => {
       const barContainer = document.createElement('div');
@@ -157,7 +159,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const bar = document.createElement('div');
       bar.className = 'bar';
       bar.style.height = total_incidentes + '%'; // Establecer la altura proporcional
-      bar.style.backgroundColor = '#3498db'; // Establecer el color directamente
+      bar.style.backgroundColor = barColor; // Asignar el color específico
 
       const barLabel = document.createElement('span');
       barLabel.className = 'bar-label';
@@ -173,12 +175,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   }
 }
-
-// Función para obtener colores aleatorios
-
-// ... (otro código)
-
-
 
 
   
