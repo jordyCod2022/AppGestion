@@ -29,14 +29,12 @@ function showAndProcessIncidencias(incidencias) {
       fila.insertCell(3).textContent = incidencia.id_estado === 2 ? 'Pendiente' : 'Cerrado';
 
       const celdaAccion = fila.insertCell(4);
-      const accionesDropdown = document.createElement('div');
-      accionesDropdown.classList.add('acciones-dropdown');
 
-      // Botón con los tres puntitos
-      const botonTresPuntos = document.createElement('button');
-      botonTresPuntos.innerHTML = 'more_vert'; // Icono de tres puntitos (puedes cambiarlo según tus necesidades)
-      botonTresPuntos.classList.add('tres-puntos');
-      accionesDropdown.appendChild(botonTresPuntos);
+      // Icono de tres rayas (menú hamburguesa)
+      const iconoTresRayas = document.createElement('div');
+      iconoTresRayas.classList.add('icono-tres-rayas');
+      iconoTresRayas.innerHTML = '&#9776;'; // Puedes cambiarlo según tus necesidades
+      celdaAccion.appendChild(iconoTresRayas);
 
       // Contenedor para los botones del menú
       const menuContenedor = document.createElement('div');
@@ -59,10 +57,7 @@ function showAndProcessIncidencias(incidencias) {
       menuContenedor.appendChild(botonRealizado);
 
       // Agrega el menú al contenedor de acciones
-      accionesDropdown.appendChild(menuContenedor);
-
-      // Agrega el contenedor de acciones a la celda de acciones
-      celdaAccion.appendChild(accionesDropdown);
+      celdaAccion.appendChild(menuContenedor);
     });
 
     const incidenciasContainer = document.getElementById('incidenciasContainer');

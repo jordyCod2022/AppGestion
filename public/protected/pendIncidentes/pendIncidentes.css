@@ -274,17 +274,9 @@ article {
   flex-grow: 1; /* Hace que este div crezca para llenar el espacio restante */
 }
 
-.acciones-dropdown {
-  position: relative;
-  display: inline-block;
-}
-
-.tres-puntos {
-  background-color: transparent;
-  border: none;
-  font-size: 20px;
+.icono-tres-rayas {
   cursor: pointer;
-  color: #333;
+  font-size: 20px;
 }
 
 .menu-contenedor {
@@ -297,7 +289,8 @@ article {
   top: 30px;
 }
 
-.acciones-dropdown:hover .menu-contenedor {
+.icono-tres-rayas:hover + .menu-contenedor,
+.menu-contenedor:hover {
   display: block;
 }
 
