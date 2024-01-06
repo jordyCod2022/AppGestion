@@ -134,44 +134,36 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (nombreData && nombreData.username) {
     const idAsignacionUser = nombreData.id_colaborador;
 
-    // Obtener totales de incidencias con la nueva fecha
+    // Obtener datos de incidencias con la nueva fecha
     const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
     localStorage.setItem('idAsignacionUser', idAsignacionUser);
     const totalesData = await totalesResponse.json();
     console.log('Resultados de las graficas:', totalesData);
 
-    // Limpiar el contenedor antes de agregar los nuevos elementos
-    const barChartContainer = document.getElementById('barChartContainer');
-    barChartContainer.innerHTML = '';
+    // Crear arrays para labels (nombres) y data (cantidades)
+    const labels = totalesData.map(item => item.nombre);
+    const data = totalesData.map(item => item.cantidad);
 
-    // Color específico para todas las barras (puedes cambiarlo)
-    const barColor = '#3498db'; // Por ejemplo, azul
-
-    // Iterar sobre los datos y agregar dinámicamente los elementos al contenedor
-    totalesData.forEach(({ nombre_reportador, total_incidentes }) => {
-      const barContainer = document.createElement('div');
-      barContainer.className = 'bar-container';
-
-      const barName = document.createElement('span');
-      barName.className = 'bar-name';
-      barName.textContent = nombre_reportador;
-
-      const bar = document.createElement('div');
-      bar.className = 'bar';
-  // Establecer la altura proporcional
-    // Asignar el color específico
-
-      const barLabel = document.createElement('span');
-      barLabel.className = 'bar-label';
-      barLabel.textContent = total_incidentes;
-
-      // Agregar elementos al contenedor
-      barContainer.appendChild(barName);
-      barContainer.appendChild(bar);
-      barContainer.appendChild(barLabel);
-
-      // Agregar el contenedor al contenedor principal
-      barChartContainer.appendChild(barContainer);
+    // Crear el gráfico de barras
+    const barChart = new Chart(barChartContainer, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Incidentes Reportados',
+          data: data,
+          backgroundColor: 'rgba(75, 192, 192, 0.2)', // Puedes personalizar el color
+          borderColor: 'rgba(75, 192, 192, 1)', // Puedes personalizar el color
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
     });
   }
 }
