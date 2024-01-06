@@ -273,3 +273,43 @@ article {
   width: 100%;
   flex-grow: 1; /* Hace que este div crezca para llenar el espacio restante */
 }
+
+.acciones-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.tres-puntos {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+}
+
+.menu-contenedor {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  right: 0;
+  top: 30px;
+}
+
+.acciones-dropdown:hover .menu-contenedor {
+  display: block;
+}
+
+.menu-contenedor button {
+  width: 100%;
+  text-align: left;
+  padding: 10px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.menu-contenedor button:hover {
+  background-color: #f9f9f9;
+}
