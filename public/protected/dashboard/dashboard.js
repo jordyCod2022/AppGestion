@@ -158,8 +158,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       const bar = document.createElement('div');
       bar.className = 'bar';
-      bar.style.height = total_incidentes + '%'; // Establecer la altura proporcional
-      bar.style.backgroundColor = barColor; // Asignar el color específico
+  // Establecer la altura proporcional
+    // Asignar el color específico
 
       const barLabel = document.createElement('span');
       barLabel.className = 'bar-label';
