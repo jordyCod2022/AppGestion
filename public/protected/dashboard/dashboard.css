@@ -239,8 +239,9 @@ article {
   height: 89vh;
   margin-left: 6%;
   border-radius: 5px;
-  box-shadow: 0px 2px 7px #99aab5;
+  box-shadow: 0px 2px 7px ;
   justify-content: space-around;
+  background-color: #99aab5;
 }
 
 
@@ -253,7 +254,7 @@ width: 100%;
 
 .dashboard-item {
 text-align: center;
-background-color: #d3d3d3;
+background-color: #bebebe;
 box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 border-radius: 8px;
 overflow: hidden;
