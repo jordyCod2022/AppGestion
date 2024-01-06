@@ -7,9 +7,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Obtener y mostrar incidencias
   getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
+
+  // Agregar un manejador de eventos para cerrar el menú al hacer clic en cualquier lugar fuera del menú
+  document.addEventListener('click', function (event) {
+    if (!event.target.classList.contains('icono-tres-rayas')) {
+      cerrarMenus();
+    }
+  });
 });
 
 let filaSeleccionada = null;
+
 function showAndProcessIncidencias(incidencias) {
   const tablaIncidencias = document.createElement('table');
   tablaIncidencias.border = '1';
@@ -45,6 +53,7 @@ function showAndProcessIncidencias(incidencias) {
       botonInformar.onclick = function () {
         informarIncidente(incidencia.telefono_colaborador, fila);
         autogenerarMensaje(incidencia.nombre_colaborador, incidencia.id_incidente);
+        cerrarMenus();
       };
       menuContenedor.appendChild(botonInformar);
 
@@ -52,6 +61,7 @@ function showAndProcessIncidencias(incidencias) {
       botonRealizado.textContent = 'Realizado';
       botonRealizado.onclick = function () {
         abrirConfirmacionModal(incidencia, fila);
+        cerrarMenus();
       };
       menuContenedor.appendChild(botonRealizado);
 
@@ -59,7 +69,9 @@ function showAndProcessIncidencias(incidencias) {
       celdaAccion.appendChild(menuContenedor);
 
       // Agrega un manejador de eventos para abrir el menú al hacer clic en el icono
-      iconoTresRayas.addEventListener('click', function () {
+      iconoTresRayas.addEventListener('click', function (event) {
+        event.stopPropagation(); // Evita que el clic llegue al documento y cierre el menú
+        cerrarOtrosMenus(menuContenedor);
         menuContenedor.style.display = (menuContenedor.style.display === 'block') ? 'none' : 'block';
       });
     });
@@ -72,6 +84,25 @@ function showAndProcessIncidencias(incidencias) {
     document.body.appendChild(mensajeElement);
   }
 }
+
+// Agregar una función para cerrar todos los menús desplegables
+function cerrarMenus() {
+  const menus = document.querySelectorAll('.menu-contenedor');
+  menus.forEach(menu => {
+    menu.style.display = 'none';
+  });
+}
+
+// Agregar una función para cerrar todos los menús excepto el proporcionado
+function cerrarOtrosMenus(menuActual) {
+  const menus = document.querySelectorAll('.menu-contenedor');
+  menus.forEach(menu => {
+    if (menu !== menuActual) {
+      menu.style.display = 'none';
+    }
+  });
+}
+
 
 // Función para simular acción al informar incidente
 function informarIncidente(telefonoColaborador, fila) {
