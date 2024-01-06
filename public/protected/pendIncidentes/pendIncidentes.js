@@ -43,7 +43,15 @@ function showAndProcessIncidencias(incidencias) {
       botonRealizado.onclick = function () {
         
         abrirConfirmacionModal(incidencia, fila);
-       
+        console.log(resultado)
+        if(resultado){
+          const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
+          enviarMensajeTelegram(incidencia.telefono_colaborador,mensaje)
+        
+
+        }else{
+          alert(`Error al ejecutar `);
+        }
 
        
       };
@@ -185,14 +193,7 @@ async function realizarIncidente(idIncidencia, fila) {
 
     if (responseData.success) {
       await new Promise(resolve => setTimeout(resolve, 500));
-      console.log('Datos enviados para Telegram:');
-      console.log('Nombre Colaborador:', fila.cells[1].textContent);
-      console.log('ID Incidencia:', idIncidencia);
-      
-      const mensaje = `¡Hola ${fila.cells[1].textContent}! Tu incidente con ID: ${idIncidencia} ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
-      await enviarMensajeTelegram(fila.cells[0].textContent, mensaje);
-
-      window.location.reload(); 
+      // Puedes ajustar el tiempo de espera según sea necesario
       return true;
     } else {
       // Acción fallida
@@ -205,6 +206,7 @@ async function realizarIncidente(idIncidencia, fila) {
     return false;
   }
 }
+
 
 
 
@@ -245,9 +247,11 @@ function confirmarRealizadoDesdeModal() {
   const fila = confirmacionModal.getAttribute('data-fila');
 
   const resultado = realizarIncidente(idIncidencia, fila);
-
+  console.log('tu operacion fue', resultado)
 
   return resultado
+
+
 
 
    
