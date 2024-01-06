@@ -285,8 +285,7 @@ article {
   background-color: #fff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  right: 0;
-  top: 30px;
+  z-index: 1;
 }
 
 .icono-tres-rayas:hover + .menu-contenedor,
@@ -305,5 +304,5 @@ article {
 }
 
 .menu-contenedor button:hover {
-  background-color: #c5c4c4;
+  background-color: #f9f9f9;
 }
