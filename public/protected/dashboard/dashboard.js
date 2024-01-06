@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   } else {
-    console.log('No se encontró el botón de cerrar sesión');
+    console.log('No se encontró el botón de cerrar sesió');
   }
 
 
