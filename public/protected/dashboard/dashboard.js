@@ -149,14 +149,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const etiquetas = totalesData.map(item => item.nombre_reportador);
       const datos = totalesData.map(item => item.total_incidentes);
   
-      // Crear el gráfico de barras vertical
+      // Crear el gráfico de barras horizontal
       window.barChart = new Chart(barChartContainer, {
         type: 'bar',
         data: {
-          labels: etiquetas,
+          labels: datos.map(String),
           datasets: [{
             label: 'Incidentes Reportados',
-            data: datos,
+            data: etiquetas.map(String),
             backgroundColor: 'rgba(75, 192, 192, 0.2)',
             borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
