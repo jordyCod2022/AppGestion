@@ -123,50 +123,56 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
- // ... (otro código)
- async function updateGrafica(newDate) {
-  localStorage.setItem('dashboardFecha', newDate);
-  // Obtener id_asignacion_user y otros datos del localStorage
-  const storedNombreData = localStorage.getItem('nombreData');
-  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  const barChartContainer = document.getElementById('barChartContainer');
 
-  // Verificar si hay datos y obtener id_asignacion_user
-  if (nombreData && nombreData.username) {
-    const idAsignacionUser = nombreData.id_colaborador;
+  // Obtener datos del servidor y actualizar el gráfico
+  async function updateGrafica(newDate) {
+    localStorage.setItem('dashboardFecha', newDate);
+    // Obtener id_asignacion_user y otros datos del localStorage
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
-    // Obtener datos de incidencias con la nueva fecha
-    const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-    localStorage.setItem('idAsignacionUser', idAsignacionUser);
-    const totalesData = await totalesResponse.json();
-    console.log('Resultados de las graficas:', totalesData);
+    // Verificar si hay datos y obtener id_asignacion_user
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
 
-    // Crear arrays para labels (nombres) y data (cantidades)
-    const labels = totalesData.map(item => item.nombre);
-    const data = totalesData.map(item => item.cantidad);
+      // Obtener datos de incidencias con la nueva fecha
+      const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+      localStorage.setItem('idAsignacionUser', idAsignacionUser);
+      const totalesData = await totalesResponse.json();
+      console.log('Resultados de las graficas:', totalesData);
 
-    // Crear el gráfico de barras
-    const barChart = new Chart(barChartContainer, {
-      type: 'bar',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Incidentes Reportados',
-          data: data,
-          backgroundColor: 'rgba(75, 192, 192, 0.2)', // Puedes personalizar el color
-          borderColor: 'rgba(75, 192, 192, 1)', // Puedes personalizar el color
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
+      // Crear arrays para labels (nombres) y data (cantidades)
+      const labels = totalesData.map(item => item.nombre);
+      const data = totalesData.map(item => item.cantidad);
+
+      // Crear el gráfico de barras vertical
+      const barChart = new Chart(barChartContainer, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Incidentes Reportados',
+            data: data,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Puedes personalizar el color
+            borderColor: 'rgba(75, 192, 192, 1)', // Puedes personalizar el color
+            borderWidth: 1
+          }]
+        },
+        options: {
+          indexAxis: 'y', // Esto cambia la orientación del gráfico a vertical
+          scales: {
+            x: {
+              beginAtZero: true
+            }
           }
         }
-      }
-    });
+      });
+    }
   }
-}
+
+ // ... (otro código)
+ 
 
 
   
