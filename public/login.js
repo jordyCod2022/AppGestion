@@ -1,9 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.getElementById('loginForm');
+  const loginButton = document.getElementById('loginButton');
 
-  loginForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-
+  loginButton.addEventListener('click', async () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
