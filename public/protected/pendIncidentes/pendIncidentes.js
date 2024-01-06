@@ -242,6 +242,8 @@ function abrirConfirmacionModal(incidencia, fila) {
     const resultado = confirmarRealizadoDesdeModal();
     console.log(resultado);
     if (resultado) {
+      console.log(incidencia.telefono_colaborador)
+      console.log(mensaje)
       const mensaje = `¡Hola ${incidencia.nombre_colaborador}! Tu incidente con id: ${incidencia.id_incidente} y con descripción "${incidencia.incidente_descrip}" ha sido resuelto con éxito. ¡Gracias por tu colaboración! 🎉🚀`;
       enviarMensajeTelegram(incidencia.telefono_colaborador, mensaje)
         .then(response => {
