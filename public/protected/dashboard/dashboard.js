@@ -128,39 +128,42 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Obtener datos del servidor y actualizar el gráfico
   async function updateGrafica(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
-    // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
-    // Verificar si hay datos y obtener id_asignacion_user
+  
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       // Obtener datos de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
-      console.log('Resultados de las graficas:', totalesData);
-
-      // Crear arrays para labels (nombres) y data (cantidades)
-      const labels = totalesData.map(item => item.nombre);
-      const data = totalesData.map(item => item.cantidad);
-
+      console.log('Resultados de las gráficas:', totalesData);
+  
+      // Destruir el gráfico existente si hay uno
+      if (window.barChart) {
+        window.barChart.destroy();
+      }
+  
+      // Crear arrays para etiquetas (nombres) y datos (cantidades)
+      const etiquetas = totalesData.map(item => item.nombre);
+      const datos = totalesData.map(item => item.cantidad);
+  
       // Crear el gráfico de barras vertical
-      const barChart = new Chart(barChartContainer, {
+      window.barChart = new Chart(barChartContainer, {
         type: 'bar',
         data: {
-          labels: labels,
+          labels: etiquetas,
           datasets: [{
             label: 'Incidentes Reportados',
-            data: data,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)', // Puedes personalizar el color
-            borderColor: 'rgba(75, 192, 192, 1)', // Puedes personalizar el color
+            data: datos,
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            borderColor: 'rgba(75, 192, 192, 1)',
             borderWidth: 1
           }]
         },
         options: {
-          indexAxis: 'y', // Esto cambia la orientación del gráfico a vertical
+          indexAxis: 'y',
           scales: {
             x: {
               beginAtZero: true
@@ -170,7 +173,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
   }
-
+  
  // ... (otro código)
  
 
