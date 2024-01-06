@@ -308,6 +308,12 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   background-color: #18fa04;
 }
 
+.dashboard-item#incidentesPorPersona {
+  width: 100%; /* Puedes ajustar este valor según tus necesidades */
+  max-width: none; /* Asegúrate de eliminar cualquier límite de ancho máximo */
+}
+
+
 
 
 
