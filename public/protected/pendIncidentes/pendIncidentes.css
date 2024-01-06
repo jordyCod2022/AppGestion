@@ -292,6 +292,9 @@ article {
 .icono-tres-rayas:hover + .menu-contenedor,
 .menu-contenedor:hover {
   display: block;
+  position: absolute;
+  left: 40px; /* Ajusta el valor según sea necesario para dar espacio entre el icono y el menú */
+  top: 10px; /* Ajusta el valor según sea necesario para dar espacio entre el icono y el menú */
 }
 
 .menu-contenedor button {
