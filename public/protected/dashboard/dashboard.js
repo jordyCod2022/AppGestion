@@ -143,14 +143,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       const barChartContainer = document.getElementById('barChartContainer');
       barChartContainer.innerHTML = '';
   
-      // Color específico para todas las barras (puedes cambiarlo)
-      const barColor = '#3498db'; // Por ejemplo, azul
-  
       // Iterar sobre los datos y agregar dinámicamente los elementos al contenedor
       totalesData.forEach(({ nombre_reportador, total_incidentes }) => {
         const barContainer = document.createElement('div');
         barContainer.className = 'bar-container';
-        barContainer.style.backgroundColor = barColor; // Establecer el color específico
   
         const barName = document.createElement('span');
         barName.className = 'bar-name';
@@ -164,6 +160,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         barLabel.className = 'bar-label';
         barLabel.textContent = total_incidentes;
   
+        // Establecer el color del contenedor y ajustar la altura
+        barContainer.style.backgroundColor = getRandomColor(); // Usar la función para obtener colores aleatorios
+        barContainer.style.height = '80px'; // Ajustar según sea necesario
+  
         // Agregar elementos al contenedor
         barContainer.appendChild(barName);
         barContainer.appendChild(bar);
@@ -174,6 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
   }
+  
   
 
   
