@@ -8,7 +8,7 @@ body {
 }
 
 header {
-  background-color: #2c3e50; /* Nuevo color de fondo */
+  background-color: #1b2838; /* Nuevo color de fondo */
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -63,7 +63,7 @@ header {
 }
 
 header {
-  background: #765fa2;
+  background: #1b2838;
   padding: 10px 20px;
   box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
   top: 0;
@@ -84,7 +84,7 @@ header {
 }
 aside {
   width: 60px;
-  background:#765fa2; 
+  background:#1b2838; 
   padding: 0px 0px 10px 0px;
   position: absolute;
   left: 0;
