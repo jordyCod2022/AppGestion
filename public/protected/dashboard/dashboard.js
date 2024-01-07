@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Agrega la funcionalidad al botón de cerrar sesión
-  const logoutButton = document.querySelector('.logout-button');
+  const logoutButton = document.querySelector('.Btn');
   if (logoutButton) {
     logoutButton.addEventListener('click', () => {
       const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
