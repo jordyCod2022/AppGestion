@@ -130,26 +130,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     localStorage.setItem('dashboardFecha', newDate);
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       // Obtener datos de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de las gráficas:', totalesData);
-
+  
       // Destruir el gráfico existente si hay uno
       if (window.barChart) {
         window.barChart.destroy();
       }
-
+  
       // Crear arrays para etiquetas (nombres) y datos (cantidades)
       const etiquetas = totalesData.map(item => item.nombre_reportador);
       const datos = totalesData.map(item => item.total_incidentes);
-
-      // Crear el gráfico de barras vertical
+  
       // Crear el gráfico de barras vertical
       window.barChart = new Chart(barChartContainer, {
         type: 'bar',
@@ -173,7 +172,9 @@ document.addEventListener('DOMContentLoaded', async () => {
               }
             },
             y: {
-              // ... (resto de las opciones del eje Y)
+              ticks: {
+                color: 'white' // Color blanco para las etiquetas en el eje Y
+              }
             }
           },
           plugins: {
@@ -185,9 +186,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
       });
-
     }
   }
+  
 
 
   // ... (otro código)
