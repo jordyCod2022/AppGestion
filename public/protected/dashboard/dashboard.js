@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  
+
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
@@ -57,15 +57,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Función para obtener la fecha actual
   function getCurrentDate() {
-  const currentDate = new Date();
-  const year = currentDate.getFullYear();
-  const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
-  const day = currentDate.getDate().toString().padStart(2, '0');
-  return `${year}-${month}-${day}`;
-  
-}
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = currentDate.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
 
-  
+  }
+
+
   // Configurar la prentación de la fecha
   dateContainer.innerText = getCurrentDate();
   dateContainer.className = 'current-date';
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         console.error('Elemento "ticketsPendientes" no fue encontrado');
       }
-      
+
     }
   }
 
@@ -130,25 +130,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     localStorage.setItem('dashboardFecha', newDate);
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  
+
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-  
+
       // Obtener datos de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de las gráficas:', totalesData);
-  
+
       // Destruir el gráfico existente si hay uno
       if (window.barChart) {
         window.barChart.destroy();
       }
-  
+
       // Crear arrays para etiquetas (nombres) y datos (cantidades)
       const etiquetas = totalesData.map(item => item.nombre_reportador);
       const datos = totalesData.map(item => item.total_incidentes);
-  
+
+      // Crear el gráfico de barras vertical
       // Crear el gráfico de barras vertical
       window.barChart = new Chart(barChartContainer, {
         type: 'bar',
@@ -166,7 +167,13 @@ document.addEventListener('DOMContentLoaded', async () => {
           indexAxis: 'y',
           scales: {
             x: {
-              beginAtZero: true
+              beginAtZero: true,
+              ticks: {
+                color: 'white' // Color blanco para las etiquetas en el eje X
+              }
+            },
+            y: {
+              // ... (resto de las opciones del eje Y)
             }
           },
           plugins: {
@@ -178,14 +185,15 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
       });
+
     }
   }
-  
-  
- // ... (otro código)
- 
 
 
-  
+  // ... (otro código)
+
+
+
+
 });
 
