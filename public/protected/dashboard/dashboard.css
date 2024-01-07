@@ -63,7 +63,7 @@ header {
 }
 
 header {
-  background: #3e236e;
+  background: #765fa2;
   padding: 10px 20px;
   box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
   top: 0;
@@ -84,7 +84,7 @@ header {
 }
 aside {
   width: 60px;
-  background:#3e236e; 
+  background:#765fa2; 
   padding: 0px 0px 10px 0px;
   position: absolute;
   left: 0;
@@ -241,7 +241,8 @@ article {
   border-radius: 5px;
   box-shadow: 0px 2px 7px ;
   justify-content: space-around;
-  background-color: #f8f8f8;
+  background-color: #fcf4f4;
+  margin-top: 10px;
 }
 
 
