@@ -6,14 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
 
-  // Actualiza el contenido del span con el nombre del usuario
-  if (nombreData && nombreData.nombre) {
-    const userWelcomeSpan = document.querySelector('.user-welcome span');
-    userWelcomeSpan.textContent = 'Hola ' + nombreData.nombre;
-    history.pushState(null, null, window.location.href);
-  } else {
-    console.log('No hay datos disponibles en el dashboard');
-  }
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
