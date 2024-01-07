@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       window.location.href = '/protected/dashboard/dashboard.html';
     } else {
       alert('Nombre de usuario o contraseña incorrectos');
+      loader.style.display = 'none';
     }
   });
 
