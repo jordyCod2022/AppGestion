@@ -12,12 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const authenticated = await attemptLogin(username, password);
 
     // Ocultar el loader después de la autenticación
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 6000);
-  
+   
 
     if (authenticated) {
+
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 4000);
+    
       // Realizar automáticamente la llamada a /getNombre después del inicio de sesión exitoso
       const nombreResponse = await fetch('/getNombre?username=' + username);
       const nombreData = await nombreResponse.json();
