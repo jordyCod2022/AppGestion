@@ -157,8 +157,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           datasets: [{
             label: 'Incidentes Reportados',
             data: datos,
-            backgroundColor: 'rgba(75, 192, 192, 0.2)',
-            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)', // Rojo transparente para las barras
+            borderColor: 'rgba(255, 0, 0, 1)', // Rojo sólido para los bordes de las barras
             borderWidth: 1
           }]
         },
@@ -168,11 +168,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             x: {
               beginAtZero: true
             }
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: 'white' // Color blanco para las letras en la leyenda
+              }
+            }
           }
         }
       });
     }
   }
+  
   
  // ... (otro código)
  
