@@ -1,11 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
   const loginButton = document.getElementById('loginButton');
+  const loader = document.getElementById('loader');
 
   loginButton.addEventListener('click', async () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
+    // Mostrar el loader
+    loader.style.display = 'block';
+
     const authenticated = await attemptLogin(username, password);
+
+    // Ocultar el loader después de la autenticación
+    loader.style.display = 'none';
 
     if (authenticated) {
       alert('Inicio de sesión exitoso');
