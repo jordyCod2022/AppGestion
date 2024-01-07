@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('nombreData', JSON.stringify(nombreData));
     
       // Redirigir o realizar acciones adicionales después del inicio de sesión exitoso
-      
+      window.location.href = '/protected/dashboard/dashboard.html';
     } else {
       alert('Nombre de usuario o contraseña incorrectos');
     }
