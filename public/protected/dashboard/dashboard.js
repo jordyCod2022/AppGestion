@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           window.location.href = '../pendIncidentes/pendIncidentes.html';
         });
       } else {
-        console.error('Elemento "ticketsPendientes" no encontrado');
+        console.error('Elemento "ticketsPendientes" no fue encontrado');
       }
       
     }
