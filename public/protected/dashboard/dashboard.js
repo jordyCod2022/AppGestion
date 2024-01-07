@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Actualiza el contenido del span con el nombre del usuario
   if (nombreData && nombreData.nombre) {
     const userWelcomeSpan = document.querySelector('.user-welcome span');
-    userWelcomeSpan.textContent = 'Bienvenido, ' + nombreData.nombre;
+    userWelcomeSpan.textContent = 'Hola ' + nombreData.nombre;
     history.pushState(null, null, window.location.href);
   } else {
     console.log('No hay datos disponibles en el dashboard');
