@@ -252,7 +252,8 @@ article {
   flex-wrap: wrap; /* Ajuste para permitir el ajuste de pantalla */
   justify-content: space-around;
   width: 100%;
-  margin-top: -20px; /* Ajuste según tus necesidades */
+  margin-top: -300px; /* Ajuste según tus necesidades */
+
 }
 
 
