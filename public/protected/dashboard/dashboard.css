@@ -231,7 +231,6 @@ p.blink.mah span {
 
 
 
-
 article {
   display: flex;
   flex-direction: column;
@@ -244,6 +243,7 @@ article {
   justify-content: space-around;
   background-color: #fcf4f4;
   margin-top: 10px;
+  
 }
 
 
@@ -253,21 +253,9 @@ article {
   justify-content: space-around;
   width: 100%;
   margin-top: -300px; /* Ajuste según tus necesidades */
-
 }
 
 
-.dashboard-item {
-text-align: center;
-background-color: #bebebe;
-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-border-radius: 8px;
-overflow: hidden;
-transition: transform 0.3s ease-in-out;
-height: 200px; /* Altura fija, puedes ajustar según tu preferencia */
-margin-bottom: 20px; /* Añadido margen inferior */
-margin-top: 20px;
-}
 
 .dashboard-item:hover {
 transform: translateY(-5px);
@@ -325,15 +313,16 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 /* Estilos para los elementos de la primera fila */
 .dashboard-item {
-text-align: center;
-background-color: #ffffff;
-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-border-radius: 8px;
-overflow: hidden;
-transition: transform 0.3s ease-in-out;
-height: 200px;
-margin-bottom: 20px;
-width: 360px;
+  text-align: center;
+  background-color: #bebebe;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
+  height: auto; /* Cambiado a altura automática */
+  margin-bottom: 20px;
+  margin-top: 20px;
+  width: 360px;
 }
 
 .dashboard-item:hover {
@@ -763,50 +752,8 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 
 
 
-/* ... Tu CSS existente ... */
-
-/* Estilos para elementos específicos en pantallas más pequeñas */
 @media only screen and (max-width: 768px) {
-  /* Ajustes para la barra de navegación */
-  header {
-    padding: 10px;
+  .row {
+    margin-top: 0; /* Ajuste según tus necesidades */
   }
-
-  .brand i {
-    font-size: 24px;
-  }
-
-  .brand span {
-    font-size: 18px;
-  }
-
-  .user-info span {
-    margin-right: 10px;
-  }
-
-  /* Ajustes para el diseño de la sección principal */
-  .main {
-    padding-top: 10px;
-  }
-
-  aside {
-    width: 100%;
-    position: static;
-    height: auto;
-    box-shadow: none;
-    margin-top: 0;
-  }
-
-  /* Ajustes para elementos específicos en pantallas más pequeñas */
-  .dashboard-item {
-    width: 100%;
-    max-width: 100%; /* Ajusta según tus necesidades */
-  }
-
-  .bar-chart {
-    align-items: center; /* Centra las barras en pantallas más pequeñas */
-    margin-top: 10px;
-  }
-  
-  /* Ajustes adicionales según sea necesario */
 }
