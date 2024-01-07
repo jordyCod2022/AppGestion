@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Ocultar el loader después de la autenticación
     setTimeout(() => {
       loader.style.display = 'none';
-    }, 3000);
+    }, 4000);
   
 
     if (authenticated) {
