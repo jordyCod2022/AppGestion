@@ -756,3 +756,54 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
     transform: rotate(360deg);
   }
 }
+
+
+
+
+/* ... Tu CSS existente ... */
+
+/* Estilos para elementos específicos en pantallas más pequeñas */
+@media only screen and (max-width: 768px) {
+  /* Ajustes para la barra de navegación */
+  header {
+    padding: 10px;
+  }
+
+  .brand i {
+    font-size: 24px;
+  }
+
+  .brand span {
+    font-size: 18px;
+  }
+
+  .user-info span {
+    margin-right: 10px;
+  }
+
+  /* Ajustes para el diseño de la sección principal */
+  .main {
+    padding-top: 10px;
+  }
+
+  aside {
+    width: 100%;
+    position: static;
+    height: auto;
+    box-shadow: none;
+    margin-top: 0;
+  }
+
+  /* Ajustes para elementos específicos en pantallas más pequeñas */
+  .dashboard-item {
+    width: 100%;
+    max-width: 100%; /* Ajusta según tus necesidades */
+  }
+
+  .bar-chart {
+    align-items: center; /* Centra las barras en pantallas más pequeñas */
+    margin-top: 10px;
+  }
+  
+  /* Ajustes adicionales según sea necesario */
+}
