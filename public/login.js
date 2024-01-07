@@ -15,8 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loader.style.display = 'none';
 
     if (authenticated) {
-      alert('Inicio de sesión exitoso');
-    
       // Realizar automáticamente la llamada a /getNombre después del inicio de sesión exitoso
       const nombreResponse = await fetch('/getNombre?username=' + username);
       const nombreData = await nombreResponse.json();
@@ -25,7 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
       localStorage.setItem('nombreData', JSON.stringify(nombreData));
     
       // Redirigir o realizar acciones adicionales después del inicio de sesión exitoso
-      window.location.href = '/protected/dashboard/dashboard.html';
+      setTimeout(() => {
+        window.location.href = '/protected/dashboard/dashboard.html';
+      }, 3000);
     } else {
       alert('Nombre de usuario o contraseña incorrectos');
     }
