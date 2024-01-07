@@ -11,25 +11,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const authenticated = await attemptLogin(username, password);
 
-    if (authenticated) {
-      // Esperar 3 segundos (3000 milisegundos) antes de ocultar el loader
-      setTimeout(() => {
-        // Ocultar el loader después de 3 segundos
-        loader.style.display = 'none';
-
-        // Realizar automáticamente la llamada a /getNombre después del inicio de sesión exitoso
-        const nombreResponse = await fetch('/getNombre?username=' + username);
-        const nombreData = await nombreResponse.json();
-
-        // Almacena los datos en localStorage, incluyendo id_colaborador
-        localStorage.setItem('nombreData', JSON.stringify(nombreData));
-
-        // Redirigir o realizar acciones adicionales después del inicio de sesión exitoso
-        window.location.href = '/protected/dashboard/dashboard.html';
-      }, 3000);
-    } else {
-      // Ocultar el loader en caso de fallo de autenticación
+    // Ocultar el loader después de la autenticación
+    setTimeout(() => {
       loader.style.display = 'none';
+    }, 3000);
+  
+
+    if (authenticated) {
+      // Realizar automáticamente la llamada a /getNombre después del inicio de sesión exitoso
+      const nombreResponse = await fetch('/getNombre?username=' + username);
+      const nombreData = await nombreResponse.json();
+
+      // Almacena los datos en localStorage, incluyendo id_colaborador
+      localStorage.setItem('nombreData', JSON.stringify(nombreData));
+    
+      // Redirigir o realizar acciones adicionales después del inicio de sesión exitoso
+      
+    } else {
       alert('Nombre de usuario o contraseña incorrectos');
     }
   });
