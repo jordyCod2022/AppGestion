@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   // Agrega la funcionalidad al botón de cerrar sesión
-  const logoutButton = document.querySelector('.Btn');
+  const logoutButton = document.querySelector('.salir');
   if (logoutButton) {
     logoutButton.addEventListener('click', () => {
       const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Obtener elementos del DOM
   const currentDateContainer = document.querySelector('.current-date-container');
-  const changeDateButton = document.querySelector('.change-date-button');
+  const changeDateButton = document.querySelector('.Btn');
 
   // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   currentDateContainer.appendChild(dateContainer);
 
   // Configurar flatpickr para el selector de fecha
-  const flatpickrInstance = flatpickr('.change-date-button', {
+  const flatpickrInstance = flatpickr('.Btn', {
     dateFormat: 'Y-m-d',
     onClose: function (selectedDates, dateStr) {
       dateContainer.innerText = dateStr;
