@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ticketsPendientesElement.querySelector('.name').textContent = totalesData.total_pendientes || 'N/A';
         ticketsResueltosElement.querySelector('.name').textContent = totalesData.total_cerrados || 'N/A';
       } else {
-        console.error('Elemento no encontrado');
+        console.error('Elemento no encontrad');
       }
 
       if (ticketsPendientesElement) {
