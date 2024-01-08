@@ -124,64 +124,64 @@ document.addEventListener('DOMContentLoaded', async () => {
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   
     if (nombreData && nombreData.username) {
-      const idAsignacionUser = nombreData.id_colaborador;
+        const idAsignacionUser = nombreData.id_colaborador;
   
-      // Obtener datos de incidencias con la nueva fecha
-      const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-      localStorage.setItem('idAsignacionUser', idAsignacionUser);
-      const totalesData = await totalesResponse.json();
-      console.log('Resultados de las gráficas:', totalesData);
+        // Obtener datos de incidencias con la nueva fecha
+        const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+        localStorage.setItem('idAsignacionUser', idAsignacionUser);
+        const totalesData = await totalesResponse.json();
+        console.log('Resultados de las gráficas:', totalesData);
   
-      // Destruir el gráfico existente si hay uno
-      if (window.barChart) {
-        window.barChart.destroy();
-      }
-  
-      // Crear arrays para etiquetas (nombres) y datos (cantidades)
-      const etiquetas = totalesData.map(item => item.nombre_reportador);
-      const datos = totalesData.map(item => item.total_incidentes);
-  
-      // Crear el gráfico de barras vertical
-      window.barChart = new Chart(barChartContainer, {
-        type: 'bar',
-        data: {
-          labels: etiquetas,
-          datasets: [{
-            label: 'Incidentes Reportados',
-            data: datos,
-            backgroundColor: 'rgba(0, 255, 0, 0.3)', // Ajusta el último valor (0.5) según tus preferencias
-
-            borderColor: 'rgba(0, 255, 0, 1)', // Rojo sólido para los bordes de las barras
-            borderWidth: 1
-          }]
-        },
-        options: {
-          indexAxis: 'y',
-          scales: {
-            x: {
-              beginAtZero: true,
-              ticks: {
-                color: 'white' // Color blanco para las etiquetas en el eje X
-              }
-            },
-            y: {
-              ticks: {
-                color: 'white' // Color blanco para las etiquetas en el eje Y
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              labels: {
-                color: 'white' // Color blanco para las letras en la leyenda
-              }
-            }
-          }
+        // Destruir el gráfico existente si hay uno
+        if (window.barChart) {
+            window.barChart.destroy();
         }
-      });
-    }
-  }
   
+        // Crear arrays para etiquetas (nombres) y datos (cantidades)
+        const etiquetas = totalesData.map(item => item.nombre_reportador);
+        const datos = totalesData.map(item => item.total_incidentes);
+  
+        // Crear el gráfico de barras vertical
+        window.barChart = new Chart(barChartContainer, {
+            type: 'bar',
+            data: {
+                labels: etiquetas,
+                datasets: [{
+                    label: 'Incidentes Reportados',
+                    data: datos,
+                    backgroundColor: 'rgba(0, 255, 0, 0.3)', // Ajusta el último valor (0.5) según tus preferencias
+
+                    borderColor: 'rgba(0, 255, 0, 1)', // Verde sólido para los bordes de las barras
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: 'white' // Color blanco para las etiquetas en el eje X
+                        }
+                    },
+                    y: {
+                        ticks: {
+                            color: 'white' // Color blanco para las etiquetas en el eje Y
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Color blanco para las letras en la leyenda
+                        }
+                    }
+                }
+            }
+        });
+    }
+}
+
 
 
   // ... (otro código)

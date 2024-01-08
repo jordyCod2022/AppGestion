@@ -878,13 +878,21 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
     opacity: 1;
   }
 }
+.cards .card:hover {
+  transform: scale(1.1, 1.1);
+}
+
+.cards:hover > .card:not(:hover) {
+  filter: blur(10px);
+  transform: scale(0.9, 0.9);
+}
 
 
 
 
 
 .card {
-  width: 360px;
+  width: 340px;
   height: 254px;
   background: #4c408e;
   border-radius: 10px;
