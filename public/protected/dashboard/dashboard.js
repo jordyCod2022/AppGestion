@@ -149,9 +149,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           datasets: [{
             label: 'Incidentes Reportados',
             data: datos,
-            backgroundColor: 'rgba(0, 255, 0, 0.5)', // Ajusta el último valor (0.5) según tus preferencias
+            backgroundColor: 'rgba(0, 255, 0, 0.3)', // Ajusta el último valor (0.5) según tus preferencias
 
-            borderColor: 'rgba(255, 0, 0, 1)', // Rojo sólido para los bordes de las barras
+            borderColor: 'rgba(0, 255, 0, 1)', // Rojo sólido para los bordes de las barras
             borderWidth: 1
           }]
         },
