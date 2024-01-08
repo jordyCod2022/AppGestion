@@ -248,6 +248,7 @@ article {
 
 
 .row {
+
   display: flex;
   flex-wrap: wrap; /* Ajuste para permitir el ajuste de pantalla */
   justify-content: space-around;
@@ -666,9 +667,10 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   box-shadow: 0px 8px 28px -9px rgba(0,0,0,0.45);
   position: relative;
   width: 240px;
-  height: 330px;
+  height: 230px;
   border-radius: 16px;
   overflow: hidden;
+  margin-top: -20px;
 }
 
 .wave {
@@ -693,7 +695,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   text-align: center;
   font-size: 20px;
   position: absolute;
-  top: 5.6em;
+  top: 2.0em;
   left: 0;
   right: 0;
   color: rgb(255, 255, 255);
@@ -757,3 +759,5 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
     margin-top: 0; /* Ajuste según tus necesidades */
   }
 }
+
+
