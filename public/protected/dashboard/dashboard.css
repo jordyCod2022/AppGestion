@@ -886,7 +886,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 .card {
   width: 360px;
   height: 254px;
-  background: rgb(60, 49, 107);
+  background: #4c408e;
   border-radius: 10px;
   margin-left: -1050px;
   margin-top: -0px;
