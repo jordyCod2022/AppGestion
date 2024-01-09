@@ -681,6 +681,15 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   
 }
 
+#graficoPersona{
+  margin-top: -80PX;
+  width: 450px;
+  height:270px; ;
+}
+
+
+
+
 .wave {
   position: absolute;
   width: 540px;
@@ -689,7 +698,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   left: 0;
   top: 0;
   margin-left: -10%;
-  margin-top: -70%;
+  margin-top: -50%;
   background: linear-gradient(744deg,#af40ff,#5b42f3 60%,#00ddeb);
 }
 
@@ -880,11 +889,6 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   filter: blur(10px);
   transform: scale(0.9, 0.9);
 }
-
-#graficoPersona{
-  width: 450px;
-}
-
 
 
 
