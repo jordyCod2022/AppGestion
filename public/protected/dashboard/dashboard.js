@@ -41,6 +41,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     //cambiar el ancho de article
     article.style.marginLeft = isMenuVisible ? '1%' : '1%';
+    var container = document.getElementById('myContainer');
+
+    if (container.style.display === 'none') {
+      container.style.display = 'block';
+    } else {
+      container.style.display = 'none';
+    }
   
    
   });
