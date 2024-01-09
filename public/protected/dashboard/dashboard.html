@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <title>Dashboard</title>
   <link rel="stylesheet" href="dashboard.css">
@@ -12,6 +13,7 @@
   <!-- Agrega Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
   <header>
@@ -19,17 +21,14 @@
       <span class="menu"><i class="material-icons">menu</i></span>
       <span>Dashboard</span>
     </div>
-  
+
     <div class="user-info">
-
- 
-
       <div class="current-date-container">
         <span class="current-date"></span>
-        
+
       </div>
-  
-  
+
+
       <button class="Btn" style="background-color:rgb(51, 109, 51);">
         <div class="sign">
           <!-- Utiliza las instrucciones de trazado del ícono de calendario de Font Awesome -->
@@ -43,18 +42,22 @@
       </button>
 
 
-      
+
       <button class="salir">
-  
-        <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z"></path></svg></div>
-        
+
+        <div class="sign"><svg viewBox="0 0 512 512">
+            <path
+              d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+            </path>
+          </svg></div>
+
         <div class="text">Salir</div>
       </button>
-     
-      
+
+
     </div>
   </header>
-  
+
 
   <section class="main">
     <aside id="menuAside" class="keep">
@@ -65,7 +68,7 @@
             Incidentes reportados
             <span class="notif red">1</span>
           </a>
-        </li>      
+        </li>
         <li>
           <a href="/">
             <span><i class="material-icons">stay_current_portrait</i></span>
@@ -79,26 +82,26 @@
             Asignación de Tareas
             <span class="notif green">6</span>
           </a>
-        </li>      
+        </li>
         <!-- Agrega más elementos según sea necesario -->
       </ul>
     </aside>
 
-    <article  id="article" >
+    <article id="article">
       <div class="row">
 
         <div class="e-card playing" id="ticketsPendientes">
           <div class="image"></div>
-          
+
           <div class="wave"></div>
           <div class="wave"></div>
           <div class="wave"></div>
-          
-        
-              <div class="infotop">
-        
+
+
+          <div class="infotop">
+
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="icon">
-          <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674
+              <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674
           4.89862C2.99153 5.7992 2 7.47596 2 9.2763V14.7235C2 16.5238 2.99153 18.2014 4.58674 19.1012L9.41368
           21.8252C10.2079 22.2734 11.105 22.5 12.0046 22.5C12.6952 22.5 13.3874 22.3657 14.0349 22.0954C14.2204
           22.018 14.4059 21.9273 14.5872 21.8252L19.4141 19.1012C19.9765 18.7831 20.4655 18.3728 20.8651
@@ -111,27 +114,28 @@
           15.2665 11.4515 13.921C13.1353 12.4181 15.3198 11.5908 17.6022 11.5908C18.3804 11.5908 19.1477 11.6864
           19.8922 11.8742V14.7235C19.8922 15.2278 19.7589 15.7254 19.5119 16.1662C18.7615 15.3596 17.6806 14.8528
            16.4783 14.8528C14.2136 14.8528 12.3781 16.6466 12.3781 18.8598C12.3781 19.3937 12.4861 19.9021 12.68
-           20.3676C11.9347 20.5316 11.1396 20.4203 10.4684 20.0413H10.4676Z"></path></svg><br>      
-          Tickets Pendientes
-        <br>
-        <div class="name">MikeAndrewDesigner</div>
+           20.3676C11.9347 20.5316 11.1396 20.4203 10.4684 20.0413H10.4676Z"></path>
+            </svg><br>
+            Tickets Pendientes
+            <br>
+            <div class="name">MikeAndrewDesigner</div>
           </div>
         </div>
 
 
-        
+
         <div class="e-card playing" id="ticketsResueltos">
           <div class="image"></div>
-          
+
           <div class="wave"></div>
           <div class="wave"></div>
           <div class="wave"></div>
-          
-        
-              <div class="infotop">
-        
+
+
+          <div class="infotop">
+
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="icon">
-          <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674
+              <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674
           4.89862C2.99153 5.7992 2 7.47596 2 9.2763V14.7235C2 16.5238 2.99153 18.2014 4.58674 19.1012L9.41368
           21.8252C10.2079 22.2734 11.105 22.5 12.0046 22.5C12.6952 22.5 13.3874 22.3657 14.0349 22.0954C14.2204
           22.018 14.4059 21.9273 14.5872 21.8252L19.4141 19.1012C19.9765 18.7831 20.4655 18.3728 20.8651
@@ -144,56 +148,109 @@
           15.2665 11.4515 13.921C13.1353 12.4181 15.3198 11.5908 17.6022 11.5908C18.3804 11.5908 19.1477 11.6864
           19.8922 11.8742V14.7235C19.8922 15.2278 19.7589 15.7254 19.5119 16.1662C18.7615 15.3596 17.6806 14.8528
            16.4783 14.8528C14.2136 14.8528 12.3781 16.6466 12.3781 18.8598C12.3781 19.3937 12.4861 19.9021 12.68
-           20.3676C11.9347 20.5316 11.1396 20.4203 10.4684 20.0413H10.4676Z"></path></svg><br>      
-          Tickets Pendientes
-        <br>
-        <div class="name">MikeAndrewDesigner</div>
+           20.3676C11.9347 20.5316 11.1396 20.4203 10.4684 20.0413H10.4676Z"></path>
+            </svg><br>
+            Tickets Pendientes
+            <br>
+            <div class="name">MikeAndrewDesigner</div>
           </div>
         </div>
 
-      
+
+        <div class="e-card playing" id="ticketsResueltos">
+          <div class="image"></div>
+
+          <div class="wave"></div>
+          <div class="wave"></div>
+          <div class="wave"></div>
+
+
+          <div class="infotop">
+
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="icon">
+              <path fill="currentColor" d="M19.4133 4.89862L14.5863 2.17544C12.9911 1.27485 11.0089 1.27485 9.41368 2.17544L4.58674
+          4.89862C2.99153 5.7992 2 7.47596 2 9.2763V14.7235C2 16.5238 2.99153 18.2014 4.58674 19.1012L9.41368
+          21.8252C10.2079 22.2734 11.105 22.5 12.0046 22.5C12.6952 22.5 13.3874 22.3657 14.0349 22.0954C14.2204
+          22.018 14.4059 21.9273 14.5872 21.8252L19.4141 19.1012C19.9765 18.7831 20.4655 18.3728 20.8651
+          17.8825C21.597 16.9894 22 15.8671 22 14.7243V9.27713C22 7.47678 21.0085 5.7992 19.4133 4.89862ZM4.10784
+          14.7235V9.2763C4.10784 8.20928 4.6955 7.21559 5.64066 6.68166L10.4676 3.95848C10.9398 3.69152 11.4701
+          3.55804 11.9996 3.55804C12.5291 3.55804 13.0594 3.69152 13.5324 3.95848L18.3593 6.68166C19.3045 7.21476
+          19.8922 8.20928 19.8922 9.2763V9.75997C19.1426 9.60836 18.377 9.53091 17.6022 9.53091C14.7929 9.53091
+          12.1041 10.5501 10.0309 12.3999C8.36735 13.8847 7.21142 15.8012 6.68783 17.9081L5.63981 17.3165C4.69466
+          16.7834 4.10699 15.7897 4.10699 14.7235H4.10784ZM10.4676 20.0413L8.60933 18.9924C8.94996 17.0479 9.94402
+          15.2665 11.4515 13.921C13.1353 12.4181 15.3198 11.5908 17.6022 11.5908C18.3804 11.5908 19.1477 11.6864
+          19.8922 11.8742V14.7235C19.8922 15.2278 19.7589 15.7254 19.5119 16.1662C18.7615 15.3596 17.6806 14.8528
+           16.4783 14.8528C14.2136 14.8528 12.3781 16.6466 12.3781 18.8598C12.3781 19.3937 12.4861 19.9021 12.68
+           20.3676C11.9347 20.5316 11.1396 20.4203 10.4684 20.0413H10.4676Z"></path>
+            </svg><br>
+            Tickets Pendientes
+            <br>
+            <div class="name">MikeAndrewDesigner</div>
+          </div>
+        </div>
+
 
         <div class="cards">
           <div class="card red">
-              <p class="tip">Hover Me</p>
-              <p class="second-text">Lorem Ipsum</p>
+            <p class="tip">Hover Me</p>
+            <p class="second-text">Lorem Ipsum</p>
           </div>
           <div class="card blue">
-              <p class="tip">Hover Me</p>
-              <p class="second-text">Lorem Ipsum</p>
+            <p class="tip">Hover Me</p>
+            <p class="second-text">Lorem Ipsum</p>
           </div>
           <div class="card green">
-              <p class="tip">Hover Me</p>
-              <p class="second-text">Lorem Ipsum</p>
+            <p class="tip">Hover Me</p>
+            <p class="second-text">Lorem Ipsum</p>
           </div>
-      </div>
 
-      <div class="row" id="fila2">
-
-        
-        <div class="card" id="graficoPersona">
-
-       
-            <canvas id="barChartContainer"></canvas>
-        
 
         </div>
-                
+
+
+
+
+      </div>
+
+
+
+      <div class="row2" >
+
+        <div class="e-card playing" id="graficoPersona">
+          <div class="image"></div>
+
+          <div class="wave"></div>
+          <div class="wave"></div>
+          <div class="wave"></div>
+
+
+          <div class="infotop">
+
+            <canvas id="barChartContainer"></canvas>
+
+          </div>
+        </div>
+       
       
         
       </div>
-
-
-   
-      
+              
       </div>
+              
+       
+  
 
-      
 
- 
+
+
+     
+
+
+
     </article>
   </section>
 
   <script src="dashboard.js"></script>
 </body>
+
 </html>

@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     menuAside.style.width = isMenuVisible ? '60px' : '235px';
 
     //cambiar el ancho de article
-    article.style.marginLeft = isMenuVisible ? '5%' : '16%';
-    article.style.width = isMenuVisible ? '95%' : '93%';
+    article.style.marginLeft = isMenuVisible ? '1%' : '1%';
+  
    
   });
 
