@@ -81,9 +81,11 @@ header {
   position: relative;
   top: 50px;
   padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
 }
 aside {
-  width: 60px;
+  width: 235px;
   background:#1b2838; 
   padding: 0px 0px 10px 0px;
   position: absolute;
@@ -105,7 +107,7 @@ aside ul li {
   position: relative;
 }
 aside ul li a {
-  font-size: 14px;
+  font-size: 11px;
   color: #ffffff;
   text-decoration: none;
   text-transform:uppercase;   
@@ -237,13 +239,15 @@ article {
   align-items: center;
   width: 93%;
   min-height: 87vh;
-  margin-left: 6%;
+  margin-left: 16%;
   border-radius: 5px;
   box-shadow: 0px 2px 7px;
   justify-content: space-around;
   background-color: #fcf4f4;
   margin-top: 10px;
   box-sizing: border-box;
+  margin-right: 10px;
+
 }
 
 #fila2{
@@ -488,6 +492,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   /* Ajustes para el diseño de la sección principal */
   .main {
     padding-top: 10px;
+    
   }
 
   aside {
@@ -721,10 +726,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   text-transform: lowercase;
 }
 
-.wave:nth-child(2),
-.wave:nth-child(3) {
-  top: 210px;
-}
+
 
 .playing .wave {
   border-radius: 40%;
