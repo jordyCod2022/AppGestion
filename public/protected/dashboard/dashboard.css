@@ -183,7 +183,7 @@ aside ul li a span {
 
 aside ul li:hover {
   background: #fff;
-  box-shadow: inset 0px 0px 77px #062f8af3;
+  box-shadow: inset 0px 0px 77px #000000f3;
 }
 aside ul li a span.notif {
   position: absolute;
@@ -192,7 +192,7 @@ aside ul li a span.notif {
   width: 30px;
   height: 30px;
   right: 10px;
-  background: #343436;
+  background: #000000;
   line-height: 31px;
   border-radius: 100%;
   color: #fff;
