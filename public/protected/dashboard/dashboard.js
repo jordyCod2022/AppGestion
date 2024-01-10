@@ -56,6 +56,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const cambiarImagenBtn = document.getElementById('cambiarImagenBtn');
   if (cambiarImagenBtn) {
     cambiarImagenBtn.addEventListener('click', (event) => {
+      console.log("Subio imagen")
       event.preventDefault(); // Evitar la recarga de la página por defecto
       uploadImage(nombreData.id_colaborador);
     });
