@@ -62,10 +62,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const cambiarImagenBtn = document.getElementById('cambiarImagenBtn');
   if (cambiarImagenBtn) {
-    cambiarImagenBtn.addEventListener('click', uploadImage);
+    cambiarImagenBtn.addEventListener('click', () => uploadImage(idAsignacionUser));
   } else {
     console.error('Botón "cambiarImagenBtn" no encontrado.');
   }
+
 
   // Función para obtener la fecha actual
   function getCurrentDate() {
@@ -203,7 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 }
 
-function uploadImage() {
+function uploadImage(idAsignacionUser) {
   const fileInput = document.getElementById('fileInput');
   const file = fileInput.files[0];
 
@@ -211,21 +212,25 @@ function uploadImage() {
     const formData = new FormData();
     formData.append('avatar', file);
 
-    fetch('/uploadImage', {
+    fetch(`/uploadImage/${idAsignacionUser}`, {
       method: 'POST',
       body: formData
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
 
-      // Puedes manejar la respuesta del servidor aquí
-      alert('Imagen subida exitosamente.');
-    })
-    .catch(error => {
-      console.error('Error al subir la imagen:', error);
-      alert('Error al subir la imagen.');
-    });
+        // Puedes manejar la respuesta del servidor aquí
+        alert('Imagen subida exitosamente.');
+
+        // Actualizar la imagen u otras cosas si es necesario
+        // ...
+
+      })
+      .catch(error => {
+        console.error('Error al subir la imagen:', error);
+        alert('Error al subir la imagen.');
+      });
   } else {
     alert('Selecciona una imagen antes de subir.');
   }
