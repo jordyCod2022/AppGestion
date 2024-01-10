@@ -256,6 +256,26 @@ app.post('/cerrarIncidencia', async (req, res) => {
   }
 });
 
+app.post('/uploadImage', upload.single('avatar'), async (req, res) => {
+  try {
+    // Ruta de la imagen en el sistema de archivos
+    const imageUrl = req.file.path;
+
+    // Insertar la ruta de la imagen en la base de datos
+    const result = await pool.query(
+      'INSERT INTO colaboradores (imagen_colaborador) VALUES ($1) RETURNING id_colaborador',
+      [imageUrl]
+    );
+
+    const insertedId = result.rows[0].id_colaborador;
+
+    res.json({ imageUrl: imageUrl, insertedId: insertedId });
+  } catch (error) {
+    console.error('Error al subir la imagen y actualizar la base de datos', error);
+    res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
 
 
 app.get('/getIncidenciasGrafico', async (req, res) => {
