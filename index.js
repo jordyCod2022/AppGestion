@@ -4,7 +4,6 @@ const path = require('path');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const multer = require('multer');
 
 
 const TelegramBot = require('node-telegram-bot-api');
@@ -14,16 +13,7 @@ dotenv.config();
 const connectionTimeoutMillis = 40000;
 
 // Configuración de Multer para almacenar las imágenes en la carpeta public/uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads'); // Ruta donde se guardarán las imágenes
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-  }
-});
-const upload = multer({ storage: storage });
+
 
 const telegramToken = '6777426387:AAHvHB1oJdcMqt6hutj2D1ZqcI7y0a2dFBg';
 const bot = new TelegramBot(telegramToken, { polling: false });
@@ -51,34 +41,6 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 
-app.post('/uploadImage', upload.single('avatar'), async (req, res) => {
-  try {
-    // Ruta de la imagen en el sistema de archivos
-    const imageUrl = req.file ? req.file.path : null;
-    const idAsignacionUser = req.query.id_asignacion_user;
-
-    if (!imageUrl) {
-      return res.status(400).json({ error: 'No se proporcionó ninguna imagen' });
-    }
-
-    // Insertar la ruta de la imagen en la base de datos (con idAsignacionUser)
-    const result = await pool.query(
-      'UPDATE colaboradores SET imagen_colaborador = $1 WHERE id_colaborador = $2 RETURNING id_colaborador',
-      [imageUrl, idAsignacionUser]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'Usuario no encontrado' });
-    }
-
-    const insertedId = result.rows[0].id_colaborador;
-
-    res.json({ success: true, message: 'Imagen subida con éxito', imageUrl, insertedId });
-  } catch (error) {
-    console.error('Error al subir la imagen y actualizar la base de datos', error);
-    res.status(500).json({ error: 'Error interno del servidor al subir la imagen' });
-  }
-});
 
 
 // Configurar Express para servir archivos estáticos

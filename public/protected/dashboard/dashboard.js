@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
 
@@ -48,17 +49,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
-
-  const cambiarImagenBtn = document.getElementById('cambiarImagenBtn');
-  if (cambiarImagenBtn) {
-    cambiarImagenBtn.addEventListener('click', (event) => {
-      console.log('Subió imagen');
-      event.preventDefault(); // Evitar la recarga de la página por defecto
-      uploadImage();
-    });
-  } else {
-    console.error('Botón "cambiarImagenBtn" no encontrado.');
-  }
 
   // Función para obtener la fecha actual
   function getCurrentDate() {
@@ -192,46 +182,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  function uploadImage() {
-    const fileInput = document.getElementById('fileInput');
-    const file = fileInput.files[0];
   
-    if (file) {
-      const formData = new FormData();
-      formData.append('avatar', file);
-  
-      const storedNombreData = localStorage.getItem('nombreData');
-      const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-      const idAsignacionUser = nombreData ? nombreData.id_colaborador : null;
-  
-      if (!idAsignacionUser) {
-        alert('Error al obtener el ID de usuario.');
-        return;
-      }
-  
-      fetch(`/uploadImage?id_asignacion_user=${idAsignacionUser}`, {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-  
-          // Verificar si la respuesta indica éxito
-          if (data && data.imageUrl) {
-            alert('Imagen subida exitosamente.');
-            // Puedes realizar otras acciones aquí, como actualizar la imagen en la página, etc.
-          } else {
-            alert('Error al subir la imagen.');
-          }
-        })
-        .catch(error => {
-          console.error('Error al subir la imagen:', error);
-          alert('Error al subir la imagen.');
-        });
-    } else {
-      alert('Selecciona una imagen antes de subir.');
-    }
-  }
   
 });
