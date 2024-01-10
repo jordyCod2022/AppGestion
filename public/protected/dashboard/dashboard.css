@@ -182,7 +182,6 @@ aside ul li a span {
 }
 
 aside ul li:hover {
-  background: #fff;
   box-shadow: inset 0px 0px 77px #000000f3;
 }
 aside ul li a span.notif {
