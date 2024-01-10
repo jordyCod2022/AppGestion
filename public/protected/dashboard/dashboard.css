@@ -514,6 +514,12 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
     flex-wrap: wrap; /* Ajusta el diseño de la gráfica de barras */
   }
 
+  .Btn{
+    margin-left: -45px;
+    background-color: #27ae60;
+    
+  }
+
  
 }
 
@@ -531,7 +537,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   overflow: hidden;
   transition-duration: .3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: rgb(255, 65, 65);
+  background-color: rgb(54, 160, 89);
 }
 
 /* plus sign */
@@ -764,6 +770,8 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   .row {
     margin-top: 10; /* Ajuste según tus necesidades */
   }
+
+  
 }
 
 
