@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-const fileInput = document.querySelector('input[name="avatar"]');
+const fileInput = document.querySelector('#cargarImagenLink');
 if (fileInput) {
   // Agrega un evento de cambio al input de tipo archivo
   fileInput.addEventListener('change', handleFileUpload);
