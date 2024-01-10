@@ -6,33 +6,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
 
-  document.getElementById('cambiarImagenBtn').addEventListener('click', function () {
-    const input = document.createElement('input');
-    input.type = 'file';
-
-    input.addEventListener('change', function () {
-      const file = input.files[0];
-      if (file) {
-        const formData = new FormData();
-        formData.append('avatar', file);
-
-        fetch('/uploadImage', {
-          method: 'POST',
-          body: formData
-        })
-          .then(response => response.json())
-          .then(data => {
-            console.log(data);
-            // Puedes manejar la respuesta del servidor aquí
-          })
-          .catch(error => {
-            console.error('Error al subir la imagen:', error);
-          });
-      }
-    });
-
-    input.click();
-  });
 
 
   // Agrega la funcionalidad al botón de cerrar sesión
@@ -221,6 +194,34 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
         });
     }
+}
+
+function uploadImage() {
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+
+  if (file) {
+    const formData = new FormData();
+    formData.append('avatar', file);
+
+    fetch('/uploadImage', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+
+      // Puedes manejar la respuesta del servidor aquí
+      alert('Imagen subida exitosamente.');
+    })
+    .catch(error => {
+      console.error('Error al subir la imagen:', error);
+      alert('Error al subir la imagen.');
+    });
+  } else {
+    alert('Selecciona una imagen antes de subir.');
+  }
 }
 
 
