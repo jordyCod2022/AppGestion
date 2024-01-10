@@ -60,6 +60,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     this.classList.toggle('active');
   });
 
+  var opcionesMenu = document.querySelectorAll('.dropdown ul li');
+
+  opcionesMenu.forEach(function(opcion) {
+    opcion.addEventListener('click', function() {
+      // Remover cualquier clase de color previa
+      opcionesMenu.forEach(function(opcion) {
+        opcion.classList.remove('color-opcion1', 'color-opcion2');
+      });
+
+      // Aplicar la clase de color correspondiente a la opción actual
+      if (this.textContent === 'Teal') {
+        this.classList.add('color-opcion1');
+        cambiarColores('#673ab7');  // Cambia los colores del header y aside
+      } else if (this.textContent === 'Deep Purple') {
+        this.classList.add('color-opcion2');
+        cambiarColores('#009688');  // Cambia los colores del header y aside
+      }
+    });
+  });
+
+  // Función para cambiar los colores del header y aside
+  function cambiarColores(color) {
+    // Cambiar color del header
+    var header = document.querySelector('header');
+    if (header) {
+      header.style.backgroundColor = color;
+    }
+
+    // Cambiar color del aside
+    var aside = document.querySelector('aside');
+    if (aside) {
+      aside.style.backgroundColor = color;
+    }
+  }
+
+
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
