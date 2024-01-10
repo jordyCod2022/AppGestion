@@ -68,38 +68,41 @@ document.addEventListener('DOMContentLoaded', async () => {
       opcionesMenu.forEach(function(opcion) {
         opcion.classList.remove('color-opcion1', 'color-opcion2');
       });
-
+  
       // Aplicar la clase de color correspondiente a la opción actual
       if (this.textContent === 'Deep Purple') {
         this.classList.add('color-opcion1');
-        cambiarColores('#673ab7');  // Cambia los colores del header y aside
+        cambiarColores('#673ab7', 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%)');
       } else if (this.textContent === 'Teal') {
         this.classList.add('color-opcion2');
-        cambiarColores('#042e27');  // Cambia los colores del header y aside
+        cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
       } else if (this.textContent === 'Space') {
-        // Deshacer los cambios, volver a los estilos normales
-        opcionesMenu.forEach(function(opcion) {
-          opcion.classList.remove('color-opcion1', 'color-opcion2');
-        });
-        cambiarColores('color-normal'); // Utiliza el color normal o el que corresponda
+        cambiarColores('#1b2838', 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%)');
       }
     });
   });
-
-  // Función para cambiar los colores del header y aside
-  function cambiarColores(color) {
+  
+  // Función para cambiar los colores y estilos del header, aside y article
+  function cambiarColores(color, articleStyle) {
     // Cambiar color del header
     var header = document.querySelector('header');
     if (header) {
       header.style.backgroundColor = color;
     }
-
+  
     // Cambiar color del aside
     var aside = document.querySelector('aside');
     if (aside) {
       aside.style.backgroundColor = color;
     }
+  
+    // Cambiar estilos del article
+    var article = document.getElementById('article');
+    if (article) {
+      article.style.background = articleStyle;
+    }
   }
+  
 
 
   // Función para obtener la fecha actual
