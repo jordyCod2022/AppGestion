@@ -51,18 +51,20 @@ process.on('SIGINT', () => {
   process.exit(0);
 });
 
-app.post('/uploadImage/:userId', upload.single('avatar'), async (req, res) => {
+app.post('/uploadImage', upload.single('avatar'), async (req, res) => {
   try {
-    // Obtener la ID de usuario desde los parámetros de la URL
-    const userId = req.params.userId;
-
     // Ruta de la imagen en el sistema de archivos
-    const imageUrl = req.file.path;
+    const imageUrl = req.file ? req.file.path : null;
+    const idAsignacionUser = req.query.id_asignacion_user;
 
-    // Insertar la ruta de la imagen y la ID de usuario en la base de datos
+    if (!imageUrl) {
+      return res.status(400).json({ error: 'No se proporcionó ninguna imagen' });
+    }
+
+    // Insertar la ruta de la imagen en la base de datos (con idAsignacionUser)
     const result = await pool.query(
       'UPDATE colaboradores SET imagen_colaborador = $1 WHERE id_colaborador = $2 RETURNING id_colaborador',
-      [imageUrl, userId]
+      [imageUrl, idAsignacionUser]
     );
 
     if (result.rows.length === 0) {
@@ -71,10 +73,10 @@ app.post('/uploadImage/:userId', upload.single('avatar'), async (req, res) => {
 
     const insertedId = result.rows[0].id_colaborador;
 
-    res.json({ success: true, message: 'Imagen subida con éxito', imageUrl: imageUrl, insertedId: insertedId });
+    res.json({ success: true, message: 'Imagen subida con éxito', imageUrl, insertedId });
   } catch (error) {
     console.error('Error al subir la imagen y actualizar la base de datos', error);
-    res.status(500).json({ error: 'Error interno del servidor' });
+    res.status(500).json({ error: 'Error interno del servidor al subir la imagen' });
   }
 });
 
@@ -92,6 +94,7 @@ app.get('/', (req, res) => {
 app.get('/getNombre', async (req, res) => {
   // Obtener la cédula del usuario autenticado desde la solicitud
   const cedula = req.query.username; // Cambiado de req.body a req.query
+  
 
   try {
     // Realizar la consulta a la base de datos para obtener el nombre y el id_colaborador

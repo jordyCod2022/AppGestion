@@ -17,34 +17,30 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   } else {
-    console.log('No se encontró el botón de cerrar sesión');
+    console.error('No se encontró el botón de cerrar sesión');
   }
 
   // Obtiene el elemento aside
-  var menuAside = document.getElementById('menuAside');
+  const menuAside = document.getElementById('menuAside');
 
   // Obtiene el elemento del ícono de menú
-  var menuIcon = document.querySelector('.menu');
+  const menuIcon = document.querySelector('.menu');
 
   // Agrega un evento de clic al ícono de menú
-  menuIcon.addEventListener('click', function () {
+  menuIcon.addEventListener('click', () => {
     menuAside.classList.toggle('show');
 
     // Revisa si la clase "show" está presente en el aside
-    var isMenuVisible = menuAside.classList.contains('show');
+    const isMenuVisible = menuAside.classList.contains('show');
 
     // Cambia la anchura del aside en consecuencia
     menuAside.style.width = isMenuVisible ? '60px' : '235px';
 
     // Cambiar el ancho de article
     article.style.marginLeft = isMenuVisible ? '1%' : '1%';
-    var container = document.getElementById('myContainer');
+    const container = document.getElementById('myContainer');
 
-    if (container.style.display === 'none') {
-      container.style.display = 'block';
-    } else {
-      container.style.display = 'none';
-    }
+    container.style.display = isMenuVisible ? 'none' : 'block';
   });
 
   // Obtener elementos del DOM
@@ -56,9 +52,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const cambiarImagenBtn = document.getElementById('cambiarImagenBtn');
   if (cambiarImagenBtn) {
     cambiarImagenBtn.addEventListener('click', (event) => {
-      console.log("Subio imagen")
+      console.log('Subió imagen');
       event.preventDefault(); // Evitar la recarga de la página por defecto
-      uploadImage(nombreData.id_colaborador);
+      uploadImage();
     });
   } else {
     console.error('Botón "cambiarImagenBtn" no encontrado.');
@@ -196,22 +192,31 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  function uploadImage(idAsignacionUser) {
+  function uploadImage() {
     const fileInput = document.getElementById('fileInput');
     const file = fileInput.files[0];
-
+  
     if (file) {
       const formData = new FormData();
       formData.append('avatar', file);
-
-      fetch(`/uploadImage/${idAsignacionUser}`, {
+  
+      const storedNombreData = localStorage.getItem('nombreData');
+      const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+      const idAsignacionUser = nombreData ? nombreData.id_colaborador : null;
+  
+      if (!idAsignacionUser) {
+        alert('Error al obtener el ID de usuario.');
+        return;
+      }
+  
+      fetch(`/uploadImage?id_asignacion_user=${idAsignacionUser}`, {
         method: 'POST',
         body: formData
       })
         .then(response => response.json())
         .then(data => {
           console.log(data);
-
+  
           // Verificar si la respuesta indica éxito
           if (data && data.imageUrl) {
             alert('Imagen subida exitosamente.');
@@ -228,4 +233,5 @@ document.addEventListener('DOMContentLoaded', async () => {
       alert('Selecciona una imagen antes de subir.');
     }
   }
+  
 });
