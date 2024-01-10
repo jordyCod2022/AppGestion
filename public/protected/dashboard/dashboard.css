@@ -140,6 +140,11 @@ article {
 }
 
 
+
+
+
+
+
 aside ul {
   list-style: none;
   width: 100%;
@@ -461,6 +466,8 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 
 
 @media only screen and (max-width: 768px) {
+
+  
   header {
     padding: 10px; /* Ajusta el espaciado en la barra de navegación */
   }

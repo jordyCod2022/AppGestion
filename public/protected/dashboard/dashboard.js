@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   });
 
-
   // Función para actualizar los totales de incidencias con la nueva fecha
   async function updateTotalesIncidencias(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
