@@ -76,7 +76,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   currentDateContainer.appendChild(dateContainer);
 
   // Configurar flatpickr para el selector de fecha
- 
+  const flatpickrInstance = flatpickr('.Btn', {
+    dateFormat: 'Y-m-d',
+    onClose: function (selectedDates, dateStr) {
+      dateContainer.innerText = dateStr;
+
+      // Actualizar los totales de incidencias con la nueva fecha
+      updateTotalesIncidencias(dateStr);
+      updateGrafica(dateStr)
+      localStorage.setItem('dashboardFecha', dateStr);
+    },
+  });
+
 
   // Función para actualizar los totales de incidencias con la nueva fecha
   async function updateTotalesIncidencias(newDate) {
