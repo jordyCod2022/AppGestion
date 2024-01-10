@@ -140,17 +140,6 @@ article {
 }
 
 
-
-
-
-
-@media (max-width: 500px) {
-  aside {
-    display: none;
-  }
-}
-
-
 aside ul {
   list-style: none;
   width: 100%;
