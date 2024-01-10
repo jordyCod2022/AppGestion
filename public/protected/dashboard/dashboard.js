@@ -70,12 +70,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
 
       // Aplicar la clase de color correspondiente a la opción actual
-      if (this.textContent === 'Teal') {
+      if (this.textContent === 'Deep Purple') {
         this.classList.add('color-opcion1');
         cambiarColores('#673ab7');  // Cambia los colores del header y aside
-      } else if (this.textContent === 'Deep Purple') {
+      } else if (this.textContent === 'Teal') {
         this.classList.add('color-opcion2');
-        cambiarColores('#009688');  // Cambia los colores del header y aside
+        cambiarColores('#042e27');  // Cambia los colores del header y aside
+      } else if (this.textContent === 'Space') {
+        // Deshacer los cambios, volver a los estilos normales
+        opcionesMenu.forEach(function(opcion) {
+          opcion.classList.remove('color-opcion1', 'color-opcion2');
+        });
+        cambiarColores('color-normal'); // Utiliza el color normal o el que corresponda
       }
     });
   });
