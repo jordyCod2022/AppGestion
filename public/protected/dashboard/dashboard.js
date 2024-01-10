@@ -6,6 +6,34 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
 
+  document.getElementById('cambiarImagenBtn').addEventListener('click', function () {
+    const input = document.createElement('input');
+    input.type = 'file';
+
+    input.addEventListener('change', function () {
+      const file = input.files[0];
+      if (file) {
+        const formData = new FormData();
+        formData.append('avatar', file);
+
+        fetch('/uploadImage', {
+          method: 'POST',
+          body: formData
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+            // Puedes manejar la respuesta del servidor aquí
+          })
+          .catch(error => {
+            console.error('Error al subir la imagen:', error);
+          });
+      }
+    });
+
+    input.click();
+  });
+
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -194,46 +222,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 }
-
-
-
-const fileInput = document.querySelector('#cargarImagenLink');
-if (fileInput) {
-  // Agrega un evento de cambio al input de tipo archivo
-  fileInput.addEventListener('change', handleFileUpload);
-}
-
-// Función para manejar la carga de archivos
-async function handleFileUpload(event) {
-  const file = event.target.files[0];
-
-  // Crea un objeto FormData y agrega el archivo
-  const formData = new FormData();
-  formData.append('avatar', file);
-
-  try {
-    // Realiza la solicitud al servidor para subir la imagen
-    const response = await fetch('/uploadImage', {
-      method: 'POST',
-      body: formData,
-    });
-
-    const data = await response.json();
-    console.log('Respuesta del servidor:', data);
-
-    // Actualiza la imagen en el frontend si es necesario
-    if (data.imageUrl) {
-      // Puedes mostrar la imagen actualizada en tu interfaz de usuario
-      // Puedes obtener el elemento de imagen y establecer su atributo src
-      // Ejemplo: document.getElementById('avatarImage').src = data.imageUrl;
-    }
-  } catch (error) {
-    console.error('Error al cargar la imagen:', error);
-    // Manejo de errores
-  }
-}
-
-
 
 
 });
