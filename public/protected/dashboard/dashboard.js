@@ -1,12 +1,9 @@
 document.addEventListener('DOMContentLoaded', async () => {
-
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
-
-
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -20,9 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     });
   } else {
-    console.log('No se encontró el botón de cerrar sesió');
+    console.log('No se encontró el botón de cerrar sesión');
   }
-
 
   // Obtiene el elemento aside
   var menuAside = document.getElementById('menuAside');
@@ -40,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cambia la anchura del aside en consecuencia
     menuAside.style.width = isMenuVisible ? '60px' : '235px';
 
-    //cambiar el ancho de article
+    // Cambiar el ancho de article
     article.style.marginLeft = isMenuVisible ? '1%' : '1%';
     var container = document.getElementById('myContainer');
 
@@ -49,24 +45,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     } else {
       container.style.display = 'none';
     }
-  
-   
   });
 
   // Obtener elementos del DOM
   const currentDateContainer = document.querySelector('.current-date-container');
-
 
   // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
 
   const cambiarImagenBtn = document.getElementById('cambiarImagenBtn');
   if (cambiarImagenBtn) {
-    cambiarImagenBtn.addEventListener('click', () => uploadImage(idAsignacionUser));
+    cambiarImagenBtn.addEventListener('click', (event) => {
+      event.preventDefault(); // Evitar la recarga de la página por defecto
+      uploadImage(nombreData.id_colaborador);
+    });
   } else {
     console.error('Botón "cambiarImagenBtn" no encontrado.');
   }
-
 
   // Función para obtener la fecha actual
   function getCurrentDate() {
@@ -75,11 +70,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     const month = (currentDate.getMonth() + 1).toString().padStart(2, '0');
     const day = currentDate.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
-
   }
 
-
-  // Configurar la prentación de la fecha
+  // Configurar la presentación de la fecha
   dateContainer.innerText = getCurrentDate();
   dateContainer.className = 'current-date';
   currentDateContainer.appendChild(dateContainer);
@@ -92,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
-      updateGrafica(dateStr)
+      updateGrafica(dateStr);
       localStorage.setItem('dashboardFecha', dateStr);
     },
   });
@@ -122,7 +115,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ticketsPendientesElement.querySelector('.name').textContent = totalesData.total_pendientes || 'N/A';
         ticketsResueltosElement.querySelector('.name').textContent = totalesData.total_cerrados || 'N/A';
       } else {
-        console.error('Elemento no encontrad');
+        console.error('Elemento no encontrado');
       }
 
       if (ticketsPendientesElement) {
@@ -132,7 +125,6 @@ document.addEventListener('DOMContentLoaded', async () => {
       } else {
         console.error('Elemento "ticketsPendientes" no fue encontrado');
       }
-
     }
   }
 
@@ -143,100 +135,96 @@ document.addEventListener('DOMContentLoaded', async () => {
     localStorage.setItem('dashboardFecha', newDate);
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  
+
     if (nombreData && nombreData.username) {
-        const idAsignacionUser = nombreData.id_colaborador;
-  
-        // Obtener datos de incidencias con la nueva fecha
-        const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-        localStorage.setItem('idAsignacionUser', idAsignacionUser);
-        const totalesData = await totalesResponse.json();
-        console.log('Resultados de las gráficas:', totalesData);
-  
-        // Destruir el gráfico existente si hay uno
-        if (window.barChart) {
-            window.barChart.destroy();
-        }
-  
-        // Crear arrays para etiquetas (nombres) y datos (cantidades)
-        const etiquetas = totalesData.map(item => item.nombre_reportador);
-        const datos = totalesData.map(item => item.total_incidentes);
-  
-        // Crear el gráfico de barras vertical
-        window.barChart = new Chart(barChartContainer, {
-            type: 'bar',
-            data: {
-                labels: etiquetas,
-                datasets: [{
-                    label: 'Incidentes Reportados',
-                    data: datos,
-                    backgroundColor: 'rgba(173, 216, 230, 0.5)', // Celeste con transparencia // Ajusta el último valor (0.5) según tus preferencias
+      const idAsignacionUser = nombreData.id_colaborador;
 
-                    borderColor: 'rgba(173, 216, 230, 1)', // Celeste sólido para los bordes
-                    // Verde sólido para los bordes de las barras
-                    borderWidth: 1
-                }]
+      // Obtener datos de incidencias con la nueva fecha
+      const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+      localStorage.setItem('idAsignacionUser', idAsignacionUser);
+      const totalesData = await totalesResponse.json();
+      console.log('Resultados de las gráficas:', totalesData);
+
+      // Destruir el gráfico existente si hay uno
+      if (window.barChart) {
+        window.barChart.destroy();
+      }
+
+      // Crear arrays para etiquetas (nombres) y datos (cantidades)
+      const etiquetas = totalesData.map(item => item.nombre_reportador);
+      const datos = totalesData.map(item => item.total_incidentes);
+
+      // Crear el gráfico de barras vertical
+      window.barChart = new Chart(barChartContainer, {
+        type: 'bar',
+        data: {
+          labels: etiquetas,
+          datasets: [{
+            label: 'Incidentes Reportados',
+            data: datos,
+            backgroundColor: 'rgba(173, 216, 230, 0.5)', // Celeste con transparencia
+
+            borderColor: 'rgba(173, 216, 230, 1)', // Celeste sólido para los bordes
+            borderWidth: 1
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: {
+                color: 'white'
+              }
             },
-            options: {
-                indexAxis: 'y',
-                scales: {
-                    x: {
-                        beginAtZero: true,
-                        ticks: {
-                            color: 'white' // Color blanco para las etiquetas en el eje X
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: 'white' // Color blanco para las etiquetas en el eje Y
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: 'white' // Color blanco para las letras en la leyenda
-                        }
-                    }
-                }
+            y: {
+              ticks: {
+                color: 'white'
+              }
             }
-        });
-    }
-}
-
-function uploadImage(idAsignacionUser) {
-  const fileInput = document.getElementById('fileInput');
-  const file = fileInput.files[0];
-
-  if (file) {
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    fetch(`/uploadImage/${idAsignacionUser}`, {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-
-        // Puedes manejar la respuesta del servidor aquí
-        alert('Imagen subida exitosamente.');
-
-        // Actualizar la imagen u otras cosas si es necesario
-        // ...
-
-      })
-      .catch(error => {
-        console.error('Error al subir la imagen:', error);
-        alert('Error al subir la imagen.');
+          },
+          plugins: {
+            legend: {
+              labels: {
+                color: 'white'
+              }
+            }
+          }
+        }
       });
-  } else {
-    alert('Selecciona una imagen antes de subir.');
+    }
   }
-}
 
+  function uploadImage(idAsignacionUser) {
+    const fileInput = document.getElementById('fileInput');
+    const file = fileInput.files[0];
 
+    if (file) {
+      const formData = new FormData();
+      formData.append('avatar', file);
 
+      fetch(`/uploadImage/${idAsignacionUser}`, {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+
+          // Verificar si la respuesta indica éxito
+          if (data && data.imageUrl) {
+            alert('Imagen subida exitosamente.');
+            // Puedes realizar otras acciones aquí, como actualizar la imagen en la página, etc.
+          } else {
+            alert('Error al subir la imagen.');
+          }
+        })
+        .catch(error => {
+          console.error('Error al subir la imagen:', error);
+          alert('Error al subir la imagen.');
+        });
+    } else {
+      alert('Selecciona una imagen antes de subir.');
+    }
+  }
 });
-
