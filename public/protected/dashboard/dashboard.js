@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Obtener elementos del DOM
   const currentDateContainer = document.querySelector('.current-date-container');
-  const changeDateButton = document.querySelector('.Btn');
+
 
   // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
@@ -76,17 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   currentDateContainer.appendChild(dateContainer);
 
   // Configurar flatpickr para el selector de fecha
-  const flatpickrInstance = flatpickr('.Btn', {
-    dateFormat: 'Y-m-d',
-    onClose: function (selectedDates, dateStr) {
-      dateContainer.innerText = dateStr;
-
-      // Actualizar los totales de incidencias con la nueva fecha
-      updateTotalesIncidencias(dateStr);
-      updateGrafica(dateStr)
-      localStorage.setItem('dashboardFecha', dateStr);
-    },
-  });
+ 
 
   // Función para actualizar los totales de incidencias con la nueva fecha
   async function updateTotalesIncidencias(newDate) {
