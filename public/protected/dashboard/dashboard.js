@@ -60,6 +60,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
 
+  const cambiarImagenBtn = document.getElementById('cambiarImagenBtn');
+  if (cambiarImagenBtn) {
+    cambiarImagenBtn.addEventListener('click', uploadImage);
+  } else {
+    console.error('Botón "cambiarImagenBtn" no encontrado.');
+  }
+
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
@@ -196,33 +203,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 }
 
-function uploadImage() {
-  const fileInput = document.getElementById('fileInput');
-  const file = fileInput.files[0];
-
-  if (file) {
-    const formData = new FormData();
-    formData.append('avatar', file);
-
-    fetch('/uploadImage', {
-      method: 'POST',
-      body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-
-      // Puedes manejar la respuesta del servidor aquí
-      alert('Imagen subida exitosamente.');
-    })
-    .catch(error => {
-      console.error('Error al subir la imagen:', error);
-      alert('Error al subir la imagen.');
-    });
-  } else {
-    alert('Selecciona una imagen antes de subir.');
-  }
-}
 
 
 });
