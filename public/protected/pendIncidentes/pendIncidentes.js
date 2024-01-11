@@ -27,7 +27,8 @@ function showAndProcessIncidencias(incidencias) {
         title: 'Acción',
         render: function (data, type, row) {
           const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})">Informar</button>`;
-          const realizadoButton = `<button onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row)}, this)">Realizado</button>`;
+          const realizadoButton = `<button onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)">Realizado</button>`;
+
 
           return informarButton + realizadoButton;
         }
