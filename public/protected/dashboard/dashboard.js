@@ -88,13 +88,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (article) {
         article.style.width = '100%';
         article.style.height = '100%';
-        article.style.background = 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), ' +
-          'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), ' +
-          'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), ' +
-          'radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%)';
+        article.style.background = 'rgba(29, 31, 32, 0.904) radial-gradient(rgba(255, 255, 255, 0.712) 10%, transparent 1%)';
         article.style.backgroundSize = '20px 20px';
         article.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
       }
+      
       var header = document.querySelector('header');
       if (header) {
         header.style.backgroundColor = '#1b2838';
