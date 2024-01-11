@@ -23,8 +23,7 @@
   </header>
   
 
-  <article>
-
+  <article id="article"> <!-- Asegúrate de que esta línea tenga el id correcto -->
     
     <div id="incidenciasContainer">
       <table id="tablaIncidencias" border="1">
@@ -45,7 +44,7 @@
     </div>
     
 
-    <div id="modal" class="modal">
+    <div id="modal" class="modal"> <!-- Asegúrate de que esta línea tenga el id correcto -->
       <div class="modal-content">
           <span class="close" onclick="cerrarModal()">&times;</span>
           <p>Ingrese el mensaje para informar el incidente:</p>
@@ -55,38 +54,28 @@
       </div>
     </div>
 
+    <!-- Quité la segunda instancia del div modal -->
 
-  </div>
-
-  <div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <p>Ingrese el mensaje para informar el incidente:</p>
-        <textarea id="mensajeInput" rows="4" cols="50"></textarea>
-        <button onclick="informarDesdeModal()">Informar</button>
-        <button onclick="autogenerarMensaje()">Autogenerar</button>
+    <div id="confirmacionModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarConfirmacionModal()">&times;</span>
+        <p>¿Estás seguro de marcar la incidencia como "Realizado"?</p>
+        <button onclick="confirmarRealizadoDesdeModal()">Sí</button>
+        <button onclick="cerrarConfirmacionModal()">No</button>
+      </div>
     </div>
-  </div>
-
-  <div id="confirmacionModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarConfirmacionModal()">&times;</span>
-      <p>¿Estás seguro de marcar la incidencia como "Realizado"?</p>
-      <button onclick="confirmarRealizadoDesdeModal()()">Sí</button>
-      <button onclick="cerrarConfirmacionModal()">No</button>
-    </div>
-  </div>
-
-  
    
  </article>
  
-  
-
-
   <!-- Tu script de JavaScript -->
   <script src="pendIncidentes.js"></script>
 
+  <!-- Inicialización de DataTables -->
+  <script>
+    $(document).ready(function() {
+      $('#tablaIncidencias').DataTable();
+    });
+  </script>
  
 </body>
 </html>
