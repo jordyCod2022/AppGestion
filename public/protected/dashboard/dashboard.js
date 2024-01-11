@@ -193,12 +193,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Actualizar elementos HTML con los resultados
       const ticketsPendientesElement = document.getElementById('ticketsPendientes');
       const ticketsResueltosElement = document.getElementById('ticketsResueltos');
-      const notifyResueltosElement = document.getElementById('pendientes'); // Cambiado 'notif red' a 'notif_red'
+      
 
       if (ticketsPendientesElement && ticketsResueltosElement) {
         ticketsPendientesElement.querySelector('.name').textContent = totalesData.total_pendientes || 'N/A';
         ticketsResueltosElement.querySelector('.name').textContent = totalesData.total_cerrados || 'N/A';
-        notifyResueltosElement.querySelector(".notif").textContent = totalesData.total_pendientes || '0';
+      
       } else {
         console.error('Elemento no encontrado');
       }
