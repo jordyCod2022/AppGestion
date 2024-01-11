@@ -1,242 +1,311 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const storedDashboardFecha = localStorage.getItem('dashboardFecha');
-  const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
+const express = require('express');
+const app = express();
+const path = require('path');
+const { Pool } = require('pg');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 
-  console.log(storedDashboardFecha);
-  console.log(storedIdAsignacionUser);
 
-  // Obtener y mostrar incidencias
-  getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
+const TelegramBot = require('node-telegram-bot-api');
+
+dotenv.config();
+
+const connectionTimeoutMillis = 40000;
+
+// Configuración de Multer para almacenar las imágenes en la carpeta public/uploads
+
+
+const telegramToken = '6777426387:AAHvHB1oJdcMqt6hutj2D1ZqcI7y0a2dFBg';
+const bot = new TelegramBot(telegramToken, { polling: false });
+// Configuración para el pool de conexiones a PostgreSQL
+const pool = new Pool({
+  connectionString: process.env.conexion,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+  connectionTimeoutMillis: connectionTimeoutMillis,
 });
 
-let filaSeleccionada = null;
+// Manejar eventos de conexión y desconexión de la base de datos
+pool.on('connect', () => {
+  console.log('Conexión a la base de datos establecida con éxito.');
+});
 
-function showAndProcessIncidencias(incidencias) {
-  const tablaIncidencias = $('#tablaIncidencias').DataTable({
-    destroy: true, // Destruye la DataTable existente si existe
-    data: incidencias,
-    columns: [
-      { data: 'id_incidente', title: 'ID Incidente' },
-      { data: 'nombre_colaborador', title: 'Nombre Colaborador' },
-      { data: 'incidente_descrip', title: 'Descripción' },
-      { data: 'estado', title: 'Estado', render: function (data) {
-        return data === 2 ? 'Pendiente' : 'Cerrado';
-      }},
-      {
-        data: null,
-        title: 'Acción',
-        render: function (data, type, row) {
-          console.log(row.telefono_colaborador)
-          console.log(row.id_incidente)
-          const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})">Informar</button>`;
+pool.on('error', (err) => {
+  console.error('Error en la conexión a la base de datos:', err);
+});
 
-          console.log("Data")
-          console.log(JSON.stringify(row))
-          const realizadoButton = `<button onclick="abrirConfirmacionModal(${JSON.stringify(row)}, this)">Realizado</button>`;
-          return informarButton + realizadoButton;
-        }
-      }
-    ]
-  });
+process.on('SIGINT', () => {
+  pool.end();
+  console.log('Conexión a la base de datos cerrada debido a la terminación del proceso.');
+  process.exit(0);
+});
 
-  // Manejar eventos de clic en las filas
-  $('#tablaIncidencias tbody').on('click', 'tr', function () {
-    // Obtener los datos de la fila seleccionada
-    const data = tablaIncidencias.row(this).data();
-    console.log('Fila seleccionada:', data);
 
-    // Guardar la fila seleccionada para su posterior uso
-    filaSeleccionada = this;
-  });
 
-  // Agregar la DataTable al contenedor
-  const incidenciasContainer = document.getElementById('incidenciasContainer');
-  incidenciasContainer.innerHTML = ''; // Limpiar contenido antes de agregar la DataTable
-  incidenciasContainer.appendChild(tablaIncidencias.table().container());
-}
+// Configurar Express para servir archivos estáticos
+app.use(express.static('public'));
+app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
-function informarIncidente(telefonoColaborador, idIncidencia) {
-  const modal = document.getElementById('modal');
-  modal.style.display = 'block';
-  modal.setAttribute('data-telefono', telefonoColaborador);
-  modal.setAttribute('data-id-incidencia', idIncidencia);
-  filaSeleccionada = filaSeleccionada || document.querySelector('#tablaIncidencias tbody tr');
-}
+// Ruta para la página principal
+app.get('/', (req, res) => {
+  const indexPath = path.join(__dirname, 'public', 'index.html');
+  res.sendFile(indexPath);
+});
 
-function autogenerarMensaje() {
-  const mensajeInput = document.getElementById('mensajeInput');
+app.get('/getNombre', async (req, res) => {
+  // Obtener la cédula del usuario autenticado desde la solicitud
+  const cedula = req.query.username; // Cambiado de req.body a req.query
+  
 
-  // Verifica si hay una fila seleccionada
-  if (filaSeleccionada) {
-    const nombre = filaSeleccionada.querySelector('td:nth-child(2)').textContent;
-    const id = filaSeleccionada.querySelector('td:nth-child(1)').textContent;
-    const descripcion = filaSeleccionada.querySelector('td:nth-child(3)').textContent;
+  try {
+    // Realizar la consulta a la base de datos para obtener el nombre y el id_colaborador
+    const result = await pool.query(`
+      SELECT id_colaborador, nombre_colaborador
+      FROM public.colaboradores
+      WHERE cedula = $1
+    `, [cedula]);
 
-    // Plantillas de mensajes
-    const plantillas = [
-      '👋 Hola {nombre}, tu incidencia con ID {idIncidencia} está siendo atendida. En unos minutos te notificaremos su avance.\nDescripción: {descripcion} 🛠️',
-      '🙏 Estimado/a {nombre}, gracias por informarnos. Estamos trabajando para resolver tu incidencia con ID {idIncidencia}.\nDescripción: {descripcion} 🚧',
-      '👋 Hola {nombre}, hemos recibido tu reporte con ID {idIncidencia}. Estamos investigando la situación.\nDescripción: {descripcion} 🕵️',
-      '👋 Saludos {nombre}, estamos tomando medidas para resolver tu incidencia con ID {idIncidencia}. Pronto recibirás más información.\nDescripción: {descripcion} 🚀',
-      '🚀 ¡Hola {nombre}!, tu reporte con ID {idIncidencia} ha sido registrado. Estamos trabajando en ello.\nDescripción: {descripcion} 🌟'
-    ];
+    if (result.rows.length > 0) {
+      const idColaborador = result.rows[0].id_colaborador;
+      const nombre = result.rows[0].nombre_colaborador;
 
-    // Selecciona aleatoriamente una plantilla
-    const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
+      // Imprimir los resultados en la consola del servidor
+      console.log('ID del usuario:', idColaborador);
+      console.log('Nombre del usuario:', nombre);
+      console.log('Nombre de usuario (cedula):', cedula);
 
-    // Reemplaza placeholders en la plantilla con datos de la incidencia seleccionada
-    const mensajePersonalizado = plantillaAleatoria
-      .replace('{nombre}', nombre)
-      .replace('{idIncidencia}', id)
-      .replace('{descripcion}', descripcion);
-
-    // Asigna el mensaje personalizado al cuadro de texto
-    mensajeInput.value = mensajePersonalizado;
+      res.json({ id_colaborador: idColaborador, nombre: nombre, username: cedula });
+    } else {
+      res.json({ id_colaborador: null, nombre: null, username: null });
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener el nombre e ID del usuario' });
   }
-}
-// ... (Resto de tu código)
+});
 
 
-function regresar() {
- 
-  window.history.back();
-}
+//obtener ttickts pendientes y resueltos:
+app.get('/getTotalesIncidencias', async (req, res) => {
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const fechaIncidencia = req.query.fecha_incidencia; // Asegúrate de validar y formatear la fecha según tus necesidades
 
+  try {
+    const result = await pool.query(`
+      SELECT
+        id_asignacion_user,
+        COUNT(*) FILTER (WHERE id_estado = 2) AS total_pendientes,
+        COUNT(*) FILTER (WHERE id_estado = 3) AS total_cerrados
+      FROM
+        public.incidente
+      WHERE
+        id_asignacion_user = $1
+        AND fecha_incidente::date = $2::date
+      GROUP BY
+        id_asignacion_user;
+    `, [idAsignacionUser, fechaIncidencia]);
 
-function cerrarModal() {
-  const modal = document.getElementById('modal');
-  modal.style.display = 'none';
-  document.getElementById('mensajeInput').value = '';
-  filaSeleccionada = null;
+    if (result.rows.length > 0) {
+      const { id_asignacion_user, total_pendientes, total_cerrados } = result.rows[0];
+      
+      console.log('Resultados de incidencias:', { id_asignacion_user, total_pendientes, total_cerrados });
 
-}
-
-// Función para informar desde el modal
-function informarDesdeModal() {
-  const modal = document.getElementById('modal');
-  const telefonoColaborador = modal.getAttribute('data-telefono');
-  const mensajeUsuario = document.getElementById('mensajeInput').value;
-
-  if (mensajeUsuario) {
-    enviarMensajeTelegram(telefonoColaborador, mensajeUsuario)
-      .then(response => {
-        console.log('Mensaje enviado correctamente', response);
-      })
-      .catch(error => {
-        console.error('Error al enviar mensaje:', error);
+      res.json({ 
+        id_asignacion_user,
+        total_pendientes,
+        total_cerrados
       });
-
-    // Simula la acción de informar incidente
-    alert(`Mensaje enviado con exito`);
-
-    // Cierra el modal después de informar
-    cerrarModal();
+    } else {
+      res.json({ 
+        id_asignacion_user: null,
+        total_pendientes: null,
+        total_cerrados: null
+      });
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener los totales de incidencias' });
   }
-}
+});
+
+
+app.get('/getIncidencias', async (req, res) => {
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const fechaIncidencia = req.query.fecha_incidencia; // Asegúrate de validar y formatear la fecha según tus necesidades
+
+  try {
+    // Consulta para obtener incidencias pendientes y cerradas
+    const result = await pool.query(`
+      SELECT
+        i.id_incidente,
+        i.incidente_nombre,
+        i.incidente_descrip,
+        i.fecha_incidente,
+        c.nombre_colaborador,
+        c.apellido_colaborador,
+        c.telefono_colaborador,
+        i.id_estado,
+        i.id_reportacion_user
+      FROM
+        public.incidente i
+      JOIN
+        public.colaboradores c ON i.id_reportacion_user = c.id_colaborador
+      WHERE
+        i.id_asignacion_user = $1
+        AND i.id_estado IN (2)
+        AND i.fecha_incidente::date = $2::date;
+    `, [idAsignacionUser, fechaIncidencia]);
+
+    if (result.rows.length > 0) {
+      const incidencias = result.rows;
+      
+      console.log('Resultados de incidencias:', incidencias);
+
+      res.json(incidencias);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener las incidencias' });
+  }
+});
+
+// Ruta para el inicio de sesión
+app.post('/login', async (req, res) => {
+  const { username, password } = req.body;
+
+  console.log('Cédula recibida:', username);
+  console.log('Contraseña recibida:', password);
+
+  try {
+    // Realizar la consulta a la base de datos para verificar las credenciales
+    const result = await pool.query(`
+      SELECT t.token
+      FROM public.httptoken AS t
+      JOIN public.colaboradores AS c ON t.id_colaboradorfk = c.id_colaborador
+      WHERE c.cedula = $1 AND t.token = $2
+    `, [username, password]);
+
+    if (result.rows.length > 0) {
+      console.log('Inicio de sesión exitoso');
+      res.json({ authenticated: true });
+    } 
+    
+    else {
+      console.log('Inicio de sesión fallido');
+      res.json({ authenticated: false });
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error en la autenticación' });
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Servidor en ejecución en el puerto ${PORT}`);
+});
+
 
 
 async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
-  const url = `/enviarMensajeTelegram`;
-
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-        // Puedes agregar otros encabezados según sea necesario
-      },
-      body: JSON.stringify({ telefono_colaborador: telefonoColaborador, mensajeTelegram: mensajeTelegram })
-    });
-
-    if (!response.ok) {
-      throw new Error('Error en la solicitud');
-    }
-
-    return response.json();
+    const chatId = telefonoColaborador;
+    console.log("Teléfono:", telefonoColaborador);
+    console.log("Mensaje:", mensajeTelegram);
+    // Enviar mensaje a Telegram
+    await bot.sendMessage(chatId, mensajeTelegram);
   } catch (error) {
+    console.error('ERROR al enviar mensaje a Telegram', error);
     throw error;
   }
 }
 
-async function realizarIncidente(idIncidencia, fila) {
-  // Verifica si hay una fila seleccionada
-  if (!fila) {
-    console.error('Error: No hay fila seleccionada para la incidencia');
-    return false;
-  }
+// Ruta para enviar mensajes a través de Telegram
+app.post('/enviarMensajeTelegram', async (req, res) => {
+  const { telefono_colaborador, mensajeTelegram } = req.body;
 
   try {
-    // Realiza una solicitud HTTP para cerrar la incidencia en el servidor
-    const response = await fetch('/cerrarIncidencia', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ id_incidencia: idIncidencia })
-    });
+    console.log("Recibiendo telefono:", telefono_colaborador);
+    console.log("Recibiendo mensaje:", mensajeTelegram);
+    // Llama a la función para enviar el mensaje a Telegram
+    await enviarMensajeTelegram(telefono_colaborador, mensajeTelegram);
 
-    const responseData = await response.json();
+    // Respuesta exitosa
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error al enviar mensaje a Telegram:', error);
+    res.status(500).json({ error: 'Error al enviar mensaje a Telegram' });
+  }
+});
 
-    if (responseData.success) {
-      await new Promise(resolve => setTimeout(resolve, 500));
-      window.location.reload(); // Puedes ajustar el tiempo de espera según sea necesario
-      return true;
+// Ruta para actualizar el estado de la incidencia a "Cerrado"
+app.post('/cerrarIncidencia', async (req, res) => {
+  const idIncidencia = req.body.id_incidencia; // Asegúrate de pasar el ID correcto desde el cliente
+
+  try {
+    // Realizar la consulta de actualización en la base de datos
+    await pool.query(`
+      UPDATE public.incidente
+      SET id_estado = 3
+      WHERE id_incidente = $1;
+    `, [idIncidencia]);
+
+    console.log(`Incidencia ${idIncidencia} actualizada a estado "Cerrado"`);
+
+    // Respuesta exitosa
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error en la actualización de la incidencia:', error);
+    res.status(500).json({ error: 'Error al actualizar la incidencia' });
+  }
+});
+
+
+
+
+app.get('/getIncidenciasGrafico', async (req, res) => {
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const fechaIncidencia = req.query.fecha_incidencia; // Asegúrate de validar y formatear la fecha según tus necesidades
+
+  try {
+    // Consulta para obtener incidencias pendientes y cerradas con nombres de reportadores
+    const result = await pool.query(`
+      SELECT
+        c_reportador.id_colaborador AS id_reportador,
+        c_reportador.nombre_colaborador AS nombre_reportador,
+        c_reportador.apellido_colaborador AS apellido_reportador,
+        i.fecha_incidente,
+        COUNT(i.id_incidente) AS total_incidentes
+      FROM
+        public.incidente i
+      JOIN
+        public.colaboradores c_reportador ON i.id_reportacion_user = c_reportador.id_colaborador
+      WHERE
+        i.id_asignacion_user = $1
+        AND i.id_estado IN (2)
+        AND i.fecha_incidente::date = $2::date
+      GROUP BY
+        c_reportador.id_colaborador, c_reportador.nombre_colaborador, c_reportador.apellido_colaborador, i.fecha_incidente
+      ORDER BY
+        i.fecha_incidente;
+    `, [idAsignacionUser, fechaIncidencia]);
+
+    if (result.rows.length > 0) {
+      const incidencias = result.rows;
+      
+      console.log('Resultados de incidencias:', incidencias);
+
+      res.json(incidencias);
     } else {
-      // Acción fallida
-      alert(`Error al cerrar la incidencia ${idIncidencia}`);
-      return false;
+      res.json([]);
     }
   } catch (error) {
-    console.error('Error en la solicitud HTTP:', error);
-    alert('Error al realizar la solicitud HTTP');
-    return false;
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener las incidencias' });
   }
-}
+});
 
-
-
-
-async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
-  try {
-    // Obtener incidencias pendientes y cerradas
-    const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaDashboard}`);
-    const incidencias = await response.json();
-    console.log('Respuesta de incidencias:', incidencias);
-    showAndProcessIncidencias(incidencias);
-  } catch (error) {
-    console.error('Error al obtener y mostrar incidencias:', error);
-  }
-}
-
-
-
-function abrirConfirmacionModal(incidencia, fila) {
-  const confirmacionModal = document.getElementById('confirmacionModal');
-  confirmacionModal.style.display = 'block';
-
-  // Asigna el ID de la incidencia y la fila al modal de confirmación
-  confirmacionModal.setAttribute('data-id-incidencia', incidencia.id_incidente);
-  confirmacionModal.setAttribute('data-fila', fila.rowIndex);
-  filaSeleccionada = fila;
-}
-
-// Función para cerrar el modal de confirmación
-function cerrarConfirmacionModal() {
-  const confirmacionModal = document.getElementById('confirmacionModal');
-  confirmacionModal.style.display = 'none';
-}
-
-// Función para confirmar el realizado desde el modal de confirmación
-function confirmarRealizadoDesdeModal() {
-  const confirmacionModal = document.getElementById('confirmacionModal');
-  const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
-  const fila = confirmacionModal.getAttribute('data-fila');
-
-  const resultado = realizarIncidente(idIncidencia, fila);
-
-
-  return resultado
-
-
-   
-}
