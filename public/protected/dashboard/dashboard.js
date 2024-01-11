@@ -69,41 +69,44 @@ document.addEventListener('DOMContentLoaded', async () => {
         opcion.classList.remove('color-opcion1', 'color-opcion2');
       });
 
-      if (this.textContent === 'Deep Purple') {
-        this.classList.add('color-opcion1');
-        cambiarColores('#3c1361', 'none');
-      } else if (this.textContent === 'Teal') {
-        this.classList.add('color-opcion2');
-        cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
-      } else if (this.textContent === 'Space') {
-        // Establecer el estilo específico para 'Space'
-        var article = document.getElementById('article');
-        if (article) {
-          article.style.width = '100%';
-          article.style.height = '100%';
-          article.style.background = 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), ' +
-            'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), ' +
-            'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), ' +
-            'radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%)';
-          article.style.backgroundSize = '20px 20px';
-          article.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
-        }
-        var header = document.querySelector('header');
-        if (header) {
-          header.style.backgroundColor = '#1b2838';
-        }
+      // Guardar el tema seleccionado en localStorage
+      localStorage.setItem('selectedTheme', this.textContent);
 
-        var aside = document.querySelector('aside');
-
-        if(aside){
-          aside.style.backgroundColor = '#1b2838';
-        }
-      } else {
-        // Para otras opciones, mantener el comportamiento actual
-        cambiarColores('#1b2838', '');
-      }
+      // Aplicar el tema seleccionado
+      applyTheme(this.textContent);
     });
   });
+
+  // Función para aplicar el tema
+  function applyTheme(theme) {
+    if (theme === 'Deep Purple') {
+      cambiarColores('#3c1361', 'none');
+    } else if (theme === 'Teal') {
+      cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
+    } else if (theme === 'Space') {
+      var article = document.getElementById('article');
+      if (article) {
+        article.style.width = '100%';
+        article.style.height = '100%';
+        article.style.background = 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), ' +
+          'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), ' +
+          'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), ' +
+          'radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%)';
+        article.style.backgroundSize = '20px 20px';
+        article.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+      }
+      var header = document.querySelector('header');
+      if (header) {
+        header.style.backgroundColor = '#1b2838';
+      }
+      var aside = document.querySelector('aside');
+      if (aside) {
+        aside.style.backgroundColor = '#1b2838';
+      }
+    } else {
+      cambiarColores('#1b2838', '');
+    }
+  }
 
   // Función para cambiar los colores y estilos del header, aside y article
   function cambiarColores(color, articleStyle) {
@@ -125,6 +128,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       article.style.background = articleStyle;
     }
   }
+
+  const storedTheme = localStorage.getItem('selectedTheme');
+  if (storedTheme) {
+    applyTheme(storedTheme);
+  }
+
   
 
 
