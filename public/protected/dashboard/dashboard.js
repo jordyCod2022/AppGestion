@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
+  const storedTheme = localStorage.getItem('selectedTheme');
+  const initialTheme = storedTheme || 'Space';
+
+  applyTheme(initialTheme);
+});
+
   nombreUser.querySelector('#usuarioInfo').textContent = nombreData.nombre || 'N/A';
 
   console.log(nombreData)
@@ -79,16 +85,22 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Función para aplicar el tema
   function applyTheme(theme) {
-    // Restaurar el fondo predeterminado y la clase 'dark'
     var wave = document.querySelector('.wave');
-    wave.classList.remove('dark', 'space'); // Asegurarse de quitar clases anteriores
+    var article = document.getElementById('article');
+    var header = document.querySelector('header');
+    var aside = document.querySelector('aside');
+  
+    if (wave) {
+      wave.classList.remove('deep-purple', 'teal', 'space', 'dark'); // Eliminar clases anteriores
+    }
   
     if (theme === 'Deep Purple') {
       cambiarColores('#3c1361', 'none');
+      if (wave) wave.classList.add('deep-purple');
     } else if (theme === 'Teal') {
       cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
+      if (wave) wave.classList.add('teal');
     } else if (theme === 'Space') {
-      var article = document.getElementById('article');
       if (article) {
         article.style.width = '100%';
         article.style.height = '100%';
@@ -99,24 +111,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         article.style.backgroundSize = '20px 20px';
         article.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
       }
-      var header = document.querySelector('header');
-      if (header) {
-        header.style.backgroundColor = '#1b2838';
-      }
-      var aside = document.querySelector('aside');
-      if (aside) {
-        aside.style.backgroundColor = '#1b2838';
-      }
-      // Agregar clase 'space' para personalizar el estilo de .wave
-      wave.classList.add('space');
+      if (header) header.style.backgroundColor = '#1b2838';
+      if (aside) aside.style.backgroundColor = '#1b2838';
+      if (wave) wave.classList.add('space');
     } else if (theme === 'Dark') {
-      cambiarColores('#000000', ''); // Ajustar según sea necesario
-      // Agregar clase 'dark' para personalizar el estilo de .wave
-      wave.classList.add('dark');
+      cambiarColores('#000000', '');
+      if (header) header.style.backgroundColor = '#000000';
+      if (aside) aside.style.backgroundColor = '#000000';
+      if (wave) wave.classList.add('dark');
     } else {
       cambiarColores('#1b2838', '');
     }
   }
+  
+
   // Función para cambiar los colores y estilos del header, aside y article
   function cambiarColores(color, articleStyle) {
     // Cambiar color del header
