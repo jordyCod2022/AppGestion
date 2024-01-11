@@ -392,3 +392,26 @@ button i {
 .realizado-button:hover {
   background-color: #000000;
 }
+
+
+@media only screen and (max-width: 768px) {
+
+ 
+  #tablaContainer {
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  #tablaIncidencias {
+    width: 100%;
+  }
+  
+  
+
+ 
+}
+
+
+
+
+
