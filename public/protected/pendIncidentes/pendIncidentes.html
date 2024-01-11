@@ -34,21 +34,23 @@
   <article id="article"> <!-- Asegúrate de que esta línea tenga el id correcto -->
 
     <div id="incidenciasContainer">
-      <table id="tablaIncidencias" border="1">
-        <thead>
-          <tr>
-            <th>Columna 1</th>
-            <th>Columna 2</th>
-            <th>Columna 3</th>
-            <th>Columna 4</th>
-            <th>Columna 5</th>
-            <!-- Agrega más columnas según sea necesario -->
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
-        </tbody>
-      </table>
+      <!-- Agrega un contenedor div para la tabla con un id específico -->
+      <div id="tablaContainer" style="overflow-x: auto;">
+        <table id="tablaIncidencias" class="display nowrap" style="width:100%">
+          <thead>
+            <tr>
+              <th>ID Incidente</th>
+              <th>Nombre Colaborador</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
+          </tbody>
+        </table>
+      </div>
     </div>
     
 
