@@ -25,15 +25,21 @@ function showAndProcessIncidencias(incidencias) {
       {
         data: null,
         title: 'Acción',
+        className: 'acciones-icon',
         render: function (data, type, row) {
           const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="material-icons">info</i></button>`;
           const realizadoButton = `<button onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
           
-
           return informarButton + realizadoButton;
         }
       }
     ]
+  });
+
+  // Manejar el clic en el ícono de tres puntos
+  $('#tablaIncidencias tbody').on('click', 'td.acciones-icon', function () {
+    const data = tablaIncidencias.row($(this).closest('tr')).data();
+    mostrarBotones(data);
   });
 
   $('#tablaIncidencias tbody').on('click', 'tr', function () {
@@ -45,6 +51,15 @@ function showAndProcessIncidencias(incidencias) {
   const incidenciasContainer = document.getElementById('incidenciasContainer');
   incidenciasContainer.innerHTML = '';
   incidenciasContainer.appendChild(tablaIncidencias.table().container());
+}
+
+function mostrarBotones(rowData) {
+  const informarButton = `<button onclick="informarIncidente('${rowData.telefono_colaborador}', ${rowData.id_incidente})"><i class="material-icons">info</i></button>`;
+  const realizadoButton = `<button onclick="abrirConfirmacionModal(${rowData.id_incidente}, ${JSON.stringify(rowData).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
+
+  // Puedes hacer lo que necesites con los botones, como mostrarlos en un modal o en un lugar específico en tu página
+  console.log(informarButton);
+  console.log(realizadoButton);
 }
 
 function informarIncidente(telefonoColaborador, idIncidencia) {
@@ -200,7 +215,6 @@ function abrirConfirmacionModal(idIncidencia, incidenciaData, fila) {
   filaSeleccionada = fila;
   console.log('Datos de la incidencia:', incidenciaData);
 }
-
 
 function cerrarConfirmacionModal() {
   const confirmacionModal = document.getElementById('confirmacionModal');

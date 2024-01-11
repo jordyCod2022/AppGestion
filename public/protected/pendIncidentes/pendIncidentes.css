@@ -255,7 +255,8 @@ article {
   flex-direction: column;
   align-items: center;
   width: 95%;
-  min-height: 100vh; /* Establece un mínimo del 100% de la altura de la ventana */
+  
+  min-height: 90vh; /* Establece un mínimo del 100% de la altura de la ventana */
   margin-left: 3%;
   border-radius: 5px;
   box-shadow: 0px 2px 7px #6d6d6d;
@@ -265,6 +266,7 @@ article {
   z-index: 1;
   background-color: #fff;
 }
+
 
 #contenidoArticle {
   display: flex;
