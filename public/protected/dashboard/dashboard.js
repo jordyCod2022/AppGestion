@@ -92,6 +92,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (header) {
           header.style.backgroundColor = '#1b2838';
         }
+
+        var aside = document.querySelector('aside');
+
+        if(aside){
+          aside.style.backgroundColor = '#1b2838';
+        }
       } else {
         // Para otras opciones, mantener el comportamiento actual
         cambiarColores('#1b2838', '');
