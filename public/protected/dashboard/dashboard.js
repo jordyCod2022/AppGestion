@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Actualizar elementos HTML con los resultados
       const ticketsPendientesElement = document.getElementById('ticketsPendientes');
       const ticketsResueltosElement = document.getElementById('ticketsResueltos');
-      const notifyResueltosElement = document.getElementById('notif_red'); // Cambiado 'notif red' a 'notif_red'
+      const notifyResueltosElement = document.getElementById('notif red'); // Cambiado 'notif red' a 'notif_red'
 
       if (ticketsPendientesElement && ticketsResueltosElement) {
         ticketsPendientesElement.querySelector('.name').textContent = totalesData.total_pendientes || 'N/A';
