@@ -308,3 +308,12 @@ button:hover {
 button i {
   margin-right: 5px;
 }
+
+
+#tablaIncidencias tbody tr {
+  height: 40px; /* Ajusta la altura según tus preferencias */
+}
+
+#tablaIncidencias tbody td {
+  padding: 8px; /* Ajusta el espaciado interno de las celdas según tus preferencias */
+}
