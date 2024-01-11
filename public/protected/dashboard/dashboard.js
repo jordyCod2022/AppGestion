@@ -278,7 +278,7 @@ document.addEventListener('DOMContentLoaded', async () => {
           datasets: [{
             label: 'Incidentes Reportados',
             data: datos,
-            backgroundColor: 'rgba(173, 216, 230, 0.5)', // Celeste con transparencia
+            backgroundColor: 'rgba(173, 216, 230, 0.5)', // Celeste con
 
             borderColor: 'rgba(173, 216, 230, 1)', // Celeste sólido para los bordes
             borderWidth: 1
