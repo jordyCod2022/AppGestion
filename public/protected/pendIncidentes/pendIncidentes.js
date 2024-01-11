@@ -153,6 +153,17 @@ async function realizarIncidente(idIncidencia, fila) {
 
     if (responseData.success) {
       await new Promise(resolve => setTimeout(resolve, 500));
+
+      const telefonoColaborador = fila.querySelector('td:nth-child(5)').textContent; // Ajusta el índice según la posición de la columna
+      const idIncidencia = fila.querySelector('td:nth-child(1)').textContent;
+      const problema = fila.querySelector('td:nth-child(3)').textContent;
+
+      // Crear mensaje con emojis
+      const mensajeTelegram = `✅ Tu incidencia con ID ${idIncidencia} (${problema}) ha sido resuelta. ¡Gracias por tu paciencia! 🎉`;
+
+      // Llamar a la función para enviar el mensaje a Telegram
+      await enviarMensajeTelegram(telefonoColaborador, mensajeTelegram);
+
       window.location.reload();
       return true;
     } else {
