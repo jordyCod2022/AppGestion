@@ -26,7 +26,12 @@ function showAndProcessIncidencias(incidencias) {
         data: null,
         title: 'Acción',
         render: function (data, type, row) {
+          console.log(row.telefono_colaborador)
+          console.log(row.id_incidente)
           const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})">Informar</button>`;
+
+          console.log("Data")
+          console.log(JSON.stringify(row))
           const realizadoButton = `<button onclick="abrirConfirmacionModal(${JSON.stringify(row)}, this)">Realizado</button>`;
           return informarButton + realizadoButton;
         }
