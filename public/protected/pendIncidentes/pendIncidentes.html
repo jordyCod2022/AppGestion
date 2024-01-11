@@ -7,6 +7,11 @@
 
   <link rel="stylesheet" href="pendIncidentes.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Agrega estos enlaces al encabezado de tu HTML -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
 </head>
 <body>
 
@@ -22,17 +27,20 @@
 
     
     <div id="incidenciasContainer">
-      <table border="1">
+      <table id="tablaIncidencias" border="1">
         <thead>
           <tr>
-           
+            <th>Columna 1</th>
+            <th>Columna 2</th>
+            <!-- Agrega más columnas según sea necesario -->
           </tr>
         </thead>
-        <tbody id="tablaIncidencias">
+        <tbody>
           <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
         </tbody>
       </table>
     </div>
+    
 
     <div id="modal" class="modal">
       <div class="modal-content">
