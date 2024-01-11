@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       cambiarColores('#3c1361', 'none');
       if(wave){
-        wave.style.background = 'linear-gradient(744deg,#000000,#000000 60%,#000000);';
+        wave.style.background = 'linear-gradient(744deg,#000000,#000000 60%,#000000)';
       }
     } else if (theme === 'Teal') {
       
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
       if(wave){
-        wave.style.background = 'linear-gradient(744deg,#00ff73,#245a2d 60%,#4dd47a);';
+        wave.style.background = 'linear-gradient(744deg,#00ff73,#245a2d 60%,#4dd47a)';
 
       }
     } else if (theme === 'Space') {
@@ -132,13 +132,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       var aside = document.querySelector('aside');
       if (aside) {
-        aside.style.backgroundColor = '##000000';
+        aside.style.backgroundColor = '#000000';
       }
 
       var wave = document.querySelector('.wave');
 
       if(wave){
-        wave.style.background = 'linear-gradient(744deg,#000000,#000000 60%,#000000);';
+        wave.style.background = 'linear-gradient(744deg,#000000,#000000 60%,#000000)';
       }
 
 
