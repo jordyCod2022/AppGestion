@@ -88,6 +88,10 @@ document.addEventListener('DOMContentLoaded', async () => {
           article.style.backgroundSize = '20px 20px';
           article.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
         }
+        var header = document.querySelector('header');
+        if (header) {
+          header.style.backgroundColor = '#1b2838';
+        }
       } else {
         // Para otras opciones, mantener el comportamiento actual
         cambiarColores('#1b2838', '');
