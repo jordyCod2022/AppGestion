@@ -693,6 +693,19 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   height:270px; ;
 }
 
+.wave.default {
+  /* Añadido el fondo original */
+  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
+}
+
+.wave.dark {
+  /* Añadido el fondo oscuro */
+  background: linear-gradient(744deg, #000000, #000000 60%, #000000);
+}
+
+
+
+
 .wave {
   position: absolute;
   width: 540px;
@@ -702,7 +715,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   top: 0;
   margin-left: -10%;
   margin-top: -50%;
-  transition: background 0.5s ease; /* Agregada transición para un cambio suave */
+  background: linear-gradient(744deg,#1461d4,#1d2674 60%,#0c3181);
 }
 
 .wave.deep-purple {
@@ -714,15 +727,12 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 }
 
 .wave.space {
-  /* Mantén este espacio vacío ya que el fondo se cambiará dinámicamente desde JavaScript */
+  background: linear-gradient(744deg,#1461d4,#1d2674 60%,#0c3181);
 }
 
 .wave.dark {
   background: linear-gradient(744deg, #000000, #000000 60%, #000000);
 }
-
-
-
 
 .icon {
   width: 3em;
