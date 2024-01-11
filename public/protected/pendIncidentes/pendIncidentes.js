@@ -59,16 +59,20 @@ function showAndProcessIncidencias(incidencias) {
 }
 
 function exportarDataTable() {
+  console.log("EXPORTA")
   $('#tablaIncidencias').DataTable().button('excelHtml5').trigger();
 }
 
 function imprimirDataTable() {
+  console.log("IMPRIME")
   $('#tablaIncidencias').DataTable().button('print').trigger();
 }
 
 function guardarPdfDataTable() {
+  console.log("GUARDA")
   $('#tablaIncidencias').DataTable().button('pdfHtml5').trigger();
 }
+
 
 function informarIncidente(telefonoColaborador, idIncidencia) {
   const modal = document.getElementById('modal');
