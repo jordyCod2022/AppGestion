@@ -273,3 +273,38 @@ article {
   width: 100%;
   flex-grow: 1; /* Hace que este div crezca para llenar el espacio restante */
 }
+
+
+
+.btn-exportar {
+  background-color: #3498db; /* Color azul */
+}
+
+.btn-imprimir {
+  background-color: #2ecc71; /* Color verde */
+}
+
+.btn-guardar-pdf {
+  background-color: #e74c3c; /* Color rojo */
+}
+
+button {
+  /* Estilos comunes para todos los botones */
+  display: inline-block;
+  padding: 10px 15px;
+  margin-right: 10px;
+  color: #fff; /* Color del texto */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Efecto de transición al pasar el ratón */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+}
+
+button:hover {
+  background-color: #555; /* Cambio de color al pasar el ratón */
+}
+
+button i {
+  margin-right: 5px;
+}
