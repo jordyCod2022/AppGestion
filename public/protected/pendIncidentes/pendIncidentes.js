@@ -166,7 +166,7 @@ async function realizarIncidente(idIncidencia, fila) {
       const mensajeTelegram = `✅ Tu incidencia con ID ${idIncidencia} (${problema}) ha sido resuelta. ¡Gracias por tu paciencia! 🎉`;
 
       // Llamar a la función para enviar el mensaje a Telegram
-      await enviarMensajeTelegram(telefonoColaborador, mensajeTelegram);
+      enviarMensajeTelegram(telefonoColaborador, mensajeTelegram);
 
       window.location.reload();
       return true;
