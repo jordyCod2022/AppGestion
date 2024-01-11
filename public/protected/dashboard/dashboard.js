@@ -77,8 +77,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         this.classList.add('color-opcion2');
         cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
       } else if (this.textContent === 'Space') {
-        cambiarColores('#1b2838', 'none');
+        cambiarColores('#1b2838', 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%),' +
+          'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%),' +
+          'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%),' +
+          'radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%);');
       }
+      
     });
   });
   
