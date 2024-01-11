@@ -79,23 +79,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Función para aplicar el tema
   function applyTheme(theme) {
+    // Restaurar el fondo predeterminado y la clase 'dark'
+    var wave = document.querySelector('.wave');
+    wave.classList.remove('dark', 'space'); // Asegurarse de quitar clases anteriores
+  
     if (theme === 'Deep Purple') {
-      
-      var wave = document.querySelector('.wave');
-
       cambiarColores('#3c1361', 'none');
-      if(wave){
-        wave.style.background = 'linear-gradient(744deg,#000000,#000000 60%,#000000)';
-      }
     } else if (theme === 'Teal') {
-      
-      var wave = document.querySelector('.wave');
-
       cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
-      if(wave){
-        wave.style.background = 'linear-gradient(744deg,#00ff73,#245a2d 60%,#4dd47a)';
-
-      }
     } else if (theme === 'Space') {
       var article = document.getElementById('article');
       if (article) {
@@ -116,40 +107,16 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (aside) {
         aside.style.backgroundColor = '#1b2838';
       }
-    } else if (theme === 'Dark'){
-
-      var article = document.getElementById('article');
-      if (article) {
-        article.style.width = '100%';
-        article.style.height = '100%';
-        article.style.background = 'rgba(29, 31, 32, 0.904) radial-gradient(rgba(255, 255, 255, 0.712) 10%, transparent 1%)';
-        article.style.backgroundSize = '20px 20px';
-        article.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
-      }
-      var header = document.querySelector('header');
-      if (header) {
-        header.style.backgroundColor = '#000000';
-      }
-      var aside = document.querySelector('aside');
-      if (aside) {
-        aside.style.backgroundColor = '#000000';
-      }
-
-      var wave = document.querySelector('.wave');
-
-      if(wave){
-        wave.style.background = 'linear-gradient(744deg,#000000,#000000 60%,#000000)';
-      }
-
-
-    
-      
-
-
-      
+      // Agregar clase 'space' para personalizar el estilo de .wave
+      wave.classList.add('space');
+    } else if (theme === 'Dark') {
+      cambiarColores('#000000', ''); // Ajustar según sea necesario
+      // Agregar clase 'dark' para personalizar el estilo de .wave
+      wave.classList.add('dark');
+    } else {
+      cambiarColores('#1b2838', '');
     }
   }
-
   // Función para cambiar los colores y estilos del header, aside y article
   function cambiarColores(color, articleStyle) {
     // Cambiar color del header
