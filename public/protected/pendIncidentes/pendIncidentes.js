@@ -89,7 +89,6 @@ function autogenerarMensaje() {
     mensajeInput.value = mensajePersonalizado;
   }
 }
-
 // ... (Resto de tu código)
 
 
