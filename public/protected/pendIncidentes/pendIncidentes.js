@@ -17,9 +17,14 @@ function showAndProcessIncidencias(incidencias) {
     data: incidencias,
     dom: 'Blfrtip', // Agregado para incluir los botones en la parte superior
     buttons: [
-      'excelHtml5',
+    {
+      extend: 'excelHtml5',
+      text: '<i class="fas fa-file-excel"></i> Exportar Excel',
+    },
+      
       {
         extend: 'pdfHtml5',
+        text: '<i class="fas fa-file-pdf"></i> Exportar PDF',
         customize: function (doc) {
           doc.defaultStyle.fontSize = 10; // Ajusta el tamaño de la fuente en el PDF según sea necesario
         }
