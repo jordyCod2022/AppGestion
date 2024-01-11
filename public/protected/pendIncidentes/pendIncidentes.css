@@ -311,7 +311,7 @@ button i {
 
 
 #tablaIncidencias tbody tr {
-  height: 40px; /* Ajusta la altura según tus preferencias */
+  height: 30px; /* Ajusta la altura según tus preferencias */
 }
 
 #tablaIncidencias tbody td {
