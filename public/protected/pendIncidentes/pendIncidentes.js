@@ -27,7 +27,8 @@ function showAndProcessIncidencias(incidencias) {
         title: 'Acción',
         render: function (data, type, row) {
           const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})">Informar</button>`;
-          const realizadoButton = `<button onclick="abrirConfirmacionModal(${JSON.stringify(row)}, this)">Realizado</button>`;
+          const realizadoButton = `<button onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row)}, this)">Realizado</button>`;
+
           return informarButton + realizadoButton;
         }
       }
@@ -175,13 +176,15 @@ async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
   }
 }
 
-function abrirConfirmacionModal(incidencia, fila) {
+function abrirConfirmacionModal(idIncidencia, incidenciaData, fila) {
   const confirmacionModal = document.getElementById('confirmacionModal');
   confirmacionModal.style.display = 'block';
-  confirmacionModal.setAttribute('data-id-incidencia', incidencia.id_incidente);
+  confirmacionModal.setAttribute('data-id-incidencia', idIncidencia);
   confirmacionModal.setAttribute('data-fila', fila.rowIndex);
   filaSeleccionada = fila;
+  console.log('Datos de la incidencia:', incidenciaData);
 }
+
 
 function cerrarConfirmacionModal() {
   const confirmacionModal = document.getElementById('confirmacionModal');
