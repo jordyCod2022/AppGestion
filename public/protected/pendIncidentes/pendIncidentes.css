@@ -332,3 +332,90 @@ button i {
 #tablaIncidencias tbody td {
   padding: 8px; /* Ajusta el espaciado interno de las celdas según tus preferencias */
 }
+
+
+#tablaIncidencias_wrapper {
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#tablaIncidencias_length,
+#tablaIncidencias_filter {
+  margin-bottom: 10px;
+}
+
+#tablaIncidencias_filter label {
+  margin-right: 10px;
+}
+
+#tablaIncidencias_paginate {
+  margin-top: 10px;
+}
+
+.dataTables_length,
+.dataTables_filter,
+.dataTables_paginate {
+  font-size: 14px;
+}
+
+.dataTables_length label {
+  font-weight: bold;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  border: 1px solid #dee2e6;
+  color: #007bff;
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current {
+  color: #fff;
+  background-color: #007bff;
+  border: 1px solid #007bff;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: #0056b3;
+  background-color: #e9ecef;
+  border: 1px solid #dee2e6;
+}
+
+.dataTables_wrapper .dataTables_length select,
+.dataTables_wrapper .dataTables_filter input,
+.dataTables_wrapper .dataTables_paginate input {
+  height: 34px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+  margin-right: 10px;
+}
+
+.dataTables_info {
+  margin-top: 10px;
+}
+
+.informar-button,
+.realizado-button {
+  cursor: pointer;
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-right: 5px;
+}
+
+.realizado-button {
+  background-color: #007bff;
+}
+
+.informar-button:hover,
+.realizado-button:hover {
+  background-color: #218838;
+}

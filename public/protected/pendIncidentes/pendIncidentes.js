@@ -10,41 +10,54 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 let filaSeleccionada = null;
-
 function showAndProcessIncidencias(incidencias) {
   const tablaIncidencias = $('#tablaIncidencias').DataTable({
     destroy: true,
     data: incidencias,
-    dom: 'Blfrtip', // Agregado para incluir los botones en la parte superior
+    dom: 'Blfrtip',
     buttons: [
-      'excelHtml5',
+      {
+        extend: 'excelHtml5',
+        text: '<i class="fas fa-file-excel"></i> Exportar Excel',
+      },
       {
         extend: 'pdfHtml5',
+        text: '<i class="fas fa-file-pdf"></i> Exportar PDF',
         customize: function (doc) {
-          doc.defaultStyle.fontSize = 10; // Ajusta el tamaño de la fuente en el PDF según sea necesario
-        }
+          doc.defaultStyle.fontSize = 10;
+        },
       },
-      'print'
+      {
+        extend: 'print',
+        text: '<i class="fas fa-print"></i> Imprimir',
+      },
     ],
     columns: [
       { data: 'id_incidente', title: 'ID Incidente' },
       { data: 'nombre_colaborador', title: 'Nombre Colaborador' },
       { data: 'incidente_descrip', title: 'Descripción' },
-      { data: 'estado', title: 'Estado', render: function (data) {
-        return data === 2 ? 'Cerrado' : 'Pendiente';
-      }},
+      {
+        data: 'estado',
+        title: 'Estado',
+        render: function (data) {
+          return data === 2 ? 'Cerrado' : 'Pendiente';
+        },
+      },
       {
         data: null,
         title: 'Acción',
         render: function (data, type, row) {
-          const informarButton = `<button class="informar-button" onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="material-icons">info</i></button>`;
+          const informarButton = `<button class="informar-button" onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="fas fa-info"></i></button>`;
 
-          const realizadoButton = `<button class="realizado-button" onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
+          const realizadoButton = `<button class="realizado-button" onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(
+            /"/g,
+            '&quot;'
+          )}, this)"><i class="fas fa-check"></i></button>`;
 
           return informarButton + realizadoButton;
-        }
-      }
-    ]
+        },
+      },
+    ],
   });
 
   $('#tablaIncidencias tbody').on('click', 'tr', function () {
