@@ -26,8 +26,9 @@ function showAndProcessIncidencias(incidencias) {
         data: null,
         title: 'Acción',
         render: function (data, type, row) {
-          const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="material-icons">info</i></button>`;
-          const realizadoButton = `<button onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
+          const informarButton = `<button class="informar-button" onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="material-icons">info</i></button>`;
+
+          const realizadoButton = `<button class="realizado-button" onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
           
 
           return informarButton + realizadoButton;
