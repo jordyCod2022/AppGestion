@@ -15,6 +15,17 @@ function showAndProcessIncidencias(incidencias) {
   const tablaIncidencias = $('#tablaIncidencias').DataTable({
     destroy: true,
     data: incidencias,
+    dom: 'Blfrtip', // Agregado para incluir los botones en la parte superior
+    buttons: [
+      'excelHtml5',
+      {
+        extend: 'pdfHtml5',
+        customize: function (doc) {
+          doc.defaultStyle.fontSize = 10; // Ajusta el tamaño de la fuente en el PDF según sea necesario
+        }
+      },
+      'print'
+    ],
     columns: [
       { data: 'id_incidente', title: 'ID Incidente' },
       { data: 'nombre_colaborador', title: 'Nombre Colaborador' },
@@ -29,7 +40,6 @@ function showAndProcessIncidencias(incidencias) {
           const informarButton = `<button class="informar-button" onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="material-icons">info</i></button>`;
 
           const realizadoButton = `<button class="realizado-button" onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
-          
 
           return informarButton + realizadoButton;
         }
@@ -46,6 +56,18 @@ function showAndProcessIncidencias(incidencias) {
   const incidenciasContainer = document.getElementById('incidenciasContainer');
   incidenciasContainer.innerHTML = '';
   incidenciasContainer.appendChild(tablaIncidencias.table().container());
+}
+
+function exportarDataTable() {
+  $('#tablaIncidencias').DataTable().button('excelHtml5').trigger();
+}
+
+function imprimirDataTable() {
+  $('#tablaIncidencias').DataTable().button('print').trigger();
+}
+
+function guardarPdfDataTable() {
+  $('#tablaIncidencias').DataTable().button('pdfHtml5').trigger();
 }
 
 function informarIncidente(telefonoColaborador, idIncidencia) {
