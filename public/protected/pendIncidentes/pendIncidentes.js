@@ -19,12 +19,12 @@ function showAndProcessIncidencias(incidencias) {
     buttons: [
     {
       extend: 'excelHtml5',
-      text: '<i class="excelbutton">file_download</i> Exportar Excel',
+      text: '<i class="material-icons" style="color: red;">file_download</i>',
     },
       
       {
         extend: 'pdfHtml5',
-        text: '<i class="pdfbuttons">picture_as_pdf</i> Exportar PDF',
+        text: '<i class="material-icons" style="color: #006400;">picture_as_pdf</i>',
         customize: function (doc) {
           doc.defaultStyle.fontSize = 10; // Ajusta el tamaño de la fuente en el PDF según sea necesario
         }
