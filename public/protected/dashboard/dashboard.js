@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       if (this.textContent === 'Deep Purple') {
         this.classList.add('color-opcion1');
-        cambiarColores('#673ab7', 'none');
+        cambiarColores('#3c1361', 'none');
       } else if (this.textContent === 'Teal') {
         this.classList.add('color-opcion2');
         cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       } else {
         // Para otras opciones, mantener el comportamiento actual
-        cambiarColores('', '');
+        cambiarColores('#1b2838', '');
       }
     });
   });
