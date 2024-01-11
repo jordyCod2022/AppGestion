@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       opcionesMenu.forEach(function(opcion) {
         opcion.classList.remove('color-opcion1', 'color-opcion2');
       });
-  
+
       if (this.textContent === 'Deep Purple') {
         this.classList.add('color-opcion1');
         cambiarColores('#673ab7', 'none');
@@ -76,16 +76,25 @@ document.addEventListener('DOMContentLoaded', async () => {
         this.classList.add('color-opcion2');
         cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
       } else if (this.textContent === 'Space') {
-        cambiarColores('#1b2838', 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), ' +
-          'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), ' +
-          'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), ' +
-          'radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%);');
+        // Establecer el estilo específico para 'Space'
+        var article = document.getElementById('article');
+        if (article) {
+          article.style.width = '100%';
+          article.style.height = '100%';
+          article.style.background = 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), ' +
+            'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), ' +
+            'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), ' +
+            'radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%)';
+          article.style.backgroundSize = '20px 20px';
+          article.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.3)';
+        }
+      } else {
+        // Para otras opciones, mantener el comportamiento actual
+        cambiarColores('', '');
       }
-      
-      
     });
   });
-  
+
   // Función para cambiar los colores y estilos del header, aside y article
   function cambiarColores(color, articleStyle) {
     // Cambiar color del header
@@ -93,13 +102,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (header) {
       header.style.backgroundColor = color;
     }
-  
+
     // Cambiar color del aside
     var aside = document.querySelector('aside');
     if (aside) {
       aside.style.backgroundColor = color;
     }
-  
+
     // Cambiar estilos del article
     var article = document.getElementById('article');
     if (article) {
