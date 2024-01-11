@@ -20,13 +20,13 @@ function showAndProcessIncidencias(incidencias) {
     {
       extend: 'excelHtml5',
       text: '<i class="material-icons">file_download</i>',
-      className: 'buttonExcel',
+      className: 'btn-verde',
     },
       
       {
         extend: 'pdfHtml5',
         text: '<i class="material-icons">picture_as_pdf</i>',
-        className: 'buttonPdf',
+        className: 'btn-rojo',
         customize: function (doc) {
           doc.defaultStyle.fontSize = 10; // Ajusta el tamaño de la fuente en el PDF según sea necesario
         }

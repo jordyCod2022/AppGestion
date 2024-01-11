@@ -15,12 +15,16 @@ h1 {
   margin-top: 20px;
 }
 
-.buttonExcel{
-  background-color: #2ecc71;
+.btn-verde {
+  background-color: #00ff00; /* verde */
+  color: #ffffff; /* texto blanco */
+  /* Otros estilos que desees agregar */
 }
 
-.buttonPdf{
-  background-color: #c0594e;
+.btn-rojo {
+  background-color: #ff0000; /* rojo */
+  color: #ffffff; /* texto blanco */
+  /* Otros estilos que desees agregar */
 }
 
 
