@@ -11,63 +11,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
 let filaSeleccionada = null;
 
-
 function showAndProcessIncidencias(incidencias) {
-  const tablaIncidencias = document.createElement('table');
-  tablaIncidencias.border = '1';
+  const tablaIncidencias = $('#tablaIncidencias').DataTable({
+    destroy: true, // Destruye la DataTable existente si existe
+    data: incidencias,
+    columns: [
+      { data: 'id_incidente', title: 'ID Incidente' },
+      { data: 'nombre_colaborador', title: 'Nombre Colaborador' },
+      { data: 'incidente_descrip', title: 'Descripción' },
+      { data: 'estado', title: 'Estado', render: function (data) {
+        return data === 2 ? 'Pendiente' : 'Cerrado';
+      }},
+      {
+        data: null,
+        title: 'Acción',
+        render: function (data, type, row) {
+          console.log(row.telefono_colaborador)
+          console.log(row.id_incidente)
+          const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})">Informar</button>`;
 
-  if (incidencias.length > 0) {
-    const cabecera = tablaIncidencias.createTHead();
-    const filaCabecera = cabecera.insertRow();
-    filaCabecera.innerHTML = '<th>ID Incidente</th><th>Nombre Colaborador</th><th>Descripción</th><th>Estado</th><th>Acción</th>';
+          console.log("Data")
+          console.log(JSON.stringify(row))
+          const realizadoButton = `<button onclick="abrirConfirmacionModal(${JSON.stringify(row)}, this)">Realizado</button>`;
+          return informarButton + realizadoButton;
+        }
+      }
+    ]
+  });
 
-    const cuerpoTabla = tablaIncidencias.createTBody();
-    incidencias.forEach(incidencia => {
-      const fila = cuerpoTabla.insertRow();
-      fila.insertCell(0).textContent = incidencia.id_incidente;
-      fila.insertCell(1).textContent = incidencia.nombre_colaborador;
-      fila.insertCell(2).textContent = incidencia.incidente_descrip;
-      fila.insertCell(3).textContent = incidencia.id_estado === 2 ? 'Pendiente' : 'Cerrado';
+  // Manejar eventos de clic en las filas
+  $('#tablaIncidencias tbody').on('click', 'tr', function () {
+    // Obtener los datos de la fila seleccionada
+    const data = tablaIncidencias.row(this).data();
+    console.log('Fila seleccionada:', data);
 
-      const celdaAccion = fila.insertCell(4);
-      const botonInformar = document.createElement('button');
-      botonInformar.textContent = 'Informar';
-      botonInformar.onclick = function () {
-        informarIncidente(incidencia.telefono_colaborador, fila);
-        autogenerarMensaje(incidencia.nombre_colaborador, incidencia.id_incidente);
-      };
-      celdaAccion.appendChild(botonInformar);
+    // Guardar la fila seleccionada para su posterior uso
+    filaSeleccionada = this;
+  });
 
-      const botonRealizado = document.createElement('button');
-      botonRealizado.textContent = 'Realizado';
-      botonRealizado.onclick = function () {
-        
-        abrirConfirmacionModal(incidencia, fila);
-       
-      };
-      celdaAccion.appendChild(botonRealizado);
-    });
-
-    const incidenciasContainer = document.getElementById('incidenciasContainer');
-    incidenciasContainer.appendChild(tablaIncidencias);
-  } else {
-    const mensajeElement = document.createElement('p');
-    mensajeElement.textContent = 'No hay incidencias para mostrar';
-    document.body.appendChild(mensajeElement);
-  }
+  // Agregar la DataTable al contenedor
+  const incidenciasContainer = document.getElementById('incidenciasContainer');
+  incidenciasContainer.innerHTML = ''; // Limpiar contenido antes de agregar la DataTable
+  incidenciasContainer.appendChild(tablaIncidencias.table().container());
 }
 
-// Función para simular acción al informar incidente
-function informarIncidente(telefonoColaborador, fila) {
-  // Muestra el modal
+function informarIncidente(telefonoColaborador, idIncidencia) {
   const modal = document.getElementById('modal');
   modal.style.display = 'block';
-
-  // Guarda el teléfono del colaborador y la fila en atributos del modal
   modal.setAttribute('data-telefono', telefonoColaborador);
-  modal.setAttribute('data-fila', fila.rowIndex);
-  filaSeleccionada = fila;
+  modal.setAttribute('data-id-incidencia', idIncidencia);
+  filaSeleccionada = filaSeleccionada || document.querySelector('#tablaIncidencias tbody tr');
 }
+
 function autogenerarMensaje() {
   const mensajeInput = document.getElementById('mensajeInput');
 
@@ -85,7 +80,6 @@ function autogenerarMensaje() {
       '👋 Saludos {nombre}, estamos tomando medidas para resolver tu incidencia con ID {idIncidencia}. Pronto recibirás más información.\nDescripción: {descripcion} 🚀',
       '🚀 ¡Hola {nombre}!, tu reporte con ID {idIncidencia} ha sido registrado. Estamos trabajando en ello.\nDescripción: {descripcion} 🌟'
     ];
-    
 
     // Selecciona aleatoriamente una plantilla
     const plantillaAleatoria = plantillas[Math.floor(Math.random() * plantillas.length)];
@@ -100,6 +94,8 @@ function autogenerarMensaje() {
     mensajeInput.value = mensajePersonalizado;
   }
 }
+// ... (Resto de tu código)
+
 
 function regresar() {
  
@@ -244,3 +240,4 @@ function confirmarRealizadoDesdeModal() {
 
    
 }
+

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -7,6 +8,11 @@
 
   <link rel="stylesheet" href="pendIncidentes.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- Agrega estos enlaces al encabezado de tu HTML -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+  <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
 </head>
 <body>
 
@@ -18,23 +24,28 @@
   </header>
   
 
-  <article>
-
+  <article id="article"> <!-- Asegúrate de que esta línea tenga el id correcto -->
     
     <div id="incidenciasContainer">
-      <table border="1">
+      <table id="tablaIncidencias" border="1">
         <thead>
           <tr>
-           
+            <th>Columna 1</th>
+            <th>Columna 2</th>
+            <th>Columna 3</th>
+            <th>Columna 4</th>
+            <th>Columna 5</th>
+            <!-- Agrega más columnas según sea necesario -->
           </tr>
         </thead>
-        <tbody id="tablaIncidencias">
+        <tbody>
           <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
         </tbody>
       </table>
     </div>
+    
 
-    <div id="modal" class="modal">
+    <div id="modal" class="modal"> <!-- Asegúrate de que esta línea tenga el id correcto -->
       <div class="modal-content">
           <span class="close" onclick="cerrarModal()">&times;</span>
           <p>Ingrese el mensaje para informar el incidente:</p>
@@ -44,38 +55,22 @@
       </div>
     </div>
 
+    <!-- Quité la segunda instancia del div modal -->
 
-  </div>
-
-  <div id="modal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="cerrarModal()">&times;</span>
-        <p>Ingrese el mensaje para informar el incidente:</p>
-        <textarea id="mensajeInput" rows="4" cols="50"></textarea>
-        <button onclick="informarDesdeModal()">Informar</button>
-        <button onclick="autogenerarMensaje()">Autogenerar</button>
+    <div id="confirmacionModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarConfirmacionModal()">&times;</span>
+        <p>¿Estás seguro de marcar la incidencia como "Realizado"?</p>
+        <button onclick="confirmarRealizadoDesdeModal()">Sí</button>
+        <button onclick="cerrarConfirmacionModal()">No</button>
+      </div>
     </div>
-  </div>
-
-  <div id="confirmacionModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="cerrarConfirmacionModal()">&times;</span>
-      <p>¿Estás seguro de marcar la incidencia como "Realizado"?</p>
-      <button onclick="confirmarRealizadoDesdeModal()()">Sí</button>
-      <button onclick="cerrarConfirmacionModal()">No</button>
-    </div>
-  </div>
-
-  
    
  </article>
  
-  
-
-
   <!-- Tu script de JavaScript -->
   <script src="pendIncidentes.js"></script>
 
- 
+  <
 </body>
 </html>
