@@ -153,7 +153,7 @@ function informarDesdeModal() {
         console.error('Error al enviar mensaje:', error);
       });
 
-    alert(`Mensaje enviado con exito`);
+    alert(`Mensaje enviado con éxito`);
     cerrarModal();
   }
 }
@@ -246,7 +246,6 @@ function abrirConfirmacionModal(idIncidencia, incidenciaData, fila) {
   filaSeleccionada = fila;
   console.log('Datos de la incidencia:', incidenciaData);
 }
-
 
 function cerrarConfirmacionModal() {
   const confirmacionModal = document.getElementById('confirmacionModal');
