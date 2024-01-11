@@ -69,7 +69,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         opcion.classList.remove('color-opcion1', 'color-opcion2');
       });
   
-      // Aplicar la clase de color correspondiente a la opción actual
       if (this.textContent === 'Deep Purple') {
         this.classList.add('color-opcion1');
         cambiarColores('#673ab7', 'none');
@@ -77,11 +76,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         this.classList.add('color-opcion2');
         cambiarColores('#042e27', 'repeating-linear-gradient(45deg, #92c9b1, #92c9b1 20px, #b3e0d2 20px, #b3e0d2 40px)');
       } else if (this.textContent === 'Space') {
-        cambiarColores('#1b2838', 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%),' +
-          'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%),' +
-          'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%),' +
+        cambiarColores('#1b2838', 'radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%), ' +
+          'radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%), ' +
+          'radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%), ' +
           'radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%);');
       }
+      
       
     });
   });
