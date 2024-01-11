@@ -34,7 +34,7 @@ function showAndProcessIncidencias(incidencias) {
     ]
   });
 
-  $('#tablaIncidencias tbody').on('click', '.actions-button', function () {
+  $('#tablaIncidencias tbody').on('mousedown', '.actions-button', function () {
     const data = tablaIncidencias.row($(this).parents('tr')).data();
     console.log('Fila seleccionada:', data);
     filaSeleccionada = $(this).parents('tr');
@@ -153,7 +153,7 @@ function informarDesdeModal() {
         console.error('Error al enviar mensaje:', error);
       });
 
-    alert(`Mensaje enviado con éxito`);
+    alert(`Mensaje enviado con exito`);
     cerrarModal();
   }
 }
@@ -246,6 +246,7 @@ function abrirConfirmacionModal(idIncidencia, incidenciaData, fila) {
   filaSeleccionada = fila;
   console.log('Datos de la incidencia:', incidenciaData);
 }
+
 
 function cerrarConfirmacionModal() {
   const confirmacionModal = document.getElementById('confirmacionModal');
