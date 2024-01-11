@@ -158,6 +158,10 @@ async function realizarIncidente(idIncidencia, fila) {
       const idIncidencia = fila.querySelector('td:nth-child(1)').textContent;
       const problema = fila.querySelector('td:nth-child(3)').textContent;
 
+      console.log(telefonoColaborador)
+      console.log(idIncidencia)
+      console.log(problema)
+
       // Crear mensaje con emojis
       const mensajeTelegram = `✅ Tu incidencia con ID ${idIncidencia} (${problema}) ha sido resuelta. ¡Gracias por tu paciencia! 🎉`;
 
