@@ -26,72 +26,26 @@ function showAndProcessIncidencias(incidencias) {
         data: null,
         title: 'Acción',
         render: function (data, type, row) {
-          const actionsButton = `<button class="actions-button"><i class="material-icons">more_horiz</i></button>`;
+          const informarButton = `<button onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="material-icons">info</i></button>`;
+          const realizadoButton = `<button onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
+          
 
-          return actionsButton;
+          return informarButton + realizadoButton;
         }
       }
     ]
   });
 
-  $('#tablaIncidencias tbody').on('mousedown', '.actions-button', function () {
-    const data = tablaIncidencias.row($(this).parents('tr')).data();
+  $('#tablaIncidencias tbody').on('click', 'tr', function () {
+    const data = tablaIncidencias.row(this).data();
     console.log('Fila seleccionada:', data);
-    filaSeleccionada = $(this).parents('tr');
-
-    // Muestra el menú desplegable con las opciones
-    showDropdownMenu(data);
+    filaSeleccionada = this;
   });
 
   const incidenciasContainer = document.getElementById('incidenciasContainer');
   incidenciasContainer.innerHTML = '';
   incidenciasContainer.appendChild(tablaIncidencias.table().container());
 }
-
-function showDropdownMenu(data) {
-  const dropdownMenu = document.createElement('div');
-  dropdownMenu.className = 'dropdown-menu';
-
-  const informarButton = document.createElement('button');
-  informarButton.textContent = 'Informar';
-  informarButton.onclick = function () {
-    informarIncidente(data.telefono_colaborador, data.id_incidente);
-    closeDropdownMenu();
-  };
-
-  const realizadoButton = document.createElement('button');
-  realizadoButton.textContent = 'Realizado';
-  realizadoButton.onclick = function () {
-    abrirConfirmacionModal(data.id_incidente, data, filaSeleccionada[0]);
-    closeDropdownMenu();
-  };
-
-  dropdownMenu.appendChild(informarButton);
-  dropdownMenu.appendChild(realizadoButton);
-
-  // Posiciona el menú desplegable cerca del botón
-  const rect = filaSeleccionada[0].getBoundingClientRect();
-  dropdownMenu.style.top = rect.bottom + 'px';
-  dropdownMenu.style.left = rect.left + 'px';
-
-  // Cierra el menú desplegable cuando se hace clic fuera de él
-  document.addEventListener('click', function closeMenu(event) {
-    if (!dropdownMenu.contains(event.target)) {
-      closeDropdownMenu();
-      document.removeEventListener('click', closeMenu);
-    }
-  });
-
-  document.body.appendChild(dropdownMenu);
-}
-
-function closeDropdownMenu() {
-  const dropdownMenu = document.querySelector('.dropdown-menu');
-  if (dropdownMenu) {
-    dropdownMenu.remove();
-  }
-}
-
 
 function informarIncidente(telefonoColaborador, idIncidencia) {
   const modal = document.getElementById('modal');
