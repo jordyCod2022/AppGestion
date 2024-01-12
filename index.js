@@ -8,6 +8,7 @@ const multer = require('multer');
 const cors = require('cors');
 const sharp =require('sharp');
 const mysql = require('mysql2');
+const axios = require('axios');
 
 
 
@@ -54,23 +55,28 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'imagenes/'); // Directorio donde se guardarán las imágenes en el servidor
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname); // Utilizamos el nombre original del archivo
-  }
-});
 
-
+const storage = multer.memoryStorage();
 const upload =multer({storage})
-
-app.post('/subirImagen', upload.single('imagen'), (req, res) => {
+app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
   try {
     if (req.file) {
-      const imagenURL = 'https://turisticoapp.alwaysdata.net/php/imagenes/' + req.file.originalname; // Ajusta la URL según tu configuración
-      res.json({ success: true, imagenURL });
+      const imagenNombre = req.file.originalname;
+
+      // Construir la ruta completa para la imagen local
+      const imagenURL = 'https://turisticoapp.alwaysdata.net/php/imagenes/' + imagenNombre; // Ajusta la URL según tu configuración
+
+      // Realizar la solicitud POST al servidor de destino
+      const response = await axios.post('https://turisticoapp.alwaysdata.net/php/imagenes', {
+        imagen: req.file.buffer.toString('base64'), // Envía la imagen como base64
+        nombre: imagenNombre
+      });
+
+      if (response.data.success) {
+        res.json({ success: true, imagenURL });
+      } else {
+        res.status(500).json({ error: 'Error al subir la imagen en el servidor destino' });
+      }
     } else {
       res.status(400).json({ error: 'No se proporcionó ninguna imagen' });
     }
@@ -79,7 +85,6 @@ app.post('/subirImagen', upload.single('imagen'), (req, res) => {
     res.status(500).json({ error: 'Error inesperado' });
   }
 });
-
 // Ruta para la página principal
 app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, 'public', 'index.html');
