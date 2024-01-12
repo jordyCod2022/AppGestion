@@ -51,16 +51,17 @@ app.use(cors())
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
-
-const storage =multer.diskStorage({
-  destination:(req,file,cd) =>{
-    createBrotliCompress(null,'./uploads')
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    // Corregir aquí el nombre de la función, debería ser cb en lugar de cd
+    cb(null, './uploads');
   },
-  filename:(req,file,cb)=>{
-    const ext=file.originalname.split('.').pop()
-    cb(null,`${Date.now()}.${ext}`)
+  filename: (req, file, cb) => {
+    const ext = file.originalname.split('.').pop();
+    cb(null, `${Date.now()}.${ext}`);
   }
-})
+});
+
 
 const upload =multer({storage})
 
