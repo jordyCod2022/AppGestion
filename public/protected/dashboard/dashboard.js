@@ -6,17 +6,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const idAsignacionUser = nombreData ? nombreData.id_colaborador : null;
   const fileInput = document.getElementById('file');
   const fileUploaded = document.querySelector('.file-uploaded p');
-  const removeFileButton = document.querySelector('.file-uploaded::before');
+  
   fileInput.addEventListener('change', function () {
     const fileName = this.value.split('\\').pop();
     fileUploaded.textContent = fileName;
   });
-  removeFileButton.addEventListener('click', function () {
-    fileInput.value = ''; // Limpiar el valor del input de archivo
-    fileUploaded.textContent = ''; // Limpiar el texto en .file-uploaded
-  });
-
-
   let Usuario=idAsignacionUser;
 
   if (Usuario) {
