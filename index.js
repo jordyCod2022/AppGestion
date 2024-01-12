@@ -4,6 +4,9 @@ const path = require('path');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
+const multer = require('multer');
+const cors = require('cors');
+const sharp =require('sharp');
 
 
 const TelegramBot = require('node-telegram-bot-api');
@@ -44,8 +47,28 @@ process.on('SIGINT', () => {
 
 
 // Configurar Express para servir archivos estáticos
+aap.use(cors())
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
+
+
+const storage =multer.diskStorage({
+  destination:(req,file,cd) =>{
+    createBrotliCompress(null,'./uploads')
+  },
+  filename:(req,file,cb)=>{
+    const ext=file.originalname.split('.').pop()
+    cb(null,`${Date.now()}.${ext}`)
+  }
+})
+
+const upload =multer({storage})
+
+app.post('uploads',upload.single('file'),(req,res)=>{
+  res.send({data:'Imagen cargada'})
+}
+)
+
 
 // Ruta para la página principal
 app.get('/', (req, res) => {

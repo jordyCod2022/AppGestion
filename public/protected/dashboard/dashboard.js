@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         data: {
           labels: etiquetas,
           datasets: [{
-            label: 'Incidentes Reportados',
+            label: 'Incidentes Reportados Por Usuario',
             data: datos,
             backgroundColor: 'rgba(173, 216, 230, 0.5)', // Celeste con
 
