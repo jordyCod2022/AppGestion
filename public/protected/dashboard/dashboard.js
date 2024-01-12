@@ -366,10 +366,12 @@ async function actualizarImagenColaborador(idAsignacionUser) {
     const data = await response.json();
 
     if (data.imagen_colaborador) {
+      console-log(data.imagen_colaborador)
       // Actualizar la imagen del colaborador en el DOM
       const imagenColaborador = document.getElementById('imagenColaborador');
       if (imagenColaborador) {
         imagenColaborador.src = data.imagen_colaborador;
+        console.log(imagenColaborador.src)
         imagenColaborador.alt = 'Imagen del colaborador';
       }
     } else {
