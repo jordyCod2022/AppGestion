@@ -4,10 +4,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
   const idAsignacionUser = nombreData ? nombreData.id_colaborador : null;
+  let Usuario=idAsignacionUser;
 
-  if (idAsignacionUser) {
-    console.log("Este es mi id: ", idAsignacionUser)
-    actualizarImagenColaborador(idAsignacionUser);
+  if (Usuario) {
+    console.log("Este es mi id: ", Usuario)
+    actualizarImagenColaborador(Usuario);
   }
 
   nombreUser.querySelector('#usuarioInfo').textContent = nombreData.nombre || 'N/A';
@@ -364,7 +365,7 @@ async function actualizarImagenEnBaseDeDatos(idUsuario, urlImagen) {
 
 async function actualizarImagenColaborador(idAsignacionUser) {
 
-  console.log("Recibi estoy en actualizacOLABORAR:". idAsignacionUser)
+  console.log("Recibi estoy en actualizacOLABORAR:", idAsignacionUser)
   try {
     // Realizar la solicitud para obtener la imagen del colaborador
     const response = await fetch(`/getImagenColaborador`, {
