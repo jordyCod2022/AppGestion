@@ -3,8 +3,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
+  const idAsignacionUser = nombreData ? nombreData.id_colaborador : null;
 
- 
+  if (idAsignacionUser) {
+    // Actualizar la imagen del colaborador
+    await actualizarImagenColaborador(idAsignacionUser);
+  }
 
   nombreUser.querySelector('#usuarioInfo').textContent = nombreData.nombre || 'N/A';
 
@@ -190,7 +194,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Obtener totales de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-      actualizarImagenColaborador(idAsignacionUser);
+     
     
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
@@ -368,6 +372,7 @@ async function actualizarImagenColaborador(idAsignacionUser) {
       },
       body: JSON.stringify({
         id_asignacion_user: idAsignacionUser,
+        
       }),
     });
 
