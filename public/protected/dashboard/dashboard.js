@@ -190,16 +190,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Obtener totales de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-      const totalesImagen=await fetch(`/getImagenColaborador?id_asignacion_user=${idAsignacionUser}`);
-      console.log(totalesImagen)
-
-      const imagenColaborador = document.getElementById('imagenColaborador');
-      if (imagenColaborador && totalesImagen.imagen_colaborador) {
-        imagenColaborador.src = totalesImagen.imagen_colaborador;
-        imagenColaborador.alt = 'Imagen del colaborador'; // Puedes proporcionar una descripción adecuada
-      }
-
-
+      actualizarImagenColaborador(idAsignacionUser);
+    
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de incidencias:', totalesData);
@@ -363,6 +355,28 @@ async function actualizarImagenEnBaseDeDatos(idUsuario, urlImagen) {
     }
   } catch (error) {
     console.error('Error en la actualización de la imagen del colaborador en la base de datos:', error);
+  }
+}
+
+
+async function actualizarImagenColaborador(idAsignacionUser) {
+  try {
+    // Realizar la solicitud para obtener la imagen del colaborador
+    const response = await fetch(`/getImagenColaborador?id_asignacion_user=${idAsignacionUser}`);
+    const data = await response.json();
+
+    if (data.imagen_colaborador) {
+      // Actualizar la imagen del colaborador en el DOM
+      const imagenColaborador = document.getElementById('imagenColaborador');
+      if (imagenColaborador) {
+        imagenColaborador.src = data.imagen_colaborador;
+        imagenColaborador.alt = 'Imagen del colaborador';
+      }
+    } else {
+      console.error(`No se encontró la imagen para el idAsignacionUser: ${idAsignacionUser}`);
+    }
+  } catch (error) {
+    console.error('Error al obtener la imagen del colaborador:', error);
   }
 }
 
