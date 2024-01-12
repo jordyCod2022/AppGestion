@@ -135,6 +135,36 @@ app.get('/getTotalesIncidencias', async (req, res) => {
   }
 });
 
+app.get('/getImagenColaborador', async (req, res) => {
+  const idAsignacionUser = req.query.id_asignacion_user;
+
+  try {
+    // Consulta para obtener la imagen del colaborador
+    const result = await pool.query(`
+      SELECT
+        imagen_colaborador
+      FROM
+        public.colaboradores
+      WHERE
+        id_colaborador = $1;
+    `, [idAsignacionUser]);
+
+    if (result.rows.length > 0) {
+      const imagenColaborador = result.rows[0].imagen_colaborador;
+
+      console.log('Imagen del colaborador:', imagenColaborador);
+
+      res.json({ imagen_colaborador: imagenColaborador });
+    } else {
+      res.json({ imagen_colaborador: null });
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener la imagen del colaborador' });
+  }
+});
+
+
 
 app.get('/getIncidencias', async (req, res) => {
   const idAsignacionUser = req.query.id_asignacion_user;
@@ -209,6 +239,7 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Error en la autenticación' });
   }
 });
+
 
 app.post('/actualizarImagen', async (req, res) => {
   const idAsignacionUser = req.body.id_asignacion_user;

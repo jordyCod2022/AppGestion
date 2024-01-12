@@ -4,14 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
-  console.log(nombreData.imagen_colaborador);
-
-  const imagenColaborador = document.getElementById('imagenColaborador');
-  if (imagenColaborador && nombreData.imagen_colaborador) {
-    imagenColaborador.src = nombreData.imagen_colaborador;
-    imagenColaborador.alt = 'Imagen del colaborador'; 
-  }
-
+ 
 
   nombreUser.querySelector('#usuarioInfo').textContent = nombreData.nombre || 'N/A';
 
@@ -182,6 +175,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   });
 
+
+
   // Función para actualizar los totales de incidencias con la nueva fecha
   async function updateTotalesIncidencias(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
@@ -195,6 +190,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Obtener totales de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+      const totalesImagen=await fetch(`/getImagenColaborador?id_asignacion_user=${idAsignacionUser}`);
+      console.log(totalesImagen.imagen_colaborador)
+
+      const imagenColaborador = document.getElementById('imagenColaborador');
+      if (imagenColaborador && totalesImagen.imagen_colaborador) {
+        imagenColaborador.src = totalesImagen.imagen_colaborador;
+        imagenColaborador.alt = 'Imagen del colaborador'; // Puedes proporcionar una descripción adecuada
+      }
+
+
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de incidencias:', totalesData);
