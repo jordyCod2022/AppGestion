@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 const multer = require('multer');
 const cors = require('cors');
 const sharp =require('sharp');
+const mysql = require('mysql2');
+
 
 
 const TelegramBot = require('node-telegram-bot-api');
@@ -47,13 +49,15 @@ process.on('SIGINT', () => {
 
 
 // Configurar Express para servir archivos estáticos
+app.use(cors());
+app.use(express.json());
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Corregir aquí el nombre de la función, debería ser cb en lugar de cd
-    cb(null, './uploads');
+    cb(null, './imagenes');
   },
   filename: (req, file, cb) => {
     const ext = file.originalname.split('.').pop();
@@ -64,11 +68,19 @@ const storage = multer.diskStorage({
 
 const upload =multer({storage})
 
-app.post('/upload',upload.single('file'),(req,res)=>{
-  res.send({data:'Imagen cargada'})
-}
-)
-
+app.post('/subirImagen', upload.single('imagen'), (req, res) => {
+  try {
+    if (req.file) {
+      const imagenURL = 'https://turisticoapp.alwaysdata.net/php/imagenes/' + req.file.originalname; // Ajusta la URL según tu configuración
+      res.json({ success: true, imagenURL });
+    } else {
+      res.status(400).json({ error: 'No se proporcionó ninguna imagen' });
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Error inesperado' });
+  }
+});
 
 // Ruta para la página principal
 app.get('/', (req, res) => {
