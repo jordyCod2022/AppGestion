@@ -325,27 +325,20 @@ async function subirImagen() {
 
 // Función para actualizar la imagen en la base de datos
 async function actualizarImagenEnBaseDeDatos(idUsuario, urlImagen) {
-  console.log(urlImagen)
-  console.log(idUsuario)
+  console.log(urlImagen);
+  console.log(idUsuario);
 
-  
   try {
     // Realizar la actualización en la base de datos
-    const result = await fetch('/actualizarImagen', {
+    const result = await fetch(`/actualizarImagen?id_asignacion_user=${idUsuario}&url_imagen=${urlImagen}`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        id_asignacion_user: idUsuario,
-        url_imagen: urlImagen,
-      }),
+    
     });
 
     const data = await result.json();
 
     if (data.success) {
-      console.log(`Imagen del colaborador con ID de asignación ${idAsignacionUser} actualizada en la base de datos.`);
+      console.log(`Imagen del colaborador con ID de asignación ${idUsuario} actualizada en la base de datos.`);
     } else {
       console.error(`Error al actualizar la imagen del colaborador en la base de datos.`, data.error);
     }
@@ -353,7 +346,6 @@ async function actualizarImagenEnBaseDeDatos(idUsuario, urlImagen) {
     console.error('Error en la actualización de la imagen del colaborador en la base de datos:', error);
   }
 }
-
 
   
 
