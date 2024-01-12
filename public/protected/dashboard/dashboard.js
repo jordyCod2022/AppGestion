@@ -4,6 +4,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
   const idAsignacionUser = nombreData ? nombreData.id_colaborador : null;
+  const fileInput = document.getElementById('file');
+  const fileUploaded = document.querySelector('.file-uploaded p');
+  fileInput.addEventListener('change', function () {
+    const fileName = this.value.split('\\').pop();
+    fileUploaded.textContent = fileName;
+  });
   let Usuario=idAsignacionUser;
 
   if (Usuario) {
@@ -54,6 +60,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     container.style.display = isMenuVisible ? 'none' : 'block';
   });
+
+  
 
   // Obtener elementos del DOM
   const currentDateContainer = document.querySelector('.current-date-container');
