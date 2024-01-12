@@ -349,10 +349,11 @@ async function subirImagen() {
 
       console.log(urlImagen)
       console.log(idUsuario)
-      window.location.reload();
+      
 
 
       actualizarImagenEnBaseDeDatos(idUsuario,urlImagen)
+      window.location.reload();
     } else {
       alert('Error al subir la imagen');
     }

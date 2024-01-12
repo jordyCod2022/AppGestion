@@ -1134,3 +1134,20 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   transform: translate(50%, -50%); /* Centra el modal */
   /* ... otros estilos ... */
 }
+
+#subirImagenBtn {
+  background-color: #2f775b; /* Color de fondo verde */
+  color: white; /* Color del texto blanco */
+  padding: 10px 20px; /* Espaciado interno del botón */
+  font-size: 16px; /* Tamaño del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Esquinas redondeadas */
+  cursor: pointer; /* Cursor tipo puntero al pasar por encima */
+  margin: auto; /* Centrar el botón */
+  display: block; /* Hacer que sea un elemento de bloque para centrarlo */
+}
+
+#subirImagenBtn:hover {
+  background-color: #45a049; /* Cambia el color de fondo al pasar el ratón */
+}
+
