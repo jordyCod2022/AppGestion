@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mis Incidencias</title>
+  
+    <link rel="stylesheet" href="pendIncidentes.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- Agrega estas enlaces al encabezado de tu HTML -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.0.1/css/buttons.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/2.0.1/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.jsdelivr.net/npm/pdfmake@0.1.68/build/pdfmake.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.jsdelivr.net/npm/pdfmake@0.1.68/build/vfs_fonts.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
+
+  </head>
+<body>
+
+  <header>
+    <div class="brand">
+      <i class="material-icons" onclick="regresar()" aria-label="Regresar">arrow_back</i>
+      <span>Incidentes Pendientes</span>
+    </div>
+  </header>
+
+  
+  
+
+  <article id="article"> <!-- Asegúrate de que esta línea tenga el id correcto -->
+    
+    <div id="incidenciasContainer">
+      <!-- Agrega un contenedor div para la tabla con un id específico -->
+      <div id="tablaContainer">
+        <table id="tablaIncidencias" class="display nowrap" style="width:100%">
+          <thead>
+            <tr>
+              <th>ID Incidente</th>
+              <th>Nombre Colaborador</th>
+              <th>Descripción</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Aquí se insertarán las filas de la tabla mediante JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+
+    <div id="modal" class="modal"> <!-- Asegúrate de que esta línea tenga el id correcto -->
+      <div class="modal-content">
+          <span class="close" onclick="cerrarModal()">&times;</span>
+          <p>Ingrese el mensaje para informar el incidente:</p>
+          <textarea id="mensajeInput" rows="4" cols="50"></textarea>
+          <button onclick="informarDesdeModal()">Informar</button>
+          <button onclick="autogenerarMensaje()">Autogenerar</button>
+      </div>
+    </div>
+
+    <!-- Quité la segunda instancia del div modal -->
+
+    <div id="confirmacionModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="cerrarConfirmacionModal()">&times;</span>
+        <p>¿Estás seguro de marcar la incidencia como "Realizado"?</p>
+        <button onclick="confirmarRealizadoDesdeModal()">Sí</button>
+        <button onclick="cerrarConfirmacionModal()">No</button>
+      </div>
+    </div>
+   
+ </article>
+ 
+  <!-- Tu script de JavaScript -->
+  <script src="pendIncidentes.js"></script>
+
+  
+</body>
+</html>
