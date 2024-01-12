@@ -297,7 +297,15 @@ async function subirImagen() {
     if (data.success) {
 
       alert('Imagen subida con éxito');
-      console.log('ruta: ', data.imagenURL)
+      
+
+      const urlImagen=data.imagenURL
+      const idUsuario=nombreData.id_colaborador
+      console.log(urlImagen)
+      console.log(idUsuario)
+
+
+      actualizarImagenEnBaseDeDatos(idUsuario,urlImagen)
     } else {
       alert('Error al subir la imagen');
     }
@@ -307,6 +315,35 @@ async function subirImagen() {
   }
 
 
+
+
+}
+
+// Función para actualizar la imagen en la base de datos
+async function actualizarImagenEnBaseDeDatos(idAsignacionUser, urlImagen) {
+  try {
+    // Realizar la actualización en la base de datos
+    const result = await fetch('/actualizarImagen', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_asignacion_user: idAsignacionUser,
+        url_imagen: urlImagen,
+      }),
+    });
+
+    const data = await result.json();
+
+    if (data.success) {
+      console.log(`Imagen del colaborador con ID de asignación ${idAsignacionUser} actualizada en la base de datos.`);
+    } else {
+      console.error(`Error al actualizar la imagen del colaborador en la base de datos.`, data.error);
+    }
+  } catch (error) {
+    console.error('Error en la actualización de la imagen del colaborador en la base de datos:', error);
+  }
 }
 
 
