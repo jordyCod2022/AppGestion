@@ -1040,7 +1040,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   transition: background-color 0.3s, color 0.3s;
   margin-top: -100px;
   margin-right:  400px;
-  max-height: 300px;
+  max-height: 340px;
 }
 
 .content > *, .modal > * {
