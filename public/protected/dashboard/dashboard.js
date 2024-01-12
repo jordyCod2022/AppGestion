@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
 
-  console.log("Mi fecha actual es: ", dateContainer)
+  const storedDate = localStorage.getItem('selectedDate');
 
   var dropdown = document.querySelector('.dropdown');
 
@@ -195,23 +195,34 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${year}-${month}-${day}`;
   }
 
-  // Configurar la presentación de la fecha
-  dateContainer.innerText = getCurrentDate();
-  dateContainer.className = 'current-date';
-  currentDateContainer.appendChild(dateContainer);
+  
 
   // Configurar flatpickr para el selector de fecha
   const flatpickrInstance = flatpickr('.Btn', {
     dateFormat: 'Y-m-d',
+    defaultDate: storedDate || 'today', // Utilizar la fecha almacenada o 'today' si no hay ninguna
     onClose: function (selectedDates, dateStr) {
       dateContainer.innerText = dateStr;
 
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
       updateGrafica(dateStr);
-      localStorage.setItem('dashboardFecha', dateStr);
+
+      // Guardar la fecha seleccionada en el Local Storage
+      localStorage.setItem('selectedDate', dateStr);
     },
   });
+
+  dateContainer.innerText = storedDate || getCurrentDate(); // Utilizar la fecha almacenada o la fecha actual si no hay ninguna
+  dateContainer.className = 'current-date';
+  currentDateContainer.appendChild(dateContainer);
+
+  if (storedDate) {
+    flatpickrInstance.setDate(storedDate);
+    dateContainer.innerText = storedDate;
+    updateTotalesIncidencias(storedDate);
+    updateGrafica(storedDate);
+  }
 
 
 
