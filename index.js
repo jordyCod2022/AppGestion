@@ -40,7 +40,7 @@ pool.on('error', (err) => {
 
 process.on('SIGINT', () => {
   pool.end();
-  console.log('Conexión a la base de datos cerrada debido a la terminación del proceso.');
+  console.log('Conexión a la base de datos cerrada debido a la terminación del proceso');
   process.exit(0);
 });
 
