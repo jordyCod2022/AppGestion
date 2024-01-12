@@ -209,13 +209,11 @@ app.post('/login', async (req, res) => {
   }
 });
 
-
 app.post('/actualizarImagen', async (req, res) => {
-
-  const idAsignacionUser = req.query.idUsuario;
-  const urlImagen = req.query.urlImagen; 
+  const idAsignacionUser = req.body.id_asignacion_user;
+  const urlImagen = req.body.url_imagen; 
   console.log(idAsignacionUser);
-  console.log(urlImagen)
+  console.log(urlImagen);
 
   try {
     // Realizar la actualización en la base de datos
@@ -238,6 +236,7 @@ app.post('/actualizarImagen', async (req, res) => {
     res.status(500).json({ error: 'Error al actualizar la imagen del colaborador' });
   }
 });
+
 
 
 const PORT = process.env.PORT || 3000;
