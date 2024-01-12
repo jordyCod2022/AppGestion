@@ -48,11 +48,10 @@ process.on('SIGINT', () => {
 
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Corregir aquí el nombre de la función, debería ser cb en lugar de cd
-    cb(null, './uploads');
+    const absolutePath = path.join(__dirname, 'uploads'); // Ruta absoluta
+    cb(null, absolutePath);
   },
   filename: (req, file, cb) => {
     const ext = file.originalname.split('.').pop();
