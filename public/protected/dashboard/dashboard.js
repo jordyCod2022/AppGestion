@@ -375,8 +375,8 @@ async function actualizarImagenColaborador(idAsignacionUser) {
       },
       body: JSON.stringify({
         id_asignacion_user: idAsignacionUser,
-        
       }),
+      
     });
 
     const data = await response.json();
