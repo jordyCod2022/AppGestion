@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Obtener totales de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
       const totalesImagen=await fetch(`/getImagenColaborador?id_asignacion_user=${idAsignacionUser}`);
-      console.log(totalesImagen.imagen_colaborador)
+      console.log(totalesImagen)
 
       const imagenColaborador = document.getElementById('imagenColaborador');
       if (imagenColaborador && totalesImagen.imagen_colaborador) {
