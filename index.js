@@ -138,6 +138,8 @@ app.get('/getTotalesIncidencias', async (req, res) => {
 app.post('/getImagenColaborador', async (req, res) => {
   const idAsignacionUser = req.body.id_asignacion_user;
 
+  console.log(idAsignacionUser)
+
   try {
     // Consulta para obtener la imagen del colaborador
     const result = await pool.query(`
