@@ -280,6 +280,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
+  let idUsuario;
+  let urlImagen;
+
   document.getElementById('subirImagenBtn').addEventListener('click', subirImagen);
 
 async function subirImagen() {
@@ -299,8 +302,8 @@ async function subirImagen() {
       alert('Imagen subida con éxito');
       
 
-      const urlImagen=data.imagenURL
-      const idUsuario=nombreData.id_colaborador
+      urlImagen=data.imagenURL
+      idUsuario=nombreData.id_colaborador
 
       console.log(urlImagen)
       console.log(idUsuario)
