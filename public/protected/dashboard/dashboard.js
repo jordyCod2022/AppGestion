@@ -220,62 +220,59 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (storedDate) {
     flatpickrInstance.setDate(storedDate);
     dateContainer.innerText = storedDate;
-
+    updateTotalesIncidencias(storedDate);
+    updateGrafica(storedDate);
+  }
 
 
 
   // Función para actualizar los totales de incidencias con la nueva fecha
-  // ... (código existente)
+  async function updateTotalesIncidencias(newDate) {
+    
+    // Obtener id_asignacion_user y otros datos del localStorage
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
-async function updateTotalesIncidencias(newDate) {
-  localStorage.setItem('dashboardFecha', newDate);
-  // Obtener id_asignacion_user y otros datos del localStorage
-  const storedNombreData = localStorage.getItem('nombreData');
-  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+    // Verificar si hay datos y obtener id_asignacion_user
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
 
-  // Verificar si hay datos y obtener id_asignacion_user
-  if (nombreData && nombreData.username) {
-    const idAsignacionUser = nombreData.id_colaborador;
+      // Obtener totales de incidencias con la nueva fecha
+      const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+     
+    
+      localStorage.setItem('idAsignacionUser', idAsignacionUser);
+      const totalesData = await totalesResponse.json();
+      console.log('Resultados de incidencias:', totalesData);
 
-    // Obtener totales de incidencias con la nueva fecha
-    const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-  
-    localStorage.setItem('idAsignacionUser', idAsignacionUser);
-    const totalesData = await totalesResponse.json();
-    console.log('Resultados de incidencias:', totalesData);
+      // Actualizar elementos HTML con los resultados
+      const ticketsPendientesElement = document.getElementById('ticketsPendientes');
+      const ticketsResueltosElement = document.getElementById('ticketsResueltos');
+      
 
-    // Actualizar elementos HTML con los resultados
-    const ticketsPendientesElement = document.getElementById('ticketsPendientes');
-    const ticketsResueltosElement = document.getElementById('ticketsResueltos');
+      if (ticketsPendientesElement && ticketsResueltosElement) {
+        ticketsPendientesElement.querySelector('.name').textContent = totalesData.total_pendientes || 'N/A';
+        ticketsResueltosElement.querySelector('.name').textContent = totalesData.total_cerrados || 'N/A';
+      
+      } else {
+        console.error('Elemento no encontrado');
+      }
 
-    if (ticketsPendientesElement && ticketsResueltosElement) {
-      ticketsPendientesElement.querySelector('.name').textContent = totalesData.total_pendientes || 'N/A';
-      ticketsResueltosElement.querySelector('.name').textContent = totalesData.total_cerrados || 'N/A';
-
-      // Llamar a updateGrafica después de que se actualicen los totales
-      await updateGrafica(newDate);
-    } else {
-      console.error('Elemento no encontrado');
-    }
-
-    if (ticketsPendientesElement) {
-      ticketsPendientesElement.addEventListener('click', () => {
-        window.location.href = '../pendIncidentes/pendIncidentes.html';
-      });
-    } else {
-      console.error('Elemento "ticketsPendientes" no fue encontrado');
+      if (ticketsPendientesElement) {
+        ticketsPendientesElement.addEventListener('click', () => {
+          window.location.href = '../pendIncidentes/pendIncidentes.html';
+        });
+      } else {
+        console.error('Elemento "ticketsPendientes" no fue encontrado');
+      }
     }
   }
-}
-
-// ... (resto del código)
-
 
   const barChartContainer = document.getElementById('barChartContainer');
 
   // Obtener datos del servidor y actualizar el gráfico
   async function updateGrafica(newDate) {
-    localStorage.setItem('dashboardFecha', newDate);
+
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
