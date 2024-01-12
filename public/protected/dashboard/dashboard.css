@@ -9,8 +9,8 @@ body {
 }
 
 #imagenColaborador {
-  width: 100px; /* Ajusta el tamaño de la imagen según tus necesidades */
-  height: 100px;
+  width: 150px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  height: 150px;
   object-fit: cover; /* Rellena el contenedor sin distorsionar la imagen */
   border-radius: 50%; /* Hace que la imagen tenga forma circular */
   display: block; /* Evita el espacio adicional debajo de la imagen */
@@ -947,6 +947,9 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   margin-left: -1050px;
   margin-top: -0px;
   overflow: hidden;
+ 
+  text-align: center; /* Centra el contenido del contenedor */
+  
 }
 
 
