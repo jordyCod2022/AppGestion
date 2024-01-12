@@ -212,8 +212,8 @@ app.post('/login', async (req, res) => {
 
 app.post('/actualizarImagen', async (req, res) => {
 
-  const idAsignacionUser = req.query.id_asignacion_user;
-  const urlImagen = req.query.url_imagen; 
+  const idAsignacionUser = req.query.idUsuario;
+  const urlImagen = req.query.urlImagen; 
   console.log(idAsignacionUser);
   console.log(urlImagen)
 

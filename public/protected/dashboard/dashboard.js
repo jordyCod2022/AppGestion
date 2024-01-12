@@ -347,9 +347,6 @@ async function actualizarImagenEnBaseDeDatos(idUsuario, urlImagen) {
   }
 }
 
-  
 
-  
-  
   
 });
