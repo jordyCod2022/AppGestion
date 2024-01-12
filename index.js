@@ -49,7 +49,6 @@ process.on('SIGINT', () => {
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
-const path = require('path');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
