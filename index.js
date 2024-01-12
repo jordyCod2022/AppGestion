@@ -59,13 +59,22 @@ app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar e
 const storage = multer.memoryStorage();
 const upload =multer({storage})
 
+
+
+const sharpConfig = {
+  resize: { width: 200, height: 200 }, // Ajusta según tus necesidades
+  toFormat: 'jpeg', // Puedes cambiar a 'png', 'webp', etc.
+};
+
 app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
   try {
     if (req.file) {
       const imagenNombre = req.file.originalname;
 
-      // Construir la ruta completa para la imagen local
-      const imagenURL = 'https://bioappp.000webhostapp.com/imagenes/' + imagenNombre; // Ajusta la URL según tu configuración
+      // Procesar la imagen con Sharp
+      const imagenBuffer = await sharp(req.file.buffer).resize(sharpConfig.resize).toFormat(sharpConfig.toFormat).toBuffer();
+
+      // Resto del código...
 
       // Realizar la solicitud POST al servidor de destino con fetch
       const response = await fetch('https://bioappp.000webhostapp.com/imagenes/', {
@@ -74,7 +83,7 @@ app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          imagen: req.file.buffer.toString('base64'), // Envía la imagen como base64
+          imagen: imagenBuffer.toString('base64'), // Envía la imagen como base64
           nombre: imagenNombre,
         }),
       });
@@ -102,6 +111,7 @@ app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
     res.status(500).json({ error: 'Error inesperado' });
   }
 });
+
 
 
 // Ruta para la página principal
