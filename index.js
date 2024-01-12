@@ -53,7 +53,6 @@ app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar e
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const absolutePath = path.join(__dirname, 'uploads'); // Ruta absoluta
-    console.log(absolutePath)
     cb(null, absolutePath);
   },
   filename: (req, file, cb) => {
