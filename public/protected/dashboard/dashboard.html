@@ -314,6 +314,25 @@
 
           </div>
         </div>
+
+        <form class="modal" id="formularioImagen">
+          <span class="close">X</span>
+              <div class="content">
+                <span class="title">Sube tu archivo</span>
+                <p class="message">Selecciona una imagen de tu maquina local</p>
+                
+                <div class="actions">
+                  <label for="file" class="button upload-btn">Choose File
+                    <input hidden="" type="file" id="file">
+                  </label>
+                </div>
+                <div class="result">
+                   <div class="file-uploaded"><p>profile_pic.png</p></div>
+                   
+                </div>
+                <button type="button" id="subirImagenBtn">Subir Imagen</button>
+          </div>
+        </form>
         
         <form id="formularioImagen" enctype="multipart/form-data">
           <input type="file" name="imagen" id="imagenInput" accept="image/*" required>
