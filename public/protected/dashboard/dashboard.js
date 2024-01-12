@@ -295,7 +295,9 @@ async function subirImagen() {
     const data = await response.json();
 
     if (data.success) {
+
       alert('Imagen subida con éxito');
+      console.log('ruta: ', data.imagenUrl)
     } else {
       alert('Error al subir la imagen');
     }
@@ -303,6 +305,8 @@ async function subirImagen() {
     console.error('Error:', error);
     alert('Error inesperado');
   }
+
+
 }
 
 

@@ -4,10 +4,7 @@ const path = require('path');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const multer = require('multer');
 const cors = require('cors');
-
-
 
 
 
@@ -54,28 +51,6 @@ app.use(express.json());
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const absolutePath = path.join(__dirname, 'uploads'); // Ruta absoluta
-    cb(null, absolutePath);
-  },
-  filename: (req, file, cb) => {
-    const ext = file.originalname.split('.').pop();
-    const fileName = `${Date.now()}.${ext}`;
-    cb(null, fileName);
-    // Agregamos el nombre del archivo a la solicitud para acceder más tarde
-    req.uploadedFileName = fileName;
-  }
-});
-
-const upload = multer({ storage });
-
-app.post('/upload', upload.single('file'), (req, res) => {
-  // Accedemos al nombre del archivo desde la solicitud y construimos la ruta completa
-  const uploadedFilePath = path.join(__dirname, 'uploads', req.uploadedFileName);
-  res.send({ data: 'Imagen cargada', filePath: uploadedFilePath });
-});
 
 
 // Ruta para la página principal
@@ -233,6 +208,34 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Error en la autenticación' });
   }
 });
+
+
+app.post('/actualizarImagen', async (req, res) => {
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const urlImagen = req.query.url_imagen; 
+
+  try {
+    // Realizar la actualización en la base de datos
+    const result = await pool.query(`
+      UPDATE public.colaboradores
+      SET imagen_colaborador = $1
+      WHERE id_asignacion_user = $2;
+    `, [urlImagen, idAsignacionUser]);
+
+    // Verificar si se realizó la actualización correctamente
+    if (result.rowCount > 0) {
+      console.log(`Imagen del colaborador con idAsignacionUser ${idAsignacionUser} actualizada.`);
+      res.json({ success: true });
+    } else {
+      console.log(`No se encontró el colaborador con idAsignacionUser ${idAsignacionUser}.`);
+      res.status(404).json({ error: 'Colaborador no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error en la actualización de la imagen del colaborador:', error);
+    res.status(500).json({ error: 'Error al actualizar la imagen del colaborador' });
+  }
+});
+
 
 const PORT = process.env.PORT || 3000;
 
