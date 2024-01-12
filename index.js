@@ -65,10 +65,10 @@ app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
       const imagenNombre = req.file.originalname;
 
       // Construir la ruta completa para la imagen local
-      const imagenURL = 'https://turisticoapp.alwaysdata.net/php/imagenes/' + imagenNombre; // Ajusta la URL según tu configuración
+      const imagenURL = 'https://bioappp.000webhostapp.com/imagenes/' + imagenNombre; // Ajusta la URL según tu configuración
 
       // Realizar la solicitud POST al servidor de destino con fetch
-      const response = await fetch('https://turisticoapp.alwaysdata.net/php/imagenes', {
+      const response = await fetch('https://bioappp.000webhostapp.com/imagenes/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
