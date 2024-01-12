@@ -297,7 +297,7 @@ async function subirImagen() {
     if (data.success) {
 
       alert('Imagen subida con éxito');
-      console.log('ruta: ', data.imagenUrl)
+      console.log('ruta: ', data.imagenURL)
     } else {
       alert('Error al subir la imagen');
     }
