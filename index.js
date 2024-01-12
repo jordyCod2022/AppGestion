@@ -222,7 +222,7 @@ app.post('/actualizarImagen', async (req, res) => {
     const result = await pool.query(`
       UPDATE public.colaboradores
       SET imagen_colaborador = $1
-      WHERE id_asignacion_user = $2;
+      WHERE id_colaborador = $2;
     `, [urlImagen, idAsignacionUser]);
 
     // Verificar si se realizó la actualización correctamente
