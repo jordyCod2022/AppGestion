@@ -153,7 +153,7 @@ app.get('/getIncidencias', async (req, res) => {
         c.telefono_colaborador,
         i.id_estado,
         i.id_reportacion_user,
-        i. imagen_colaborador
+        i.imagen_colaborador
       FROM
         public.incidente i
       JOIN
