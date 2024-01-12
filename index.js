@@ -8,7 +8,7 @@ const multer = require('multer');
 const cors = require('cors');
 const sharp =require('sharp');
 const mysql = require('mysql2');
-const axios = require('axios');
+
 
 
 
@@ -58,6 +58,7 @@ app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar e
 
 const storage = multer.memoryStorage();
 const upload =multer({storage})
+
 app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
   try {
     if (req.file) {
@@ -66,13 +67,21 @@ app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
       // Construir la ruta completa para la imagen local
       const imagenURL = 'https://turisticoapp.alwaysdata.net/php/imagenes/' + imagenNombre; // Ajusta la URL según tu configuración
 
-      // Realizar la solicitud POST al servidor de destino
-      const response = await axios.post('https://turisticoapp.alwaysdata.net/php/imagenes', {
-        imagen: req.file.buffer.toString('base64'), // Envía la imagen como base64
-        nombre: imagenNombre
+      // Realizar la solicitud POST al servidor de destino con fetch
+      const response = await fetch('https://turisticoapp.alwaysdata.net/php/imagenes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          imagen: req.file.buffer.toString('base64'), // Envía la imagen como base64
+          nombre: imagenNombre,
+        }),
       });
 
-      if (response.data.success) {
+      const responseData = await response.json();
+
+      if (responseData.success) {
         res.json({ success: true, imagenURL });
       } else {
         res.status(500).json({ error: 'Error al subir la imagen en el servidor destino' });
@@ -85,6 +94,7 @@ app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
     res.status(500).json({ error: 'Error inesperado' });
   }
 });
+
 // Ruta para la página principal
 app.get('/', (req, res) => {
   const indexPath = path.join(__dirname, 'public', 'index.html');
