@@ -220,8 +220,12 @@ document.addEventListener('DOMContentLoaded', async () => {
   if (storedDate) {
     flatpickrInstance.setDate(storedDate);
     dateContainer.innerText = storedDate;
-    updateTotalesIncidencias(storedDate);
-    updateGrafica(storedDate);
+
+    // Utilizar Promise.all para ejecutar ambas funciones en paralelo
+    await Promise.all([
+      updateTotalesIncidencias(storedDate),
+      updateGrafica(storedDate)
+    ]);
   }
 
 
