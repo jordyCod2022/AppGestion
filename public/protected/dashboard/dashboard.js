@@ -6,6 +6,28 @@ document.addEventListener('DOMContentLoaded', async () => {
   const idAsignacionUser = nombreData ? nombreData.id_colaborador : null;
   const fileInput = document.getElementById('file');
   const fileUploaded = document.querySelector('.file-uploaded p');
+  const formularioImagen = document.getElementById('formularioImagen');
+  const cambiarImagenPerfilLink = document.getElementById('cambiarImagenPerfilLink');
+  const closeBtn = document.querySelector('.close');
+
+  
+  // Agrega un evento de clic al elemento "close" para cerrar el modal
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      formularioImagen.style.display = "none";
+    });
+  }
+
+
+  cambiarImagenPerfilLink.addEventListener('click', function (event) {
+    event.preventDefault(); // Evitar la acción predeterminada del enlace
+
+    if (formularioImagen.style.display === 'none') {
+        formularioImagen.style.display = 'block';
+    } else {
+        formularioImagen.style.display = 'none';
+    }
+});
   
   fileInput.addEventListener('change', function () {
     const fileName = this.value.split('\\').pop();

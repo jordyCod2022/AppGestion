@@ -1023,6 +1023,9 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   color: rgb(108, 35, 192);
 }
 
+#cambiarImagenPerfilLink{
+  cursor: pointer;
+}
 
 
 
@@ -1035,6 +1038,9 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   overflow: hidden;
   position: relative;
   transition: background-color 0.3s, color 0.3s;
+  margin-top: -100px;
+  margin-right:  400px;
+  max-height: 300px;
 }
 
 .content > *, .modal > * {
@@ -1118,4 +1124,13 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 
 .file-uploaded:hover::before {
   background-color: rgba(233, 40, 6, 0.664);
+}
+
+#formularioImagen {
+  z-index: 2; /* Ajusta según sea necesario para superponer otros elementos */
+  position: absolute; /* Cambiado a absolute para que pueda superponerse */
+  top: 600px; /* Ajusta según sea necesario */
+  right: 700px; /* Ajusta según sea necesario */
+  transform: translate(50%, -50%); /* Centra el modal */
+  /* ... otros estilos ... */
 }

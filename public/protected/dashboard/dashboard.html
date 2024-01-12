@@ -155,13 +155,14 @@
           </ul>
         </li>
 
-        <li>
-          <a href="/">
-            <span><i class="material-icons">event</i></span>
-            Cambiar imagen perfil
-            <span class="notif green">6</span>
+        <li id="cambiarImagenPerfilLink" >
+          <a >
+              <span><i class="material-icons">event</i></span>
+              Cambiar imagen perfil
+             
           </a>
-        </li>
+      </li>
+      
 
         
         
@@ -300,6 +301,26 @@
 
       <div class="row2">
 
+        <form class="modal" id="formularioImagen" enctype="multipart/form-data" style="display: none;">
+          <span class="close">X</span>
+          <div class="content">
+              <span class="title">Sube tu archivo</span>
+              <p class="message">Selecciona una imagen de tu máquina local</p>
+      
+              <div class="actions">
+                  <label for="file" class="button upload-btn">Presiona aquí
+                      <input hidden="" type="file" id="file" name="imagen" accept="image/*" required>
+                  </label>
+              </div>
+              <div class="result">
+                  <div class="file-uploaded"><p>No se ha seleccionado una imagen</p></div>
+              </div>
+              <button type="button" id="subirImagenBtn">Subir Imagen</button>
+          </div>
+        </form>
+      
+      
+
         <div class="e-card playing" id="graficoPersona">
           <div class="image"></div>
 
@@ -315,25 +336,7 @@
           </div>
         </div>
 
-        <form class="modal" id="formularioImagen" enctype="multipart/form-data">
-          <span class="close">X</span>
-              <div class="content">
-                <span class="title">Sube tu archivo</span>
-                <p class="message">Selecciona una imagen de tu maquina local</p>
-                
-                <div class="actions">
-                  <label for="file" class="button upload-btn">Presiona aquí
-                    <input hidden="" type="file" id="file" name="imagen" accept="image/*" required>
-                  </label>
-                </div>
-                <div class="result">
-                   <div class="file-uploaded"><p>No se ha seleccionado una imagen</p></div>
-                   
-                </div>
-                <button type="button" id="subirImagenBtn">Subir Imagen</button>
-          </div>
-        </form>
-      
+        
 
  
 
