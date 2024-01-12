@@ -4,6 +4,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
+  console.log(nombreData.imagen_colaborador);
+
+  const imagenColaborador = document.getElementById('imagenColaborador');
+  if (imagenColaborador && nombreData.imagen_colaborador) {
+    imagenColaborador.src = nombreData.imagen_colaborador;
+    imagenColaborador.alt = 'Imagen del colaborador'; 
+  }
+
+
   nombreUser.querySelector('#usuarioInfo').textContent = nombreData.nombre || 'N/A';
 
   console.log(nombreData)
