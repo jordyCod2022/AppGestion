@@ -287,7 +287,7 @@ async function subirImagen() {
   const formData = new FormData(formulario);
 
   try {
-    const response = await fetch('https://turisticoapp.alwaysdata.net/subirImagen.php', {
+    const response = await fetch('https://appgestion.alwaysdata.net/subirImagen.php', {
       method: 'POST',
       body: formData
     });
