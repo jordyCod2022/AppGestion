@@ -79,12 +79,20 @@ app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
         }),
       });
 
-      const responseData = await response.json();
+      // Verificar si la respuesta tiene un contenido JSON válido
+      if (response.headers.get('content-type') && response.headers.get('content-type').includes('application/json')) {
+        const responseData = await response.json();
 
-      if (responseData.success) {
-        res.json({ success: true, imagenURL });
+        if (responseData.success) {
+          res.json({ success: true, imagenURL });
+        } else {
+          res.status(500).json({ error: 'Error al subir la imagen en el servidor destino' });
+        }
       } else {
-        res.status(500).json({ error: 'Error al subir la imagen en el servidor destino' });
+        // Si la respuesta no es JSON, maneja el caso según tus necesidades
+        const textData = await response.text();
+        console.error('Error en la respuesta no JSON:', textData);
+        res.status(500).json({ error: 'Error en la respuesta no JSON' });
       }
     } else {
       res.status(400).json({ error: 'No se proporcionó ninguna imagen' });
@@ -94,6 +102,7 @@ app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
     res.status(500).json({ error: 'Error inesperado' });
   }
 });
+
 
 // Ruta para la página principal
 app.get('/', (req, res) => {
