@@ -280,39 +280,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  const subirImagenButton = document.getElementById('subirImagenButton');
   
-  if (subirImagenButton) {
-    subirImagenButton.addEventListener('click', subirImagen);
-  } else {
-    console.error('No se encontró el botón de subir imagen');
-  }
-
-  // Función para subir la imagen
-  async function subirImagen() {
-    const formulario = document.getElementById('formularioImagen');
-    const formData = new FormData(formulario);
-
-    try {
-      const response = await fetch('https://turisticoapp.alwaysdata.net/subirImagen.php', {
-        method: 'POST',
-        body: formData
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        alert('Imagen subida con éxito');
-      } else {
-        alert('Error al subir la imagen');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Error inesperado');
-    }
-  }
-
- 
   
   
 });
