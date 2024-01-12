@@ -92,6 +92,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
 
+  console.log("Mi fecha actual es: ", dateContainer)
+
   var dropdown = document.querySelector('.dropdown');
 
   dropdown.addEventListener('click', function() {
