@@ -358,20 +358,29 @@ async function actualizarImagenEnBaseDeDatos(idUsuario, urlImagen) {
   }
 }
 
-
 async function actualizarImagenColaborador(idAsignacionUser) {
   try {
     // Realizar la solicitud para obtener la imagen del colaborador
-    const response = await fetch(`/getImagenColaborador?id_asignacion_user=${idAsignacionUser}`);
+    const response = await fetch(`/getImagenColaborador`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id_asignacion_user: idAsignacionUser,
+      }),
+    });
+
     const data = await response.json();
 
     if (data.imagen_colaborador) {
-      console-log(data.imagen_colaborador)
+      console.log(data.imagen_colaborador);
+      
       // Actualizar la imagen del colaborador en el DOM
       const imagenColaborador = document.getElementById('imagenColaborador');
       if (imagenColaborador) {
         imagenColaborador.src = data.imagen_colaborador;
-        console.log(imagenColaborador.src)
+        console.log(imagenColaborador.src);
         imagenColaborador.alt = 'Imagen del colaborador';
       }
     } else {
@@ -381,6 +390,7 @@ async function actualizarImagenColaborador(idAsignacionUser) {
     console.error('Error al obtener la imagen del colaborador:', error);
   }
 }
+
 
 
 
