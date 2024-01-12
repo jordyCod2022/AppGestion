@@ -8,6 +8,16 @@ body {
 
 }
 
+#imagenColaborador {
+  width: 100px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  height: 100px;
+  object-fit: cover; /* Rellena el contenedor sin distorsionar la imagen */
+  border-radius: 50%; /* Hace que la imagen tenga forma circular */
+  display: block; /* Evita el espacio adicional debajo de la imagen */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+
 #article{
   width: 100%;
   height: 100%;
