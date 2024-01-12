@@ -211,8 +211,11 @@ app.post('/login', async (req, res) => {
 
 
 app.post('/actualizarImagen', async (req, res) => {
+
   const idAsignacionUser = req.query.id_asignacion_user;
   const urlImagen = req.query.url_imagen; 
+  console.log(idAsignacionUser);
+  console.log(urlImagen)
 
   try {
     // Realizar la actualización en la base de datos
