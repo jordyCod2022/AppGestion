@@ -301,6 +301,7 @@ async function subirImagen() {
 
       const urlImagen=data.imagenURL
       const idUsuario=nombreData.id_colaborador
+
       console.log(urlImagen)
       console.log(idUsuario)
 
@@ -320,7 +321,11 @@ async function subirImagen() {
 }
 
 // Función para actualizar la imagen en la base de datos
-async function actualizarImagenEnBaseDeDatos(idAsignacionUser, urlImagen) {
+async function actualizarImagenEnBaseDeDatos(idUsuario, urlImagen) {
+  console.log(urlImagen)
+  console.log(idUsuario)
+
+  
   try {
     // Realizar la actualización en la base de datos
     const result = await fetch('/actualizarImagen', {
@@ -329,7 +334,7 @@ async function actualizarImagenEnBaseDeDatos(idAsignacionUser, urlImagen) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        id_asignacion_user: idAsignacionUser,
+        id_asignacion_user: idUsuario,
         url_imagen: urlImagen,
       }),
     });
