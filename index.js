@@ -49,28 +49,24 @@ process.on('SIGINT', () => {
 app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const absolutePath = path.join(__dirname, 'uploads'); // Ruta absoluta
+    console.log(absolutePath)
     cb(null, absolutePath);
   },
   filename: (req, file, cb) => {
     const ext = file.originalname.split('.').pop();
-    const fileName = `${Date.now()}.${ext}`;
-    cb(null, fileName);
-    // Agregamos el nombre del archivo a la solicitud para acceder más tarde
-    req.uploadedFileName = fileName;
+    cb(null, `${Date.now()}.${ext}`);
   }
 });
 
 const upload = multer({ storage });
 
 app.post('/upload', upload.single('file'), (req, res) => {
-  // Accedemos al nombre del archivo desde la solicitud y construimos la ruta completa
-  const uploadedFilePath = path.join(__dirname, 'uploads', req.uploadedFileName);
-  res.send({ data: 'Imagen cargada', filePath: uploadedFilePath });
+  res.send({ data: 'Imagen cargada' });
 });
-
 
 
 
