@@ -6,8 +6,7 @@ const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const cors = require('cors');
-const sharp =require('sharp');
-const mysql = require('mysql2');
+
 
 
 
@@ -56,62 +55,27 @@ app.use(express.static('public'));
 app.use(bodyParser.json());  // Necesitas agregar este middleware para manejar el cuerpo de la solicitud JSON
 
 
-const storage = multer.memoryStorage();
-const upload =multer({storage})
-
-
-
-const sharpConfig = {
-  resize: { width: 200, height: 200 }, // Ajusta según tus necesidades
-  toFormat: 'jpeg', // Puedes cambiar a 'png', 'webp', etc.
-};
-
-app.post('/subirImagen', upload.single('imagen'), async (req, res) => {
-  try {
-    if (req.file) {
-      const imagenNombre = req.file.originalname;
-
-      // Procesar la imagen con Sharp
-      const imagenBuffer = await sharp(req.file.buffer).resize(sharpConfig.resize).toFormat(sharpConfig.toFormat).toBuffer();
-
-      // Resto del código...
-
-      // Realizar la solicitud POST al servidor de destino con fetch
-      const response = await fetch('https://bioappp.000webhostapp.com/imagenes/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          imagen: imagenBuffer.toString('base64'), // Envía la imagen como base64
-          nombre: imagenNombre,
-        }),
-      });
-
-      // Verificar si la respuesta tiene un contenido JSON válido
-      if (response.headers.get('content-type') && response.headers.get('content-type').includes('application/json')) {
-        const responseData = await response.json();
-
-        if (responseData.success) {
-          res.json({ success: true, imagenURL });
-        } else {
-          res.status(500).json({ error: 'Error al subir la imagen en el servidor destino' });
-        }
-      } else {
-        // Si la respuesta no es JSON, maneja el caso según tus necesidades
-        const textData = await response.text();
-        console.error('Error en la respuesta no JSON:', textData);
-        res.status(500).json({ error: 'Error en la respuesta no JSON' });
-      }
-    } else {
-      res.status(400).json({ error: 'No se proporcionó ninguna imagen' });
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Error inesperado' });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const absolutePath = path.join(__dirname, 'uploads'); // Ruta absoluta
+    cb(null, absolutePath);
+  },
+  filename: (req, file, cb) => {
+    const ext = file.originalname.split('.').pop();
+    const fileName = `${Date.now()}.${ext}`;
+    cb(null, fileName);
+    // Agregamos el nombre del archivo a la solicitud para acceder más tarde
+    req.uploadedFileName = fileName;
   }
 });
 
+const upload = multer({ storage });
+
+app.post('/upload', upload.single('file'), (req, res) => {
+  // Accedemos al nombre del archivo desde la solicitud y construimos la ruta completa
+  const uploadedFilePath = path.join(__dirname, 'uploads', req.uploadedFileName);
+  res.send({ data: 'Imagen cargada', filePath: uploadedFilePath });
+});
 
 
 // Ruta para la página principal
