@@ -135,7 +135,7 @@ app.get('/getTotalesIncidencias', async (req, res) => {
   }
 });
 
-app.get('/getImagenColaborador', async (req, res) => {
+app.post('/getImagenColaborador', async (req, res) => {
   const idAsignacionUser = req.body.id_asignacion_user;
 
   try {
