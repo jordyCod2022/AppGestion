@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       var header = document.querySelector('header');
       if (header) {
-        header.style.background = 'linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181)';
+        header.style.background = '#0c164f';
       }
       var aside = document.querySelector('aside');
       if (aside) {
