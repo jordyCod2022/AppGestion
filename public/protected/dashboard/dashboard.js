@@ -9,13 +9,39 @@ document.addEventListener('DOMContentLoaded', async () => {
   const formularioImagen = document.getElementById('formularioImagen');
   const cambiarImagenPerfilLink = document.getElementById('cambiarImagenPerfilLink');
   const closeBtn = document.querySelector('.close');
+  const storedDashboardFecha = localStorage.getItem('dashboardFecha');
+  const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
+  getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
 
+  const ticketsPendientesElement = document.getElementById('ticketsPendientes');
+  ticketsPendientesElement.addEventListener('click', () => {
+    loadPage('../pendIncidentes/pendIncidentes.html');
+  });
   
   // Agrega un evento de clic al elemento "close" para cerrar el modal
   if (closeBtn) {
     closeBtn.addEventListener('click', function() {
       formularioImagen.style.display = "none";
     });
+  }
+
+  function loadPage(pageUrl) {
+    // Realiza una solicitud HTTP para obtener el contenido de la nueva página
+    fetch(pageUrl)
+      .then(response => response.text())
+      .then(html => {
+        // Inserta el contenido de la nueva página en el elemento article
+        const articleElement = document.getElementById('article');
+        articleElement.innerHTML = html;
+  
+        // Después de cargar la nueva página, realiza cualquier inicialización necesaria
+        // Esto podría incluir la llamada a funciones específicas para esa página
+        // ...
+  
+        // Por último, ajusta la ubicación del navegador para reflejar la nueva página cargada
+        window.history.pushState({}, '', pageUrl);
+      })
+      .catch(error => console.error('Error al cargar la página:', error));
   }
 
 
