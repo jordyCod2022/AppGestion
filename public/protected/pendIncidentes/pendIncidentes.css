@@ -40,18 +40,22 @@ h1 {
 @media only screen and (max-width: 600px) {
   th, td {
     display: block;
-    width: 100%;
     box-sizing: border-box;
+    width: 100%;
+    overflow-x: auto; /* Agregamos scroll horizontal */
   }
 
   #tablaContainer {
-    overflow-x: auto;
+    width: auto; /* Ajustamos el ancho del contenedor según sea necesario */
+    overflow-x: auto; /* Agregamos scroll horizontal */
   }
 
   table {
-    white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+    width: auto; /* Ajustamos el ancho de la tabla según sea necesario */
+    white-space: nowrap;
   }
 }
+
 
 
 
