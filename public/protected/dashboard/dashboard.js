@@ -143,7 +143,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       var aside = document.querySelector('aside');
       if (aside) {
-        aside.style.background = 'linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181)';
+        aside.style.background = '#0c164f';
       }
       // Agregar clase 'space' para personalizar el estilo de .wave
       wave.classList.add('space');

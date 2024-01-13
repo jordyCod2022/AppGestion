@@ -97,7 +97,7 @@ header {
 
 
 header {
-  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
+  background: #0c164f;
   padding: 10px 20px;
   box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
   top: 0;
@@ -124,7 +124,7 @@ header {
 
 aside {
   width: 235px;
-  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
+  background:#0c164f;
   padding: 0px 0px 10px 0px;
   box-shadow: 0px 3px 5px #6d6d6d;
   overflow: hidden;
