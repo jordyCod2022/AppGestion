@@ -959,7 +959,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   margin-left: 6px;
   height: 200px;
   width: 160px;
-  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
+  background:#0c164f;
   padding: 2rem;
   border-radius: 8px;
   transition: none; /* Eliminado el efecto de transición al pasar el mouse */
