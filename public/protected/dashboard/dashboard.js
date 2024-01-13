@@ -139,11 +139,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       var header = document.querySelector('header');
       if (header) {
-        header.style.backgroundColor= 'linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%)';
+        header.style.background= 'linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%)';
       }
       var aside = document.querySelector('aside');
       if (aside) {
-        aside.style.backgroundColor = 'linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%)';
+        aside.style.background= 'linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%)';
       }
       // Agregar clase 'space' para personalizar el estilo de .wave
       wave.classList.add('space');
@@ -160,13 +160,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cambiar color del header
     var header = document.querySelector('header');
     if (header) {
-      header.style.backgroundColor = color;
+      header.style.background= color;
     }
 
     // Cambiar color del aside
     var aside = document.querySelector('aside');
     if (aside) {
-      aside.style.backgroundColor = color;
+      aside.style.background = color;
     }
 
     // Cambiar estilos del article
