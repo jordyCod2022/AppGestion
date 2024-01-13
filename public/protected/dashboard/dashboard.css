@@ -31,7 +31,7 @@ body {
 
 
 header {
-  background-color: #1b2838; /* Nuevo color de fondo */
+  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -97,7 +97,7 @@ header {
 
 
 header {
-  background: #1b2838;
+  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
   padding: 10px 20px;
   box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
   top: 0;
@@ -124,7 +124,7 @@ header {
 
 aside {
   width: 235px;
-  background: #1b2838;
+  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
   padding: 0px 0px 10px 0px;
   box-shadow: 0px 3px 5px #6d6d6d;
   overflow: hidden;
@@ -940,7 +940,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   flex-direction: column;
   width: 340px;
   height: 254px;
-  background: #2a475e;
+  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
   border-radius: 10px;
   margin-left: -1050px;
   margin-top: -0px;

@@ -139,11 +139,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
       var header = document.querySelector('header');
       if (header) {
-        header.style.backgroundColor = '#1b2838';
+        header.style.background = '#1b2838';
       }
       var aside = document.querySelector('aside');
       if (aside) {
-        aside.style.backgroundColor = '#1b2838';
+        aside.style.background = '#1b2838';
       }
       // Agregar clase 'space' para personalizar el estilo de .wave
       wave.classList.add('space');
@@ -160,13 +160,13 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Cambiar color del header
     var header = document.querySelector('header');
     if (header) {
-      header.style.backgroundColor = color;
+      header.style.background = color;
     }
 
     // Cambiar color del aside
     var aside = document.querySelector('aside');
     if (aside) {
-      aside.style.backgroundColor = color;
+      aside.style.background = color;
     }
 
     // Cambiar estilos del article
