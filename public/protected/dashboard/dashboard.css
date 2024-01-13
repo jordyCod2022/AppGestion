@@ -97,7 +97,7 @@ header {
 
 
 header {
-  background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgb(12, 38, 189) 35%, rgba(209,0,255,1) 100%);
+  background: #1b2838;
   padding: 10px 20px;
   box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
   top: 0;
@@ -124,7 +124,7 @@ header {
 
 aside {
   width: 235px;
-  background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgb(12, 38, 189) 35%, rgba(209,0,255,1) 100%);
+  background: #1b2838;
   padding: 0px 0px 10px 0px;
   box-shadow: 0px 3px 5px #6d6d6d;
   overflow: hidden;
@@ -942,7 +942,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   flex-direction: column;
   width: 340px;
   height: 254px;
-  background: #2a475e;
+  background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%);
   border-radius: 10px;
   margin-left: -1050px;
   margin-top: -0px;
