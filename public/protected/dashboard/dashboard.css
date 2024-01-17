@@ -831,10 +831,12 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 
 
 #contenedorImagen {
-  width: 200px; /* Ajusta el ancho según tus necesidades */
-  height: 200px; /* Ajusta la altura según tus necesidades */
+  width: 60px; /* Ajusta el ancho según tus necesidades */
+  height: 60px; /* Ajusta la altura según tus necesidades */
+  overflow: hidden; /* Esto asegura que cualquier parte de la imagen que exceda las dimensiones del contenedor se oculte */
+  background-color: white; /* Color del fondo blanco */
+  border-radius: 10px; 
 }
-
 #imagenColaborador {
   width: 100%;
   height: 100%;
