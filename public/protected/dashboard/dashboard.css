@@ -8,31 +8,48 @@ body {
 
 }
 
-#iconoLogo {
-  margin-top: 20px;
-  color: #f7f7f7;
+#imagenColaborador {
+  width: 150px; /* Ajusta el tamaño de la imagen según tus necesidades */
+  height: 150px;
+  object-fit: cover; /* Rellena el contenedor sin distorsionar la imagen */
+  border-radius: 50%; /* Hace que la imagen tenga forma circular */
+  display: block; /* Evita el espacio adicional debajo de la imagen */
+  margin: 0 auto; /* Centra la imagen horizontalmente */
+}
+
+
+#article{
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%),
+    radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%),
+    radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%),
+    radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%);
+  background-size: 20px 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+header {
+  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
+  color: #fff;
   display: flex;
-  font-size: 25px;
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
-  text-align: center; /* Alinea el texto al centro */
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
 }
 
-#dashboardTitle {
-  position:initial;
-  margin-top: 30px;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  color: #000000;
+.brand {
+  display: flex;
+  align-items: center;
 }
 
-
-
-#IconosAside{
-  margin-top: 80px;
+.brand i {
+  font-size: 32px; /* Tamaño del nuevo icono */
+  margin-right: 10px;
 }
-
 
 .brand span {
   font-size: 24px; /* Tamaño del texto */
@@ -48,6 +65,19 @@ body {
   margin-right: 20px;
 }
 
+.logout-button {
+  background-color: #e74c3c;
+  color: #000000;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-left: -5px !important; /* Ajusta el valor según sea necesario */
+}
+.logout-button:hover {
+  background-color: #c0392b; /* Nuevo color al pasar el ratón sobre el botón */
+}
 
 
 *{
@@ -63,6 +93,27 @@ body {
   display: block;
 }
 
+
+
+
+header {
+  background: #0c164f;
+  padding: 10px 20px;
+  box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
+  top: 0;
+  left: 0;
+  width: 98%;    
+  z-index: 991;
+  
+}
+
+
+.menu{
+  display:inline-block;
+  cursor: pointer;
+}
+
+
 .main {
   position: relative;
   top: 50px;
@@ -72,16 +123,45 @@ body {
 }
 
 aside {
-  width: 60px;
+  width: 235px;
   background:#0c164f;
   padding: 0px 0px 10px 0px;
   box-shadow: 0px 3px 5px #6d6d6d;
   overflow: hidden;
   z-index: 99;
-  margin-top: -70px;
+  margin-top: -10px;
   transition: visibility 0.3s, width 0.3s;
-  max-height: 686px;
+  max-height: 120%;
  
+ 
+}
+
+article {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 87vh;
+  border-radius: 5px;
+  box-shadow: 0px 2px 7px;
+  justify-content: space-around;
+  background-color: #fcf4f4;
+  margin-top: 10px;
+  box-sizing: border-box;
+  height: 110%;
+  margin-right: 9px;
+  margin-left: 1%;
+  overflow: hidden;
+  padding: 20px;
+  
+
+
+}
+
+
+
+
+@media (max-width: 500px) {
  
 }
 
@@ -91,7 +171,7 @@ aside ul {
   width: 100%;
 }
 aside ul li {
- 
+  border-bottom: 1px solid #ccc;
   padding: 10px 20px;
   position: relative;
 }
@@ -112,30 +192,85 @@ aside ul li a span {
 aside ul li:hover {
   box-shadow: inset 0px 0px 77px #000000f3;
 }
-
-
-
-article {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  max-height: 695px;
-  border-radius: 5px;
-  box-shadow: 0px 2px 7px;
-  justify-content: space-around;
-  background-color: #fcf4f4;
-  margin-top: -70px;
-  box-sizing: border-box;
-  height: 100%;
-  margin-right: 9px;
-  margin-left: 0%;
-  overflow: hidden;
-  padding: 20px;
-  
-
-
+aside ul li a span.notif {
+  position: absolute;
+  top: 8px;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  right: 10px;
+  background: #000000;
+  line-height: 31px;
+  border-radius: 100%;
+  color: #fff;
 }
+.red {
+  background: #e74c3c !important;         box-shadow: 0px 0px 10px #e74c3c;
+}
+.yellow {
+  background: #f1c40f !important;         box-shadow: 0px 0px 10px #f1c40f;
+}
+.green {
+  background: #27ae60 !important;
+  box-shadow: 0px 0px 10px #27ae60;
+}
+aside ul li a span.notif.green {
+    width: 10px;
+    height: 10px;
+    color: transparent;
+    right: 5px;    
+    transition: all 0.2s ease;
+}
+aside ul li a span.notif.yellow  {
+    width: 10px;
+    height: 10px;
+    color: transparent;
+    right: 5px;
+    transition: all 0.2s ease;
+}
+aside ul li a span.notif.red  {
+    width: 10px;
+    height: 10px;
+    color: transparent;
+    right: 5px;
+    transition: all 0.2s ease;
+}
+aside ul li:hover a span.notif.red {
+    width: 30px;
+    height: 30px;
+    right: 15px;
+    color: #fff;
+    box-shadow: 0px 0px 60px #e74c3c;
+    top: 10px;
+}
+aside ul li:hover a span.notif.yellow{
+    width: 30px;
+    height: 30px;
+    right: 15px;
+    color: #fff;
+    box-shadow: 0px 0px 60px #f1c40f;
+    top: 10px;
+}
+aside ul li:hover a span.notif.green{
+    width: 30px;
+    height: 30px;
+    right: 15px;
+    color: #fff;
+    box-shadow: 0px 0px 60px #27ae60;
+    top: 10px;
+}
+aside.keep.width {
+    width: 200px;
+}
+aside.keep.width ul li a span.notif {
+    width: 30px;
+    height: 30px;
+    right: 10px;
+    color: #fff;
+    box-shadow: 0px 0px 10px transparent;
+    top: 8px;
+}
+/*  */
 
 
 
@@ -146,7 +281,7 @@ article {
   flex-wrap: wrap;
   justify-content: space-around;
   margin: 20px 0;
-  margin-top: 150px;
+  margin-top: 70px;
 }
 
 
@@ -404,6 +539,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
  
 }
 
+
 .Btn {
   display: flex;
   align-items: center;
@@ -420,17 +556,68 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   background-color: rgb(54, 160, 89);
 }
 
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: .3s;
+}
 /* hover effect on button width */
+.Btn:hover {
+  width: 125px;
+  border-radius: 40px;
+  transition-duration: .3s;
+}
+
+.Btn:hover .sign {
+  width: 30%;
+  transition-duration: .3s;
+  padding-left: 20px;
+}
+/* hover effect button's text */
+.Btn:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: .3s;
+  padding-right: 10px;
+}
+/* button click effect*/
+.Btn:active {
+  transform: translate(2px ,2px);
+}
+
+
+
 
 .salir {
-  margin-top: 220px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 45px; /* Ajusta el ancho según tus preferencias */
-  height: 45px; /* Ajusta la altura según tus preferencias */
+  width: 45px;
+  height: 45px;
   border: none;
-  border-radius: 10px; /* Ajusta el radio de las esquinas según tus preferencias */
+  border-radius: 50%;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -467,6 +654,30 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   font-weight: 600;
   transition-duration: .3s;
 }
+/* hover effect on button width */
+.salir:hover {
+  width: 125px;
+  border-radius: 40px;
+  transition-duration: .3s;
+}
+
+.salir:hover .sign {
+  width: 30%;
+  transition-duration: .3s;
+  padding-left: 20px;
+}
+/* hover effect button's text */
+.salir:hover .text {
+  opacity: 1;
+  width: 70%;
+  transition-duration: .3s;
+  padding-right: 10px;
+}
+/* button click effect*/
+.salir:active {
+  transform: translate(2px ,2px);
+}
+
 
 
 .e-card {
@@ -475,10 +686,10 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   box-shadow: 0px 8px 28px -9px rgba(0,0,0,0.45);
   position: relative;
   width: 270px;
-  height: 130px;
+  height: 230px;
   border-radius: 16px;
   overflow: hidden;
-  margin-top: 150px;
+  margin-top: -50px;
   margin-left: 10px;
   margin-right: 20px;
   
@@ -494,6 +705,12 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   /* Añadido el fondo original */
   background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
 }
+
+.wave.dark {
+  /* Añadido el fondo oscuro */
+  background: linear-gradient(744deg, #000000, #000000 60%, #000000);
+}
+
 
 
 
@@ -526,7 +743,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 }
 
 .icon {
-  width: 30px;
+  width: 3em;
   margin-top: -1em;
   padding-bottom: 1em;
 }
@@ -718,12 +935,111 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 
 
 
+.card {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  height: 254px;
+  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
+  border-radius: 10px;
+  margin-left: -1050px;
+  margin-top: -0px;
+  overflow: hidden;
+ 
+  text-align: center; /* Centra el contenido del contenedor */
+  
+}
+
+
+
+
+.container {
+  position: relative;
+  margin-top: 10px;
+  margin-left: 6px;
+  height: 200px;
+  width: 160px;
+  background:#0c164f;
+  padding: 2rem;
+  border-radius: 8px;
+  transition: none; /* Eliminado el efecto de transición al pasar el mouse */
+}
+
+.info {
+  margin-top: -88px;
+}
+
+.info h2, p {
+  color: #fff;
+  text-align: center;
+}
+
+.card {
+  transition: none; /* Eliminado el efecto de transición al pasar el mouse */
+  margin-left: -25px;
+  width: 210px;
+  margin-top: -29px;
+}
+
+.card input {
+  display: none;
+}
+
+.card main {
+  position: relative;
+}
+
+.card main a svg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid rgb(108, 35, 192);
+}
+
+.card main a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.card span {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  background: rgb(119, 255, 170);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 4px solid rgb(108, 35, 192);
+  color: rgb(108, 35, 192);
+}
+
 #cambiarImagenPerfilLink{
   cursor: pointer;
 }
 
 
 
+.modal {
+  background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgb(12, 38, 189) 35%, rgba(209,0,255,1) 100%);
+  border-radius: 1em;
+  box-shadow: 0px 100px 48px -60px rgba(0,0,0,0.1);
+  color: rgb(255, 255, 255);
+  max-width: 330px;
+  overflow: hidden;
+  position: relative;
+  transition: background-color 0.3s, color 0.3s;
+  margin-top: -100px;
+  margin-right:  400px;
+  max-height: 340px;
+}
 
 .content > *, .modal > * {
   padding: 0.875em;
@@ -809,7 +1125,6 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 }
 
 #formularioImagen {
-  margin-top: 60px;
   z-index: 2; /* Ajusta según sea necesario para superponer otros elementos */
   position: absolute; /* Cambiado a absolute para que pueda superponerse */
   top: 600px; /* Ajusta según sea necesario */
@@ -830,18 +1145,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   display: block; /* Hacer que sea un elemento de bloque para centrarlo */
 }
 
-
-
-
-#contenedorImagen {
-  width: 55px; /* Ajusta el ancho según tus necesidades */
-  height: 55px; /* Ajusta la altura según tus necesidades */
-  overflow: hidden; /* Esto asegura que cualquier parte de la imagen que exceda las dimensiones del contenedor se oculte */
-  background-color: white; /* Color del fondo blanco */
-  border-radius: 10px; 
+#subirImagenBtn:hover {
+  background-color: #45a049; /* Cambia el color de fondo al pasar el ratón */
 }
-#imagenColaborador {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Esto asegura que la imagen cubra completamente el contenedor sin deformarse */
-}
+
