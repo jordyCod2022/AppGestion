@@ -34,6 +34,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${year}-${month}-${day}`;
   }
 
+  // Configurar la presentación de la fecha
+  dateContainer.innerText = getCurrentDate();
+  dateContainer.className = 'current-date';
   
 
   // Configurar flatpickr para el selector de fecha
