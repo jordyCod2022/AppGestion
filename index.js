@@ -169,7 +169,7 @@ app.post('/getImagenColaborador', async (req, res) => {
 
 app.get('/getTotalIncidentesSemana', async (req, res) => {
   const idAsignacionUser = req.query.id_asignacion_user;
-  const fechaParametro = req.query.fecha_parametro; // Asegúrate de enviar la fecha deseada desde el cliente
+  const fechaIncidencia = req.query.fecha_incidencia; // Asegúrate de enviar la fecha deseada desde el cliente
 
   try {
     const result = await pool.query(`
@@ -188,7 +188,7 @@ app.get('/getTotalIncidentesSemana', async (req, res) => {
         dia_semana, fecha
       ORDER BY
         fecha;
-    `, [idAsignacionUser, fechaParametro]);
+    `, [idAsignacionUser, fechaIncidencia]);
 
     if (result.rows.length > 0) {
       const totalIncidentesSemana = result.rows;
