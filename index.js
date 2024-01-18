@@ -168,6 +168,42 @@ app.post('/getImagenColaborador', async (req, res) => {
 });
 
 
+app.get('/getTotalIncidentesSemana', async (req, res) => {
+  const idAsignacionUser = req.query.id_asignacion_user; // Reemplaza 'id_asignacion_user' según el nombre que estás utilizando
+  try {
+    const result = await pool.query(`
+      SELECT
+        TO_CHAR(fecha_incidente, 'Day') AS dia_semana,
+        fecha_incidente::date AS fecha,
+        COUNT(*) AS total_incidentes
+      FROM
+        public.incidente
+      WHERE
+        EXTRACT(ISODOW FROM fecha_incidente) BETWEEN 1 AND 5
+        AND fecha_incidente >= CURRENT_DATE - EXTRACT(DOW FROM CURRENT_DATE)::integer + 1
+        AND fecha_incidente < CURRENT_DATE + 7 - EXTRACT(DOW FROM CURRENT_DATE)::integer
+        AND id_asignacion_user = $1
+      GROUP BY
+        dia_semana, fecha
+      ORDER BY
+        fecha;
+    `, [idAsignacionUser]);
+
+    if (result.rows.length > 0) {
+      const totalIncidentesSemana = result.rows;
+      console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
+      res.json(totalIncidentesSemana);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener el total de incidentes en la semana' });
+  }
+});
+
+
+
 
 app.get('/getIncidencias', async (req, res) => {
   const idAsignacionUser = req.query.id_asignacion_user;
