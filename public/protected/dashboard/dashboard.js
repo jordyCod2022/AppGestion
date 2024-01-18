@@ -2,11 +2,10 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  const nombreUser = document.getElementById('myContainer');
+  actualizarTotalesYGrafica();
+  setInterval(actualizarTotalesYGrafica, 5000);
 
-  console.log(nombreData)
-  updateTotalesIncidencias(getCurrentDate());
-  updateGrafica(getCurrentDate());
+
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -24,13 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
 
-  // Obtener elementos del DOM
-  const currentDateContainer = document.querySelector('.current-date-container');
-
-  // Crear elemento para la fecha
-  const dateContainer = document.createElement('span');
-
- 
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
@@ -39,6 +31,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     const day = currentDate.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+
+
 
   // Configurar la presentación de la fecha
   dateContainer.innerText = getCurrentDate();
@@ -54,9 +48,18 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
       updateGrafica(dateStr);
-      localStorage.setItem('dashboardFecha', dateStr);
+      localStorage.setItem('fechaSeleccionada', dateStr);
     },
   });
+
+  function actualizarTotalesYGrafica() {
+    const fechaGuardada = localStorage.getItem('fechaSeleccionada');
+    
+    if (fechaGuardada) {
+        updateTotalesIncidencias(fechaGuardada);
+        updateGrafica(fechaGuardada);
+    }
+}
 
 
 
