@@ -60,6 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateTotalesIncidencias(dateStr);
       updateGrafica(dateStr);
       getCurrentDate(dateStr);
+      updateGraficaLineal(dateStr)
       localStorage.setItem('dashboardFecha', dateStr);
     },
   });
