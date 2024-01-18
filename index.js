@@ -167,10 +167,9 @@ app.post('/getImagenColaborador', async (req, res) => {
   }
 });
 
-
 app.get('/getTotalIncidentesSemana', async (req, res) => {
   const idAsignacionUser = req.query.id_asignacion_user;
-  const fechaParametro = req.query.fecha_parametro;
+  const fechaParametro = req.query.fecha_parametro; // Asegúrate de enviar la fecha deseada desde el cliente
 
   try {
     const result = await pool.query(`
@@ -182,8 +181,8 @@ app.get('/getTotalIncidentesSemana', async (req, res) => {
         public.incidente
       WHERE
         EXTRACT(ISODOW FROM fecha_incidente) BETWEEN 1 AND 5
-        AND fecha_incidente >= (date_trunc('week', CAST($2 AS DATE)))::date
-        AND fecha_incidente < (date_trunc('week', CAST($2 AS DATE) + interval '1 week'))::date
+        AND fecha_incidente >= date_trunc('week', CAST($2 AS DATE))::date
+        AND fecha_incidente < date_trunc('week', CAST($2 AS DATE) + interval '1 week')::date
         AND id_asignacion_user = $1
       GROUP BY
         dia_semana, fecha
