@@ -169,12 +169,12 @@ app.post('/getImagenColaborador', async (req, res) => {
 
 
 app.get('/getTotalIncidentesSemana', async (req, res) => {
-  const idAsignacionUser = req.query.id_asignacion_user; // Reemplaza 'id_asignacion_user' según el nombre que estás utilizando
-  const fechaParametro = req.query.fecha_parametro; // Agregamos el parámetro de fecha
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const fechaParametro = req.query.fecha_parametro;
 
   try {
-    const result = await pool.query(`
-      SELECT
+    const result = await pool.query(
+      `SELECT
         TO_CHAR(fecha_incidente, 'Day') AS dia_semana,
         fecha_incidente::date AS fecha,
         COUNT(*) AS total_incidentes
@@ -182,28 +182,24 @@ app.get('/getTotalIncidentesSemana', async (req, res) => {
         public.incidente
       WHERE
         EXTRACT(ISODOW FROM fecha_incidente) BETWEEN 1 AND 5
-        AND fecha_incidente >= date_trunc('week', $2)::date -- Utilizamos date_trunc para obtener el inicio de la semana
-        AND fecha_incidente < date_trunc('week', $2 + interval '1 week')::date -- Utilizamos date_trunc para obtener el inicio de la siguiente semana
+        AND fecha_incidente >= date_trunc('week', $2)::date
+        AND fecha_incidente < date_trunc('week', $2 + interval '1 week')::date
         AND id_asignacion_user = $1
       GROUP BY
         dia_semana, fecha
       ORDER BY
-        fecha;
-    `, [idAsignacionUser, fechaParametro]);
+        fecha;`,
+      [idAsignacionUser, fechaParametro]
+    );
 
-    if (result.rows.length > 0) {
-      const totalIncidentesSemana = result.rows;
-      console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
-      res.json(totalIncidentesSemana);
-    } else {
-      res.json([]);
-    }
+    const totalIncidentesSemana = result.rows || [];
+    console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
+    res.json(totalIncidentesSemana);
   } catch (error) {
     console.error('Error en la consulta a la base de datos:', error);
-    res.status(500).json({ error: 'Error al obtener el total de incidentes en la semana' });
+    res.status(500).json({ error: `Error al obtener el total de incidentes en la semana: ${error.message}` });
   }
 });
-
 
 
 
