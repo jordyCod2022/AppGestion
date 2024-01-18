@@ -535,6 +535,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   font-size: 20PX;
   font-family: 'Montserrat', sans-serif;
   color: #000000;
+  font-weight: bold;
 
 }
 
@@ -565,6 +566,7 @@ height: 30px;
 
 .tituloSemana{
   margin-top: 20PX;
+  font-weight: bold;
   
   
 }
@@ -581,6 +583,7 @@ height: 30px;
   font-size: 50PX;
   text-align: center;
   color: #000000;
+  font-weight: bold;
   
 }
 

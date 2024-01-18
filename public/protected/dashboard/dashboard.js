@@ -152,19 +152,19 @@ document.addEventListener('DOMContentLoaded', async () => {
             x: {
               beginAtZero: true,
               ticks: {
-                color: 'white'
+                color: 'black'
               }
             },
             y: {
               ticks: {
-                color: 'white'
+                color: 'black'
               }
             }
           },
           plugins: {
             legend: {
               labels: {
-                color: 'white'
+                color: 'black'
               }
             }
           }
