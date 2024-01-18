@@ -169,20 +169,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  let idUsuario;
-  let urlImagen;
-
-  document.getElementById('subirImagenBtn').addEventListener('click', subirImagen);
-
-
-
-
-
-
-
-
-
-
-
+ 
   
 });
