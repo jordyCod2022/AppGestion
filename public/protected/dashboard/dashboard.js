@@ -4,6 +4,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
+
+
   console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
@@ -24,7 +26,19 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
 
- 
+  // Obtener elementos del DOM
+  const currentDateContainer = document.querySelector('.current-date-container');
+
+  // Crear elemento para la fecha
+  const dateContainer = document.createElement('span');
+
+  var dropdown = document.querySelector('.dropdown');
+
+  dropdown.addEventListener('click', function() {
+    this.classList.toggle('active');
+  });
+
+  
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
@@ -34,10 +48,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${year}-${month}-${day}`;
   }
 
- 
-
+  // Configurar la presentación de la fecha
+  dateContainer.innerText = getCurrentDate();
   dateContainer.className = 'current-date';
-  
+  currentDateContainer.appendChild(dateContainer);
 
   // Configurar flatpickr para el selector de fecha
   const flatpickrInstance = flatpickr('.connectBtn', {
@@ -163,7 +177,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
- 
+  let idUsuario;
+  let urlImagen;
+
+  document.getElementById('subirImagenBtn').addEventListener('click', subirImagen);
+
 
 
 
