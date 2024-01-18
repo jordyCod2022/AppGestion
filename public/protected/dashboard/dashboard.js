@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  const nombreUser = document.getElementById('myContainer');
 
   console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
 
+ 
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
@@ -33,9 +34,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${year}-${month}-${day}`;
   }
 
-  // Configurar la presentación de la fecha
-  dateContainer.innerText = getCurrentDate();
-  dateContainer.className = 'current-date';
   
 
   // Configurar flatpickr para el selector de fecha
@@ -163,5 +161,15 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
  
+
+
+
+
+
+
+
+
+
+
   
 });
