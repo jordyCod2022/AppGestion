@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
-  updateGraficaLineal(getCurrentDate())
+  updateGraficaLineal(getCurrentDate());
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
