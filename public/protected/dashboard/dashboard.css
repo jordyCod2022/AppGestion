@@ -1,82 +1,100 @@
 /* styles.css */
 
-body {
+
+@media (max-width: 767px) {
+
+  .card {
+    width: calc(50% - 20px);
+  }
+  .ContenedorDashboard {
+    width: 60%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  .graficosEstadisticos {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .graficoSemanal_Labels,
+  .graficoSemanal_diagrama {
+    width: 100%;
+  }
+
+  #graficoPersona {
+    margin-left: 0;
+    flex: 1;
+  }
+
+  #graficoSemanal {
+    flex: 1;
+  }
+
+  .tituloPorUsuario {
+    text-align: center;
+  }
+
+  .graficar,
+  .graficarSemanal {
+    height: auto;
+  }
+
+  #tituloSemana,
+  #totalSemana,
+  .cssbuttons-io {
+    margin-left: 0;
+  }
+}
+
+
+
+
+body, html {
   margin: 0;
   padding: 0;
-  font-family: 'Arial', sans-serif;
-  background-color: #f7f7f7;
-
+  max-height: 100%;
 }
 
-#imagenColaborador {
-  width: 150px; /* Ajusta el tamaño de la imagen según tus necesidades */
-  height: 150px;
-  object-fit: cover; /* Rellena el contenedor sin distorsionar la imagen */
-  border-radius: 50%; /* Hace que la imagen tenga forma circular */
-  display: block; /* Evita el espacio adicional debajo de la imagen */
-  margin: 0 auto; /* Centra la imagen horizontalmente */
-}
-
-
-#article{
-  width: 100%;
+section.main {
   height: 100%;
-  background: radial-gradient(circle at 10% 10%, #3e73f0 5%, transparent 5%),
-    radial-gradient(circle at 90% 10%, #3e73f0 5%, transparent 5%),
-    radial-gradient(circle at 90% 90%, #3e73f0 5%, transparent 5%),
-    radial-gradient(circle at 10% 90%, #3e73f0 5%, transparent 5%);
-  background-size: 20px 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 100%;
+
 }
 
 
-header {
-  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+
+.ContenedorDashboard{
+  height: 100%;
+  margin-left: 35px;
   
 }
 
-.brand {
+
+#iconoLogo {
+  margin-top: 40px;
+  color: #f7f7f7;
   display: flex;
-  align-items: center;
+  font-size: 25px;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  text-align: center; /* Alinea el texto al centro */
 }
 
-.brand i {
-  font-size: 32px; /* Tamaño del nuevo icono */
-  margin-right: 10px;
-}
-
-.brand span {
-  font-size: 24px; /* Tamaño del texto */
-  font-weight: bold;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-}
-
-.user-info span {
-  margin-right: 20px;
-}
-
-.logout-button {
-  background-color: #e74c3c;
+#dashboardTitle {
+  position:initial;
+  margin-top: 30px;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
   color: #000000;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-left: -5px !important; /* Ajusta el valor según sea necesario */
 }
-.logout-button:hover {
-  background-color: #c0392b; /* Nuevo color al pasar el ratón sobre el botón */
+
+
+
+#IconosAside{
+  margin-top: 80px;
 }
 
 
@@ -93,27 +111,6 @@ header {
   display: block;
 }
 
-
-
-
-header {
-  background: #0c164f;
-  padding: 10px 20px;
-  box-shadow: 0px -8px 25px #6d6d6d;       position: fixed;
-  top: 0;
-  left: 0;
-  width: 98%;    
-  z-index: 991;
-  
-}
-
-
-.menu{
-  display:inline-block;
-  cursor: pointer;
-}
-
-
 .main {
   position: relative;
   top: 50px;
@@ -123,45 +120,16 @@ header {
 }
 
 aside {
-  width: 235px;
-  background:#0c164f;
+  width: 60px;
+  background: linear-gradient(135deg, rgb(51, 20, 58) 0%, #552e9f 35%, rgb(71, 16, 83) 100%);
   padding: 0px 0px 10px 0px;
   box-shadow: 0px 3px 5px #6d6d6d;
   overflow: hidden;
   z-index: 99;
-  margin-top: -10px;
+  margin-top: -70px; 
   transition: visibility 0.3s, width 0.3s;
-  max-height: 120%;
+  height: 100%;
  
- 
-}
-
-article {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 87vh;
-  border-radius: 5px;
-  box-shadow: 0px 2px 7px;
-  justify-content: space-around;
-  background-color: #fcf4f4;
-  margin-top: 10px;
-  box-sizing: border-box;
-  height: 110%;
-  margin-right: 9px;
-  margin-left: 1%;
-  overflow: hidden;
-  padding: 20px;
-  
-
-
-}
-
-
-
-
-@media (max-width: 500px) {
  
 }
 
@@ -171,7 +139,7 @@ aside ul {
   width: 100%;
 }
 aside ul li {
-  border-bottom: 1px solid #ccc;
+ 
   padding: 10px 20px;
   position: relative;
 }
@@ -192,97 +160,6 @@ aside ul li a span {
 aside ul li:hover {
   box-shadow: inset 0px 0px 77px #000000f3;
 }
-aside ul li a span.notif {
-  position: absolute;
-  top: 8px;
-  text-align: center;
-  width: 30px;
-  height: 30px;
-  right: 10px;
-  background: #000000;
-  line-height: 31px;
-  border-radius: 100%;
-  color: #fff;
-}
-.red {
-  background: #e74c3c !important;         box-shadow: 0px 0px 10px #e74c3c;
-}
-.yellow {
-  background: #f1c40f !important;         box-shadow: 0px 0px 10px #f1c40f;
-}
-.green {
-  background: #27ae60 !important;
-  box-shadow: 0px 0px 10px #27ae60;
-}
-aside ul li a span.notif.green {
-    width: 10px;
-    height: 10px;
-    color: transparent;
-    right: 5px;    
-    transition: all 0.2s ease;
-}
-aside ul li a span.notif.yellow  {
-    width: 10px;
-    height: 10px;
-    color: transparent;
-    right: 5px;
-    transition: all 0.2s ease;
-}
-aside ul li a span.notif.red  {
-    width: 10px;
-    height: 10px;
-    color: transparent;
-    right: 5px;
-    transition: all 0.2s ease;
-}
-aside ul li:hover a span.notif.red {
-    width: 30px;
-    height: 30px;
-    right: 15px;
-    color: #fff;
-    box-shadow: 0px 0px 60px #e74c3c;
-    top: 10px;
-}
-aside ul li:hover a span.notif.yellow{
-    width: 30px;
-    height: 30px;
-    right: 15px;
-    color: #fff;
-    box-shadow: 0px 0px 60px #f1c40f;
-    top: 10px;
-}
-aside ul li:hover a span.notif.green{
-    width: 30px;
-    height: 30px;
-    right: 15px;
-    color: #fff;
-    box-shadow: 0px 0px 60px #27ae60;
-    top: 10px;
-}
-aside.keep.width {
-    width: 200px;
-}
-aside.keep.width ul li a span.notif {
-    width: 30px;
-    height: 30px;
-    right: 10px;
-    color: #fff;
-    box-shadow: 0px 0px 10px transparent;
-    top: 8px;
-}
-/*  */
-
-
-
-.row,
-.row2 {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin: 20px 0;
-  margin-top: 70px;
-}
 
 
 
@@ -298,263 +175,10 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 }
 
 
-.bar-chart {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Ajuste para alinear a la izquierda */
-  margin-top: 10px;
-}
-
-.bar-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  width: 100%;
-}
-
-.bar-name {
-  font-size: 14px;
-  color: #333;
-  margin-right: 10px;
-  width: 80px; /* Ajuste para que haya espacio suficiente para los nombres */
-}
-
-.bar {
-  flex-grow: 1; /* Permite que las barras ocupen el espacio restante */
-  border-radius: 5px;
-  
-}
-
-.bar-label {
-  font-size: 14px;
-  color: #333;
-  background-color: #18fa04;
-}
-
-.dashboard-item#incidentesPorPersona {
-  width: 100%; /* Puedes ajustar este valor según tus necesidades */
-  max-width: none; /* Asegúrate de eliminar cualquier límite de ancho máximo */
-}
 
 
 
 
-
-/* Estilos para los elementos de la primera fila */
-.dashboard-item {
-  text-align: center;
-  background-color: #bebebe;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s ease-in-out;
-  height: auto; /* Cambiado a altura automática */
-  margin-bottom: 20px;
-  margin-top: 20px;
-  width: 360px;
-}
-
-.dashboard-item:hover {
-transform: translateY(-5px);
-}
-
-.info-container {
-padding: 20px;
-flex-direction: column;
-justify-content: space-between;
-height: 100%;
-}
-
-.icon-container {
-padding: 20px;
-border-radius: 50%;
-margin: 0 auto 15px;
-display: flex;
-align-items: center;
-justify-content: center;
-
-}
-
-.icon-container i {
-font-size: 40px;
-color: #000000; /* Color del icono */
-}
-
-.dashboard-info {
-flex-grow: 1;
-}
-
-.dashboard-info span {
-display: block;
-margin-top: 10px;
-font-size: 26px;
-color: #333;
-}
-
-.ticket-count {
-font-size: 24px;
-font-weight: bold;
-color: #e74c3c; /* Color del contador */
-}
-
-/* Estilos para la fila de prioridades */
-.priority-container {
-display: flex;
-justify-content: space-around;
-margin-top: 10px;
-}
-
-.priority {
-color: #ffffff; /* Color del texto en la prioridad */
-padding: 20px;
-border-radius: 5px;
-text-align: center;
-width: 100px; /* Ancho de cada prioridad */
-display: flex;
-flex-direction: column;
-align-items: center;
-margin: 0 10px;
-background-color: #3498db; /* Color de fondo de cada prioridad */
-}
-
-.priority-label {
-font-size: 16px;
-margin-bottom: 5px;
-}
-
-.priority-count {
-font-size: 20px;
-font-weight: bold;
-}
-
-
-.priority-alto {
-color: #ffffff; /* Color del texto en la prioridad */
-padding: 20px;
-border-radius: 5px;
-text-align: center;
-width: 100px; /* Ancho de cada prioridad */
-display: flex;
-flex-direction: column;
-align-items: center;
-margin: 0 10px;
-background-color: #d9534f; /* Color de fondo de cada prioridad */
-}
-
-.priority-medio {
-color: #000000; /* Color del texto en la prioridad */
-padding: 20px;
-border-radius: 5px;
-text-align: center;
-width: 100px; /* Ancho de cada prioridad */
-display: flex;
-flex-direction: column;
-align-items: center;
-margin: 0 10px;
-background-color: #ffd83d; /* Color de fondo de cada prioridad */
-}
-
-.priority-bajo {
-color: #000000; /* Color del texto en la prioridad */
-padding: 20px;
-border-radius: 5px;
-text-align: center;
-width: 100px; /* Ancho de cada prioridad */
-display: flex;
-flex-direction: column;
-align-items: center;
-margin: 0 10px;
-background-color: #5cb85c; /* Color de fondo de cada prioridad */
-}
-
-.change-date-button {
-  background-color: #3a8f4c;
-  color: #fff;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  margin-left: -5px !important; /* Ajusta el valor según sea necesario */
-}
-
-.change-date-button:hover {
-  background-color: #45a049; /* Cambia el color de fondo al pasar el ratón */
-}
-
-
-
-
-@media only screen and (max-width: 768px) {
-
- 
-
-  header {
-    padding: 10px; /* Ajusta el espaciado en la barra de navegación */
-  }
-
-  .brand i {
-    font-size: 24px; /* Ajusta el tamaño del icono en el encabezado */
-  }
-
-  .brand span {
-    font-size: 18px; /* Ajusta el tamaño del texto en el encabezado */
-  }
-
-  .user-info span {
-    margin-right: 10px; /* Ajusta el espaciado en la información del usuario */
-  }
-
-  /* Agrega más ajustes según sea necesario */
-  
-  /* Ajustes para el diseño de la sección principal */
-  .main {
-    padding-top: 10px;
-    flex-wrap: wrap;
-    display: flex;
-  }
-
-  aside {
-    width: 0%;
-    height: auto;
- 
-    margin-top: 0;
-  }
-
-  /* Ajustes para elementos específicos en pantallas más pequeñas */
-  .dashboard-item {
-    width: 100%;
-  }
-
-  .bar-chart {
-    flex-wrap: wrap; /* Ajusta el diseño de la gráfica de barras */
-  }
-
-  .Btn{
-    margin-left: -45px;
-    background-color: #27ae60;
-    
-  }
-
- 
-}
-
-
-.Btn {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 45px;
-  height: 45px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition-duration: .3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: rgb(54, 160, 89);
-}
 
 /* plus sign */
 .sign {
@@ -583,443 +207,9 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   font-weight: 600;
   transition-duration: .3s;
 }
-/* hover effect on button width */
-.Btn:hover {
-  width: 125px;
-  border-radius: 40px;
-  transition-duration: .3s;
-}
 
-.Btn:hover .sign {
-  width: 30%;
-  transition-duration: .3s;
-  padding-left: 20px;
-}
-/* hover effect button's text */
-.Btn:hover .text {
-  opacity: 1;
-  width: 70%;
-  transition-duration: .3s;
-  padding-right: 10px;
-}
-/* button click effect*/
-.Btn:active {
-  transform: translate(2px ,2px);
-}
 
 
-
-
-.salir {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  width: 45px;
-  height: 45px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition-duration: .3s;
-  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: rgb(255, 65, 65);
-  margin-left: 10px;
-}
-
-/* plus sign */
-.sign {
-  width: 100%;
-  transition-duration: .3s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.sign svg {
-  width: 17px;
-}
-
-.sign svg path {
-  fill: white;
-}
-/* text */
-.text {
-  position: absolute;
-  right: 0%;
-  width: 0%;
-  opacity: 0;
-  color: white;
-  font-size: 1.2em;
-  font-weight: 600;
-  transition-duration: .3s;
-}
-/* hover effect on button width */
-.salir:hover {
-  width: 125px;
-  border-radius: 40px;
-  transition-duration: .3s;
-}
-
-.salir:hover .sign {
-  width: 30%;
-  transition-duration: .3s;
-  padding-left: 20px;
-}
-/* hover effect button's text */
-.salir:hover .text {
-  opacity: 1;
-  width: 70%;
-  transition-duration: .3s;
-  padding-right: 10px;
-}
-/* button click effect*/
-.salir:active {
-  transform: translate(2px ,2px);
-}
-
-
-
-.e-card {
-  margin: 100px auto;
-  background: transparent;
-  box-shadow: 0px 8px 28px -9px rgba(0,0,0,0.45);
-  position: relative;
-  width: 270px;
-  height: 230px;
-  border-radius: 16px;
-  overflow: hidden;
-  margin-top: -50px;
-  margin-left: 10px;
-  margin-right: 20px;
-  
-}
-
-#graficoPersona{
-  margin-top: -50PX;
-  width: 450px;
-  height:270px; ;
-}
-
-.wave.default {
-  /* Añadido el fondo original */
-  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
-}
-
-.wave.dark {
-  /* Añadido el fondo oscuro */
-  background: linear-gradient(744deg, #000000, #000000 60%, #000000);
-}
-
-
-
-
-.wave {
-  position: absolute;
-  width: 540px;
-  height: 700px;
-  opacity: 0.6;
-  left: 0;
-  top: 0;
-  margin-left: -10%;
-  margin-top: -50%;
-  background: linear-gradient(744deg,#1461d4,#1d2674 60%,#0c3181);
-}
-
-.wave.deep-purple {
-  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
-}
-
-.wave.teal {
-  background: linear-gradient(744deg, #00ff73, #245a2d 60%, #4dd47a);
-}
-
-.wave.space {
-  background: linear-gradient(744deg,#1461d4,#1d2674 60%,#0c3181);
-}
-
-.wave.dark {
-  background: linear-gradient(744deg, #000000, #000000 60%, #000000);
-}
-
-.icon {
-  width: 3em;
-  margin-top: -1em;
-  padding-bottom: 1em;
-}
-
-.infotop {
-  text-align: center;
-  font-size: 20px;
-  position: absolute;
-  top: 2.0em;
-  left: 0;
-  right: 0;
-  color: rgb(255, 255, 255);
-  font-weight: 600;
-}
-
-.name {
-  font-size: 24px;
-  font-weight: 100;
-  position: relative;
-  top: 1em;
-  text-transform: lowercase;
-}
-
-
-
-.playing .wave {
-  border-radius: 40%;
-  animation: wave 3000ms infinite linear;
-}
-
-.wave {
-  border-radius: 40%;
-  animation: wave 55s infinite linear;
-}
-
-.playing .wave:nth-child(2) {
-  animation-duration: 4000ms;
-}
-
-.wave:nth-child(2) {
-  animation-duration: 50s;
-}
-
-.playing .wave:nth-child(3) {
-  animation-duration: 5000ms;
-}
-
-.wave:nth-child(3) {
-  animation-duration: 45s;
-}
-
-@keyframes wave {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-
-
-
-@media only screen and (max-width: 768px) {
-  .row {
-    margin-top: 10; /* Ajuste según tus necesidades */
-  }
-
-  
-}
-
-
-
-
-
-.cards {
-  display: flex;
-  flex-direction: column;
-  gap: 52px;
-  
-  
-}
-
-.cards .red {
-  background-color: #f43f5e;
-}
-
-.cards .blue {
-  background-color: #3b82f6;
-}
-
-.cards .green {
-  background-color: #22c55e;
-}
-
-.cards .card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  height: 69px;
-  width: 250px;
-  border-radius: 10px;
-  color: white;
-  cursor: pointer;
-  transition: 400ms;
-  margin-top: -43px;
-  margin-left: 10px;
-  margin-right: 20px;
-}
-
-.cards .card p.tip {
-  font-size: 1em;
-  font-weight: 700;
-}
-
-.cards .card p.second-text {
-  font-size: .7em;
-}
-
-
-
-.card1 {
-  background-color: black;
-  width: 250px;
-  height: 300px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 6px;
-  box-shadow: 2px 2px 19px;
-}
-
-.card1::before {
-  content: "";
-  position: absolute;
-  z-index: -19;
-  width: 262px;
-  height: 312px;
-  margin: auto;
-  background: rgb(4,0,255);
-  background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%);
-  border-radius: 6px;
-}
-
-.card1::after {
-  content: "";
-  position: absolute;
-  z-index: -19;
-  width: 262px;
-  height: 312px;
-  margin: auto;
-  background: rgb(4,0,255);
-  background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgba(136,0,255,1) 35%, rgba(209,0,255,1) 100%);
-  border-radius: 6px;
-  filter: blur(20px);
-  transition: 2s;
-}
-
-.card1:hover::after {
-  animation: cardafter 2.5s infinite forwards;
-}
-
-@keyframes cardafter {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-.cards .card:hover {
-  transform: scale(1.1, 1.1);
-}
-
-.cards:hover > .card:not(:hover) {
-  filter: blur(10px);
-  transform: scale(0.9, 0.9);
-}
-
-
-
-
-.card {
-  display: flex;
-  flex-direction: column;
-  width: 340px;
-  height: 254px;
-  background: linear-gradient(744deg, #1461d4, #1d2674 60%, #0c3181);
-  border-radius: 10px;
-  margin-left: -1050px;
-  margin-top: -0px;
-  overflow: hidden;
- 
-  text-align: center; /* Centra el contenido del contenedor */
-  
-}
-
-
-
-
-.container {
-  position: relative;
-  margin-top: 10px;
-  margin-left: 6px;
-  height: 200px;
-  width: 160px;
-  background:#0c164f;
-  padding: 2rem;
-  border-radius: 8px;
-  transition: none; /* Eliminado el efecto de transición al pasar el mouse */
-}
-
-.info {
-  margin-top: -88px;
-}
-
-.info h2, p {
-  color: #fff;
-  text-align: center;
-}
-
-.card {
-  transition: none; /* Eliminado el efecto de transición al pasar el mouse */
-  margin-left: -25px;
-  width: 210px;
-  margin-top: -29px;
-}
-
-.card input {
-  display: none;
-}
-
-.card main {
-  position: relative;
-}
-
-.card main a svg {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 4px solid rgb(108, 35, 192);
-}
-
-.card main a {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  border-radius: 50%;
-  overflow: hidden;
-}
-
-.card span {
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background: rgb(119, 255, 170);
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border: 4px solid rgb(108, 35, 192);
-  color: rgb(108, 35, 192);
-}
 
 #cambiarImagenPerfilLink{
   cursor: pointer;
@@ -1027,42 +217,6 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 
 
 
-.modal {
-  background: linear-gradient(135deg, rgba(4,0,255,1) 0%, rgb(12, 38, 189) 35%, rgba(209,0,255,1) 100%);
-  border-radius: 1em;
-  box-shadow: 0px 100px 48px -60px rgba(0,0,0,0.1);
-  color: rgb(255, 255, 255);
-  max-width: 330px;
-  overflow: hidden;
-  position: relative;
-  transition: background-color 0.3s, color 0.3s;
-  margin-top: -100px;
-  margin-right:  400px;
-  max-height: 340px;
-}
-
-.content > *, .modal > * {
-  padding: 0.875em;
-}
-
-.title {
-  font-size: 1.25em;
-  font-weight: 600;
-  line-height: 1.2;
-  display: flex;
-  justify-content: center;
-}
-
-.message {
-  line-height: 1.2;
-  text-align: center;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-}
 
 .upload-btn {
   background-color: transparent;
@@ -1125,6 +279,7 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
 }
 
 #formularioImagen {
+  
   z-index: 2; /* Ajusta según sea necesario para superponer otros elementos */
   position: absolute; /* Cambiado a absolute para que pueda superponerse */
   top: 600px; /* Ajusta según sea necesario */
@@ -1145,7 +300,373 @@ background-color: #5cb85c; /* Color de fondo de cada prioridad */
   display: block; /* Hacer que sea un elemento de bloque para centrarlo */
 }
 
-#subirImagenBtn:hover {
-  background-color: #45a049; /* Cambia el color de fondo al pasar el ratón */
+
+#menuAside {
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
 }
 
+#IconosAside {
+  list-style: none;
+  padding: 0;
+}
+
+#IconosAside li {
+  margin-bottom: 15px;
+}
+
+.nuevoContenedor {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+#contenedorImagen {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: flex-start;
+  text-align: center;
+  width: 45px; /* Ajusta el ancho según tus necesidades */
+  height: 45px; /* Ajusta la altura según tus necesidades */
+  overflow: hidden; /* Esto asegura que cualquier parte de la imagen que exceda las dimensiones del contenedor se oculte */
+  background-color: white; /* Color del fondo blanco */
+  border-radius: 50px; 
+  border-color: #000000;
+   /* Añadido para separar el contenedor de imagen de los elementos anteriores */
+}
+
+#imagenColaborador {
+  border-color: #000000;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Esto asegura que la imagen cubra completamente el contenedor sin deformarse */
+  border-radius: 10px; /* Ajusta según tus preferencias */
+}
+
+
+
+.salir {
+  display: flex;
+  align-items: center;
+  width: 45px; /* Ajusta el ancho según tus preferencias */
+  height: 45px; /* Ajusta la altura según tus preferencias */
+  border: none;
+  border-radius: 10px; /* Ajusta el radio de las esquinas según tus preferencias */
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition-duration: .3s;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+  background-color: rgb(255, 65, 65);
+  margin-left: 0px;
+}
+
+/* ... (tus estilos actuales) ... */
+.ContenedorDashboard {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  border-radius: 15px;
+  width: calc(25% - 20px);
+  margin: 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+  box-sizing: border-box;
+  display: flex; /* Agregado: establece el contenedor como flexbox */
+  align-items: center;
+}
+
+.material-icons {
+  width: 100%;
+  font-size: 24px;
+  color: #ffffff;
+  margin-bottom: 10px;
+ 
+  
+}
+
+
+.card .material-icons{
+  font-size: 50px;
+}
+
+.card .material-symbols-outlined{
+  font-size: 50px;
+  color: #ffffff;
+}
+
+
+
+
+
+
+.content-wrapper {
+  flex: 1;
+}
+
+.label {
+  margin-bottom: 10px;
+  font-size: 17px;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+
+  
+}
+
+.name {
+  font-size: 38px;
+  font-weight: bold;
+  color: #ffffff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.tituloApp{
+  margin-top: -50px;
+  display: flex;
+  justify-content: space-between;
+ 
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  
+}
+
+.titulo{
+  font-size: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+#ticketsPendientes {
+  background-image: linear-gradient(290deg, #b286eb 0, #8f6cd8 50%, #6954c6 100%);
+}
+
+#ticketsResueltos{
+  background-image: radial-gradient(circle at 50% 50%, #7092ff 0, #3c78f2 50%, #0060dd 100%);
+}
+
+#totalPrioridad{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: linear-gradient(270deg, #1f1f59 0, #1f1f59 50%, #1f1f59 100%);
+}
+
+.priorities {
+  margin-top: 0px;
+  margin-left: 25px;
+  display: flex;
+  gap: 10px; /* Espaciado entre las prioridades */
+}
+
+.priority {
+  text-align: center;
+  /* Otros estilos según sea necesario */
+}
+
+.names {
+  font-weight: bold;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.value {
+  font-size: 28px;
+  color: #ffffff;
+}
+
+#textPrioridad{
+  margin-top: 30px;
+}
+
+.graficosEstadisticos{
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  background-color: #2f775b;
+  height: 250px;
+  
+}
+
+.graficoSemanal_Labels{
+  background-color: #552e9f;
+  width: 30%;
+ 
+
+}
+
+.graficoSemanal_diagrama{
+  background-color: #16d851;
+  width: 70%;
+}
+
+#graficoPersona {
+  margin-left: 10px;
+  flex: 1;
+  
+ 
+
+}
+
+#graficoSemanal{
+  
+  display: flex;
+  flex: 2;
+  background-color: coral;
+}
+
+#ticketsUser{
+  margin-top: 10PX;
+  font-size: 20PX;
+  font-family: 'Montserrat', sans-serif;
+
+}
+
+.tituloPorUsuario{
+
+
+text-align: center;
+height: 30px;
+
+}
+
+.graficar{
+  margin-top: 10px;
+  height: 190px;
+
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.graficarSemanal{
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 230px;
+  background-color: #1f1f59;
+}
+
+.tituloSemana{
+  margin-top: 20PX;
+  background-color: rgb(0, 0, 0);
+}
+
+#tituloSemana{
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.totalSemana{
+  background-color: #ff0ba1b6;
+}
+
+#totalSemana{
+  font-size: 50PX;
+  text-align: center;
+}
+
+
+
+
+.cssbuttons-io {
+  margin-left: 70px;
+  position: relative;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  border-radius: 0.8em;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  color: ghostwhite;
+  overflow: hidden;
+}
+
+.cssbuttons-io svg {
+  width: 1.2em;
+  height: 1.2em;
+  margin-right: 0.5em;
+}
+
+.cssbuttons-io span {
+  position: relative;
+  z-index: 10;
+  transition: color 0.4s;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.8em 1.2em 0.8em 1.05em;
+}
+
+.cssbuttons-io::before,
+.cssbuttons-io::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.cssbuttons-io::before {
+  content: "";
+  background: #000;
+  width: 120%;
+  left: -10%;
+  transform: skew(30deg);
+  transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+}
+
+.cssbuttons-io:hover::before {
+  transform: translate3d(100%, 0, 0);
+}
+
+.cssbuttons-io:active {
+  transform: scale(0.95);
+}
+
+.buttonSemana{
+ 
+  background-color: #ffffff;
+}
+
+.connectBtn {
+ 
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: white;
+  font-weight: 600;
+  background: linear-gradient( to right,#fc8bc4,#576bff);
+  box-shadow: 0 20px 30px -7px rgba(97, 118, 238, 0.5);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.connectBtn:hover {
+  box-shadow: none;
+  transform: translate(0px, 2.2px);
+}
+
+.connectBtn:active {
+  transform: scale(0.96) translate(0px, 3.2px);
+}

@@ -199,7 +199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   currentDateContainer.appendChild(dateContainer);
 
   // Configurar flatpickr para el selector de fecha
-  const flatpickrInstance = flatpickr('.Btn', {
+  const flatpickrInstance = flatpickr('.connectBtn', {
     dateFormat: 'Y-m-d',
     onClose: function (selectedDates, dateStr) {
       dateContainer.innerText = dateStr;
