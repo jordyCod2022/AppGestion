@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Configurar la presentación de la fecha
   dateContainer.innerText = getCurrentDate();
   dateContainer.className = 'current-date';
-  currentDateContainer.appendChild(dateContainer);
+  
 
   // Configurar flatpickr para el selector de fecha
   const flatpickrInstance = flatpickr('.connectBtn', {
