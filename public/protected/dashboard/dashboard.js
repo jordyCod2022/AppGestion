@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Configurar la presentación de la fecha
   dateContainer.innerText = getCurrentDate();
   dateContainer.className = 'current-date';
- 
+
 
   // Configurar flatpickr para el selector de fecha
   const flatpickrInstance = flatpickr('.connectBtn', {
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
- 
+
   async function updateTotalesIncidencias(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
     // Obtener id_asignacion_user y otros datos del localStorage
@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
       // Obtener totales de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getTotalesIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-     
-    
+
+
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de incidencias:', totalesData);
@@ -86,12 +86,12 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Actualizar elementos HTML con los resultados
       const ticketsPendientesElement = document.getElementById('ticketsPendientes');
       const ticketsResueltosElement = document.getElementById('ticketsResueltos');
-      
+
 
       if (ticketsPendientesElement && ticketsResueltosElement) {
         ticketsPendientesElement.querySelector('.name').textContent = totalesData.total_pendientes || 'N/A';
         ticketsResueltosElement.querySelector('.name').textContent = totalesData.total_cerrados || 'N/A';
-      
+
       } else {
         console.error('Elemento no encontrado');
       }
@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             data: datos,
             backgroundColor: 'rgba(0, 123, 255, 0.5)', // Azul claro con transparencia
             borderColor: 'rgba(0, 123, 255, 1)', // Azul sólido para los bordes
-            
+
             borderWidth: 1
           }]
         },
@@ -183,69 +183,72 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const lineChartContainer = document.getElementById('barLineContainer');
 
-// Obtener datos del servidor y actualizar el gráfico
-async function updateGraficaLineal() {
-  
-  const storedNombreData = localStorage.getItem('nombreData');
-  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  // Obtener datos del servidor y actualizar el gráfico
+  async function updateGraficaLineal() {
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
-  if (nombreData && nombreData.username) {
-    const idAsignacionUser = nombreData.id_colaborador;
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
 
-    // Obtener datos de incidencias con la nueva fecha
-    const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}`);
-    localStorage.setItem('idAsignacionUser', idAsignacionUser);
-    const totalesData = await totalesResponse.json();
-    console.log('Resultados de las gráficas:', totalesData);
+      // Obtener datos de incidencias con la nueva fecha
+      const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}`);
+      localStorage.setItem('idAsignacionUser', idAsignacionUser);
+      const totalesData = await totalesResponse.json();
+      console.log('Resultados de las gráficas:', totalesData);
 
-    // Destruir el gráfico existente si hay uno
-    if (window.lineChart) {
-      window.lineChart.destroy();
-    }
+      // Destruir el gráfico existente si hay uno
+      if (window.lineChart) {
+        window.lineChart.destroy();
+      }
 
-    // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
-    const etiquetas = totalesData.map(item => item.dia_semana);
-    const datos = totalesData.map(item => item.total_incidentes);
+      // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
+      const etiquetas = totalesData.map(item => item.dia_semana);
+      const datos = totalesData.map(item => item.total_incidentes);
 
-    // Crear el gráfico de línea (polígono de frecuencias)
-    window.lineChart = new Chart(lineChartContainer, {
-      type: 'line',
-      data: {
-        labels: etiquetas,
-        datasets: [{
-          label: 'Total de Incidentes en la Semana',
-          data: datos,
-          fill: true, // Rellenar el área bajo la línea para formar un polígono
-          backgroundColor: 'rgba(0, 123, 255, 0.3)', // Azul claro con transparencia
-          borderColor: 'rgba(0, 123, 255, 1)', // Azul sólido para los bordes
-          borderWidth: 2
-        }]
-      },
-      options: {
-        scales: {
-          x: {
-            beginAtZero: true,
-            ticks: {
-              color: 'black'
+      // Crear el gráfico de línea (polígono de frecuencias)
+      window.lineChart = new Chart(lineChartContainer, {
+        type: 'line',
+        data: {
+          labels: etiquetas,
+          datasets: [{
+            label: 'Total de Incidentes en la Semana',
+            data: datos,
+            fill: true, // Rellenar el área bajo la línea para formar un polígono
+            backgroundColor: 'rgba(0, 123, 255, 0.3)', // Azul claro con transparencia
+            borderColor: 'rgba(0, 123, 255, 1)', // Azul sólido para los bordes
+            borderWidth: 2
+          }]
+        },
+        options: {
+          aspectRatio: 2, // Ajustar el aspecto para ocupar todo el espacio vertical disponible
+          scales: {
+            x: {
+              beginAtZero: true,
+              ticks: {
+                color: 'black'
+              }
+            },
+            y: {
+              precision: 0, // Mostrar solo números enteros
+              ticks: {
+                color: 'black'
+              }
             }
           },
-          y: {
-            ticks: {
-              color: 'black'
-            }
-          }
-        },
-        plugins: {
-          legend: {
-            labels: {
-              color: 'black'
+          plugins: {
+            legend: {
+              labels: {
+                color: 'black'
+              }
             }
           }
         }
-      }
-    });
+      });
+    }
   }
-}
+
+
 
 
 });
