@@ -4,9 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
- 
-  nombreUser.querySelector('#usuarioInfo').textContent = nombreData.nombre || 'N/A';
-
   console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
