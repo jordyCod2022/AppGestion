@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-  const lineChartContainer = document.getElementById('barChartContainer');
+  const lineChartContainer = document.getElementById('barLineContainer');
 
 // Obtener datos del servidor y actualizar el gráfico
 async function updateGraficaLineal() {
