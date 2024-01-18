@@ -34,8 +34,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${year}-${month}-${day}`;
   }
 
-  // Configurar la presentación de la fecha
-  dateContainer.innerText = getCurrentDate();
+ 
+
   dateContainer.className = 'current-date';
   
 
