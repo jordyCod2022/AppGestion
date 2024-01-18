@@ -180,9 +180,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
 
-
-
-
   const lineChartContainer = document.getElementById('barLineContainer');
 
   // Obtener datos del servidor y actualizar el gráfico
@@ -194,60 +191,70 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
   
-      // Obtener datos de incidencias con la nueva fecha
-      const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_parametro=${newDate}`);
-      localStorage.setItem('idAsignacionUser', idAsignacionUser);
-      const totalesData = await totalesResponse.json();
-      console.log('Resultados de las gráficas:', totalesData);
+      try {
+        // Obtener datos de incidencias con la nueva fecha
+        const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_parametro=${newDate}`);
+        localStorage.setItem('idAsignacionUser', idAsignacionUser);
+        const totalesData = await totalesResponse.json();
   
-      // Destruir el gráfico existente si hay uno
-      if (window.lineChart) {
-        window.lineChart.destroy();
-      }
+        // Verificar si totalesData es un array antes de intentar mapearlo
+        if (Array.isArray(totalesData)) {
+          console.log('Resultados de las gráficas:', totalesData);
   
-      // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
-      const etiquetas = totalesData.map(item => item.dia_semana);
-      const datos = totalesData.map(item => item.total_incidentes);
-  
-      // Crear el gráfico de línea (polígono de frecuencias)
-      window.lineChart = new Chart(lineChartContainer, {
-        type: 'line',
-        data: {
-          labels: etiquetas,
-          datasets: [{
-            label: 'Total de Incidentes en la Semana',
-            data: datos,
-            fill: true, // Rellenar el área bajo la línea para formar un polígono
-            backgroundColor: 'rgba(0, 123, 255, 0.3)', // Azul claro con transparencia
-            borderColor: 'rgba(0, 123, 255, 1)', // Azul sólido para los bordes
-            borderWidth: 2
-          }]
-        },
-        options: {
-          aspectRatio: 2, // Ajustar el aspecto para ocupar todo el espacio vertical disponible
-          scales: {
-            x: {
-              beginAtZero: true,
-              ticks: {
-                color: 'black'
-              }
-            },
-            y: {
-              precision: 0, // Mostrar solo números enteros
-              ticks: {
-                color: 'black'
-              }
-            }
-          },
-          plugins: {
-            legend: {
-              labels: {
-                color: 'black'
-              }
-            }
+          // Destruir el gráfico existente si hay uno
+          if (window.lineChart) {
+            window.lineChart.destroy();
           }
+  
+          // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
+          const etiquetas = totalesData.map(item => item.dia_semana);
+          const datos = totalesData.map(item => item.total_incidentes);
+  
+          // Crear el gráfico de línea (polígono de frecuencias)
+          window.lineChart = new Chart(lineChartContainer, {
+            type: 'line',
+            data: {
+              labels: etiquetas,
+              datasets: [{
+                label: 'Total de Incidentes en la Semana',
+                data: datos,
+                fill: true, // Rellenar el área bajo la línea para formar un polígono
+                backgroundColor: 'rgba(0, 123, 255, 0.3)', // Azul claro con transparencia
+                borderColor: 'rgba(0, 123, 255, 1)', // Azul sólido para los bordes
+                borderWidth: 2
+              }]
+            },
+            options: {
+              aspectRatio: 2, // Ajustar el aspecto para ocupar todo el espacio vertical disponible
+              scales: {
+                x: {
+                  beginAtZero: true,
+                  ticks: {
+                    color: 'black'
+                  }
+                },
+                y: {
+                  precision: 0, // Mostrar solo números enteros
+                  ticks: {
+                    color: 'black'
+                  }
+                }
+              },
+              plugins: {
+                legend: {
+                  labels: {
+                    color: 'black'
+                  }
+                }
+              }
+            }
+          });
+        } else {
+          console.error('El servidor no devolvió un array válido:', totalesData);
         }
-      });
+      } catch (error) {
+        console.error('Error al obtener los datos del servidor:', error);
+      }
     }
   }
   
