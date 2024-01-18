@@ -34,11 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   var dropdown = document.querySelector('.dropdown');
 
-  dropdown.addEventListener('click', function() {
-    this.classList.toggle('active');
-  });
 
-  
   // Función para obtener la fecha actual
   function getCurrentDate() {
     const currentDate = new Date();
