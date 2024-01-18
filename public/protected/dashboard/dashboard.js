@@ -3,12 +3,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
-  updateGraficaLineal()
+  
 
 
   console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
+  updateGraficaLineal(getCurrentDate())
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -58,6 +59,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
       updateGrafica(dateStr);
+      getCurrentDate(dateStr);
       localStorage.setItem('dashboardFecha', dateStr);
     },
   });
@@ -184,28 +186,29 @@ document.addEventListener('DOMContentLoaded', async () => {
   const lineChartContainer = document.getElementById('barLineContainer');
 
   // Obtener datos del servidor y actualizar el gráfico
-  async function updateGraficaLineal() {
+  async function updateGraficaLineal(newDate) {
+    localStorage.setItem('dashboardFecha', newDate);
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       // Obtener datos de incidencias con la nueva fecha
-      const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}`);
+      const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_parametro=${newDate}`);
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de las gráficas:', totalesData);
-
+  
       // Destruir el gráfico existente si hay uno
       if (window.lineChart) {
         window.lineChart.destroy();
       }
-
+  
       // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
       const etiquetas = totalesData.map(item => item.dia_semana);
       const datos = totalesData.map(item => item.total_incidentes);
-
+  
       // Crear el gráfico de línea (polígono de frecuencias)
       window.lineChart = new Chart(lineChartContainer, {
         type: 'line',
@@ -247,7 +250,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
   }
-
+  
 
 
 
