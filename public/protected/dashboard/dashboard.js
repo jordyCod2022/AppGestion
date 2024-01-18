@@ -2,9 +2,18 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  actualizarTotalesYGrafica();
-  setInterval(actualizarTotalesYGrafica, 5000);
+  const fechaGuardada = localStorage.getItem('fechaSeleccionada');
 
+  if (fechaGuardada) {
+    flatpickrInstance.setDate(fechaGuardada);
+    dateContainer.innerText = fechaGuardada;
+    updateTotalesIncidencias(fechaGuardada);
+    updateGrafica(fechaGuardada);
+    
+}
+
+
+  // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
   if (logoutButton) {
     logoutButton.addEventListener('click', () => {
@@ -28,6 +37,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const day = currentDate.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
+
+  
+
+  // Configurar la presentación de la fecha
+  dateContainer.innerText = getCurrentDate();
+  dateContainer.className = 'current-date';
   
 
   // Configurar flatpickr para el selector de fecha
@@ -43,20 +58,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   });
 
-  function actualizarTotalesYGrafica() {
-    const fechaGuardada = localStorage.getItem('fechaSeleccionada');
-    
-    if (fechaGuardada) {
-        updateTotalesIncidencias(fechaGuardada);
-        updateGrafica(fechaGuardada);
-    }
-}
-
 
 
  
   async function updateTotalesIncidencias(newDate) {
-    localStorage.setItem('dashboardFecha', newDate);
+
     // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
@@ -100,7 +106,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Obtener datos del servidor y actualizar el gráfico
   async function updateGrafica(newDate) {
-    localStorage.setItem('dashboardFecha', newDate);
+
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
