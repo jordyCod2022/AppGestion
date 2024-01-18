@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   actualizarTotalesYGrafica();
   setInterval(actualizarTotalesYGrafica, 5000);
 
-
-
-  // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
   if (logoutButton) {
     logoutButton.addEventListener('click', () => {
@@ -31,12 +28,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const day = currentDate.getDate().toString().padStart(2, '0');
     return `${year}-${month}-${day}`;
   }
-
-
-
-  // Configurar la presentación de la fecha
-  dateContainer.innerText = getCurrentDate();
-  dateContainer.className = 'current-date';
   
 
   // Configurar flatpickr para el selector de fecha
