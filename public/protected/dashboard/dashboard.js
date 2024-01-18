@@ -2,16 +2,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  const fechaGuardada = localStorage.getItem('fechaSeleccionada');
 
-  if (fechaGuardada) {
-    flatpickrInstance.setDate(fechaGuardada);
-    dateContainer.innerText = fechaGuardada;
-    updateTotalesIncidencias(fechaGuardada);
-    updateGrafica(fechaGuardada);
-    
-}
 
+  console.log(nombreData)
+  updateTotalesIncidencias(getCurrentDate());
+  updateGrafica(getCurrentDate());
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -38,8 +33,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${year}-${month}-${day}`;
   }
 
-  
-
   // Configurar la presentación de la fecha
   dateContainer.innerText = getCurrentDate();
   dateContainer.className = 'current-date';
@@ -54,7 +47,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
       updateGrafica(dateStr);
-      localStorage.setItem('fechaSeleccionada', dateStr);
+      localStorage.setItem('dashboardFecha', dateStr);
     },
   });
 
@@ -62,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
  
   async function updateTotalesIncidencias(newDate) {
-
+    localStorage.setItem('dashboardFecha', newDate);
     // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
@@ -106,7 +99,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Obtener datos del servidor y actualizar el gráfico
   async function updateGrafica(newDate) {
-
+    localStorage.setItem('dashboardFecha', newDate);
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
