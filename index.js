@@ -376,6 +376,8 @@ app.post('/cerrarIncidencia', async (req, res) => {
 app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
   const idAsignacionUser = req.query.id_asignacion_user; 
   const fechaIncidencia = req.query.fecha_incidencia; 
+  console.log("idAsignacionUser:", idAsignacionUser);
+  console.log("fechaIncidencia:", fechaIncidencia);
 
   try {
     const result = await pool.query(`
@@ -391,9 +393,10 @@ app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
         AND id_asignacion_user = $1;
     `, [idAsignacionUser, fechaIncidencia]);
 
+    console.log("Resultados de total de incidentes en la semana:", result.rows);
+
     if (result.rows.length > 0) {
       const totalIncidentesSemana = result.rows;
-      console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
       res.json(totalIncidentesSemana);
     } else {
       res.json([]);
