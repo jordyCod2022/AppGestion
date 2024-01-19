@@ -385,8 +385,8 @@ app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
         public.incidente
       WHERE
         EXTRACT(ISODOW FROM fecha_incidente) BETWEEN 1 AND 5
-        AND fecha_incidente >= date_trunc('week', $2)::date
-        AND fecha_incidente < date_trunc('week', $2 + interval '1 week')::date
+        AND fecha_incidente >= date_trunc('week', CAST($2 AS DATE))::date
+        AND fecha_incidente < date_trunc('week', CAST($2 AS DATE) + interval '1 week')::date
         AND id_asignacion_user = $1;
     `, [idAsignacionUser, fechaIncidencia]);
 
@@ -402,7 +402,6 @@ app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el total de incidentes en la semana' });
   }
 });
-
 
 
 
