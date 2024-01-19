@@ -374,14 +374,12 @@ app.post('/cerrarIncidencia', async (req, res) => {
 });
 
 app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
-  
   const idAsignacionUser = req.query.id_asignacion_user; 
   const fechaIncidencia = req.query.fecha_incidencia; 
-  console.log(idAsignacionUser,fechaIncidencia )
+
   try {
     const result = await pool.query(`
       SELECT
-        'Total Semana' AS dia_semana,
         COUNT(*) AS total_incidentes_semana
       FROM
         public.incidente
@@ -393,15 +391,15 @@ app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
     `, [idAsignacionUser, fechaIncidencia]);
 
     if (result.rows.length > 0) {
-      const totalIncidentesSemana = result.rows;
-      console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
-      res.json(totalIncidentesSemana);
+      const totalIncidentesSemana = result.rows[0].total_incidentes_semana;
+      console.log('Total de incidentes en la semana:', totalIncidentesSemana);
+      res.json({ total_incidentes_semana: totalIncidentesSemana });
     } else {
-      res.json([]);
+      res.json({ total_incidentes_semana: 0 });
     }
   } catch (error) {
     console.error('Error en la consulta a la base de datos:', error);
-    res.status(500).json({ error: 'Error al obtener el total de incidentes en la semana', details: error.message });
+    res.status(500).json({ error: 'Error al obtener el total de incidentes en la semana' });
   }
 });
 
