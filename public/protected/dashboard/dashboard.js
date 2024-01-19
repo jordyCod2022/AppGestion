@@ -221,7 +221,7 @@ async function updateGraficaLineal(newDate) {
               label: 'Total de Incidentes en la Semana',
               data: datos,
               fill: true,
-              backgroundColor: 'rgba(0, 123, 255, 0.3)',
+              backgroundColor: 'rgba(0, 255, 0, 0.3)',
               borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
               borderWidth: 2
             }]
