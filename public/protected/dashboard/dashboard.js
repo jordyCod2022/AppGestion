@@ -201,7 +201,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           console.log('Resultados de las gráficas:', totalesData);
   
           // Sumar los total_incidentes
-          const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + item.total_incidentes, 0);
+          const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + parseInt(item.total_incidentes, 10), 0);
+
   
           console.log('Suma total de incidentes:', sumaTotalIncidentes);
   
