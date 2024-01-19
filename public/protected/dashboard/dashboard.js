@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
-  getTotalIncidentesSemanaNueva(nombreData.id_colaborador,getCurrentDate())
+  getTotalIncidentesSemanaNueva(getCurrentDate());
 
   
 
@@ -69,28 +69,32 @@ document.addEventListener('DOMContentLoaded', async () => {
     },
   });
 
-  async function getTotalIncidentesSemanaNueva(idAsignacionUser, fechaParametro) {
+  async function getTotalIncidentesSemanaNueva(newDate) {
     try {
-      // Obtener datos de incidencias con la nueva fecha usando la nueva ruta
-      const totalesResponse = await fetch(`/getTotalIncidentesSemanaNueva?id_asignacion_user=${idAsignacionUser}&fechaIncidencia=${fechaParametro}`);
-      const totalesData = await totalesResponse.json();
-  
-      // Verificar si totalesData es un array antes de mostrarlo
-      if (Array.isArray(totalesData) && totalesData.length > 0) {
-        const totalSemanaElement = document.getElementById('totalSemana');
-        if (totalSemanaElement) {
-          totalSemanaElement.textContent = totalesData[0].total_incidentes_semana.toString();
-        } else {
-          console.error('No se encontró el elemento con id "totalSemana"');
-        }
-  
-        console.log('Resultados de total de incidentes en la semana:', totalesData);
-      } else {
-        console.error('El servidor no devolvió un array válido:', totalesData);
+      const storedNombreData = localStorage.getItem('nombreData');
+      const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+
+      if (nombreData && nombreData.username) {
+          const idAsignacionUser = nombreData.id_colaborador;
+
+          // Obtener datos de incidencias con la nueva fecha usando la nueva ruta
+          const totalesResponse = await fetch(`/getTotalIncidentesSemanaNueva?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+
+          const totalesData = await totalesResponse.json();
+
+          const totalSemanaElement = document.getElementById('totalSemana');
+          if (totalSemanaElement) {
+              totalSemanaElement.textContent = totalesData[0].total_incidentes_semana.toString();
+          } else {
+              console.error('No se encontró el elemento con id "totalSemana"');
+          }
+
+          console.log('Resultados de total de incidentes en la semana:', totalesData);
       }
-    } catch (error) {
+  } catch (error) {
       console.error('Error al obtener los datos del servidor:', error);
-    }
+  }
+  
   }
   
 
