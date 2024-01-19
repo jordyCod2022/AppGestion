@@ -374,9 +374,10 @@ app.post('/cerrarIncidencia', async (req, res) => {
 });
 
 app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
+  
   const idAsignacionUser = req.query.id_asignacion_user; // Reemplaza 'id_asignacion_user' según el nombre que estás utilizando
   const fechaParametro = req.query.fecha_parametro; // Agregamos el parámetro de fecha
-
+  console.log(idAsignacionUser,fechaParametro )
   try {
     const result = await pool.query(`
       SELECT
