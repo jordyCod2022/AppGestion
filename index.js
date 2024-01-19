@@ -373,30 +373,30 @@ app.post('/cerrarIncidencia', async (req, res) => {
   }
 });
 
+
+
+
 app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
-  const idAsignacionUser = req.query.id_asignacion_user; 
-  const fechaIncidencia = req.query.fecha_incidencia; 
-  console.log("idAsignacionUser:", idAsignacionUser);
-  console.log("fechaIncidencia:", fechaIncidencia);
+  const idAsignacionUser = req.query.id_asignacion_user;
+  const fechaIncidencia = req.query.fecha_incidencia; // Asegúrate de enviar la fecha deseada desde el cliente
 
   try {
     const result = await pool.query(`
-      SELECT
-        'Total Semana' AS dia_semana,
-        COUNT(*) AS total_incidentes_semana
-      FROM
-        public.incidente
-      WHERE
-        EXTRACT(ISODOW FROM fecha_incidente) BETWEEN 1 AND 5
-        AND fecha_incidente >= date_trunc('week', $2)::date
-        AND fecha_incidente < date_trunc('week', $2 + interval '1 week')::date
-        AND id_asignacion_user = $1;
-    `, [idAsignacionUser, fechaIncidencia]);
-
-    console.log("Resultados de total de incidentes en la semana:", result.rows);
+    SELECT
+      'Total Semana' AS dia_semana,
+      COUNT(*) AS total_incidentes_semana
+    FROM
+      public.incidente
+    WHERE
+      EXTRACT(ISODOW FROM fecha_incidente) BETWEEN 1 AND 5
+      AND fecha_incidente >= date_trunc('week', $2)::date
+      AND fecha_incidente < date_trunc('week', $2 + interval '1 week')::date
+      AND id_asignacion_user = $1;
+  `, [idAsignacionUser, fechaIncidencia]);
 
     if (result.rows.length > 0) {
       const totalIncidentesSemana = result.rows;
+      console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
       res.json(totalIncidentesSemana);
     } else {
       res.json([]);
@@ -406,8 +406,6 @@ app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
     res.status(500).json({ error: 'Error al obtener el total de incidentes en la semana' });
   }
 });
-
-
 
 
 app.get('/getIncidenciasGrafico', async (req, res) => {
