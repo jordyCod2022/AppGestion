@@ -27,6 +27,11 @@
     flex: 1;
   }
 
+  #actividadReciente{
+    margin-left: 0;
+    flex: 1;
+  }
+
   #graficoSemanal {
     flex: 1;
   }
@@ -500,12 +505,23 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   
 }
 
+.ContenedorAcciones{
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  height: 220px;
+}
+
+
+
 .graficoSemanal_Labels{
   
   width: 30%;
  
 
 }
+
+
 
 .graficoSemanal_diagrama{
 
@@ -535,6 +551,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   font-size: 20PX;
   font-family: 'Montserrat', sans-serif;
   color: #000000;
+  font-weight: bold;
 
 }
 
@@ -567,7 +584,7 @@ height: 30px;
 
 .tituloSemana{
   margin-top: 20PX;
-  
+  font-weight: bold;
   
 }
 
@@ -666,6 +683,18 @@ height: 30px;
   cursor: pointer;
 }
 
+#actividadesRecientes{
+  margin-top: 10PX;
+  font-size: 18PX;
+  text-align: initial;
+  padding-left: 10px;
+  font-family: 'Montserrat', sans-serif;
+  color: #000000;
+  font-weight: bold;
+  
+  
+}
+
 .connectBtn:hover {
   box-shadow: none;
   transform: translate(0px, 2.2px);
@@ -673,4 +702,25 @@ height: 30px;
 
 .connectBtn:active {
   transform: scale(0.96) translate(0px, 3.2px);
+}
+
+
+.ContenedorAccionesseccion1{
+  background-color: #ededed;
+  width: 40%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+}
+
+.ContenedorAccionesseccion2{
+  background-color: #ededed;
+  width: 60%;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
 }
