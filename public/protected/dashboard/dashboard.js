@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   getTotalIncidentesSemanaNueva(getCurrentDate());
 
-  
+
 
 
   console.log(nombreData)
@@ -64,40 +64,10 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateGrafica(dateStr);
       getCurrentDate(dateStr);
       updateGraficaLineal(dateStr)
-      getTotalIncidentesSemanaNueva(nombreData.id_colaborador,dateStr);
+      getTotalIncidentesSemanaNueva(nombreData.id_colaborador, dateStr);
       localStorage.setItem('dashboardFecha', dateStr);
     },
   });
-
-  async function getTotalIncidentesSemanaNueva(newDate) {
-    try {
-      const storedNombreData = localStorage.getItem('nombreData');
-      const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
-      if (nombreData && nombreData.username) {
-          const idAsignacionUser = nombreData.id_colaborador;
-
-          // Obtener datos de incidencias con la nueva fecha usando la nueva ruta
-          const totalesResponse = await fetch(`/getTotalIncidentesSemanaNueva?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-
-          const totalesData = await totalesResponse.json();
-
-          const totalSemanaElement = document.getElementById('totalSemana');
-          if (totalSemanaElement) {
-              totalSemanaElement.textContent = totalesData[0].total_incidentes_semana.toString();
-          } else {
-              console.error('No se encontró el elemento con id "totalSemana"');
-          }
-
-          console.log('Resultados de total de incidentes en la semana:', totalesData);
-      }
-  } catch (error) {
-      console.error('Error al obtener los datos del servidor:', error);
-  }
-  
-  }
-  
-
 
 
 
@@ -216,87 +186,91 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const lineChartContainer = document.getElementById('barLineContainer');
 
-  // Obtener datos del servidor y actualizar el gráfico
- // Obtener datos del servidor y actualizar el gráfico
-async function updateGraficaLineal(newDate) {
-  localStorage.setItem('dashboardFecha', newDate);
-  const storedNombreData = localStorage.getItem('nombreData');
-  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
-  if (nombreData && nombreData.username) {
-    const idAsignacionUser = nombreData.id_colaborador;
-
-    try {
-      // Obtener datos de incidencias con la nueva fecha
-      const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-      localStorage.setItem('idAsignacionUser', idAsignacionUser);
-      const totalesData = await totalesResponse.json();
-
-      // Verificar si totalesData es un array antes de intentar mapearlo
-      if (Array.isArray(totalesData)) {
-        console.log('Resultados de las gráficas:', totalesData);
-
-        // Destruir el gráfico existente si hay uno
-        if (window.lineChart) {
-          window.lineChart.destroy();
-        }
-
-        // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
-        const etiquetas = totalesData.map(item => item.dia_semana);
-        const datos = totalesData.map(item => item.total_incidentes);
-
-        // Crear el gráfico de línea (polígono de frecuencias) con interpolación cúbica
-        window.lineChart = new Chart(lineChartContainer, {
-          type: 'line',
-          data: {
-            labels: etiquetas,
-            datasets: [{
-              label: 'Total de Incidentes en la Semana',
-              data: datos,
-              fill: true,
-              backgroundColor: 'rgba(0, 255, 0, 0.3)',
-              borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
-              borderWidth: 2
-            }]
-          },
-          options: {
-            aspectRatio: 2,
-            scales: {
-              x: {
-                beginAtZero: true,
-                ticks: {
-                  color: 'black'
+  async function updateGraficaLineal(newDate) {
+    localStorage.setItem('dashboardFecha', newDate);
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
+  
+      try {
+        // Obtener datos de incidencias con la nueva fecha
+        const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+        localStorage.setItem('idAsignacionUser', idAsignacionUser);
+        const totalesData = await totalesResponse.json();
+  
+        // Verificar si totalesData es un array antes de intentar mapearlo
+        if (Array.isArray(totalesData)) {
+          console.log('Resultados de las gráficas:', totalesData);
+  
+          // Sumar los total_incidentes
+          const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + item.total_incidentes, 0);
+  
+          console.log('Suma total de incidentes:', sumaTotalIncidentes);
+  
+          // Destruir el gráfico existente si hay uno
+          if (window.lineChart) {
+            window.lineChart.destroy();
+          }
+  
+          // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
+          const etiquetas = totalesData.map(item => item.dia_semana);
+          const datos = totalesData.map(item => item.total_incidentes);
+  
+          // Crear el gráfico de línea (polígono de frecuencias) con interpolación cúbica
+          window.lineChart = new Chart(lineChartContainer, {
+            type: 'line',
+            data: {
+              labels: etiquetas,
+              datasets: [{
+                label: 'Total de Incidentes en la Semana',
+                data: datos,
+                fill: true,
+                backgroundColor: 'rgba(0, 255, 0, 0.3)',
+                borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
+                borderWidth: 2
+              }]
+            },
+            options: {
+              aspectRatio: 2,
+              scales: {
+                x: {
+                  beginAtZero: true,
+                  ticks: {
+                    color: 'black'
+                  }
+                },
+                y: {
+                  precision: 0,
+                  ticks: {
+                    color: 'black'
+                  }
                 }
               },
-              y: {
-                precision: 0,
-                ticks: {
-                  color: 'black'
+              plugins: {
+                legend: {
+                  labels: {
+                    color: 'black'
+                  }
                 }
-              }
-            },
-            plugins: {
-              legend: {
-                labels: {
-                  color: 'black'
+              },
+              elements: {
+                line: {
+                  tension: 0.4 // Ajusta la tensión para controlar la curvatura
                 }
-              }
-            },
-            elements: {
-              line: {
-                tension: 0.4 // Ajusta la tensión para controlar la curvatura
               }
             }
-          }
-        });
-      } else {
-        console.error('El servidor no devolvió un array válido:', totalesData);
+          });
+        } else {
+          console.error('El servidor no devolvió un array válido:', totalesData);
+        }
+      } catch (error) {
+        console.error('Error al obtener los datos del servidor:', error);
       }
-    } catch (error) {
-      console.error('Error al obtener los datos del servidor:', error);
     }
   }
-}
+  
 
 
 
