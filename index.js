@@ -380,22 +380,23 @@ app.get('/getTotalIncidentesSemanaNueva', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT
+        'Total Semana' AS dia_semana,
         COUNT(*) AS total_incidentes_semana
       FROM
         public.incidente
       WHERE
         EXTRACT(ISODOW FROM fecha_incidente) BETWEEN 1 AND 5
-        AND fecha_incidente >= date_trunc('week', CAST($2 AS DATE))::date
-        AND fecha_incidente < date_trunc('week', CAST($2 AS DATE) + interval '1 week')::date
+        AND fecha_incidente >= date_trunc('week', $2)::date
+        AND fecha_incidente < date_trunc('week', $2 + interval '1 week')::date
         AND id_asignacion_user = $1;
     `, [idAsignacionUser, fechaIncidencia]);
 
     if (result.rows.length > 0) {
-      const totalIncidentesSemana = result.rows[0].total_incidentes_semana;
-      console.log('Total de incidentes en la semana:', totalIncidentesSemana);
-      res.json({ total_incidentes_semana: totalIncidentesSemana });
+      const totalIncidentesSemana = result.rows;
+      console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
+      res.json(totalIncidentesSemana);
     } else {
-      res.json({ total_incidentes_semana: 0 });
+      res.json([]);
     }
   } catch (error) {
     console.error('Error en la consulta a la base de datos:', error);
