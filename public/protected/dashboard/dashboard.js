@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
+
+  getTotalIncidentesSemanaNueva(nombreData.id_colaborador,getCurrentDate())
+
   
 
 
@@ -61,9 +64,35 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateGrafica(dateStr);
       getCurrentDate(dateStr);
       updateGraficaLineal(dateStr)
+      getTotalIncidentesSemanaNueva(nombreData.id_colaborador,dateStr);
       localStorage.setItem('dashboardFecha', dateStr);
     },
   });
+
+  async function getTotalIncidentesSemanaNueva(idAsignacionUser, fechaParametro) {
+    try {
+      // Obtener datos de incidencias con la nueva fecha usando la nueva ruta
+      const totalesResponse = await fetch(`/getTotalIncidentesSemanaNueva?id_asignacion_user=${idAsignacionUser}&fecha_parametro=${fechaParametro}`);
+      const totalesData = await totalesResponse.json();
+  
+      // Verificar si totalesData es un array antes de mostrarlo
+      if (Array.isArray(totalesData) && totalesData.length > 0) {
+        const totalSemanaElement = document.getElementById('totalSemana');
+        if (totalSemanaElement) {
+          totalSemanaElement.textContent = totalesData[0].total_incidentes_semana.toString();
+        } else {
+          console.error('No se encontró el elemento con id "totalSemana"');
+        }
+  
+        console.log('Resultados de total de incidentes en la semana:', totalesData);
+      } else {
+        console.error('El servidor no devolvió un array válido:', totalesData);
+      }
+    } catch (error) {
+      console.error('Error al obtener los datos del servidor:', error);
+    }
+  }
+  
 
 
 
