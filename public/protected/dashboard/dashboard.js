@@ -4,10 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
-  getTotalIncidentesSemanaNueva(getCurrentDate());
-
-
-
 
   console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
