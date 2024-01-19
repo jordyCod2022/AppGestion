@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function getTotalIncidentesSemanaNueva(idAsignacionUser, fechaParametro) {
     try {
       // Obtener datos de incidencias con la nueva fecha usando la nueva ruta
-      const totalesResponse = await fetch(`/getTotalIncidentesSemanaNueva?id_asignacion_user=${idAsignacionUser}&fecha_parametro=${fechaParametro}`);
+      const totalesResponse = await fetch(`/getTotalIncidentesSemanaNueva?id_asignacion_user=${idAsignacionUser}&fechaIncidencia=${fechaParametro}`);
       const totalesData = await totalesResponse.json();
   
       // Verificar si totalesData es un array antes de mostrarlo
