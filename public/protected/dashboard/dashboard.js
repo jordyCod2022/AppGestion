@@ -297,8 +297,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const tablaUltimosReportes = document.getElementById('tablaUltimosReportes');
   
       if (tablaUltimosReportes) {
-        // Limpiar la tabla antes de agregar nuevas filas
-        tablaUltimosReportes.innerHTML = '';
+       
   
         // Crear las nuevas filas con los datos de los últimos incidentes
         ultimosIncidentesData.forEach(incidente => {
