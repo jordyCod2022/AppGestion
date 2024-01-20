@@ -424,7 +424,7 @@ app.get('/getUltimosIncidentes', async (req, res) => {
   const fechaIncidencia = req.query.fecha_incidencia; 
   const idAsignacionUser = req.query.id_asignacion_user;
 
-  console.log(fechaIncidencia, "id:",idAsignacionUser)
+  console.log(fechaIncidencia, "id:", idAsignacionUser);
 
   try {
     const result = await pool.query(`
@@ -447,12 +447,10 @@ app.get('/getUltimosIncidentes', async (req, res) => {
 
     if (result.rows.length > 0) {
       const ultimosIncidentes = result.rows;
-      console.log('Resultados de la consulta a la base de datos:', result);
-
       console.log('Resultados de los últimos incidentes:', ultimosIncidentes);
-
       res.json(ultimosIncidentes);
     } else {
+      console.log('No se encontraron incidentes.');
       res.json([]);
     }
   } catch (error) {
