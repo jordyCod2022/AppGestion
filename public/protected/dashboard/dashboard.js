@@ -4,7 +4,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
+  const avatarUrl = await obtenerAvatar(nombreData.id_colaborador);
+  if (avatarUrl) {
+    // Obtener el elemento de la imagen por su ID
+    const imagenColaboradorElement = document.getElementById('imagenColaborador');
 
+    // Establecer la URL de la imagen como el src
+    imagenColaboradorElement.src = avatarUrl;
+    imagenColaboradorElement.alt = 'Avatar';
+  } else {
+    console.error('No se encontró la imagen del avatar');
+  }
   console.log(nombreData)
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
@@ -174,6 +184,17 @@ document.addEventListener('DOMContentLoaded', async () => {
           }
         }
       });
+    }
+  }
+
+  async function obtenerAvatar(idAsignacionUser) {
+    try {
+      const avatarResponse = await fetch(`/obtenerAvatar?id_asignacion_user=${idAsignacionUser}`);
+      const avatarData = await avatarResponse.json();
+      return avatarData.imagen_colaborador;
+    } catch (error) {
+      console.error('Error al obtener el avatar:', error);
+      return null;
     }
   }
 

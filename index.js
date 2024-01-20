@@ -333,6 +333,34 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   }
 }
 
+app.post('/obtenerAvatar', async (req, res) => {
+  const idAsignacionUser = req.body.id_asignacion_user;
+  console.log(idAsignacionUser);
+
+  try {
+    // Realizar la consulta en la base de datos para obtener la imagen_colaborador
+    const result = await pool.query(`
+      SELECT imagen_colaborador
+      FROM public.colaboradores
+      WHERE id_colaborador = $1;
+    `, [idAsignacionUser]);
+
+    // Verificar si se encontraron resultados
+    if (result.rows.length > 0) {
+      const imagenColaborador = result.rows[0].imagen_colaborador;
+      console.log(`Imagen del colaborador con idAsignacionUser ${idAsignacionUser} obtenida.`);
+      res.json({ imagen_colaborador: imagenColaborador });
+    } else {
+      console.log(`No se encontró el colaborador con idAsignacionUser ${idAsignacionUser}.`);
+      res.status(404).json({ error: 'Colaborador no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error al obtener la imagen del colaborador:', error);
+    res.status(500).json({ error: 'Error al obtener la imagen del colaborador' });
+  }
+});
+
+
 // Ruta para enviar mensajes a través de Telegram
 app.post('/enviarMensajeTelegram', async (req, res) => {
   const { telefono_colaborador, mensajeTelegram } = req.body;
