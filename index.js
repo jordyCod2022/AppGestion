@@ -419,3 +419,42 @@ app.get('/getIncidenciasGrafico', async (req, res) => {
   }
 });
 
+
+app.get('/getUltimosIncidentes', async (req, res) => {
+  const fechaIncidencia = req.query.fecha_incidencia; 
+  const idAsignacionUser = req.query.id_asignacion_user;
+
+  try {
+    const result = await pool.query(`
+      SELECT 
+        i.fecha_incidente,
+        i.incidente_descrip,
+        c.imagen_colaborador,
+        c.nombre_colaborador AS nombre_reportador
+      FROM 
+        public.incidente i
+      JOIN 
+        public.colaboradores c ON i.id_reportacion_user = c.id_colaborador
+      WHERE 
+        DATE(i.fecha_incidente) = $1
+        AND i.id_asignacion_user = $2
+      ORDER BY
+        i.fecha_incidente DESC
+      LIMIT 4;
+    `, [fechaIncidencia, idAsignacionUser]);
+
+    if (result.rows.length > 0) {
+      const ultimosIncidentes = result.rows;
+      
+      console.log('Resultados de los últimos incidentes:', ultimosIncidentes);
+
+      res.json(ultimosIncidentes);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener los últimos incidentes' });
+  }
+});
+

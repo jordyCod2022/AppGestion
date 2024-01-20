@@ -509,7 +509,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   display: flex;
   margin-top: 10px;
   width: 100%;
-  height: 220px;
+  height: 240px;
 }
 
 
@@ -685,7 +685,7 @@ height: 30px;
 
 #actividadesRecientes{
   margin-top: 10PX;
-  font-size: 18PX;
+  font-size: 15PX;
   text-align: initial;
   padding-left: 10px;
   font-family: 'Montserrat', sans-serif;
@@ -723,4 +723,52 @@ height: 30px;
   margin-right: 10px;
   margin-bottom: 10px;
   border-radius: 15px;
+}
+
+
+.TablasDiv{
+  
+  margin-bottom: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 142px;
+  border-radius: 15px;
+}
+
+/* Estilos para la tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px; /* Ajusta según sea necesario */
+  overflow: hidden; /* Asegura que las esquinas redondeadas se vean correctamente */
+  
+}
+
+/* Estilos para las celdas del encabezado */
+th {
+  background-color: #05304d; /* Color de fondo del encabezado */
+  text-align: left;
+  padding: 2px;
+  text-align: center;
+  color: #fff;
+}
+
+/* Estilos para las celdas del cuerpo de la tabla */
+td {
+  text-align: center; /* Centra horizontalmente el contenido de la celda */
+  padding: 2px;
+  
+  vertical-align: middle; /* Centra verticalmente el contenido de la celda */
+}
+
+/* Estilo adicional para alternar colores de las filas */
+tbody tr:nth-child(even) {
+  background-color: #c6c8c9; 
+}
+
+/* Estilo para las imágenes de avatares */
+td img {
+  border-radius: 50%;
+  width: 30px; /* Ajusta según sea necesario */
+  height: 30px; /* Ajusta según sea necesario */
 }
