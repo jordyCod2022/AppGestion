@@ -751,13 +751,14 @@ th {
   padding: 2px;
   text-align: center;
   color: #fff;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /* Estilos para las celdas del cuerpo de la tabla */
 td {
   text-align: center; /* Centra horizontalmente el contenido de la celda */
   padding: 2px;
-  
+  font-family: 'Montserrat', sans-serif;
   vertical-align: middle; /* Centra verticalmente el contenido de la celda */
 }
 
