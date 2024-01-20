@@ -424,6 +424,8 @@ app.get('/getUltimosIncidentes', async (req, res) => {
   const fechaIncidencia = req.query.fecha_incidencia; 
   const idAsignacionUser = req.query.id_asignacion_user;
 
+  console.log(fechaIncidencia, "id:",idAsignacionUser)
+
   try {
     const result = await pool.query(`
       SELECT 
