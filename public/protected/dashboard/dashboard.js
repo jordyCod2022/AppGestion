@@ -189,7 +189,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function obtenerAvatar(idAsignacionUser) {
     try {
-      const avatarResponse = await fetch(`/obtenerAvatar?id_asignacion_user=${idAsignacionUser}`);
+      const avatarResponse = await fetch('/obtenerAvatar', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
+      });
+  
       const avatarData = await avatarResponse.json();
       return avatarData.imagen_colaborador;
     } catch (error) {
@@ -197,8 +204,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return null;
     }
   }
-
-
+  
 
 
   const lineChartContainer = document.getElementById('barLineContainer');
