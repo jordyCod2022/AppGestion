@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateTotalesIncidencias(getCurrentDate());
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
+  updateUltimosIncidentes(getCurrentDate());
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -270,6 +271,58 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
       } catch (error) {
         console.error('Error al obtener los datos del servidor:', error);
+      }
+    }
+  }
+
+  async function updateUltimosIncidentes(newDate) {
+    localStorage.setItem('dashboardFecha', newDate);
+  
+    // Obtener id_asignacion_user y otros datos del localStorage
+    const storedNombreData = localStorage.getItem('nombreData');
+    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  
+    // Verificar si hay datos y obtener id_asignacion_user
+    if (nombreData && nombreData.username) {
+      const idAsignacionUser = nombreData.id_colaborador;
+  
+      // Obtener los últimos incidentes con la nueva fecha
+      const ultimosIncidentesResponse = await fetch(`/getUltimosIncidentes?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+  
+      localStorage.setItem('idAsignacionUser', idAsignacionUser);
+      const ultimosIncidentesData = await ultimosIncidentesResponse.json();
+      console.log('Resultados de los últimos incidentes:', ultimosIncidentesData);
+  
+      // Actualizar la tabla de actividades recientes
+      const tablaUltimosReportes = document.getElementById('tablaUltimosReportes');
+  
+      if (tablaUltimosReportes) {
+        // Limpiar la tabla antes de agregar nuevas filas
+        tablaUltimosReportes.innerHTML = '';
+  
+        // Crear las nuevas filas con los datos de los últimos incidentes
+        ultimosIncidentesData.forEach(incidente => {
+          const fila = document.createElement('tr');
+          const avatarCol = document.createElement('td');
+          const nombreReportadorCol = document.createElement('td');
+          const incidenteCol = document.createElement('td');
+  
+          const avatarImg = document.createElement('img');
+          avatarImg.src = incidente.imagen_colaborador;
+          avatarImg.alt = 'Avatar';
+          avatarCol.appendChild(avatarImg);
+  
+          nombreReportadorCol.textContent = `${incidente.nombre_reportador}`;
+          incidenteCol.textContent = `${incidente.incidente_descrip}`;
+  
+          fila.appendChild(avatarCol);
+          fila.appendChild(nombreReportadorCol);
+          fila.appendChild(incidenteCol);
+  
+          tablaUltimosReportes.appendChild(fila);
+        });
+      } else {
+        console.error('Elemento "tablaUltimosReportes" no encontrado');
       }
     }
   }
