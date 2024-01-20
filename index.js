@@ -447,7 +447,8 @@ app.get('/getUltimosIncidentes', async (req, res) => {
 
     if (result.rows.length > 0) {
       const ultimosIncidentes = result.rows;
-      
+      console.log('Resultados de la consulta a la base de datos:', result);
+
       console.log('Resultados de los últimos incidentes:', ultimosIncidentes);
 
       res.json(ultimosIncidentes);
