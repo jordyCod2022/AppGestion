@@ -516,7 +516,8 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 .graficoSemanal_Labels{
   
-  width: 30%;
+  width: 40%;
+
  
 
 }
@@ -606,21 +607,7 @@ height: 30px;
 
 
 
-.cssbuttons-io {
-  margin-left: 70px;
-  position: relative;
-  font-family: inherit;
-  font-weight: 500;
-  font-size: 18px;
-  letter-spacing: 0.05em;
-  border-radius: 0.8em;
-  cursor: pointer;
-  border: none;
-  background: linear-gradient(to right, #8e2de2, #4a00e0);
-  color: ghostwhite;
-  overflow: hidden;
-  display: block;
-}
+
 
 .cssbuttons-io svg {
   width: 1.2em;
@@ -665,9 +652,36 @@ height: 30px;
 }
 
 
+.buttonSemana {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+ 
+  /* Agrega otros estilos según sea necesario */
+}
+
+.cssbuttons-io {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  position: relative;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  border-radius: 0.8em;
+  cursor: pointer;
+  border: none;
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  color: ghostwhite;
+  overflow: hidden;
+  /* Ajusta otros estilos según sea necesario */
+}
+
 
 .connectBtn {
- 
   width: 120px;
   height: 40px;
   border: none;
@@ -678,11 +692,12 @@ height: 30px;
   gap: 7px;
   color: white;
   font-weight: 600;
-  background: linear-gradient( to right,#fc8bc4,#576bff);
+  background: linear-gradient(to right, #fc8bc4, #576bff);
   box-shadow: 0 20px 30px -7px rgba(97, 118, 238, 0.5);
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
+
 
 #actividadesRecientes{
   margin-top: 10PX;
@@ -776,3 +791,4 @@ td img {
   width: 30px; /* Ajusta según sea necesario */
   height: 30px; /* Ajusta según sea necesario */
 }
+
