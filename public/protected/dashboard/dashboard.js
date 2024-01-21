@@ -22,34 +22,42 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
+  // Supongamos que ya tienes la variable "incidencias" desde algún lugar
+  const dataTable = initializeDataTable(incidencias);
+  
+
   const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
 
-  const dataTable = $('#miTabla').DataTable({
-    data: incidencias,
-    columns: [
-      { data: 'id_incidente', title: 'Id' },
-      { data: 'incidente_descrip', title: 'Incidente' },
-      {
-        data: null,
-        title: 'Usuario',
-        render: function (data, type, row) {
-          return row.nombre_colaborador + ' ' + row.apellido_colaborador;
+  function initializeDataTable(incidencias) {
+    const dataTable = $('#miTabla').DataTable({
+      data: incidencias,
+      columns: [
+        { data: 'id_incidente', title: 'Id' },
+        { data: 'incidente_descrip', title: 'Incidente' },
+        {
+          data: null,
+          title: 'Usuario',
+          render: function (data, type, row) {
+            return row.nombre_colaborador + ' ' + row.apellido_colaborador;
+          }
+        },
+        {
+          data: null,
+          title: 'Acción',
+          render: function (data, type, row) {
+            return '<button class="button"><svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linejoin="round" stroke-linecap="round"></path></svg> Enviar</button>';
+          }
         }
-      },
-      {
-        data: null,
-        title: 'Acción',
-        render: function (data, type, row) {
-          return '<button class="button"><svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linejoin="round" stroke-linecap="round"></path></svg> Enviar</button>';
-        }
-      }
-    ],
-    paging: true, // Habilita la paginación
-    pageLength: 3, // Muestra 3 elementos por página
-    lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
-    // ... (otras opciones si es necesario)
-  });
-
+      ],
+      paging: true, // Habilita la paginación
+      pageLength: 3, // Muestra 3 elementos por página
+      lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
+      // ... (otras opciones si es necesario)
+    });
+  
+    return dataTable;
+  }
+  
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
   if (logoutButton) {
@@ -102,6 +110,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateGraficaLineal(dateStr)
       localStorage.setItem('dashboardFecha', dateStr);
       getAndShowIncidencias(nombreData.id_colaborador,dateStr)
+      const incidencias= getAndShowIncidencias(nombreData.id_colaborador,dateStr);
+      const dataTable = initializeDataTable(incidencias);
+
     },
   });
 
@@ -245,92 +256,93 @@ document.addEventListener('DOMContentLoaded', async () => {
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
     if (nombreData && nombreData.username) {
-      const idAsignacionUser = nombreData.id_colaborador;
+        const idAsignacionUser = nombreData.id_colaborador;
 
-      try {
-        // Obtener datos de incidencias con la nueva fecha
-        const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-        localStorage.setItem('idAsignacionUser', idAsignacionUser);
-        const totalesData = await totalesResponse.json();
+        try {
+            // Obtener datos de incidencias con la nueva fecha
+            const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+            localStorage.setItem('idAsignacionUser', idAsignacionUser);
+            const totalesData = await totalesResponse.json();
 
-        // Verificar si totalesData es un array antes de intentar mapearlo
-        if (Array.isArray(totalesData)) {
-          console.log('Resultados de las gráficas:', totalesData);
+            // Verificar si totalesData es un array antes de intentar mapearlo
+            if (Array.isArray(totalesData)) {
+                console.log('Resultados de las gráficas:', totalesData);
 
-          // Sumar los total_incidentes
-          const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + parseInt(item.total_incidentes, 10), 0);
+                // Sumar los total_incidentes
+                const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + parseInt(item.total_incidentes, 10), 0);
 
-
-          console.log('Suma total de incidentes:', sumaTotalIncidentes);
-          const totalSemanaElement = document.getElementById('totalSemana');
-          if (totalSemanaElement) {
-            totalSemanaElement.textContent = sumaTotalIncidentes.toString();
-          } else {
-            console.error('No se encontró el elemento con id "totalSemana"');
-          }
-
-
-          // Destruir el gráfico existente si hay uno
-          if (window.lineChart) {
-            window.lineChart.destroy();
-          }
-
-          // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
-          const etiquetas = totalesData.map(item => item.dia_semana);
-          const datos = totalesData.map(item => item.total_incidentes);
-
-          // Crear el gráfico de línea (polígono de frecuencias) con interpolación cúbica
-          window.lineChart = new Chart(lineChartContainer, {
-            type: 'line',
-            data: {
-              labels: etiquetas,
-              datasets: [{
-                label: 'Total de Incidentes en la Semana',
-                data: datos,
-                fill: true,
-                backgroundColor: 'rgba(0, 255, 0, 0.3)',
-                borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
-                borderWidth: 2
-              }]
-            },
-            options: {
-              aspectRatio: 2,
-              scales: {
-                x: {
-                  beginAtZero: true,
-                  ticks: {
-                    color: 'black'
-                  }
-                },
-                y: {
-                  precision: 0,
-                  ticks: {
-                    color: 'black'
-                  }
+                console.log('Suma total de incidentes:', sumaTotalIncidentes);
+                const totalSemanaElement = document.getElementById('totalSemana');
+                if (totalSemanaElement) {
+                    totalSemanaElement.textContent = sumaTotalIncidentes.toString();
+                } else {
+                    console.error('No se encontró el elemento con id "totalSemana"');
                 }
-              },
-              plugins: {
-                legend: {
-                  labels: {
-                    color: 'black'
-                  }
+
+                // Traducción de los nombres de los días de la semana a español
+                const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+                const etiquetas = totalesData.map(item => diasSemana[item.dia_semana]);
+                const datos = totalesData.map(item => item.total_incidentes);
+
+                // Destruir el gráfico existente si hay uno
+                if (window.lineChart) {
+                    window.lineChart.destroy();
                 }
-              },
-              elements: {
-                line: {
-                  tension: 0.4 // Ajusta la tensión para controlar la curvatura
-                }
-              }
+
+                // Crear el gráfico de línea (polígono de frecuencias) con interpolación cúbica
+                window.lineChart = new Chart(lineChartContainer, {
+                    type: 'line',
+                    data: {
+                        labels: etiquetas,
+                        datasets: [{
+                            label: 'Total de Incidentes en la Semana',
+                            data: datos,
+                            fill: true,
+                            backgroundColor: 'rgba(0, 255, 0, 0.3)',
+                            borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        aspectRatio: 2,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: 'black'
+                                }
+                            },
+                            y: {
+                                precision: 0,
+                                ticks: {
+                                    color: 'black'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: 'black'
+                                }
+                            }
+                        },
+                        elements: {
+                            line: {
+                                tension: 0.4 // Ajusta la tensión para controlar la curvatura
+                            }
+                        },
+                        locale: 'es-ES' // Configura el idioma a español
+                    }
+                });
+            } else {
+                console.error('El servidor no devolvió un array válido:', totalesData);
             }
-          });
-        } else {
-          console.error('El servidor no devolvió un array válido:', totalesData);
+        } catch (error) {
+            console.error('Error al obtener los datos del servidor:', error);
         }
-      } catch (error) {
-        console.error('Error al obtener los datos del servidor:', error);
-      }
     }
-  }
+}
+
 
   async function updateUltimosIncidentes(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
