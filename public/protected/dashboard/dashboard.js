@@ -24,6 +24,32 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateUltimosIncidentes(getCurrentDate());
   getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
 
+  const dataTable = $('#miTabla').DataTable({
+    data: incidencias,
+    columns: [
+      { data: 'id_incidente', title: 'Id' },
+      { data: 'incidente_descrip', title: 'Incidente' },
+      {
+        data: null,
+        title: 'Usuario',
+        render: function (data, type, row) {
+          return row.nombre_colaborador + ' ' + row.apellido_colaborador;
+        }
+      },
+      {
+        data: null,
+        title: 'Acción',
+        render: function (data, type, row) {
+          return '<button class="button"><svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linejoin="round" stroke-linecap="round"></path></svg> Enviar</button>';
+        }
+      }
+    ],
+    paging: true, // Habilita la paginación
+    pageLength: 3, // Muestra 3 elementos por página
+    lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
+    // ... (otras opciones si es necesario)
+  });
+
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
   if (logoutButton) {
@@ -363,11 +389,13 @@ document.addEventListener('DOMContentLoaded', async () => {
       const incidencias = await response.json();
       console.log('Respuesta de incidencias:', incidencias);
   
+      return incidencias; // Retorna las incidencias obtenidas
     } catch (error) {
       console.error('Error al obtener y mostrar incidencias:', error);
+      return []; // Retorna un array vacío en caso de error
     }
   }
-
+  
 
 
 
