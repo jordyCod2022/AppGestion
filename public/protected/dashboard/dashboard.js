@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
+  let dataTables; 
 
   const avatarUrl = await obtenerAvatar(nombreData.id_colaborador);
   if (avatarUrl) {
@@ -30,7 +31,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   const dataTable = initializeDataTable(incidencias);
 
   function initializeDataTable(incidencias) {
-    const dataTable = $('#miTabla').DataTable({
+    // Verificar si la tabla ya está inicializada
+    if (dataTables && $.fn.DataTable.isDataTable('#miTabla')) {
+      // Si ya está inicializada, destrúyela antes de volver a crearla
+      dataTable.destroy();
+    }
+  
+    dataTable = $('#miTabla').DataTable({
       data: incidencias,
       columns: [
         { data: 'id_incidente', title: 'Id' },
