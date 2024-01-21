@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
-  getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate())
+  getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -362,7 +362,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaDashboard}`);
       const incidencias = await response.json();
       console.log('Respuesta de incidencias:', incidencias);
-      showAndProcessIncidencias(incidencias);
+  
     } catch (error) {
       console.error('Error al obtener y mostrar incidencias:', error);
     }
