@@ -4,7 +4,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
 
-
   const avatarUrl = await obtenerAvatar(nombreData.id_colaborador);
   if (avatarUrl) {
     // Obtener el elemento de la imagen por su ID
@@ -23,48 +22,34 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
-  // Supongamos que ya tienes la variable "incidencias" desde algún lugar
+  
+  const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
 
-
-  let dataTable; // Variable global para almacenar la instancia de DataTable
-
-  const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, getCurrentDate());
-  initializeDataTable(incidencias);
-
-  function initializeDataTable(incidencias) {
-    // Verificar si la tabla ya está inicializada
-    if (dataTable && $.fn.DataTable.isDataTable('#miTabla')) {
-      // Si ya está inicializada, destrúyela antes de volver a crearla
-      dataTable.destroy();
-    }
-
-    dataTable = $('#miTabla').DataTable({
-      data: incidencias,
-      columns: [
-        { data: 'id_incidente', title: 'Id' },
-        { data: 'incidente_descrip', title: 'Incidente' },
-        {
-          data: null,
-          title: 'Usuario',
-          render: function (data, type, row) {
-            return row.nombre_colaborador + ' ' + row.apellido_colaborador;
-          }
-        },
-        {
-          data: null,
-          title: 'Acción',
-          render: function (data, type, row) {
-            return '<button class="button"><svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linejoin="round" stroke-linecap="round"></path></svg> Enviar</button>';
-          }
+  const dataTable = $('#miTabla').DataTable({
+    data: incidencias,
+    columns: [
+      { data: 'id_incidente', title: 'Id' },
+      { data: 'incidente_descrip', title: 'Incidente' },
+      {
+        data: null,
+        title: 'Usuario',
+        render: function (data, type, row) {
+          return row.nombre_colaborador + ' ' + row.apellido_colaborador;
         }
-      ],
-      paging: true, // Habilita la paginación
-      pageLength: 3, // Muestra 3 elementos por página
-      lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
-      // ... (otras opciones si es necesario)
-    });
-  }
-
+      },
+      {
+        data: null,
+        title: 'Acción',
+        render: function (data, type, row) {
+          return '<button class="button"><svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linejoin="round" stroke-linecap="round"></path></svg> Enviar</button>';
+        }
+      }
+    ],
+    paging: true, // Habilita la paginación
+    pageLength: 3, // Muestra 3 elementos por página
+    lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
+    // ... (otras opciones si es necesario)
+  });
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -106,7 +91,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 
   // Configurar flatpickr para el selector de fecha
-  // Configurar flatpickr para el selector de fecha
   const flatpickrInstance = flatpickr('.connectBtn', {
     dateFormat: 'Y-m-d',
     onClose: function (selectedDates, dateStr) {
@@ -116,21 +100,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       updateTotalesIncidencias(dateStr);
       updateGrafica(dateStr);
       getCurrentDate(dateStr);
-      updateGraficaLineal(dateStr);
+      updateGraficaLineal(dateStr)
       localStorage.setItem('dashboardFecha', dateStr);
-
-      // Obtener y mostrar incidencias con la nueva fecha
-      getAndShowIncidencias(nombreData.id_colaborador, dateStr)
-        .then(incidencias => {
-          // Inicializar o actualizar la DataTable con las nuevas incidencias
-          initializeDataTable(incidencias);
-        })
-        .catch(error => {
-          console.error('Error al obtener y mostrar incidencias:', error);
-        });
+      getAndShowIncidencias(nombreData.id_colaborador,dateStr)
     },
   });
-
 
 
 
@@ -253,7 +227,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
       });
-
+  
       const avatarData = await avatarResponse.json();
       return avatarData.imagen_colaborador;
     } catch (error) {
@@ -261,7 +235,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       return null;
     }
   }
-
+  
 
 
   const lineChartContainer = document.getElementById('barLineContainer');
@@ -272,137 +246,137 @@ document.addEventListener('DOMContentLoaded', async () => {
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
     if (nombreData && nombreData.username) {
-      const idAsignacionUser = nombreData.id_colaborador;
+        const idAsignacionUser = nombreData.id_colaborador;
 
-      try {
-        // Obtener datos de incidencias con la nueva fecha
-        const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-        localStorage.setItem('idAsignacionUser', idAsignacionUser);
-        const totalesData = await totalesResponse.json();
+        try {
+            // Obtener datos de incidencias con la nueva fecha
+            const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
+            localStorage.setItem('idAsignacionUser', idAsignacionUser);
+            const totalesData = await totalesResponse.json();
 
-        // Verificar si totalesData es un array antes de intentar mapearlo
-        if (Array.isArray(totalesData)) {
-          console.log('Resultados de las gráficas:', totalesData);
+            // Verificar si totalesData es un array antes de intentar mapearlo
+            if (Array.isArray(totalesData)) {
+                console.log('Resultados de las gráficas:', totalesData);
 
-          // Sumar los total_incidentes
-          const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + parseInt(item.total_incidentes, 10), 0);
+                // Sumar los total_incidentes
+                const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + parseInt(item.total_incidentes, 10), 0);
 
-          console.log('Suma total de incidentes:', sumaTotalIncidentes);
-          const totalSemanaElement = document.getElementById('totalSemana');
-          if (totalSemanaElement) {
-            totalSemanaElement.textContent = sumaTotalIncidentes.toString();
-          } else {
-            console.error('No se encontró el elemento con id "totalSemana"');
-          }
-
-          // Traducción de los nombres de los días de la semana a español
-          const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-          const etiquetas = totalesData.map(item => diasSemana[item.dia_semana]);
-          const datos = totalesData.map(item => item.total_incidentes);
-
-          // Destruir el gráfico existente si hay uno
-          if (window.lineChart) {
-            window.lineChart.destroy();
-          }
-
-          // Crear el gráfico de línea (polígono de frecuencias) con interpolación cúbica
-          window.lineChart = new Chart(lineChartContainer, {
-            type: 'line',
-            data: {
-              labels: etiquetas,
-              datasets: [{
-                label: 'Total de Incidentes en la Semana',
-                data: datos,
-                fill: true,
-                backgroundColor: 'rgba(0, 255, 0, 0.3)',
-                borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
-                borderWidth: 2
-              }]
-            },
-            options: {
-              aspectRatio: 2,
-              scales: {
-                x: {
-                  beginAtZero: true,
-                  ticks: {
-                    color: 'black'
-                  }
-                },
-                y: {
-                  precision: 0,
-                  ticks: {
-                    color: 'black'
-                  }
+                console.log('Suma total de incidentes:', sumaTotalIncidentes);
+                const totalSemanaElement = document.getElementById('totalSemana');
+                if (totalSemanaElement) {
+                    totalSemanaElement.textContent = sumaTotalIncidentes.toString();
+                } else {
+                    console.error('No se encontró el elemento con id "totalSemana"');
                 }
-              },
-              plugins: {
-                legend: {
-                  labels: {
-                    color: 'black'
-                  }
+
+                // Traducción de los nombres de los días de la semana a español
+                const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+                const etiquetas = totalesData.map(item => diasSemana[item.dia_semana]);
+                const datos = totalesData.map(item => item.total_incidentes);
+
+                // Destruir el gráfico existente si hay uno
+                if (window.lineChart) {
+                    window.lineChart.destroy();
                 }
-              },
-              elements: {
-                line: {
-                  tension: 0.4 // Ajusta la tensión para controlar la curvatura
-                }
-              },
-              locale: 'es-ES' // Configura el idioma a español
+
+                // Crear el gráfico de línea (polígono de frecuencias) con interpolación cúbica
+                window.lineChart = new Chart(lineChartContainer, {
+                    type: 'line',
+                    data: {
+                        labels: etiquetas,
+                        datasets: [{
+                            label: 'Total de Incidentes en la Semana',
+                            data: datos,
+                            fill: true,
+                            backgroundColor: 'rgba(0, 255, 0, 0.3)',
+                            borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        aspectRatio: 2,
+                        scales: {
+                            x: {
+                                beginAtZero: true,
+                                ticks: {
+                                    color: 'black'
+                                }
+                            },
+                            y: {
+                                precision: 0,
+                                ticks: {
+                                    color: 'black'
+                                }
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: 'black'
+                                }
+                            }
+                        },
+                        elements: {
+                            line: {
+                                tension: 0.4 // Ajusta la tensión para controlar la curvatura
+                            }
+                        },
+                        locale: 'es-ES' // Configura el idioma a español
+                    }
+                });
+            } else {
+                console.error('El servidor no devolvió un array válido:', totalesData);
             }
-          });
-        } else {
-          console.error('El servidor no devolvió un array válido:', totalesData);
+        } catch (error) {
+            console.error('Error al obtener los datos del servidor:', error);
         }
-      } catch (error) {
-        console.error('Error al obtener los datos del servidor:', error);
-      }
     }
-  }
+}
 
 
   async function updateUltimosIncidentes(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
-
+  
     // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  
     // Verificar si hay datos y obtener id_asignacion_user
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       // Obtener los últimos incidentes con la nueva fecha
       const ultimosIncidentesResponse = await fetch(`/getUltimosIncidentes?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-
+  
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const ultimosIncidentesData = await ultimosIncidentesResponse.json();
       console.log('Resultados de los últimos incidentes:', ultimosIncidentesData);
-
+  
       // Actualizar la tabla de actividades recientes
       const tablaUltimosReportes = document.getElementById('tablaUltimosReportes');
-
+  
       if (tablaUltimosReportes) {
-
-
+       
+  
         // Crear las nuevas filas con los datos de los últimos incidentes
         ultimosIncidentesData.forEach(incidente => {
           const fila = document.createElement('tr');
           const avatarCol = document.createElement('td');
           const nombreReportadorCol = document.createElement('td');
           const incidenteCol = document.createElement('td');
-
+  
           const avatarImg = document.createElement('img');
           avatarImg.src = incidente.imagen_colaborador;
           avatarImg.alt = 'Avatar';
           avatarCol.appendChild(avatarImg);
-
+  
           nombreReportadorCol.textContent = `${incidente.nombre_reportador}`;
           incidenteCol.textContent = `${incidente.incidente_descrip}`;
-
+  
           fila.appendChild(avatarCol);
           fila.appendChild(nombreReportadorCol);
           fila.appendChild(incidenteCol);
-
+  
           tablaUltimosReportes.appendChild(fila);
         });
       } else {
@@ -416,14 +390,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaDashboard}`);
       const incidencias = await response.json();
       console.log('Respuesta de incidencias:', incidencias);
-
+  
       return incidencias; // Retorna las incidencias obtenidas
     } catch (error) {
       console.error('Error al obtener y mostrar incidencias:', error);
       return []; // Retorna un array vacío en caso de error
     }
   }
-
+  
 
 
 
