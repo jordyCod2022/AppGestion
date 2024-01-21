@@ -23,10 +23,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
   // Supongamos que ya tienes la variable "incidencias" desde algún lugar
-  const dataTable = initializeDataTable(incidencias);
+
   
 
   const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
+  const dataTable = initializeDataTable(incidencias);
 
   function initializeDataTable(incidencias) {
     const dataTable = $('#miTabla').DataTable({
