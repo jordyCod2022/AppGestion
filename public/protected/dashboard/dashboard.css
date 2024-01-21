@@ -760,6 +760,13 @@ table {
   
 }
 
+#miTabla{
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 10px; /* Ajusta según sea necesario */
+  overflow: hidden; /* Asegura que las esquinas redondeadas se vean correctamente */
+}
+
 /* Estilos para las celdas del encabezado */
 th {
   background-color: #05304d; /* Color de fondo del encabezado */
@@ -792,3 +799,56 @@ td img {
   height: 30px; /* Ajusta según sea necesario */
 }
 
+.divDataTables{
+
+  height: 180px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  border-radius: 15px;
+  overflow: auto; /* Agrega esta línea */
+}
+
+.small-header {
+  font-size: 12px; /* Ajusta el tamaño de fuente según tus necesidades */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+
+
+  /* Agrega otros estilos si es necesario */
+}
+
+#miTabla td {
+  font-size: 12px; /* Ajusta el tamaño de fuente según tus necesidades */
+  align-items: center;
+  font-family: 'Montserrat', sans-serif;
+  /* Agrega otros estilos si es necesario */
+}
+
+
+.button {
+  padding: 3px 51px;
+  border: none;
+  color: rgb(16, 52, 170);
+  cursor: pointer;
+  background-color: rgb(190, 219, 253);
+  border-radius: 7px;
+  font-weight: bold;
+  transition: 0.5s;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 13px;
+  box-shadow: rgba(150, 143, 143, 0.2) 0px 2px 8px 0px;
+
+}
+
+.button:hover {
+  background-color: rgb(164, 206, 253);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+
+.saveicon {
+  width: 17px;
+}
