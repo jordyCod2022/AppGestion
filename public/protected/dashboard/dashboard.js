@@ -1,58 +1,58 @@
 document.addEventListener('DOMContentLoaded', async () => {
  
-  try {
-    const storedNombreData = localStorage.getItem('nombreData');
-    const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  const storedNombreData = localStorage.getItem('nombreData');
+  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  const nombreUser = document.getElementById('myContainer');
 
-    if (nombreData) {
-      const nombreUser = document.getElementById('myContainer');
-      const avatarUrl = await obtenerAvatar(nombreData.id_colaborador);
+  const avatarUrl = await obtenerAvatar(nombreData.id_colaborador);
+  if (avatarUrl) {
+    // Obtener el elemento de la imagen por su ID
+    const imagenColaboradorElement = document.getElementById('imagenColaborador');
 
-      if (avatarUrl) {
-        const imagenColaboradorElement = document.getElementById('imagenColaborador');
-        imagenColaboradorElement.src = avatarUrl;
-        imagenColaboradorElement.alt = 'Avatar';
-      } else {
-        console.error('No se encontró la imagen del avatar');
+    // Establecer la URL de la imagen como el src
+    imagenColaboradorElement.src = avatarUrl;
+    imagenColaboradorElement.alt = 'Avatar';
+  } else {
+    console.error('No se encontró la imagen del avatar');
+  }
+  console.log(nombreData)
+
+  //Llamada de funciones principales
+  updateTotalesIncidencias(getCurrentDate());
+  updateGrafica(getCurrentDate());
+  updateGraficaLineal(getCurrentDate());
+  updateUltimosIncidentes(getCurrentDate());
+  obtenerAdmin(nombreData.id_colaborador);
+  const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
+
+  const dataTable = $('#miTabla').DataTable({
+    data: incidencias,
+    columns: [
+      { data: 'id_incidente', title: 'Id' },
+      { data: 'incidente_descrip', title: 'Incidente' },
+      {
+        data: null,
+        title: 'Usuario',
+        render: function (data, type, row) {
+          return row.nombre_colaborador + ' ' + row.apellido_colaborador;
+        }
+      },
+      {
+        data: null,
+        title: 'Acción',
+        render: function (data, type, row) {
+          return '<button class="button"><svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linejoin="round" stroke-linecap="round"></path></svg> Enviar</button>';
+        }
       }
+    ],
+    paging: true,
+    pageLength: 3, 
+    lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
+    
+  });
 
-      console.log(nombreData);
 
-      // Llamada de funciones principales
-      await updateTotalesIncidencias(getCurrentDate());
-      await updateGrafica(getCurrentDate());
-      await updateGraficaLineal(getCurrentDate());
-      await updateUltimosIncidentes(getCurrentDate());
-      await obtenerAdmin(nombreData.id_colaborador);
-      const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, getCurrentDate());
 
-      const dataTable = $('#miTabla').DataTable({
-        data: incidencias,
-        columns: [
-          { data: 'id_incidente', title: 'Id' },
-          { data: 'incidente_descrip', title: 'Incidente' },
-          {
-            data: null,
-            title: 'Usuario',
-            render: function (data, type, row) {
-              return row.nombre_colaborador + ' ' + row.apellido_colaborador;
-            }
-          },
-          {
-            data: null,
-            title: 'Acción',
-            render: function (data, type, row) {
-              return '<button class="button"><svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" stroke-linejoin="round" stroke-linecap="round"></path></svg> Enviar</button>';
-            }
-          }
-        ],
-        paging: true,
-        pageLength: 3, 
-        lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
-        
-      });
-
-      
 $('.modalTrasferencia').on('click', function (e) {
   if (e.target.id === 'iconosss') {
     // Si se hace clic en el ícono de cerrar, cierra el modal
@@ -274,7 +274,7 @@ $('.factura-label').css({
   }
 
   async function obtenerAdmin(idAsignacionUser) {
-    console.log("MI ID DESDE OBTENER ADMIN: ", idAsignacionUser)
+    console.log("MI ID DESDE OBTENER ADMIN: ", id)
     try {
       const respuestaAdmin = await fetch('/getUsuariosExcluyendoId', {
         method: 'POST',
@@ -287,6 +287,8 @@ $('.factura-label').css({
       const dataAdmin = await respuestaAdmin.json();
       console.log("data: ", dataAdmin)
   
+      // Aquí debes manejar los datos obtenidos (dataAdmin) y actualizar el select
+      // Por ejemplo, podrías recorrer los datos y agregar opciones al select
       const selectNombres = document.getElementById('listaNombres');
       selectNombres.innerHTML = ''; // Limpiar opciones actuales
   
@@ -464,23 +466,13 @@ $('.factura-label').css({
     }
   }
 
-    } else {
-      console.error('No se encontraron datos de usuario.');
-    }
-  } catch (error) {
-    console.error('Error al cargar la página:', error);
-  }
   
+
+
+
+  
+
+
+
+
 });
-
-
-
-
-  
-
-
-
-  
-
-
-
