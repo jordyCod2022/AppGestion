@@ -22,6 +22,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
+  const Encargados=obtenerUsuariosExcluyendoId(nombreData.id_colaborador);
+  console.log(Encargados)
   const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, getCurrentDate());
 
   const dataTable = $('#miTabla').DataTable({
@@ -70,24 +72,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Muestra el modal y el overlay
     $('.modalTrasferencia').css('display', 'block');
-
-    try {
-      const usuariosExcluyendoId = obtenerUsuariosExcluyendoId(nombreData.id_colaborador);
-  
-      // Actualiza las opciones del select con los nombres de los usuarios obtenidos
-      const listaNombresSelect = $('#listaNombres');
-      listaNombresSelect.empty(); // Limpiar las opciones actuales
-  
-      if (usuariosExcluyendoId.length > 0) {
-        usuariosExcluyendoId.forEach((nombreUsuario, index) => {
-          listaNombresSelect.append(`<option value="${index}">${nombreUsuario}</option>`);
-        });
-      } else {
-        listaNombresSelect.append('<option value="" disabled selected>No hay usuarios disponibles</option>');
-      }
-    } catch (error) {
-      console.error('Error al obtener usuarios excluyendo id:', error);
-    }
   });
 
 
@@ -284,25 +268,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   async function obtenerUsuariosExcluyendoId(idAsignacionUserExcluir) {
-    try {
-      const usuariosResponse = await fetch('/getUsuariosExcluyendoId', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id_asignacion_user: idAsignacionUserExcluir })
-      });
-  
-      const usuariosData = await usuariosResponse.json();
-      return usuariosData.map(usuario => `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`);
-    } catch (error) {
-      console.error('Error al obtener usuarios excluyendo id:', error);
-      return [];
-    }
+  try {
+    const usuariosResponse = await fetch('/getUsuariosExcluyendoId', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id_asignacion_user: idAsignacionUserExcluir })
+    });
+
+    const usuariosData = await usuariosResponse.json();
+    return usuariosData.map(usuario => `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`);
+  } catch (error) {
+    console.error('Error al obtener usuarios excluyendo id:', error);
+    return [];
   }
+}
   
-
-
 
   const lineChartContainer = document.getElementById('barLineContainer');
 
