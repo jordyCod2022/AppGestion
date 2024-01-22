@@ -281,6 +281,32 @@ app.post('/login', async (req, res) => {
   }
 });
 
+app.post('/getUsuariosExcluyendoId', async (req, res) => {
+  const idAsignacionUserExcluir = req.body.id_asignacion_user;
+
+  try {
+    const result = await pool.query(`
+      SELECT au.id_asignacion_user, c.nombre_colaborador, c.apellido_colaborador
+      FROM public.asignacion_user au
+      JOIN public.colaboradores c ON au.id_usuario = c.id_colaborador
+      WHERE au.id_asignacion_user <> $1;
+    `, [idAsignacionUserExcluir]);
+
+    if (result.rows.length > 0) {
+      const usuariosExcluyendoId = result.rows;
+      console.log('Resultados de usuarios excluyendo id:', usuariosExcluyendoId);
+      res.json(usuariosExcluyendoId);
+    } else {
+      console.log('No se encontraron usuarios excluyendo id.');
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener usuarios excluyendo id' });
+  }
+});
+
+
 
 app.post('/actualizarImagen', async (req, res) => {
   const idAsignacionUser = req.body.id_asignacion_user;

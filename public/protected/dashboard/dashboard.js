@@ -50,27 +50,53 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   });
 
-  // Evento para cerrar el modal al hacer clic en cualquier parte de él
-  $('.modalTrasferencia').on('click', function (e) {
-    if (e.target.id === 'iconosss') {
-      // Si se hace clic en el ícono de cerrar, cierra el modal
-      $('.modalTrasferencia').css('display', 'none');
+  // En la función obtenerUsuariosExcluyendoId, solo devuelve los nombres de los usuarios
+  async function obtenerUsuariosExcluyendoId(idAsignacionUserExcluir) {
+    try {
+      const usuariosResponse = await fetch('/getUsuariosExcluyendoId', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_asignacion_user: idAsignacionUserExcluir })
+      });
+
+      const usuariosData = await usuariosResponse.json();
+      return usuariosData.map(usuario => `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`);
+    } catch (error) {
+      console.error('Error al obtener usuarios excluyendo id:', error);
+      return [];
     }
-  });
+  }
 
-  // Evento para abrir el modal al hacer clic en el botón de la tabla
-  $('#miTabla').on('click', '.button', function () {
-    // Obtén la fila correspondiente al botón clickeado
+  // En el evento de clic en el botón
+  $('#miTabla').on('click', '.button', async function () {
     const data = dataTable.row($(this).closest('tr')).data();
-
-    // Llena el modal con la información correspondiente
-    $('.detallesTransfer').html('<p>Id: ' + data.id_incidente + '</p>' +
-      '<p>Incidente: ' + data.incidente_descrip + '</p>' +
-      '<p>Usuario: ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>');
+    $('.detallesTransfer').html(`<p class="styleDetalleslabel">Id: ${data.id_incidente}</p>`);
 
     // Muestra el modal y el overlay
     $('.modalTrasferencia').css('display', 'block');
+
+    try {
+      const usuariosExcluyendoId = await obtenerUsuariosExcluyendoId(data.id_asignacion_user);
+
+      // Actualiza las opciones del select con los nombres de los usuarios obtenidos
+      const listaNombresSelect = $('#listaNombres');
+      listaNombresSelect.empty(); // Limpiar las opciones actuales
+
+      if (usuariosExcluyendoId.length > 0) {
+        usuariosExcluyendoId.forEach((nombreUsuario, index) => {
+          listaNombresSelect.append(`<option value="${index}">${nombreUsuario}</option>`);
+        });
+      } else {
+        listaNombresSelect.append('<option value="" disabled selected>No hay usuarios disponibles</option>');
+      }
+    } catch (error) {
+      console.error('Error al obtener usuarios excluyendo id:', error);
+    }
   });
+
+
 
 
 
@@ -264,6 +290,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       return null;
     }
   }
+
+
 
 
 
