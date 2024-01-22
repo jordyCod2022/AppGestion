@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
-  const Encargados=obtenerUsuariosExcluyendoId(nombreData.id_colaborador);
+  const Encargados= await obtenerUsuariosExcluyendoId(nombreData.id_colaborador);
   console.log(Encargados)
   const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, getCurrentDate());
 
