@@ -57,8 +57,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Llena el modal con la información correspondiente
     $('.detallesTransfer').html('<p>Id: ' + data.id_incidente + '</p>' +
                                 '<p>Incidente: ' + data.incidente_descrip + '</p>' +
-                                '<p>Usuario: ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>' +
-                                '<button class="cerrarModal">Cerrar</button>');
+                                '<p>Usuario: ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>');
 
     // Muestra el modal y el overlay
     $('.modalTrasferencia').css('display', 'block');

@@ -10,12 +10,11 @@
 
 .modalTrasferencia {
   position: fixed;
-  display: none;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 200px;
-  height: 300px;
+  height: 350px;
   padding: 20px;
   background: #fff;
   border-radius: 10px;
@@ -93,12 +92,22 @@ button:hover svg {
   transform: rotate(45deg);
 }
 
-
-
-.detallesTransfer{
-  background-color: #4a00e0;
-  height: 40%;
+.styleDetalleslabel {
+  font-family: 'Arial', sans-serif; /* Tipo de fuente (puedes cambiar 'Arial' por otra fuente) */
+  font-size: 14px; /* Tamaño de la fuente */
+  color: #000000; /* Color del texto */
+  text-transform: uppercase; /* Convertir el texto a mayúsculas */
+  letter-spacing: 1px; /* Espaciado entre caracteres */
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3); /* Sombra del texto */
 }
+
+
+.detallesTransfer {
+  height: 40%;
+  border: 1px solid #000; /* Agrega un borde de 1 píxel sólido de color negro */
+  padding: 5px; /* Añade relleno para separar el contenido del borde */
+}
+
 
 .listaEncargados{
   font-size: 13px; /* Ajusta el tamaño de fuente según tus necesidades */
@@ -924,7 +933,20 @@ td img {
   align-items: center;
   font-size: 13px;
   box-shadow: rgba(150, 143, 143, 0.2) 0px 2px 8px 0px;
+  
 
+}
+
+.divCerrar{
+ 
+  height: 20px;
+  display: flex;
+  
+}
+
+#iconosss{
+  margin-left: 180px;
+  color: #f70000;
 }
 
 .button:hover {
