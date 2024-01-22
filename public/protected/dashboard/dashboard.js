@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
- 
+  // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
@@ -94,7 +94,7 @@ $('.factura-label').css({
       const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
       if (confirmLogout) {
         localStorage.removeItem('nombreData');
-        window.location.href = '../../index.html';
+        window.location.href = '../../index.html'; // Redirige y reemplaza la entrada en el historial
         window.history.replaceState(null, '', '../../index.html');
       }
     });
@@ -271,6 +271,8 @@ $('.factura-label').css({
       return null;
     }
   }
+  
+
 
   const lineChartContainer = document.getElementById('barLineContainer');
 
