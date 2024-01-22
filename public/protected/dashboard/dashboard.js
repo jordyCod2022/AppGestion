@@ -287,8 +287,6 @@ $('.factura-label').css({
       const dataAdmin = await respuestaAdmin.json();
       console.log("data: ", dataAdmin)
   
-      // Aquí debes manejar los datos obtenidos (dataAdmin) y actualizar el select
-      // Por ejemplo, podrías recorrer los datos y agregar opciones al select
       const selectNombres = document.getElementById('listaNombres');
       selectNombres.innerHTML = ''; // Limpiar opciones actuales
   
