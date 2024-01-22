@@ -948,6 +948,7 @@ td img {
 #iconosss{
   margin-left: 180px;
   color: #f70000;
+  cursor: pointer;
 }
 
 .button:hover {
