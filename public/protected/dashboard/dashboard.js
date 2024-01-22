@@ -23,8 +23,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
   const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
-  const usuariosExcluyendoId = await obtenerUsuariosExcluyendoId(nombreData.id_colaborador);
-  console.log(usuariosExcluyendoId);
 
   const dataTable = $('#miTabla').DataTable({
     data: incidencias,
@@ -428,23 +426,7 @@ $('#miTabla').on('click', '.button', function () {
     }
   }
 
-  async function obtenerUsuariosExcluyendoId(idAsignacionUserExcluir) {
-    try {
-      const usuariosResponse = await fetch('/getUsuariosExcluyendoId', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id_asignacion_user: idAsignacionUserExcluir })
-      });
   
-      const usuariosData = await usuariosResponse.json();
-      return usuariosData.map(usuario => `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`);
-    } catch (error) {
-      console.error('Error al obtener usuarios excluyendo id:', error);
-      return [];
-    }
-  }
 
 
 
