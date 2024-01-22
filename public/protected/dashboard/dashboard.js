@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', async () => {
-  // Recupera los datos almacenados en localStorage
+ 
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
   const nombreUser = document.getElementById('myContainer');
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 
 
-  // Evento para cerrar el modal al hacer clic en cualquier parte de él
+
 $('.modalTrasferencia').on('click', function (e) {
   if (e.target.id === 'iconosss') {
     // Si se hace clic en el ícono de cerrar, cierra el modal
@@ -59,7 +59,6 @@ $('.modalTrasferencia').on('click', function (e) {
   }
 });
 
-// Evento para abrir el modal al hacer clic en el botón de la tabla
 $('#miTabla').on('click', '.button', function () {
   // Obtén la fila correspondiente al botón clickeado
   const data = dataTable.row($(this).closest('tr')).data();
@@ -75,11 +74,11 @@ $('#miTabla').on('click', '.button', function () {
 
 // Agrega estilos CSS en línea para el tipo de letra y otros estilos de factura
 $('.factura-label').css({
-  'font-family': 'Arial, sans-serif', // Puedes ajustar la fuente según tus preferencias
-  'font-size': '14px',                // Puedes ajustar el tamaño de la fuente según tus preferencias
+  'font-family': 'Arial, sans-serif', 
+  'font-size': '14px',               
   'font-weight': 'bold',
-  'color': '#000',                    // Puedes ajustar el color del texto según tus preferencias
-  'margin-bottom': '5px'              // Puedes ajustar el espaciado inferior según tus preferencias
+  'color': '#000',                  
+  'margin-bottom': '5px'              
 });
 
 
@@ -88,14 +87,14 @@ $('.factura-label').css({
 
   
 
-  // Agrega la funcionalidad al botón de cerrar sesión
+ 
   const logoutButton = document.querySelector('.salir');
   if (logoutButton) {
     logoutButton.addEventListener('click', () => {
       const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
       if (confirmLogout) {
         localStorage.removeItem('nombreData');
-        window.location.href = '../../index.html'; // Redirige y reemplaza la entrada en el historial
+        window.location.href = '../../index.html';
         window.history.replaceState(null, '', '../../index.html');
       }
     });
