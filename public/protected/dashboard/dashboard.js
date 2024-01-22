@@ -50,6 +50,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
   });
 
+
   // Evento para cerrar el modal al hacer clic en cualquier parte de él
 $('.modalTrasferencia').on('click', function (e) {
   if (e.target.id === 'iconosss') {
@@ -63,17 +64,24 @@ $('#miTabla').on('click', '.button', function () {
   // Obtén la fila correspondiente al botón clickeado
   const data = dataTable.row($(this).closest('tr')).data();
 
-  // Llena el modal con la información correspondiente
-  $('.detallesTransfer').html('<p>Id: ' + data.id_incidente + '</p>' +
-                              '<p>Incidente: ' + data.incidente_descrip + '</p>' +
-                              '<p>Usuario: ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>');
+  // Llena el modal con la información correspondiente y aplica estilos de factura
+  $('.detallesTransfer').html('<p><span class="factura-label">Id:</span> ' + data.id_incidente + '</p>' +
+                              '<p><span class="factura-label">Incidente:</span> ' + data.incidente_descrip + '</p>' +
+                              '<p><span class="factura-label">Usuario:</span> ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>');
 
   // Muestra el modal y el overlay
   $('.modalTrasferencia').css('display', 'block');
 });
 
+// Agrega estilos CSS en línea para el tipo de letra y otros estilos de factura
+$('.factura-label').css({
+  'font-family': 'Arial, sans-serif', // Puedes ajustar la fuente según tus preferencias
+  'font-size': '14px',                // Puedes ajustar el tamaño de la fuente según tus preferencias
+  'font-weight': 'bold',
+  'color': '#000',                    // Puedes ajustar el color del texto según tus preferencias
+  'margin-bottom': '5px'              // Puedes ajustar el espaciado inferior según tus preferencias
+});
 
-  
 
 
 
