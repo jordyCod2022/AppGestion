@@ -240,7 +240,28 @@
                 <th class="small-header">Accion</th>
               </thead>
               <tbody>
-                
+                <tr>
+                  <td>Dato 1</td>
+                  <td>Dato 2</td>
+                  <td>Dato 2</td>
+
+                  <td>
+                    <button class="button">
+                      <svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+                          stroke-linejoin="round" stroke-linecap="round"></path>
+                      </svg>
+                      Enviar
+
+
+                    </button>
+                  </td>
+
+                  <!-- Agrega más filas y datos según sea necesario -->
+                </tr>
+
 
 
               </tbody>
@@ -252,6 +273,47 @@
       </div>
 
 
+
+
+
+      <div class="modalTrasferencia">
+        <div class="tituloPorUsuario">
+          <p class="nuevo" id="actividadesRecientes">Detalles de la trasferencia</p>
+        </div>
+        <div class="detallesTransfer"> 
+
+        </div>
+
+        <label class="listaEncargados" for="listaNombres">Selecciona un encargado:</label>
+        <select class="selectCuadro" id="listaNombres">
+          <option value="nombre1">Nombre 1</option>
+          <option value="nombre2">Nombre 2</option>
+          <option value="nombre3">Nombre 3</option>
+          <!-- Agrega más opciones según sea necesario -->
+        </select>
+
+        
+        <div class="enviarButton">
+          <button>
+            <div class="svg-wrapper-1">
+              <div class="svg-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                  <path fill="none" d="M0 0h24v24H0z"></path>
+                  <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                </svg>
+              </div>
+            </div>
+            <span>Enviar</span>
+          </button>
+
+        </div>
+
+        <div class="overlay"></div>
+
+        
+      </div>
+
+      
 
 
     </article>

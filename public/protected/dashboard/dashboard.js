@@ -50,6 +50,35 @@ document.addEventListener('DOMContentLoaded', async () => {
     // ... (otras opciones si es necesario)
   });
 
+   $('#miTabla').on('click', '.button', function () {
+    // Obtén la fila correspondiente al botón clickeado
+    const data = dataTable.row($(this).closest('tr')).data();
+
+    // Llena el modal con la información correspondiente
+    $('.detallesTransfer').html('<p>Id: ' + data.id_incidente + '</p>' +
+                                '<p>Incidente: ' + data.incidente_descrip + '</p>' +
+                                '<p>Usuario: ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>' +
+                                '<button class="cerrarModal">Cerrar</button>');
+
+    // Muestra el modal y el overlay
+    $('.modalTrasferencia').css('display', 'block');
+  });
+
+  // Evento para cerrar el modal al hacer clic fuera de él o al hacer clic en el botón de cerrar
+  $('.modalTrasferencia').on('click', function () {
+    $('.modalTrasferencia').css('display', 'none');
+  });
+
+  // Evento para evitar que el clic dentro del modal lo cierre
+  $('.modalTrasferencia').on('click', function (e) {
+    e.stopPropagation();
+  });
+
+  // ... (código existente)
+
+
+  
+
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
   if (logoutButton) {

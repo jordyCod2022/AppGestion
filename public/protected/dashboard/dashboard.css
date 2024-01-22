@@ -1,56 +1,133 @@
 /* styles.css */
 
 
-@media (max-width: 767px) {
+@media (max-width: 742px) {
 
-  .card {
-    width: calc(50% - 20px);
-  }
-  .ContenedorDashboard {
-    width: 60%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  .graficosEstadisticos {
-    flex-direction: column;
-    height: auto;
-  }
 
-  .graficoSemanal_Labels,
-  .graficoSemanal_diagrama {
-    width: 100%;
-  }
-
-  #graficoPersona {
-    margin-left: 0;
-    flex: 1;
-  }
-
-  #actividadReciente{
-    margin-left: 0;
-    flex: 1;
-  }
-
-  #graficoSemanal {
-    flex: 1;
-  }
-
-  .tituloPorUsuario {
-    text-align: center;
-  }
-
-  .graficar,
-  .graficarSemanal {
-    height: auto;
-  }
-
-  #tituloSemana,
-  #totalSemana,
-  .cssbuttons-io {
-    margin-left: 0;
-  }
+  
 }
+
+
+.modalTrasferencia {
+  position: fixed;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 300px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+
+.enviarButton{
+ 
+  margin-top: 50px;
+  height: 40px;
+  display: flex;
+
+  justify-content: center;
+
+}
+
+button {
+  font-family: inherit;
+  font-size: 15px;
+  background: linear-gradient(to bottom, #4dc7d9 0%,#66a6ff 100%);
+  color: white;
+  padding: 0.8em 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+}
+
+button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button span {
+  display: block;
+  margin-left: 0.4em;
+  transition: all 0.3s;
+}
+
+button svg {
+  width: 18px;
+  height: 18px;
+  fill: white;
+  transition: all 0.3s;
+}
+
+button .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-right: 0.5em;
+  transition: all 0.3s;
+}
+
+button:hover .svg-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+button:hover svg {
+  transform: rotate(45deg);
+}
+
+
+
+.detallesTransfer{
+  background-color: #4a00e0;
+  height: 40%;
+}
+
+.listaEncargados{
+  font-size: 13px; /* Ajusta el tamaño de fuente según tus necesidades */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
+}
+
+.selectCuadro {
+  width: 100%;
+  padding: 8px;
+  font-size: 11px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.selectCuadro:hover, .selectCuadro:focus {
+  border-color: #66afe9;
+  box-shadow: 0 2px 8px rgba(102, 175, 233, 0.6);
+}
+
+
+
+
+/* Puedes agregar estilos adicionales para el contenido del modal */
 
 
 
@@ -729,6 +806,7 @@ height: 30px;
   margin-right: 5px;
   margin-bottom: 10px;
   border-radius: 15px;
+
 }
 
 .ContenedorAccionesseccion2{
@@ -739,6 +817,7 @@ height: 30px;
   margin-right: 10px;
   margin-bottom: 10px;
   border-radius: 15px;
+
 }
 
 
@@ -852,3 +931,5 @@ td img {
 .saveicon {
   width: 17px;
 }
+
+
