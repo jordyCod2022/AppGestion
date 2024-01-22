@@ -22,9 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
-  const Encargados= await obtenerUsuariosExcluyendoId(nombreData.id_colaborador);
-  console.log(Encargados)
-  const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, getCurrentDate());
+  const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
 
   const dataTable = $('#miTabla').DataTable({
     data: incidencias,
@@ -47,40 +45,40 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     ],
     paging: true,
-    pageLength: 3,
+    pageLength: 3, 
     lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
-
+    
   });
 
   // Evento para cerrar el modal al hacer clic en cualquier parte de él
-  $('.modalTrasferencia').on('click', function (e) {
-    if (e.target.id === 'iconosss') {
-      // Si se hace clic en el ícono de cerrar, cierra el modal
-      $('.modalTrasferencia').css('display', 'none');
-    }
-  });
+$('.modalTrasferencia').on('click', function (e) {
+  if (e.target.id === 'iconosss') {
+    // Si se hace clic en el ícono de cerrar, cierra el modal
+    $('.modalTrasferencia').css('display', 'none');
+  }
+});
 
-  // Evento para abrir el modal al hacer clic en el botón de la tabla
-  $('#miTabla').on('click', '.button', function () {
-    // Obtén la fila correspondiente al botón clickeado
-    const data = dataTable.row($(this).closest('tr')).data();
+// Evento para abrir el modal al hacer clic en el botón de la tabla
+$('#miTabla').on('click', '.button', function () {
+  // Obtén la fila correspondiente al botón clickeado
+  const data = dataTable.row($(this).closest('tr')).data();
 
-    // Llena el modal con la información correspondiente
-    $('.detallesTransfer').html('<p>Id: ' + data.id_incidente + '</p>' +
-      '<p>Incidente: ' + data.incidente_descrip + '</p>' +
-      '<p>Usuario: ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>');
+  // Llena el modal con la información correspondiente
+  $('.detallesTransfer').html('<p>Id: ' + data.id_incidente + '</p>' +
+                              '<p>Incidente: ' + data.incidente_descrip + '</p>' +
+                              '<p>Usuario: ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>');
 
-    // Muestra el modal y el overlay
-    $('.modalTrasferencia').css('display', 'block');
-  });
-
-
+  // Muestra el modal y el overlay
+  $('.modalTrasferencia').css('display', 'block');
+});
 
 
-
+  
 
 
 
+
+  
 
   // Agrega la funcionalidad al botón de cerrar sesión
   const logoutButton = document.querySelector('.salir');
@@ -133,7 +131,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       getCurrentDate(dateStr);
       updateGraficaLineal(dateStr)
       localStorage.setItem('dashboardFecha', dateStr);
-      getAndShowIncidencias(nombreData.id_colaborador, dateStr)
+      getAndShowIncidencias(nombreData.id_colaborador,dateStr)
     },
   });
 
@@ -258,7 +256,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         },
         body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
       });
-
+  
       const avatarData = await avatarResponse.json();
       return avatarData.imagen_colaborador;
     } catch (error) {
@@ -266,25 +264,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       return null;
     }
   }
-
-  async function obtenerUsuariosExcluyendoId(idAsignacionUserExcluir) {
-  try {
-    const usuariosResponse = await fetch('/getUsuariosExcluyendoId', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ id_asignacion_user: idAsignacionUserExcluir })
-    });
-
-    const usuariosData = await usuariosResponse.json();
-    return usuariosData.map(usuario => `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`);
-  } catch (error) {
-    console.error('Error al obtener usuarios excluyendo id:', error);
-    return [];
-  }
-}
   
+
 
   const lineChartContainer = document.getElementById('barLineContainer');
 
@@ -383,47 +364,47 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function updateUltimosIncidentes(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
-
+  
     // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  
     // Verificar si hay datos y obtener id_asignacion_user
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       // Obtener los últimos incidentes con la nueva fecha
       const ultimosIncidentesResponse = await fetch(`/getUltimosIncidentes?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-
+  
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const ultimosIncidentesData = await ultimosIncidentesResponse.json();
       console.log('Resultados de los últimos incidentes:', ultimosIncidentesData);
-
+  
       // Actualizar la tabla de actividades recientes
       const tablaUltimosReportes = document.getElementById('tablaUltimosReportes');
-
+  
       if (tablaUltimosReportes) {
-
-
+       
+  
         // Crear las nuevas filas con los datos de los últimos incidentes
         ultimosIncidentesData.forEach(incidente => {
           const fila = document.createElement('tr');
           const avatarCol = document.createElement('td');
           const nombreReportadorCol = document.createElement('td');
           const incidenteCol = document.createElement('td');
-
+  
           const avatarImg = document.createElement('img');
           avatarImg.src = incidente.imagen_colaborador;
           avatarImg.alt = 'Avatar';
           avatarCol.appendChild(avatarImg);
-
+  
           nombreReportadorCol.textContent = `${incidente.nombre_reportador}`;
           incidenteCol.textContent = `${incidente.incidente_descrip}`;
-
+  
           fila.appendChild(avatarCol);
           fila.appendChild(nombreReportadorCol);
           fila.appendChild(incidenteCol);
-
+  
           tablaUltimosReportes.appendChild(fila);
         });
       } else {
@@ -437,14 +418,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaDashboard}`);
       const incidencias = await response.json();
       console.log('Respuesta de incidencias:', incidencias);
-
+  
       return incidencias; // Retorna las incidencias obtenidas
     } catch (error) {
       console.error('Error al obtener y mostrar incidencias:', error);
       return []; // Retorna un array vacío en caso de error
     }
   }
-
+  
 
 
 
