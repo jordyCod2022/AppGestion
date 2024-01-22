@@ -681,6 +681,9 @@ height: 30px;
   
 }
 
+.totalSemana{
+  margin-top: 20px;
+}
 
 
 
@@ -745,8 +748,9 @@ height: 30px;
   display: block;
   position: relative;
   font-family: inherit;
-  font-weight: 500;
-  font-size: 18px;
+  font-weight: 300;
+  font-size: 12px;
+  margin-top: 50px;
   letter-spacing: 0.05em;
   border-radius: 0.8em;
   cursor: pointer;
