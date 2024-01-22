@@ -284,7 +284,7 @@ app.post('/login', async (req, res) => {
 app.post('/getUsuariosExcluyendoId', async (req, res) => {
 
   const idAsignacionUser = req.query.id_asignacion_user;
-
+  console.log("MI ID recibido server: ", idAsignacionUser)
   try {
     const result = await pool.query(`
       SELECT au.id_asignacion_user, c.nombre_colaborador, c.apellido_colaborador

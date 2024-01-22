@@ -274,6 +274,7 @@ $('.factura-label').css({
   }
 
   async function obtenerAdmin(idAsignacionUser) {
+    console.log("MI ID DESDE OBTENER ADMIN: ", idAsignacionUser)
     try {
       const respuestaAdmin = await fetch('/getUsuariosExcluyendoId', {
         method: 'POST',
