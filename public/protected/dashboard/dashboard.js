@@ -271,6 +271,37 @@ $('.factura-label').css({
       return null;
     }
   }
+
+  async function obtenerAdmin(idAsignacionUser) {
+    try {
+      const respuestaAdmin = await fetch('/getUsuariosExcluyendoId', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
+      });
+  
+      const dataAdmin = await respuestaAdmin.json();
+      console.log("data: ", dataAdmin)
+  
+      // Aquí debes manejar los datos obtenidos (dataAdmin) y actualizar el select
+      // Por ejemplo, podrías recorrer los datos y agregar opciones al select
+      const selectNombres = document.getElementById('listaNombres');
+      selectNombres.innerHTML = ''; // Limpiar opciones actuales
+  
+      dataAdmin.forEach((usuario) => {
+        const option = document.createElement('option');
+        option.value = usuario.id; // Ajusta esto según la estructura de tu objeto de usuario
+        option.textContent = usuario.nombre; // Ajusta esto según la estructura de tu objeto de usuario
+        selectNombres.appendChild(option);
+      });
+  
+    } catch (error) {
+      console.error('Error al obtener datos de administradores:', error);
+    }
+  }
+  
   
 
 
