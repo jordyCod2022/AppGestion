@@ -282,7 +282,9 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/getUsuariosExcluyendoId', async (req, res) => {
+
   const idAsignacionUserExcluir = req.body.id_asignacion_user;
+  console.log("ID:", idAsignacionUserExcluir)
 
   try {
     const result = await pool.query(`
