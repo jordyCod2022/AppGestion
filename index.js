@@ -283,10 +283,7 @@ app.post('/login', async (req, res) => {
 
 app.post('/getUsuariosExcluyendoId', async (req, res) => {
 
-  console.log("req.body:", req.body);
-  const idAsignacionUserExcluir = req.body.id_asignacion_user;
-  console.log("ID:", idAsignacionUserExcluir);
-  
+  const idAsignacionUser = req.query.id_asignacion_user;
 
   try {
     const result = await pool.query(`
@@ -294,7 +291,7 @@ app.post('/getUsuariosExcluyendoId', async (req, res) => {
       FROM public.asignacion_user au
       JOIN public.colaboradores c ON au.id_usuario = c.id_colaborador
       WHERE au.id_asignacion_user <> $1;
-    `, [idAsignacionUserExcluir]);
+    `, [idAsignacionUser]);
 
     if (result.rows.length > 0) {
       const usuariosExcluyendoId = result.rows;
