@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGrafica(getCurrentDate());
   updateGraficaLineal(getCurrentDate());
   updateUltimosIncidentes(getCurrentDate());
+  obtenerAdmin(nombreData.id_colaborador);
   const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
 
   const dataTable = $('#miTabla').DataTable({
