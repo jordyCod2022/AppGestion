@@ -104,8 +104,8 @@ button:hover svg {
 
 
 .detallesTransfer {
+  margin-top: 5px;
   height: 40%;
-  border: 1px solid #000; /* Agrega un borde de 1 píxel sólido de color negro */
   padding: 5px; /* Añade relleno para separar el contenido del borde */
 }
 
@@ -419,6 +419,8 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 }
 
 
+
+
 #contenedorImagen {
   margin-bottom: 15px;
   display: flex;
@@ -605,6 +607,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   
   width: 40%;
 
+
  
 
 }
@@ -616,23 +619,9 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   width: 70%;
 }
 
-#graficoPersona {
-  margin-left: 10px;
-  flex: 1;
-  background-color: #ededed;
-  border-radius: 15px;
-  
- 
 
-}
 
-#graficoSemanal{
-  background-color: #ededed;
-  border-radius: 15px;
-  display: flex;
-  flex: 2;
 
-}
 
 #ticketsUser{
   margin-top: 10PX;
@@ -666,7 +655,7 @@ height: 30px;
   margin-right: 10px;
   height: 230px;
   border-radius: 15px;
-  border: 3px solid #ddd;
+  border: 2px solid #ddd;
 
 }
 
@@ -788,11 +777,16 @@ height: 30px;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
 }
+.factura-label {
+  font-size: 15px;
+  color: #000000;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif;
 
-
+}
 #actividadesRecientes{
   margin-top: 10PX;
-  font-size: 15PX;
+  font-size: 14PX;
   text-align: initial;
   padding-left: 10px;
   font-family: 'Montserrat', sans-serif;
@@ -821,6 +815,7 @@ height: 30px;
   margin-bottom: 10px;
   border-radius: 15px;
 
+
 }
 
 .ContenedorAccionesseccion2{
@@ -831,6 +826,25 @@ height: 30px;
   margin-right: 10px;
   margin-bottom: 10px;
   border-radius: 15px;
+ 
+
+}
+
+#graficoPersona {
+  margin-left: 10px;
+  flex: 1;
+  background-color: #ededed;
+  border-radius: 15px;
+  
+
+}
+
+#graficoSemanal{
+  background-color: #ededed;
+  border-radius: 15px;
+  display: flex;
+  flex: 2;
+
 
 }
 
@@ -960,4 +974,30 @@ td img {
   width: 17px;
 }
 
+.mensaje-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto; /* Esto centra horizontalmente */
+  width: 50%;
+  text-align: center;
+  z-index: 1000;
+}
 
+
+.mensaje {
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.success {
+  background-color: #28a745; /* Verde */
+}
+
+.error {
+  background-color: #dc3545; /* Rojo */
+}

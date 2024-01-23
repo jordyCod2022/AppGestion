@@ -1,10 +1,32 @@
+let lineChartContainer;
+let barBarrasContainer;
+let globalidAsignacion;
+let nuevoAdmin;
 document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  const nombreUser = document.getElementById('myContainer');
+  //Varible que tiene el id del admin 
+ 
+
+  obtenerAdmin(nombreData.id_colaborador);
+  const barChartContainer = document.getElementById('barChartContainer');
+  const barLineContainer = document.getElementById('barLineContainer');
+  const enviarButton = document.querySelector('.enviarButton button');
+  if (barChartContainer && barLineContainer) {
+    barBarrasContainer = barChartContainer;
+    lineChartContainer = barLineContainer;
+  } else {
+    console.error('Elemento con ID "barChartContainer" no encontrado en el DOM.');
+    console.error('Elemento con ID "barLineContainer" no encontrado en el DOM.');
+    return;
+  }
+
+ 
+
 
   const avatarUrl = await obtenerAvatar(nombreData.id_colaborador);
+  
   if (avatarUrl) {
     // Obtener el elemento de la imagen por su ID
     const imagenColaboradorElement = document.getElementById('imagenColaborador');
@@ -18,11 +40,16 @@ document.addEventListener('DOMContentLoaded', async () => {
   console.log(nombreData)
 
   //Llamada de funciones principales
-  updateTotalesIncidencias(getCurrentDate());
-  updateGrafica(getCurrentDate());
-  updateGraficaLineal(getCurrentDate());
-  updateUltimosIncidentes(getCurrentDate());
-  const incidencias= await getAndShowIncidencias(nombreData.id_colaborador,getCurrentDate());
+  const currentDate = getCurrentDate();
+
+
+  updateGrafica(currentDate);
+  updateGraficaLineal(currentDate);
+  updateTotalesIncidencias(currentDate);
+  updateUltimosIncidentes(currentDate);
+  
+  const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, currentDate);
+
 
   const dataTable = $('#miTabla').DataTable({
     data: incidencias,
@@ -45,49 +72,67 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     ],
     paging: true,
-    pageLength: 3, 
+    pageLength: 3,
     lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
-    
+
   });
 
 
 
-$('.modalTrasferencia').on('click', function (e) {
-  if (e.target.id === 'iconosss') {
-    // Si se hace clic en el ícono de cerrar, cierra el modal
-    $('.modalTrasferencia').css('display', 'none');
-  }
-});
+  $('.modalTrasferencia').on('click', function (e) {
+    if (e.target.id === 'iconosss') {
+      // Si se hace clic en el ícono de cerrar, cierra el modal
+      $('.modalTrasferencia').css('display', 'none');
+    }
+  });
 
-$('#miTabla').on('click', '.button', function () {
-  // Obtén la fila correspondiente al botón clickeado
-  const data = dataTable.row($(this).closest('tr')).data();
+  $('#miTabla').on('click', '.button', function () {
+    // Obtén la fila correspondiente al botón clickeado
+    const data = dataTable.row($(this).closest('tr')).data();
+    nuevoAdmin=data.id_incidente
 
-  // Llena el modal con la información correspondiente y aplica estilos de factura
-  $('.detallesTransfer').html('<p><span class="factura-label">Id:</span> ' + data.id_incidente + '</p>' +
-                              '<p><span class="factura-label">Incidente:</span> ' + data.incidente_descrip + '</p>' +
-                              '<p><span class="factura-label">Usuario:</span> ' + data.nombre_colaborador + ' ' + data.apellido_colaborador + '</p>');
+    enviarButton.addEventListener('click', async () => {
 
-  // Muestra el modal y el overlay
-  $('.modalTrasferencia').css('display', 'block');
-});
+      console.log(nuevoAdmin)
+      console.log(globalidAsignacion)
+     
+    
+      actualizarAsignacionUser(nuevoAdmin, globalidAsignacion);
+      
+     
+      console.log('Botón Enviar clickeado');
+    });
+    // Llena el modal con la información correspondiente y aplica estilos de factura
+    $('.detallesTransfer').html(`
+    <table class="detallesTable">
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+        </tr>
+        <tr>
+            <td class="labelTransfer"><span class="factura-label">Id</span></td>
+            <td>${data.id_incidente}</td>
+        </tr>
+        <tr>
+            <td class="labelTransfer"><span class="factura-label">Incidente</span></td>
+            <td>${data.incidente_descrip}</td>
+        </tr>
+        <tr>
+            <td class="labelTransfer"><span class="factura-label">Usuario</span></td>
+            <td>${data.nombre_colaborador} ${data.apellido_colaborador}</td>
+        </tr>
+    </table>
+`);
 
-// Agrega estilos CSS en línea para el tipo de letra y otros estilos de factura
-$('.factura-label').css({
-  'font-family': 'Arial, sans-serif', 
-  'font-size': '14px',               
-  'font-weight': 'bold',
-  'color': '#000',                  
-  'margin-bottom': '5px'              
-});
+
+    // Muestra el modal y el overlay
+    $('.modalTrasferencia').css('display', 'block');
+  });
+
+  // Agrega estilos CSS en línea para el tipo de letra y otros estilos de factura
 
 
 
-
-
-  
-
- 
   const logoutButton = document.querySelector('.salir');
   if (logoutButton) {
     logoutButton.addEventListener('click', () => {
@@ -103,13 +148,7 @@ $('.factura-label').css({
   }
 
 
-  // Obtener elementos del DOM
-  const currentDateContainer = document.querySelector('.current-date-container');
-
-  // Crear elemento para la fecha
   const dateContainer = document.createElement('span');
-
-  var dropdown = document.querySelector('.dropdown');
 
 
   // Función para obtener la fecha actual
@@ -138,7 +177,7 @@ $('.factura-label').css({
       getCurrentDate(dateStr);
       updateGraficaLineal(dateStr)
       localStorage.setItem('dashboardFecha', dateStr);
-      getAndShowIncidencias(nombreData.id_colaborador,dateStr)
+      getAndShowIncidencias(nombreData.id_colaborador, dateStr)
     },
   });
 
@@ -187,34 +226,32 @@ $('.factura-label').css({
 
 
 
-  const barChartContainer = document.getElementById('barChartContainer');
-
   // Obtener datos del servidor y actualizar el gráfico
   async function updateGrafica(newDate) {
-    localStorage.setItem('dashboardFecha', newDate);
+    console.log('Entrando a updateGrafica');
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       // Obtener datos de incidencias con la nueva fecha
       const totalesResponse = await fetch(`/getIncidenciasGrafico?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const totalesData = await totalesResponse.json();
       console.log('Resultados de las gráficas:', totalesData);
-
+  
       // Destruir el gráfico existente si hay uno
       if (window.barChart) {
         window.barChart.destroy();
       }
-
+  
       // Crear arrays para etiquetas (nombres) y datos (cantidades)
       const etiquetas = totalesData.map(item => item.nombre_reportador);
       const datos = totalesData.map(item => item.total_incidentes);
-
+  
       // Crear el gráfico de barras vertical
-      window.barChart = new Chart(barChartContainer, {
+      window.barChart = new Chart(barBarrasContainer, {
         type: 'bar',
         data: {
           labels: etiquetas,
@@ -223,7 +260,6 @@ $('.factura-label').css({
             data: datos,
             backgroundColor: 'rgba(0, 123, 255, 0.5)', // Azul claro con transparencia
             borderColor: 'rgba(0, 123, 255, 1)', // Azul sólido para los bordes
-
             borderWidth: 1
           }]
         },
@@ -263,7 +299,7 @@ $('.factura-label').css({
         },
         body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
       });
-  
+
       const avatarData = await avatarResponse.json();
       return avatarData.imagen_colaborador;
     } catch (error) {
@@ -271,13 +307,10 @@ $('.factura-label').css({
       return null;
     }
   }
-  
-
-
-  const lineChartContainer = document.getElementById('barLineContainer');
 
   async function updateGraficaLineal(newDate) {
-    localStorage.setItem('dashboardFecha', newDate);
+    console.log('Entrando a updateGraficaLINEAL');
+    
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
 
@@ -297,7 +330,6 @@ $('.factura-label').css({
           // Sumar los total_incidentes
           const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + parseInt(item.total_incidentes, 10), 0);
 
-
           console.log('Suma total de incidentes:', sumaTotalIncidentes);
           const totalSemanaElement = document.getElementById('totalSemana');
           if (totalSemanaElement) {
@@ -305,7 +337,6 @@ $('.factura-label').css({
           } else {
             console.error('No se encontró el elemento con id "totalSemana"');
           }
-
 
           // Destruir el gráfico existente si hay uno
           if (window.lineChart) {
@@ -316,7 +347,7 @@ $('.factura-label').css({
           const etiquetas = totalesData.map(item => item.dia_semana);
           const datos = totalesData.map(item => item.total_incidentes);
 
-          // Crear el gráfico de línea (polígono de frecuencias) con interpolación cúbica
+          // Crear el gráfico de línea con interpolación cúbica
           window.lineChart = new Chart(lineChartContainer, {
             type: 'line',
             data: {
@@ -371,47 +402,47 @@ $('.factura-label').css({
 
   async function updateUltimosIncidentes(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
-  
+
     // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-  
+
     // Verificar si hay datos y obtener id_asignacion_user
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-  
+
       // Obtener los últimos incidentes con la nueva fecha
       const ultimosIncidentesResponse = await fetch(`/getUltimosIncidentes?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-  
+
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const ultimosIncidentesData = await ultimosIncidentesResponse.json();
       console.log('Resultados de los últimos incidentes:', ultimosIncidentesData);
-  
+
       // Actualizar la tabla de actividades recientes
       const tablaUltimosReportes = document.getElementById('tablaUltimosReportes');
-  
+
       if (tablaUltimosReportes) {
-       
-  
+
+
         // Crear las nuevas filas con los datos de los últimos incidentes
         ultimosIncidentesData.forEach(incidente => {
           const fila = document.createElement('tr');
           const avatarCol = document.createElement('td');
           const nombreReportadorCol = document.createElement('td');
           const incidenteCol = document.createElement('td');
-  
+
           const avatarImg = document.createElement('img');
           avatarImg.src = incidente.imagen_colaborador;
           avatarImg.alt = 'Avatar';
           avatarCol.appendChild(avatarImg);
-  
+
           nombreReportadorCol.textContent = `${incidente.nombre_reportador}`;
           incidenteCol.textContent = `${incidente.incidente_descrip}`;
-  
+
           fila.appendChild(avatarCol);
           fila.appendChild(nombreReportadorCol);
           fila.appendChild(incidenteCol);
-  
+
           tablaUltimosReportes.appendChild(fila);
         });
       } else {
@@ -425,7 +456,7 @@ $('.factura-label').css({
       const response = await fetch(`/getIncidencias?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${fechaDashboard}`);
       const incidencias = await response.json();
       console.log('Respuesta de incidencias:', incidencias);
-  
+
       return incidencias; // Retorna las incidencias obtenidas
     } catch (error) {
       console.error('Error al obtener y mostrar incidencias:', error);
@@ -433,11 +464,112 @@ $('.factura-label').css({
     }
   }
 
+  let globalidAsignacion; // Asegúrate de declarar esta variable global
+
+  async function obtenerAdmin(idAsignacionUser) {
+    console.log("MI ID DESDE OBTENER ADMIN: ", idAsignacionUser);
+    try {
+        const respuestaAdmin = await fetch(`/getUsuariosExcluyendoId?id_asignacion_user=${idAsignacionUser}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
+        });
+
+        const dataAdmin = await respuestaAdmin.json();
+        console.log("data: ", dataAdmin);
+
+        const selectNombres = document.getElementById('listaNombres');
+        // Limpia las opciones antes de agregar las nuevas
+        selectNombres.innerHTML = '';
+
+        // Agrega una opción en blanco por defecto
+        const blankOption = document.createElement('option');
+        blankOption.value = ''; // Otra opción podría ser '-1' o cualquier valor que no se utilice en tu caso
+        blankOption.textContent = 'Selecciona un encargado';
+        selectNombres.appendChild(blankOption);
+
+        dataAdmin.forEach((usuario) => {
+            const option = document.createElement('option');
+            option.value = usuario.id_asignacion_user;
+            option.textContent = `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`;
+            selectNombres.appendChild(option);
+        });
+
+        // Agrega el evento 'change' al elemento 'select'
+        selectNombres.addEventListener('change', () => {
+            // Obtiene el valor seleccionado (id_asignacion_user) al cambiar la opción
+            globalidAsignacion = selectNombres.value;
+            console.log('globalidAsignacion actualizado:', globalidAsignacion);
+        });
+
+    } catch (error) {
+        console.error('Error al obtener datos de administradores:', error);
+    }
+}
+
+
+
+  async function actualizarAsignacionUser(id_incidente, nuevo_id_asignacion_user) {
+    console.log("Llegue", id_incidente);
+    console.log("Llegue", nuevo_id_asignacion_user);
+
+    try {
+        const respuesta = await fetch('/actualizarAsignacionUser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_incidente, nuevo_id_asignacion_user })
+        });
+
+        const data = await respuesta.json();
+        console.log('Respuesta de actualización:', data);
+
+        if (data.success) {
+            console.log(`Campo id_asignacion_user en incidente ${id_incidente} actualizado.`);
+          
+          
+            mostrarMensaje('La transferencia fue exitosa', 'success');
+            $('.modalTrasferencia').css('display', 'none');
+           
+        } else {
+            console.error('Error al actualizar el campo id_asignacion_user.');
+            // Muestra un mensaje de error
+            mostrarMensaje('Error al actualizar el campo id_asignacion_user', 'error');
+        }
+    } catch (error) {
+        console.error('Error en la solicitud de actualización:', error);
+        // Muestra un mensaje de error
+        mostrarMensaje('Error en la solicitud de actualización', 'error');
+    }
+}
+
   
+function mostrarMensaje(mensaje, tipo) {
+  const mensajeContainer = document.getElementById('mensaje-container');
+
+  // Crear elemento para el mensaje
+  const mensajeElemento = document.createElement('div');
+  mensajeElemento.className = `mensaje ${tipo}`;
+  mensajeElemento.textContent = mensaje;
+
+  // Agregar el mensaje al contenedor
+  mensajeContainer.innerHTML = '';
+  mensajeContainer.appendChild(mensajeElemento);
+
+  // Desaparecer el mensaje después de unos segundos (puedes ajustar el tiempo)
+  setTimeout(() => {
+      mensajeContainer.innerHTML = '';
+  }, 2000); // Desaparecerá después de 5 segundos
+}
 
 
 
-  
+
+
+
 
 
 

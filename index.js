@@ -474,6 +474,33 @@ app.get('/getIncidenciasGrafico', async (req, res) => {
   }
 });
 
+// Ruta para actualizar el campo id_asignacion_user en la tabla incidente
+app.post('/actualizarAsignacionUser', async (req, res) => {
+  const { id_incidente, nuevo_id_asignacion_user } = req.body;
+
+  console.log("Lado server - id_incidente:", id_incidente);
+  console.log("Lado server - nuevo_id_asignacion_user:", nuevo_id_asignacion_user);
+
+  try {
+    const result = await pool.query(`
+      UPDATE public.incidente
+      SET id_asignacion_user = $1
+      WHERE id_incidente = $2;
+    `, [nuevo_id_asignacion_user, id_incidente]);
+
+    if (result.rowCount > 0) {
+      console.log(`Campo id_asignacion_user en incidente ${id_incidente} actualizado.`);
+      res.json({ success: true });
+    } else {
+      console.log(`No se encontró el incidente con id ${id_incidente}.`);
+      res.status(404).json({ error: 'Incidente no encontrado' });
+    }
+  } catch (error) {
+    console.error('Error en la actualización del campo id_asignacion_user:', error);
+    res.status(500).json({ error: 'Error al actualizar el campo id_asignacion_user' });
+  }
+});
+
 
 app.get('/getUltimosIncidentes', async (req, res) => {
   const fechaIncidencia = req.query.fecha_incidencia; 
