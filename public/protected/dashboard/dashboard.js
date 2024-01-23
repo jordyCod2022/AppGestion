@@ -533,6 +533,9 @@ document.addEventListener('DOMContentLoaded', async () => {
           
             mostrarMensaje('La transferencia fue exitosa', 'success');
             $('.modalTrasferencia').css('display', 'none');
+            setTimeout(() => {
+              location.reload();
+          }, 2000);
            
         } else {
             console.error('Error al actualizar el campo id_asignacion_user.');
