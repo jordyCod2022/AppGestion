@@ -44,6 +44,8 @@ button {
   transition: all 0.3s;
 }
 
+
+
 button:hover {
   transform: translateY(-3px);
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
@@ -583,7 +585,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 
 .graficoSemanal_diagrama{
-
+  
   width: 60%;
 }
 
@@ -623,6 +625,7 @@ height: 30px;
   margin-right: 10px;
   height: 230px;
   border-radius: 15px;
+  
 
 
 }
@@ -780,14 +783,14 @@ height: 30px;
 
 
 .ContenedorAccionesseccion1{
-  background-color: #e7f0e4;
+  background-color: #faf6ff;
   width: 100%;
   border-radius: 15px;
 
 }
 
 .ContenedorAccionesseccion2{
-  background-color: #e7f0e4;
+  background-color: #faf6ff;
   width: 100%;
   border-radius: 15px;
  
@@ -1064,7 +1067,7 @@ td img {
 }
 
 .GRID_ITEM1.pequeño {
-  background-color: #e7f0e4; /* Este elemento abarcará dos columnas */
+  background-color: #faf6ff; /* Este elemento abarcará dos columnas */
 }
 
 .ContenedorAcciones{
