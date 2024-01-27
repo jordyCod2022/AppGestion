@@ -31,7 +31,7 @@
       <div class="icono">
         <li id="iconoLogo" class="material-icons">track_changes</li>
       </div>
-    
+
       <ul id="IconosAside">
 
         <li>
@@ -43,38 +43,38 @@
         <li>
           <a class="pendientes" href="../pendIncidentes/pendIncidentes.html" data-tooltip="Incidentes reportados">
             <span> <i class="material-icons">pending_actions</i></span>
-          
+
           </a>
         </li>
-    
+
         <li>
           <a href="../usuarios/usuarios.html" data-tooltip="Usuarios">
             <span><i class="material-icons">people</i></span>
           </a>
         </li>
-        
-    
+
+
         <li>
           <a href="/" data-tooltip="Asignación de Tareas">
             <span><i class="material-icons">event</i></span>
-      
+
           </a>
         </li>
-    
+
         <li id="cambiarImagenPerfilLink">
           <a data-tooltip="Ajustes">
             <span><i class="material-icons">settings</i></span>
           </a>
         </li>
-        
+
 
       </ul>
-    
+
       <div class="nuevoContenedor">
         <div id="contenedorImagen">
           <img id="imagenColaborador" class="imagenColaborador">
         </div>
-    
+
         <!-- Botón de Salir -->
         <button id="ButtonSalir" class="salir">
           <div class="sign"><svg viewBox="0 0 512 512">
@@ -86,11 +86,11 @@
         </button>
       </div>
     </aside>
-    
+
 
     <article class="ContenedorDashboard">
 
-      <div class="ContenedorPadrefila1"></div>
+ 
 
       <div class="tituloApp">
         <span class="titulo"> Dashboard</span>
@@ -104,22 +104,22 @@
         </button>
       </div>
 
-      
+
       <div class="GRID_CONTAINER">
 
         <div class="GRID_ITEM" id="ticketsPendientes">
-          
+
           <div class="icon-wrapper">
             <i id="iconosMaterial" class="material-icons">pending_actions</i>
           </div>
           <div class="content-wrapper">
             <div class="name">0</div>
             <p class="label">Tickets pendientes</p>
-  
+
           </div>
         </div>
 
-        
+
         <div class="GRID_ITEM" id="ticketsResueltos">
           <div class="icon-wrapper">
             <i id="iconosMaterial" class="material-icons">check</i>
@@ -127,7 +127,7 @@
           <div class="content-wrapper">
             <div class="name">0</div>
             <p class="label">Tickets Resueltos</p>
-  
+
           </div>
         </div>
         <div class="GRID_ITEM" id="totalPrioridad">
@@ -135,7 +135,7 @@
             <i id="iconosMaterial" class="material-symbols-outlined">
               e911_emergency
             </i>
-  
+
           </div>
           <div class="content-wrapper">
             <div class="priorities">
@@ -152,21 +152,20 @@
                 <div class="value">0</div>
               </div>
             </div>
-  
+
           </div>
         </div>
-        <div class="GRID_ITEM">
+        <div class="GRID_ITEM" id="none">
 
         </div>
-       
+
 
       </div>
 
+      <div class="GRID_CONTAINER1">
 
+        <div class="GRID_ITEM1 grande" id="GridGraficoSemanal">
 
-      <div class="graficosEstadisticos">
-
-        <div id="graficoSemanal">
           <div class="graficoSemanal_Labels">
 
             <div class="tituloSemana">
@@ -187,136 +186,157 @@
             </div>
 
           </div>
+
+
           <div class="graficoSemanal_diagrama">
+
             <div class="graficarSemanal">
               <canvas id="barLineContainer"></canvas>
             </div>
-          </div>
-        </div>
 
 
-        <div id="graficoPersona">
-          <div class="tituloPorUsuario">
-            <p class="nuevo" id="actividadesRecientes">Distribución de Incidentes por Usuario</p>
+
           </div>
 
-          <div class="graficar">
-            <canvas id="barChartContainer"></canvas>
-          </div>
+
+
+
 
         </div>
 
+        <div class="GRID_ITEM1 pequeño" id="GridGraficoUsuario">
+
+          <div id="graficoPersona">
+
+            <div class="tituloPorUsuario">
+              <p class="nuevo" id="actividadesRecientes">Distribución de Incidentes por Usuario</p>
+            </div>
+
+            <div class="graficar">
+              <canvas id="barChartContainer"></canvas>
+            </div>
+
+          </div>
+        </div>
       </div>
 
-      <div class="ContenedorAcciones">
+      <div class="GRID_CONTAINER1">
 
-        <div class="ContenedorAccionesseccion1">
-          <div class="tituloPorUsuario">
-            <p class="nuevo" id="actividadesRecientes">Ultimos Reportes </p>
-          </div>
-          <div class="TablasDiv">
-            <!-- Tabla de últimos reportes -->
-            <table id="tablaUltimosReportes">
-              <thead>
-                <tr>
-                  <th>Avatar</th>
-                  <th>Reportador</th>
-                  <th>Incidente</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- Las filas se agregarán dinámicamente con JavaScript -->
-              </tbody>
-            </table>
+        <div class="GRID_ITEM1 pequeño">
+      
+          <div class="ContenedorAccionesseccion1">
+            <div class="tituloPorUsuario">
+              <p class="nuevo" id="actividadesRecientes">Ultimos Reportes </p>
+            </div>
+            <div class="TablasDiv">
+              <!-- Tabla de últimos reportes -->
+              <table id="tablaUltimosReportes">
+                <thead>
+                  <tr>
+                    <th>Avatar</th>
+                    <th>Reportador</th>
+                    <th>Incidente</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Las filas se agregarán dinámicamente con JavaScript -->
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-
-        <div class="ContenedorAccionesseccion2">
-          <p class="nuevo" id="actividadesRecientes">Transferencia rapida de incidentes</p>
-
-          <div class="divDataTables">
-            <!-- La tabla que será convertida en un DataTable -->
-            <table id="miTabla">
-              <thead>
-                <th class="small-header">Id</th>
-                <th class="small-header">Incidente</th>
-                <th class="small-header">Usuario</th>
-                <th class="small-header">Accion</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Dato 1</td>
-                  <td>Dato 2</td>
-                  <td>Dato 2</td>
-
-                  <td>
-                    <button class="button">
-                      <svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                          d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-                          stroke-linejoin="round" stroke-linecap="round"></path>
-                      </svg>
-                      Enviar
-
-
-                    </button>
-                  </td>
-
-                  <!-- Agrega más filas y datos según sea necesario -->
-                </tr>
-
-
-
-              </tbody>
-            </table>
+      
+        <div class="GRID_ITEM1 grande">
+      
+          <div class="ContenedorAccionesseccion2">
+            <p class="nuevo" id="actividadesRecientes">Transferencia rapida de incidentes</p>
+  
+            <div class="divDataTables">
+              <!-- La tabla que será convertida en un DataTable -->
+              <table id="miTabla">
+                <thead>
+                  <th class="small-header">Id</th>
+                  <th class="small-header">Incidente</th>
+                  <th class="small-header">Usuario</th>
+                  <th class="small-header">Accion</th>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Dato 1</td>
+                    <td>Dato 2</td>
+                    <td>Dato 2</td>
+  
+                    <td>
+                      <button class="button">
+                        <svg class="saveicon" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24" fill="none"
+                          xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5m8.25 3v6.75m0 0l-3-3m3 3l3-3M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+                            stroke-linejoin="round" stroke-linecap="round"></path>
+                        </svg>
+                        Enviar
+  
+  
+                      </button>
+                    </td>
+  
+                    <!-- Agrega más filas y datos según sea necesario -->
+                  </tr>
+  
+  
+  
+                </tbody>
+              </table>
+            </div>
+  
           </div>
-
+  
         </div>
-
+      
+        </div>
       </div>
-
-
-
+      
 
 
       <div class="modalTrasferencia">
         <div class="divCerrar">
           <i id="iconosss" class="material-icons">close</i>
         </div>
-        
+
         <div class="tituloPorUsuario">
           <p class="nuevo" id="actividadesRecientes">Detalles de la transferencia</p>
         </div>
-        <div class="detallesTransfer"> 
-          
+        <div class="detallesTransfer">
+
         </div>
 
         <label class="listaEncargados" for="listaNombres">Selecciona un encargado:</label>
         <select class="selectCuadro" id="listaNombres">
-         
+
         </select>
 
-        
+
         <div class="enviarButton">
           <button>
             <div class="svg-wrapper-1">
               <div class="svg-wrapper">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
                   <path fill="none" d="M0 0h24v24H0z"></path>
-                  <path fill="currentColor" d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"></path>
+                  <path fill="currentColor"
+                    d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z">
+                  </path>
                 </svg>
               </div>
             </div>
             <span>Enviar</span>
           </button>
-        
+
 
         </div>
 
         <div class="overlay"></div>
 
-        
+
       </div>
 
       <div id="mensaje-container" class="mensaje-container"></div>
@@ -324,8 +344,8 @@
 
 
 
+    
 
-      
 
 
     </article>

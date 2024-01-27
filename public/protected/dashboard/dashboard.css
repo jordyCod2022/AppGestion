@@ -488,7 +488,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 }
 
 .tituloApp{
-  margin-top: -50px;
+  margin-top: -60px;
   display: flex;
   justify-content: space-between;
  
@@ -505,18 +505,22 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 }
 
 #ticketsPendientes {
-  background-image: linear-gradient(290deg, #b286eb 0, #8f6cd8 50%, #6954c6 100%);
+  background-color: #2c4274;
 }
 
 #ticketsResueltos{
-  background-image: radial-gradient(circle at 50% 50%, #7092ff 0, #3c78f2 50%, #0060dd 100%);
+  background-color: #14807c;
 }
 
 #totalPrioridad{
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-image: linear-gradient(270deg, #1f1f59 0, #1f1f59 50%, #1f1f59 100%);
+  background-color: #141d34;
+}
+
+#none{
+  background-color:#86b3ce ;
 }
 
 .priorities {
@@ -556,12 +560,6 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   
 }
 
-.ContenedorAcciones{
-  display: flex;
-  margin-top: 10px;
-  width: 100%;
-  height: 240px;
-}
 
 
 
@@ -617,7 +615,7 @@ height: 30px;
   margin-right: 10px;
   height: 230px;
   border-radius: 15px;
-  border: 2px solid #ddd;
+
 
 }
 
@@ -774,25 +772,17 @@ height: 30px;
 
 
 .ContenedorAccionesseccion1{
-  background-color: #ededed;
-  width: 40%;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 5px;
-  margin-bottom: 10px;
+  background-color: #e7f0e4;
+  width: 100%;
   border-radius: 15px;
-
 
 }
 
 .ContenedorAccionesseccion2{
-  background-color: #ededed;
-  width: 60%;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+  background-color: #e7f0e4;
+  width: 100%;
   border-radius: 15px;
+ 
  
 
 }
@@ -800,21 +790,14 @@ height: 30px;
 #graficoPersona {
   margin-left: 10px;
   flex: 1;
-  background-color: #ededed;
-  border-radius: 15px;
-  
 
-}
-
-#graficoSemanal{
-  background-color: #ededed;
   border-radius: 15px;
-  display: flex;
-  flex: 2;
   overflow: hidden;
+  flex: 2;
  
 
 }
+
 
 
 .TablasDiv{
@@ -1033,13 +1016,24 @@ td img {
 }
 
 .GRID_CONTAINER{
+  margin-top: -20PX;
   display: grid;
-  width: MIN(100%, 1400px);
+  width: MIN(100%, 1500px);
 
   padding: 10px;
   grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
 
 
+
+}
+
+.GRID_CONTAINER1{
+  margin-top: -20PX;
+  display: grid;
+  width: MIN(100%, 1500px);
+
+  padding: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
 }
 .GRID_ITEM{
@@ -1057,3 +1051,31 @@ td img {
   
 }
 
+
+
+.GRID_ITEM1 {
+  
+  border-radius: 15px;
+  align-items: center;
+  display: flex;
+  box-sizing: border-box;
+  border: 1PX solid black;
+  text-align: center;
+  margin: 10px;
+}
+
+.GRID_ITEM1.grande {
+  grid-column: span 2;
+  background-color: #e3f2fd; /* Este elemento abarcará dos columnas */
+}
+
+.GRID_ITEM1.pequeño {
+  background-color: #e7f0e4; /* Este elemento abarcará dos columnas */
+}
+
+.ContenedorAcciones{
+  display: flex;
+  margin-top: -20px;
+  width: 100%;
+  height: 240px;
+}

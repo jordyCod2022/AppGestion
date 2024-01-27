@@ -409,8 +409,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 label: 'Total de Incidentes en la Semana',
                 data: datos,
                 fill: true,
-                backgroundColor: 'rgba(0, 255, 0, 0.3)',
-                borderColor: 'rgba(0, 100, 0, 1)',
+                backgroundColor: 'rgba(128, 0, 128, 0.3)', // Purple background with 30% opacity
+                borderColor: 'rgba(128, 0, 128, 1)',    // Solid purple border
+                
                 borderWidth: 2
               }]
             },
