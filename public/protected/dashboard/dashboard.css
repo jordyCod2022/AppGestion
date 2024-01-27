@@ -1124,14 +1124,14 @@ td img {
   }
 
   .graficoSemanal_diagrama{
-    margin-top: 20px;
+    margin-top: 15px;
     width: 100%;
    
 
   }
 
   .graficarSemanal{
-    border: 1PX solid black;
+
     height:150px;
   }
   
