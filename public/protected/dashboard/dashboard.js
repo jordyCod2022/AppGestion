@@ -2,12 +2,26 @@ let lineChartContainer;
 let barBarrasContainer;
 let globalidAsignacion;
 let nuevoAdmin;
+let telefonoUsuario;
+let telefonoAdmins;
+let nombreTrasfer;
+let nombreSesionActual;
 document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
   const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  const items = document.querySelectorAll("#IconosAside li");
+  var iconoHome = document.querySelector('#IconosAside li:first-child');
+  iconoHome.classList.add('seleccionado');
   //Varible que tiene el id del admin 
- 
+  // Llamas a la función para obtener el historial
+  const historialSemana = getHistorialSemana();
+  nombreSesionActual = `${nombreData.nombre}`;
+  // Muestras el historial en la consola
+  console.log('Historial de la semana:', historialSemana);
+
+  // Puedes hacer más cosas con el historial, como mostrarlo en una interfaz gráfica, etc.
+
 
   obtenerAdmin(nombreData.id_colaborador);
   const barChartContainer = document.getElementById('barChartContainer');
@@ -22,11 +36,19 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
- 
+
+  items.forEach((item) => {
+    const tooltipText = item.querySelector("a").getAttribute("data-tooltip");
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.innerText = tooltipText;
+    item.appendChild(tooltip);
+  });
+
 
 
   const avatarUrl = await obtenerAvatar(nombreData.id_colaborador);
-  
+  localStorage.setItem('avatarUrl', avatarUrl);
   if (avatarUrl) {
     // Obtener el elemento de la imagen por su ID
     const imagenColaboradorElement = document.getElementById('imagenColaborador');
@@ -47,7 +69,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateGraficaLineal(currentDate);
   updateTotalesIncidencias(currentDate);
   updateUltimosIncidentes(currentDate);
-  
+
   const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, currentDate);
 
 
@@ -89,19 +111,38 @@ document.addEventListener('DOMContentLoaded', async () => {
   $('#miTabla').on('click', '.button', function () {
     // Obtén la fila correspondiente al botón clickeado
     const data = dataTable.row($(this).closest('tr')).data();
-    nuevoAdmin=data.id_incidente
+    nuevoAdmin = data.id_incidente
+    telefonoUsuario=data.telefono_colaborador
 
     enviarButton.addEventListener('click', async () => {
-
-      console.log(nuevoAdmin)
-      console.log(globalidAsignacion)
-     
+      try {
+        // Log de información
+        console.log(nuevoAdmin);
+        console.log(globalidAsignacion);
     
-      actualizarAsignacionUser(nuevoAdmin, globalidAsignacion);
-      
-     
-      console.log('Botón Enviar clickeado');
+        // Actualizar asignación de usuario
+        actualizarAsignacionUser(nuevoAdmin, globalidAsignacion);
+    
+        // Enviar mensaje al usuario afectado
+        const mensajeTelegramUsuario = `¡Atención! 🚨 Tu incidente ha sido transferido a otro encargado. Ahora está siendo gestionado por ${nombreTransfer} 🕵️‍♂️. ¡Gracias por tu comprensión! 🙌`;
+        await enviarMensajeTelegram(telefonoUsuario, mensajeTelegramUsuario);
+    
+        // Enviar mensaje a los administradores
+        const mensajeAdmins = `${nombreSesionActual}, ¡te ha transferido un incidente! 🔄 Por favor, revísalo en: https://appgestion.onrender.com 🚀`;
+        await enviarMensajeTelegram(telefonoAdmins, mensajeAdmins);
+    
+        // Log de éxito
+        console.log('¡Operación completada con éxito!');
+    
+      } catch (error) {
+        // Manejo de errores
+        console.error('Error en la operación:', error);
+        // Puedes mostrar un mensaje de error al usuario si es necesario
+        alert('Se produjo un error al procesar la operación. Por favor, inténtalo de nuevo.');
+      }
     });
+    
+
     // Llena el modal con la información correspondiente y aplica estilos de factura
     $('.detallesTransfer').html(`
     <table class="detallesTable">
@@ -225,8 +266,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
 
-
-  // Obtener datos del servidor y actualizar el gráfico
   async function updateGrafica(newDate) {
     console.log('Entrando a updateGrafica');
     const storedNombreData = localStorage.getItem('nombreData');
@@ -258,8 +297,8 @@ document.addEventListener('DOMContentLoaded', async () => {
           datasets: [{
             label: 'Incidentes Reportados Por Usuario',
             data: datos,
-            backgroundColor: 'rgba(0, 123, 255, 0.5)', // Azul claro con transparencia
-            borderColor: 'rgba(0, 123, 255, 1)', // Azul sólido para los bordes
+            backgroundColor: 'rgba(0, 123, 255, 0.5)',
+            borderColor: 'rgba(0, 123, 255, 1)',
             borderWidth: 1
           }]
         },
@@ -269,19 +308,30 @@ document.addEventListener('DOMContentLoaded', async () => {
             x: {
               beginAtZero: true,
               ticks: {
-                color: 'black'
+                color: 'black',
+                font: {
+                  family: 'Outfit, sans-serif', 
+                }
               }
             },
             y: {
               ticks: {
-                color: 'black'
+                color: 'black',
+                font: {
+                  family: 'Outfit, sans-serif',
+                  size: 12
+                }
               }
             }
           },
           plugins: {
             legend: {
               labels: {
-                color: 'black'
+                color: 'black',
+                font: {
+                  family: 'Outfit, sans-serif', 
+                  size: 12
+                }
               }
             }
           }
@@ -289,6 +339,9 @@ document.addEventListener('DOMContentLoaded', async () => {
       });
     }
   }
+  
+  
+
 
   async function obtenerAvatar(idAsignacionUser) {
     try {
@@ -310,26 +363,26 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function updateGraficaLineal(newDate) {
     console.log('Entrando a updateGraficaLINEAL');
-    
+  
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       try {
         // Obtener datos de incidencias con la nueva fecha
         const totalesResponse = await fetch(`/getTotalIncidentesSemana?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
         localStorage.setItem('idAsignacionUser', idAsignacionUser);
         const totalesData = await totalesResponse.json();
-
+  
         // Verificar si totalesData es un array antes de intentar mapearlo
         if (Array.isArray(totalesData)) {
           console.log('Resultados de las gráficas:', totalesData);
-
+  
           // Sumar los total_incidentes
           const sumaTotalIncidentes = totalesData.reduce((suma, item) => suma + parseInt(item.total_incidentes, 10), 0);
-
+  
           console.log('Suma total de incidentes:', sumaTotalIncidentes);
           const totalSemanaElement = document.getElementById('totalSemana');
           if (totalSemanaElement) {
@@ -337,16 +390,16 @@ document.addEventListener('DOMContentLoaded', async () => {
           } else {
             console.error('No se encontró el elemento con id "totalSemana"');
           }
-
+  
           // Destruir el gráfico existente si hay uno
           if (window.lineChart) {
             window.lineChart.destroy();
           }
-
+  
           // Crear arrays para etiquetas (días de la semana) y datos (cantidades)
           const etiquetas = totalesData.map(item => item.dia_semana);
           const datos = totalesData.map(item => item.total_incidentes);
-
+  
           // Crear el gráfico de línea con interpolación cúbica
           window.lineChart = new Chart(lineChartContainer, {
             type: 'line',
@@ -357,7 +410,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 data: datos,
                 fill: true,
                 backgroundColor: 'rgba(0, 255, 0, 0.3)',
-                borderColor: 'rgba(0, 100, 0, 1)', // Verde oscuro para los bordes
+                borderColor: 'rgba(0, 100, 0, 1)',
                 borderWidth: 2
               }]
             },
@@ -367,30 +420,53 @@ document.addEventListener('DOMContentLoaded', async () => {
                 x: {
                   beginAtZero: true,
                   ticks: {
-                    color: 'black'
+                    color: 'black',
+                    font: {
+                      family: 'Outfit, sans-serif', // Cambia 'Outfit' por la fuente que desees
+                      size: 12
+                    }
                   }
                 },
                 y: {
                   precision: 0,
                   ticks: {
-                    color: 'black'
+                    color: 'black',
+                    font: {
+                      family: 'Outfit, sans-serif', // Cambia 'Outfit' por la fuente que desees
+                      size: 12
+                    }
                   }
                 }
               },
               plugins: {
                 legend: {
                   labels: {
-                    color: 'black'
+                    color: 'black',
+                    font: {
+                      family: 'Outfit, sans-serif', // Cambia 'Outfit' por la fuente que desees
+                      size: 12
+                    }
                   }
                 }
               },
               elements: {
                 line: {
-                  tension: 0.4 // Ajusta la tensión para controlar la curvatura
+                  tension: 0.4
                 }
               }
             }
           });
+  
+          const today = new Date();
+          if (today.getDay() === 5) { // Viernes
+            const historialSemana = JSON.parse(localStorage.getItem('historialSemana')) || [];
+            historialSemana.push({
+              fecha: today.toISOString(),
+              etiquetas: etiquetas,
+              datos: datos
+            });
+            localStorage.setItem('historialSemana', JSON.stringify(historialSemana));
+          }
         } else {
           console.error('El servidor no devolvió un array válido:', totalesData);
         }
@@ -399,57 +475,75 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     }
   }
+  
+
+  function getHistorialSemana() {
+    return JSON.parse(localStorage.getItem('historialSemana')) || [];
+  }
 
   async function updateUltimosIncidentes(newDate) {
     localStorage.setItem('dashboardFecha', newDate);
-
+  
     // Obtener id_asignacion_user y otros datos del localStorage
     const storedNombreData = localStorage.getItem('nombreData');
     const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
-
+  
     // Verificar si hay datos y obtener id_asignacion_user
     if (nombreData && nombreData.username) {
       const idAsignacionUser = nombreData.id_colaborador;
-
+  
       // Obtener los últimos incidentes con la nueva fecha
       const ultimosIncidentesResponse = await fetch(`/getUltimosIncidentes?id_asignacion_user=${idAsignacionUser}&fecha_incidencia=${newDate}`);
-
+  
       localStorage.setItem('idAsignacionUser', idAsignacionUser);
       const ultimosIncidentesData = await ultimosIncidentesResponse.json();
       console.log('Resultados de los últimos incidentes:', ultimosIncidentesData);
-
+  
       // Actualizar la tabla de actividades recientes
       const tablaUltimosReportes = document.getElementById('tablaUltimosReportes');
-
+  
       if (tablaUltimosReportes) {
-
-
-        // Crear las nuevas filas con los datos de los últimos incidentes
-        ultimosIncidentesData.forEach(incidente => {
-          const fila = document.createElement('tr');
-          const avatarCol = document.createElement('td');
-          const nombreReportadorCol = document.createElement('td');
-          const incidenteCol = document.createElement('td');
-
-          const avatarImg = document.createElement('img');
-          avatarImg.src = incidente.imagen_colaborador;
-          avatarImg.alt = 'Avatar';
-          avatarCol.appendChild(avatarImg);
-
-          nombreReportadorCol.textContent = `${incidente.nombre_reportador}`;
-          incidenteCol.textContent = `${incidente.incidente_descrip}`;
-
-          fila.appendChild(avatarCol);
-          fila.appendChild(nombreReportadorCol);
-          fila.appendChild(incidenteCol);
-
-          tablaUltimosReportes.appendChild(fila);
-        });
+      
+  
+        if (ultimosIncidentesData.length > 0) {
+          // Crear las nuevas filas con los datos de los últimos incidentes
+          ultimosIncidentesData.forEach(incidente => {
+            const fila = document.createElement('tr');
+            const avatarCol = document.createElement('td');
+            const nombreReportadorCol = document.createElement('td');
+            const incidenteCol = document.createElement('td');
+  
+            const avatarImg = document.createElement('img');
+            avatarImg.src = incidente.imagen_colaborador;
+            avatarImg.alt = 'Avatar';
+            avatarCol.appendChild(avatarImg);
+  
+            nombreReportadorCol.textContent = `${incidente.nombre_reportador}`;
+            incidenteCol.textContent = `${incidente.incidente_descrip}`;
+  
+            fila.appendChild(avatarCol);
+            fila.appendChild(nombreReportadorCol);
+            fila.appendChild(incidenteCol);
+  
+            tablaUltimosReportes.appendChild(fila);
+          });
+        } else {
+          // Agregar una fila indicando que no hay registros
+          const filaNoRegistros = document.createElement('tr');
+          const celdaMensaje = document.createElement('td');
+          celdaMensaje.colSpan = 3; // O ajusta al número de columnas que tengas
+  
+          celdaMensaje.textContent = 'No hay registros disponibles';
+          filaNoRegistros.appendChild(celdaMensaje);
+  
+          tablaUltimosReportes.appendChild(filaNoRegistros);
+        }
       } else {
         console.error('Elemento "tablaUltimosReportes" no encontrado');
       }
     }
   }
+  
 
   async function getAndShowIncidencias(idAsignacionUser, fechaDashboard) {
     try {
@@ -468,47 +562,57 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   async function obtenerAdmin(idAsignacionUser) {
     console.log("MI ID DESDE OBTENER ADMIN: ", idAsignacionUser);
+  
     try {
-        const respuestaAdmin = await fetch(`/getUsuariosExcluyendoId?id_asignacion_user=${idAsignacionUser}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
-        });
-
-        const dataAdmin = await respuestaAdmin.json();
-        console.log("data: ", dataAdmin);
-
-        const selectNombres = document.getElementById('listaNombres');
-        // Limpia las opciones antes de agregar las nuevas
-        selectNombres.innerHTML = '';
-
-        // Agrega una opción en blanco por defecto
-        const blankOption = document.createElement('option');
-        blankOption.value = ''; // Otra opción podría ser '-1' o cualquier valor que no se utilice en tu caso
-        blankOption.textContent = 'Selecciona un encargado';
-        selectNombres.appendChild(blankOption);
-
-        dataAdmin.forEach((usuario) => {
-            const option = document.createElement('option');
-            option.value = usuario.id_asignacion_user;
-            option.textContent = `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`;
-            selectNombres.appendChild(option);
-        });
-
-        // Agrega el evento 'change' al elemento 'select'
-        selectNombres.addEventListener('change', () => {
-            // Obtiene el valor seleccionado (id_asignacion_user) al cambiar la opción
-            globalidAsignacion = selectNombres.value;
-            console.log('globalidAsignacion actualizado:', globalidAsignacion);
-        });
-
+      const respuestaAdmin = await fetch(`/getUsuariosExcluyendoId?id_asignacion_user=${idAsignacionUser}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_asignacion_user: idAsignacionUser })
+      });
+  
+      const dataAdmin = await respuestaAdmin.json();
+      console.log("data: ", dataAdmin);
+  
+      const selectNombres = document.getElementById('listaNombres');
+      // Limpia las opciones antes de agregar las nuevas
+      selectNombres.innerHTML = '';
+  
+      // Agrega una opción en blanco por defecto
+      const blankOption = document.createElement('option');
+      blankOption.value = '';
+      blankOption.textContent = 'Selecciona un encargado';
+      selectNombres.appendChild(blankOption);
+  
+      dataAdmin.forEach((usuario) => {
+        const option = document.createElement('option');
+        option.value = usuario.id_asignacion_user;
+        option.textContent = `${usuario.nombre_colaborador} ${usuario.apellido_colaborador}`;
+        selectNombres.appendChild(option);
+      });
+  
+      selectNombres.addEventListener('change', () => {
+        globalidAsignacion = selectNombres.value;
+        console.log('globalidAsignacion actualizado:', globalidAsignacion);
+  
+        const usuarioSeleccionado = dataAdmin.find(usuario => usuario.id_asignacion_user === parseInt(globalidAsignacion, 10));
+        if (usuarioSeleccionado) {
+          telefonoAdmins = usuarioSeleccionado.telefono_colaborador;
+          nombreTransfer = usuarioSeleccionado.nombre_colaborador;
+          console.log('telefonoAdmins:', telefonoAdmins);
+          console.log('nombreTransfer:', nombreTransfer);
+        } else {
+          console.log('Usuario no encontrado.');
+        }
+      });
+  
     } catch (error) {
-        console.error('Error al obtener datos de administradores:', error);
+      console.error('Error al obtener datos de administradores:', error);
     }
-}
-
+  }
+  
+  
 
 
   async function actualizarAsignacionUser(id_incidente, nuevo_id_asignacion_user) {
@@ -516,63 +620,100 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.log("Llegue", nuevo_id_asignacion_user);
 
     try {
-        const respuesta = await fetch('/actualizarAsignacionUser', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id_incidente, nuevo_id_asignacion_user })
-        });
+      const respuesta = await fetch('/actualizarAsignacionUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id_incidente, nuevo_id_asignacion_user })
+      });
 
-        const data = await respuesta.json();
-        console.log('Respuesta de actualización:', data);
+      const data = await respuesta.json();
+      console.log('Respuesta de actualización:', data);
 
-        if (data.success) {
-            console.log(`Campo id_asignacion_user en incidente ${id_incidente} actualizado.`);
-          
-          
-            mostrarMensaje('La transferencia fue exitosa', 'success');
-            $('.modalTrasferencia').css('display', 'none');
-            setTimeout(() => {
-              location.reload();
-          }, 2000);
-           
-        } else {
-            console.error('Error al actualizar el campo id_asignacion_user.');
-            // Muestra un mensaje de error
-            mostrarMensaje('Error al actualizar el campo id_asignacion_user', 'error');
-        }
-    } catch (error) {
-        console.error('Error en la solicitud de actualización:', error);
+      if (data.success) {
+        console.log(`Campo id_asignacion_user en incidente ${id_incidente} actualizado.`);
+
+
+        mostrarMensaje('La transferencia fue exitosa', 'success');
+        $('.modalTrasferencia').css('display', 'none');
+        setTimeout(() => {
+          location.reload();
+        }, 2000);
+
+      } else {
+        console.error('Error al actualizar el campo id_asignacion_user.');
         // Muestra un mensaje de error
-        mostrarMensaje('Error en la solicitud de actualización', 'error');
+        mostrarMensaje('Error al actualizar el campo id_asignacion_user', 'error');
+      }
+    } catch (error) {
+      console.error('Error en la solicitud de actualización:', error);
+      // Muestra un mensaje de error
+      mostrarMensaje('Error en la solicitud de actualización', 'error');
     }
-}
+  }
 
-  
-function mostrarMensaje(mensaje, tipo) {
-  const mensajeContainer = document.getElementById('mensaje-container');
 
-  // Crear elemento para el mensaje
-  const mensajeElemento = document.createElement('div');
-  mensajeElemento.className = `mensaje ${tipo}`;
-  mensajeElemento.textContent = mensaje;
+  function mostrarMensaje(mensaje, tipo) {
+    const mensajeContainer = document.getElementById('mensaje-container');
 
-  // Agregar el mensaje al contenedor
-  mensajeContainer.innerHTML = '';
-  mensajeContainer.appendChild(mensajeElemento);
+    // Crear elemento para el mensaje
+    const mensajeElemento = document.createElement('div');
+    mensajeElemento.className = `mensaje ${tipo}`;
+    mensajeElemento.textContent = mensaje;
 
-  // Desaparecer el mensaje después de unos segundos (puedes ajustar el tiempo)
-  setTimeout(() => {
+    // Agregar el mensaje al contenedor
+    mensajeContainer.innerHTML = '';
+    mensajeContainer.appendChild(mensajeElemento);
+
+    // Desaparecer el mensaje después de unos segundos (puedes ajustar el tiempo)
+    setTimeout(() => {
       mensajeContainer.innerHTML = '';
-  }, 2000); // Desaparecerá después de 5 segundos
-}
+    }, 2000); // Desaparecerá después de 5 segundos
+  }
 
+  async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
+    const url = `/enviarMensajeTelegram`;
 
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ telefono_colaborador: telefonoColaborador, mensajeTelegram: mensajeTelegram })
+      });
 
+      if (!response.ok) {
+        throw new Error('Error en la solicitud');
+      }
 
+      return response.json();
+    } catch (error) {
+      throw error;
+    }
+  }
+  async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
+    const url = `/enviarMensajeTelegram`;
 
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ telefono_colaborador: telefonoColaborador, mensajeTelegram: mensajeTelegram })
+      });
 
+      if (!response.ok) {
+        throw new Error('Error en la solicitud');
+      }
+
+      return response.json();
+    } catch (error) {
+      throw error;
+    }
+  }
 
 
 

@@ -1,11 +1,4 @@
-/* styles.css */
-
-
-@media (max-width: 742px) {
-
-
-  
-}
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
 
 
 .modalTrasferencia {
@@ -15,7 +8,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 200px;
-  height: 350px;
+  height: 430px;
   padding: 20px;
   background: #fff;
   border-radius: 10px;
@@ -35,8 +28,9 @@
 
 }
 
+
 button {
-  font-family: inherit;
+  font-family: 'Outfit', sans-serif; 
   font-size: 15px;
   background: linear-gradient(to bottom, #4dc7d9 0%,#66a6ff 100%);
   color: white;
@@ -94,7 +88,7 @@ button:hover svg {
 }
 
 .styleDetalleslabel {
-  font-family: 'Arial', sans-serif; /* Tipo de fuente (puedes cambiar 'Arial' por otra fuente) */
+  font-family: 'Outfit', sans-serif; 
   font-size: 14px; /* Tamaño de la fuente */
   color: #000000; /* Color del texto */
   text-transform: uppercase; /* Convertir el texto a mayúsculas */
@@ -112,7 +106,7 @@ button:hover svg {
 
 .listaEncargados{
   font-size: 13px; /* Ajusta el tamaño de fuente según tus necesidades */
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   font-weight: bold;
 }
 
@@ -153,8 +147,18 @@ section.main {
   width: 100%;
 
 }
+.main {
+  position: relative;
+  top: 50px;
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
 
-
+*{
+  margin:0px;
+  padding:0px;
+}
 
 
 .ContenedorDashboard{
@@ -190,10 +194,6 @@ section.main {
 }
 
 
-*{
-  margin:0px;
-  padding:0px;
-}
 
 .submenu {
   display: none;
@@ -215,7 +215,7 @@ aside {
   width: 60px;
   background: linear-gradient(135deg, rgb(51, 20, 58) 0%, #552e9f 35%, rgb(71, 16, 83) 100%);
   padding: 0px 0px 10px 0px;
-  box-shadow: 0px 3px 5px #6d6d6d;
+
   overflow: hidden;
   z-index: 99;
   margin-top: -70px; 
@@ -249,9 +249,6 @@ aside ul li a span {
   width: 38px;
 }
 
-aside ul li:hover {
-  box-shadow: inset 0px 0px 77px #000000f3;
-}
 
 
 
@@ -269,10 +266,6 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 
 
-
-
-
-/* plus sign */
 .sign {
   width: 100%;
   transition-duration: .3s;
@@ -283,6 +276,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 .sign svg {
   width: 17px;
+ 
 }
 
 .sign svg path {
@@ -453,13 +447,13 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   width: 45px; /* Ajusta el ancho según tus preferencias */
   height: 45px; /* Ajusta la altura según tus preferencias */
   border: none;
-  border-radius: 10px; /* Ajusta el radio de las esquinas según tus preferencias */
+  border-radius: 50px; /* Ajusta el radio de las esquinas según tus preferencias */
   cursor: pointer;
   position: relative;
   overflow: hidden;
   transition-duration: .3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-  background-color: rgb(255, 65, 65);
+
   margin-left: 0px;
 }
 
@@ -471,41 +465,6 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   justify-content: space-around;
 }
 
-.card {
-  border-radius: 15px;
-  width: calc(25% - 20px);
-  margin: 10px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  text-align: center;
-  box-sizing: border-box;
-  display: flex; /* Agregado: establece el contenedor como flexbox */
-  align-items: center;
-}
-
-.material-icons {
-  width: 100%;
-  font-size: 24px;
-  color: #ffffff;
-  margin-bottom: 10px;
- 
-  
-}
-
-
-.card .material-icons{
-  font-size: 50px;
-}
-
-.card .material-symbols-outlined{
-  font-size: 50px;
-  color: #ffffff;
-}
-
-
-
-
-
 
 .content-wrapper {
   flex: 1;
@@ -515,16 +474,17 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   margin-bottom: 10px;
   font-size: 17px;
   color: #ffffff;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
 
   
 }
+
 
 .name {
   font-size: 38px;
   font-weight: bold;
   color: #ffffff;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
 }
 
 .tituloApp{
@@ -540,7 +500,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 .titulo{
   font-size: 30px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   font-weight: bold;
 }
 
@@ -591,6 +551,8 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   margin-top: 10px;
   width: 100%;
   height: 250px;
+
+  border-radius: 15px;
   
 }
 
@@ -626,7 +588,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 #ticketsUser{
   margin-top: 10PX;
   font-size: 20PX;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   color: #000000;
   font-weight: bold;
 
@@ -668,7 +630,7 @@ height: 30px;
 #tituloSemana{
   font-size: 30px;
   text-align: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   color: #000000;
 }
 
@@ -749,7 +711,7 @@ height: 30px;
   font-family: inherit;
   font-weight: 300;
   font-size: 12px;
-  margin-top: 50px;
+  margin-top: 30px;
   letter-spacing: 0.05em;
   border-radius: 0.8em;
   cursor: pointer;
@@ -759,6 +721,11 @@ height: 30px;
   overflow: hidden;
   /* Ajusta otros estilos según sea necesario */
 }
+
+#fechaButton{
+  
+}
+
 
 
 .connectBtn {
@@ -781,7 +748,7 @@ height: 30px;
   font-size: 15px;
   color: #000000;
   font-weight: bold;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
 
 }
 #actividadesRecientes{
@@ -789,7 +756,7 @@ height: 30px;
   font-size: 14PX;
   text-align: initial;
   padding-left: 10px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   color: #000000;
   font-weight: bold;
   
@@ -844,7 +811,8 @@ height: 30px;
   border-radius: 15px;
   display: flex;
   flex: 2;
-
+  overflow: hidden;
+ 
 
 }
 
@@ -881,7 +849,7 @@ th {
   padding: 2px;
   text-align: center;
   color: #fff;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   font-size: 14px;
 }
 
@@ -889,7 +857,7 @@ th {
 td {
   text-align: center; /* Centra horizontalmente el contenido de la celda */
   padding: 2px;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   font-size: 14px;
   vertical-align: middle; /* Centra verticalmente el contenido de la celda */
 }
@@ -919,7 +887,7 @@ td img {
 
 .small-header {
   font-size: 12px; /* Ajusta el tamaño de fuente según tus necesidades */
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   font-weight: bold;
 
 
@@ -929,7 +897,7 @@ td img {
 #miTabla td {
   font-size: 12px; /* Ajusta el tamaño de fuente según tus necesidades */
   align-items: center;
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Outfit', sans-serif; 
   /* Agrega otros estilos si es necesario */
 }
 
@@ -939,7 +907,7 @@ td img {
   border: none;
   color: rgb(16, 52, 170);
   cursor: pointer;
-  background-color: rgb(190, 219, 253);
+  background-color: rgb(255, 0, 0);
   border-radius: 7px;
   font-weight: bold;
   transition: 0.5s;
@@ -1001,3 +969,91 @@ td img {
 .error {
   background-color: #dc3545; /* Rojo */
 }
+
+
+#menuAside {
+  overflow: visible;
+}
+
+#IconosAside li {
+  position: relative;
+  cursor: pointer;
+}
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  display: none;
+  z-index: 999; /* Asegura que el tooltip esté en la parte superior */
+  white-space: nowrap; /* Evita que el texto se rompa a la siguiente línea */
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+#IconosAside li:hover .tooltip {
+  display: block;
+  opacity: 1;
+}
+
+
+#IconosAside li.seleccionado {
+  background-color: rgb(255, 255, 255); /* Puedes ajustar el color según tus preferencias */
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+}
+
+#IconosAside li.seleccionado i.material-icons {
+  color: rgb(0, 0, 0); /* Cambia el color del ícono cuando está seleccionado */
+}
+
+@media (max-width: 844px) {
+
+  #menuAside {
+    display: none; 
+  }
+
+  #fechaButton{
+    display: none;
+    
+  }
+
+
+  
+}
+
+#iconosMaterial.material-icons,#iconosMaterial.material-symbols-outlined{
+  font-size: 70px;
+  color: #ededed;
+  
+}
+
+.GRID_CONTAINER{
+  display: grid;
+  width: MIN(100%, 1400px);
+
+  padding: 10px;
+  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+
+
+
+}
+.GRID_ITEM{
+  background-color: #28a745;
+  border: 2PX solid black;
+  border-radius: 15px;
+  height: 150px;
+  align-items: center;
+  display: flex; 
+  box-sizing: border-box;
+  padding: 20px;
+  text-align: center;
+  margin: 10px;
+ 
+  
+}
+

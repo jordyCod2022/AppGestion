@@ -1,7 +1,47 @@
+let telefonoSeleccionado;
+let descripSeleccionado;
 document.addEventListener('DOMContentLoaded', () => {
   const storedDashboardFecha = localStorage.getItem('dashboardFecha');
   const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
+  const storedAvatarUrl = localStorage.getItem('avatarUrl');
+  const items = document.querySelectorAll("#IconosAside li");
+  var iconoSegundo = document.querySelector('#IconosAside li:nth-child(2)');
+  iconoSegundo.classList.add('seleccionado');
 
+  items.forEach((item) => {
+    const tooltipText = item.querySelector("a").getAttribute("data-tooltip");
+    const tooltip = document.createElement("div");
+    tooltip.className = "tooltip";
+    tooltip.innerText = tooltipText;
+    item.appendChild(tooltip);
+  });
+
+  const logoutButton = document.querySelector('.salir');
+  if (logoutButton) {
+    logoutButton.addEventListener('click', () => {
+      const confirmLogout = confirm('¿Estás seguro de cerrar sesión?');
+      if (confirmLogout) {
+        localStorage.removeItem('nombreData');
+        window.location.href = '../../index.html'; // Redirige y reemplaza la entrada en el historial
+        window.history.replaceState(null, '', '../../index.html');
+      }
+    });
+  } else {
+    console.error('No se encontró el botón de cerrar sesión');
+  }
+
+
+
+  if (storedAvatarUrl) {
+    // Obtener el elemento de la imagen por su ID
+    const imagenColaboradorElement = document.getElementById('imagenColaborador');
+
+    // Establecer la URL de la imagen como el src
+    imagenColaboradorElement.src = storedAvatarUrl;
+    imagenColaboradorElement.alt = 'Avatar';
+  } else {
+    console.error('No se encontró la imagen del avatar');
+  }
   console.log(storedDashboardFecha);
   console.log(storedIdAsignacionUser);
 
@@ -17,12 +57,12 @@ function showAndProcessIncidencias(incidencias) {
     data: incidencias,
     dom: 'Blfrtip', // Agregado para incluir los botones en la parte superior
     buttons: [
-    {
-      extend: 'excelHtml5',
-      text: '<i class="material-icons">file_download</i>',
-      className: 'btn-verde',
-    },
-      
+      {
+        extend: 'excelHtml5',
+        text: '<i class="material-icons">file_download</i>',
+        className: 'btn-verde',
+      },
+
       {
         extend: 'pdfHtml5',
         text: '<i class="material-icons">picture_as_pdf</i>',
@@ -34,12 +74,19 @@ function showAndProcessIncidencias(incidencias) {
       'print'
     ],
     columns: [
+      {
+        data: 'imagen_colaborador', title: 'Avatar', render: function (data) {
+          return `<img src="${data}" class="avatar-img" alt="Avatar">`;
+        }
+      },
       { data: 'id_incidente', title: 'ID Incidente' },
       { data: 'nombre_colaborador', title: 'Nombre Colaborador' },
       { data: 'incidente_descrip', title: 'Descripción' },
-      { data: 'estado', title: 'Estado', render: function (data) {
-        return data === 2 ? 'Cerrado' : 'Pendiente';
-      }},
+      {
+        data: 'estado', title: 'Estado', render: function (data) {
+          return data === 2 ? 'Cerrado' : 'Pendiente';
+        }
+      },
       {
         data: null,
         title: 'Acción',
@@ -47,6 +94,7 @@ function showAndProcessIncidencias(incidencias) {
           const informarButton = `<button class="informar-button" onclick="informarIncidente('${row.telefono_colaborador}', ${row.id_incidente})"><i class="material-icons">info</i></button>`;
 
           const realizadoButton = `<button class="realizado-button" onclick="abrirConfirmacionModal(${row.id_incidente}, ${JSON.stringify(row).replace(/"/g, '&quot;')}, this)"><i class="material-icons">done</i></button>`;
+
 
           return informarButton + realizadoButton;
         }
@@ -60,6 +108,9 @@ function showAndProcessIncidencias(incidencias) {
   $('#tablaIncidencias tbody').on('click', 'tr', function () {
     const data = tablaIncidencias.row(this).data();
     console.log('Fila seleccionada:', data);
+    telefonoSeleccionado = data.telefono_colaborador
+    descripSeleccionado = data.incidente_descrip
+
     filaSeleccionada = this;
   });
 
@@ -96,9 +147,9 @@ function autogenerarMensaje() {
   const mensajeInput = document.getElementById('mensajeInput');
 
   if (filaSeleccionada) {
-    const nombre = filaSeleccionada.querySelector('td:nth-child(2)').textContent;
-    const id = filaSeleccionada.querySelector('td:nth-child(1)').textContent;
-    const descripcion = filaSeleccionada.querySelector('td:nth-child(3)').textContent;
+    const nombre = filaSeleccionada.querySelector('td:nth-child(3)').textContent;
+    const id = filaSeleccionada.querySelector('td:nth-child(2)').textContent;
+    const descripcion = filaSeleccionada.querySelector('td:nth-child(4)').textContent;
 
     const plantillas = [
       '👋 Hola {nombre}, tu incidencia con ID {idIncidencia} está siendo atendida. En unos minutos te notificaremos su avance.\nDescripción: {descripcion} 🛠️',
@@ -171,11 +222,8 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   }
 }
 
-async function realizarIncidente(idIncidencia, fila) {
-  if (!fila) {
-    console.error('Error: No hay fila seleccionada para la incidencia');
-    return false;
-  }
+async function realizarIncidente(idIncidencia) {
+
 
   try {
     const response = await fetch('/cerrarIncidencia', {
@@ -189,21 +237,23 @@ async function realizarIncidente(idIncidencia, fila) {
     const responseData = await response.json();
 
     if (responseData.success) {
-      await new Promise(resolve => setTimeout(resolve, 500));
 
-      const telefonoColaborador = fila.querySelector('td:nth-child(5)').textContent; // Ajusta el índice según la posición de la columna
-      const idIncidencia = fila.querySelector('td:nth-child(1)').textContent;
-      const problema = fila.querySelector('td:nth-child(3)').textContent;
+      const mensajes = [
+        `✅ Tu incidencia: ${descripSeleccionado} ha sido resuelta. ¡Gracias por tu paciencia! 🎉`,
+        `🌟 ¡Felicidades! Hemos solucionado tu incidencia: ${descripSeleccionado}. ¡Gracias por tu colaboración! 🚀`,
+        `🎉 Buenas noticias: hemos resuelto tu incidencia "${descripSeleccionado}". ¡Gracias por tu comprensión! ✨`,
+        `🚀 ¡Increíble! La incidencia "${descripSeleccionado}" ha sido cerrada con éxito. ¡Gracias por tu paciencia! 🌈`,
+        `✅ ¡Operación completada! Hemos solucionado tu incidencia de TI: ${descripSeleccionado}. ¡Gracias por tu colaboración! 🛠️`,
+        `🚀 Tu solicitud de asistencia técnica para "${descripSeleccionado}" ha sido resuelta con éxito. ¡Gracias por tu paciencia! 💻`,
+        `🌐 ¡Excelentes noticias! La incidencia "${descripSeleccionado}" ha sido solucionada. ¡Gracias por tu comprensión! 🔧`,
+        `💼 ¡Logro desbloqueado! Tu problema técnico con "${descripSeleccionado}" ha sido resuelto. ¡Gracias por tu paciencia! 🎮`
 
-      console.log(telefonoColaborador)
-      console.log(idIncidencia)
-      console.log(problema)
+      ];
 
-      // Crear mensaje con emojis
-      const mensajeTelegram = `✅ Tu incidencia con ID ${idIncidencia} (${problema}) ha sido resuelta. ¡Gracias por tu paciencia! 🎉`;
+      const mensajeSeleccionado = mensajes[Math.floor(Math.random() * mensajes.length)];
 
-      // Llamar a la función para enviar el mensaje a Telegram
-      enviarMensajeTelegram(telefonoColaborador, mensajeTelegram);
+
+      enviarMensajeTelegram(telefonoSeleccionado, mensajeSeleccionado);
 
       window.location.reload();
       return true;
@@ -245,9 +295,11 @@ function cerrarConfirmacionModal() {
 }
 
 function confirmarRealizadoDesdeModal() {
+
+
   const confirmacionModal = document.getElementById('confirmacionModal');
   const idIncidencia = confirmacionModal.getAttribute('data-id-incidencia');
-  const fila = confirmacionModal.getAttribute('data-fila');
 
-  realizarIncidente(idIncidencia, fila);
+
+  realizarIncidente(idIncidencia);
 }

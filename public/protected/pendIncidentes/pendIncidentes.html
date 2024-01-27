@@ -19,28 +19,95 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.jsdelivr.net/npm/pdfmake@0.1.68/build/pdfmake.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.jsdelivr.net/npm/pdfmake@0.1.68/build/vfs_fonts.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous">
-
+   <!-- DataTables en español -->
+   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+   <script src="https://cdn.datatables.net/responsive/2.2.10/js/dataTables.responsive.min.js"></script>
+   <script src="https://cdn.datatables.net/responsive/2.2.10/js/responsive.bootstrap5.min.js"></script>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
   </head>
 <body>
 
-  <header>
-    <div class="brand">
-      <i class="material-icons" onclick="regresar()" aria-label="Regresar">arrow_back</i>
-      <span>Incidentes Pendientes</span>
-    </div>
-  </header>
 
-  
-  
+  <section class="main">
 
-  
+    <aside id="menuAside" class="keep">
+      <div class="icono">
+        <li id="iconoLogo" class="material-icons">track_changes</li>
+      </div>
     
+      <ul id="IconosAside">
+
+        <li>
+          <a href="../dashboard/dashboard.html" data-tooltip="Inicio">
+            <span><i class="material-icons">home</i></span>
+          </a>
+        </li>
+
+        <li>
+          <a class="pendientes" href="../pendIncidentes/pendIncidentes.html" data-tooltip="Incidentes reportados">
+            <span> <i class="material-icons">pending_actions</i></span>
+          
+          </a>
+        </li>
+    
+        <li>
+          <a href="../usuarios/usuarios.html" data-tooltip="Usuarios">
+            <span><i class="material-icons">people</i></span>
+          </a>
+        </li>
+        
+    
+        <li>
+          <a href="/" data-tooltip="Asignación de Tareas">
+            <span><i class="material-icons">event</i></span>
+      
+          </a>
+        </li>
+    
+        <li id="cambiarImagenPerfilLink">
+          <a data-tooltip="Cambiar imagen perfil">
+            <span><i class="material-icons">event</i></span>
+      
+          </a>
+        </li>
+      </ul>
+    
+      <div class="nuevoContenedor">
+        <div id="contenedorImagen">
+          <img id="imagenColaborador" class="imagenColaborador">
+        </div>
+    
+        <!-- Botón de Salir -->
+        <button id="buttonSalir" class="salir">
+          <div class="sign"><svg viewBox="0 0 512 512">
+              <path
+                d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+              </path>
+            </svg></div>
+          <div class="text">Salir</div>
+        </button>
+      </div>
+    </aside>
+    
+
+    <article class="ContenedorDashboard">
+
+      <div class="tituloApp">
+        <span class="titulo"> Incidentes Reportados</span>
+      </div>
+
+
+       
     <div id="incidenciasContainer">
       <!-- Agrega un contenedor div para la tabla con un id específico -->
       <div id="tablaContainer">
         <table id="tablaIncidencias" class="display nowrap" style="width:100%">
           <thead>
             <tr>
+              <th>Avatar</th>
               <th>ID Incidente</th>
               <th>Nombre Colaborador</th>
               <th>Descripción</th>
@@ -61,8 +128,8 @@
           <span class="close" onclick="cerrarModal()">&times;</span>
           <p>Ingrese el mensaje para informar el incidente:</p>
           <textarea id="mensajeInput" rows="4" cols="50"></textarea>
-          <button onclick="informarDesdeModal()">Informar</button>
-          <button onclick="autogenerarMensaje()">Autogenerar</button>
+          <button id="buttonInformarModal" onclick="informarDesdeModal()">Informar</button>
+          <button id="buttonAutogenerarModal" onclick="autogenerarMensaje()">Autogenerar</button>
       </div>
     </div>
 
@@ -72,12 +139,25 @@
       <div class="modal-content">
         <span class="close" onclick="cerrarConfirmacionModal()">&times;</span>
         <p>¿Estás seguro de marcar la incidencia como "Realizado"?</p>
-        <button onclick="confirmarRealizadoDesdeModal()">Sí</button>
-        <button onclick="cerrarConfirmacionModal()">No</button>
+        <button id="realizado" onclick="confirmarRealizadoDesdeModal()">Sí</button>
+        <button id="cerrarRealizado" onclick="cerrarConfirmacionModal()">No</button>
       </div>
     </div>
    
  
+
+
+    </article>
+
+
+
+
+  </section>
+
+
+ 
+  
+   
  
   <!-- Tu script de JavaScript -->
   <script src="pendIncidentes.js"></script>

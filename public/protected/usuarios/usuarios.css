@@ -1,0 +1,762 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
+body,
+html {
+  margin: 0;
+  padding: 0;
+  max-height: 100%;
+}
+
+section.main {
+  height: 100%;
+  width: 100%;
+
+}
+
+
+
+h1 {
+  color: #333;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+
+
+
+
+
+
+
+
+button:hover {
+  background-color: #267bb5;
+}
+
+
+
+
+
+
+
+
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+.brand i {
+  font-size: 26px;
+  /* Tamaño del nuevo icono */
+  margin-right: 10px;
+  color: #ddd;
+  cursor: pointer;
+}
+
+
+.brand span {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  /* Cambiado a blanco para que sea visible en el fondo oscuro */
+}
+
+
+
+header {
+  background: linear-gradient(135deg, rgba(4, 0, 255, 1) 0%, rgba(136, 0, 255, 1) 35%, rgba(209, 0, 255, 1) 100%);
+  padding: 10px 20px;
+  box-shadow: 0px -8px 25px #6d6d6d;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  /* Cambiado de 97% a 100% para ajustar completamente al ancho */
+  z-index: 991;
+  display: flex;
+  justify-content: space-between;
+  /* Para alinear los elementos en los extremos */
+}
+
+
+  
+#buttonSalir{
+  background: linear-gradient(to bottom, #4dc7d9 0%, #66a6ff 100%);
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  width: 45px; /* Ajusta el ancho según tus preferencias */
+  height: 45px; /* Ajusta la altura según tus preferencias */
+  border-radius: 50px; /* Ajusta el radio de las esquinas según tus preferencias */
+  position: relative;
+  overflow: hidden;
+  margin: 0 auto; /* Centra el botón horizontalmente */
+}
+
+
+
+#menuAside {
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+
+}
+
+
+aside {
+  width: 60px;
+  background: linear-gradient(135deg, rgb(51, 20, 58) 0%, #552e9f 35%, rgb(71, 16, 83) 100%);
+  padding: 0px 0px 10px 0px;
+
+  overflow: hidden;
+  z-index: 99;
+  margin-top: -70px;
+  transition: visibility 0.3s, width 0.3s;
+  height: 100%;
+
+
+}
+
+
+aside ul {
+  list-style: none;
+  width: 100%;
+}
+
+aside ul li {
+
+  padding: 10px 20px;
+  position: relative;
+}
+
+aside ul li a {
+  font-size: 13px;
+  color: #ffffff;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+aside ul li a span {
+  display: inline-block;
+  vertical-align: middle;
+  color: #ffffff;
+  width: 38px;
+}
+
+
+#IconosAside {
+  margin-top: 80px;
+}
+
+
+
+
+
+#IconosAside {
+  list-style: none;
+  padding: 0;
+}
+
+#IconosAside li {
+  margin-bottom: 15px;
+}
+
+
+
+.nuevoContenedor {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+
+#contenedorImagen {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  justify-content: flex-start;
+  text-align: center;
+  width: 45px;
+  /* Ajusta el ancho según tus necesidades */
+  height: 45px;
+  /* Ajusta la altura según tus necesidades */
+  overflow: hidden;
+  /* Esto asegura que cualquier parte de la imagen que exceda las dimensiones del contenedor se oculte */
+  background-color: white;
+  /* Color del fondo blanco */
+  border-radius: 50px;
+  border-color: #000000;
+  /* Añadido para separar el contenedor de imagen de los elementos anteriores */
+}
+
+#imagenColaborador {
+  border-color: #000000;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Esto asegura que la imagen cubra completamente el contenedor sin deformarse */
+  border-radius: 10px;
+  /* Ajusta según tus preferencias */
+}
+
+
+/* plus sign */
+.sign {
+  width: 100%;
+  transition-duration: .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sign svg {
+  width: 17px;
+}
+
+.sign svg path {
+  fill: white;
+}
+
+/* text */
+.text {
+  position: absolute;
+  right: 0%;
+  width: 0%;
+  opacity: 0;
+  color: white;
+  font-size: 1.2em;
+  font-weight: 600;
+  transition-duration: .3s;
+}
+
+
+
+
+#cambiarImagenPerfilLink {
+  cursor: pointer;
+}
+
+
+#iconoLogo {
+  margin-top: 40px;
+  color: #f7f7f7;
+  display: flex;
+  font-size: 25px;
+  align-items: center;
+  /* Centra verticalmente */
+  justify-content: center;
+  /* Centra horizontalmente */
+  text-align: center;
+  /* Alinea el texto al centro */
+}
+
+
+
+
+#menuAside {
+  overflow: visible;
+}
+
+#IconosAside li {
+  position: relative;
+  cursor: pointer;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: #333;
+  color: #fff;
+  padding: 8px;
+  border-radius: 5px;
+  display: none;
+  z-index: 999;
+  /* Asegura que el tooltip esté en la parte superior */
+  white-space: nowrap;
+  /* Evita que el texto se rompa a la siguiente línea */
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+#IconosAside li:hover .tooltip {
+  display: block;
+  opacity: 1;
+}
+
+
+#IconosAside li.seleccionado {
+  background-color: rgb(255, 255, 255);
+  /* Puedes ajustar el color según tus preferencias */
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+}
+
+#IconosAside li.seleccionado i.material-icons {
+  color: rgb(0, 0, 0);
+  /* Cambia el color del ícono cuando está seleccionado */
+}
+
+
+.tituloApp {
+  margin-top: -50px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  padding-left: 20px;
+  
+
+}
+
+.titulo {
+  font-size: 30px;
+  font-family: 'Outfit', sans-serif; 
+  font-weight: bold;
+}
+
+
+
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  max-height: 100%;
+}
+
+section.main {
+  height: 100%;
+  width: 100%;
+
+}
+
+.main {
+  position: relative;
+  top: 50px;
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+.ContenedorDashboard {
+  margin-left: 10px;
+  height: 100%;
+  width: 90%;
+  align-items: center;
+  
+
+
+}
+
+/* Estilos para la columna Avatar */
+.avatar-img {
+  width: 50px; 
+  height: 50px; 
+  border-radius: 50%; /* Convierte la imagen en un círculo */
+  object-fit: cover; /* Ajusta el tamaño de la imagen manteniendo su relación de aspecto */
+  border: 2px solid #000000; /* Añade un borde blanco opcional al círculo */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Agrega una sombra suave */
+  justify-content: center;
+}
+
+.separacion{
+  background-color: #000000;
+  width: 100%;
+  height: 2px;
+}
+
+
+
+.ContenedorDashboard{
+  height: 100%;
+  margin-left: 15px;
+  
+}
+#incidenciasContainer {
+  width: 100%;
+  margin-top: 10px;
+  overflow-x: auto;
+  padding: 10px;
+
+  border-radius: 15px;
+}
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+  height: 100%;
+  margin-top: 10px;
+  /* Asegura que la tabla ocupe toda la altura del contenedor */
+}
+
+th, td {
+  font-family: 'Outfit', sans-serif; 
+  border: 1px solid #dddddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 15px; /* Ajusta el tamaño de fuente */
+}
+
+th {
+  background-color: #2c3e50;
+  color: #ffffff;
+  text-align: center;
+  font-size: 17px; /* Ajusta el tamaño de fuente */
+  font-weight: bold; /* Hace que el texto del encabezado sea más grueso */
+}
+
+/* Estilo para alternar colores de fondo en filas */
+tr:nth-child(even) {
+  background-color: #8b8686;
+}
+
+/* Estilo para el encabezado de la tabla */
+th {
+  background-color: #2c3e50;
+  color: #ffffff;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* Estilo para celdas en hover */
+td:hover {
+  background-color: #b8b8b8;
+  transition: background-color 0.3s ease;
+}
+
+
+
+
+
+
+button:hover {
+  background-color: #267bb5;
+}
+
+#tablaUsuarios_paginate .paginate_button {
+  background-color: #ffffff;
+  color: #fff;
+  border: 1px solid #2c3e50;
+  margin: 2px;
+  cursor: pointer;
+  border-radius: 15px;
+}
+
+#tablaUsuarios_paginate .paginate_button:hover {
+  background-color: #d3bbf0;
+}
+
+#modalEditar{
+  position: fixed;
+  display: none;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  height: 400px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  border: 2px solid #000;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+  background-color: #ffffff;
+   overflow: hidden;
+  
+}
+.modal-title{
+  font-size: 20px;
+  font-family: 'Outfit', sans-serif; 
+}
+
+/* Estilos para el modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  width: 400px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#contenidoModal{
+  background-color: #fff;
+  margin-top: -20px;
+  width: 450px;
+  text-align: center;
+  overflow: hidden;
+  margin: 1% auto;
+
+}
+
+.close {
+  color: #fa0000;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #555;
+}
+
+/* Estilos para el botón Eliminar */
+#buttonEliminar {
+  background-color: #dc3545; /* Rojo */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#buttonEliminar:hover {
+  background-color: #c82333; /* Rojo más oscuro en el hover */
+}
+
+/* Estilos para el botón Contactar */
+#buttonContactar {
+  background-color: #17a2b8; /* Azul */
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#buttonContactar:hover {
+  background-color: #138496; /* Azul más oscuro en el hover */
+}
+
+/* Estilos para el botón Editar */
+#buttonEditar {
+  background-color: #ffc107; /* Amarillo */
+  color: #000;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#buttonEditar:hover {
+  background-color: #e0a800; /* Amarillo más oscuro en el hover */
+}
+
+#botonesContainer {
+  display: flex;
+  gap: 10px;
+  justify-content:center;
+  margin-top: 20px;
+}
+
+
+
+
+#modalContenidoEditar {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffffff;
+  
+
+}
+
+#modalContenidoEditar label {
+  font-size: 15px;
+  font-family: 'Outfit', sans-serif; 
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+#modalContenidoEditar input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+  height: 17px;
+  font-family: 'Outfit', sans-serif; 
+}
+
+#modalContenidoEditar input[disabled] {
+  background-color: #eee;
+  cursor: not-allowed;
+}
+
+#modalContenidoEditar input[type="text"]::placeholder {
+  color: #999;
+}
+
+/* Añade estos estilos según tus preferencias */
+#botones {
+  width: 200%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+button {
+  padding: 10px;
+  margin-right: 10px;
+  margin-top: -10PX;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: 'Outfit', sans-serif; 
+  border-radius: 15px;
+  align-items: center;  
+  
+}
+
+
+
+#btnGuardar {
+  background-color: #28a745; /* Verde oscuro */
+  color: white;
+}
+
+#btnCancelar {
+  background-color: #dc3545; /* Rojo oscuro */
+  color: white;
+}
+
+/* Estilo para los selectores */
+select {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif; 
+}
+
+/* Estilo para las etiquetas */
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  font-family: 'Outfit', sans-serif; 
+}
+
+/* Estilo para el contenedor del formulario */
+#modalContenidoEditar {
+  padding: 20px;
+}
+
+
+#modalMensaje{
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.modal-content {
+  background-color: #fff;
+  margin: 15% auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  width: 400px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.close {
+  color: #000000;
+  float: right;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #555;
+}
+
+
+/* Estilo para la barra de texto dentro del modal */
+.modal-content input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 15px;
+  margin: 20px 0;
+  border: 2px solid #2c3e50;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 18px;
+  outline: none;
+  height: 100px;
+  resize: none;
+  word-wrap: break-word;
+}
+
+/* Estilo para el enlace dentro del modal */
+.modal-content a {
+  color: #2c3e50;
+  text-decoration: none;
+}
+
+/* Estilo para el enlace dentro del modal al pasar el ratón sobre él */
+.modal-content a:hover {
+  text-decoration: underline;
+}
+
+#buttonInformarModal{
+  margin-top: 10PX;
+}

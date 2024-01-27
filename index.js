@@ -138,9 +138,6 @@ app.get('/getTotalesIncidencias', async (req, res) => {
 app.post('/getImagenColaborador', async (req, res) => {
   const idAsignacionUser = req.body.id_asignacion_user;
 
-
-  console.log('Se recibió idAsignacionUser:', idAsignacionUser);
-
   try {
     // Consulta para obtener la imagen del colaborador
     const result = await pool.query(`
@@ -155,7 +152,6 @@ app.post('/getImagenColaborador', async (req, res) => {
     if (result.rows.length > 0) {
       const imagenColaborador = result.rows[0].imagen_colaborador;
 
-      console.log('Imagen del colaborador:', imagenColaborador);
 
       res.json({ imagen_colaborador: imagenColaborador });
     } else {
@@ -192,7 +188,7 @@ app.get('/getTotalIncidentesSemana', async (req, res) => {
 
     if (result.rows.length > 0) {
       const totalIncidentesSemana = result.rows;
-      console.log('Resultados de total de incidentes en la semana:', totalIncidentesSemana);
+   
       res.json(totalIncidentesSemana);
     } else {
       res.json([]);
@@ -238,7 +234,7 @@ app.get('/getIncidencias', async (req, res) => {
     if (result.rows.length > 0) {
       const incidencias = result.rows;
       
-      console.log('Resultados de incidencias:', incidencias);
+
 
       res.json(incidencias);
     } else {
@@ -253,9 +249,6 @@ app.get('/getIncidencias', async (req, res) => {
 // Ruta para el inicio de sesión
 app.post('/login', async (req, res) => {
   const { username, password } = req.body;
-
-  console.log('Cédula recibida:', username);
-  console.log('Contraseña recibida:', password);
 
   try {
     // Realizar la consulta a la base de datos para verificar las credenciales
@@ -282,12 +275,11 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/getUsuariosExcluyendoId', async (req, res) => {
-
   const idAsignacionUser = req.body.id_asignacion_user;
-  console.log("MI ID recibido server: ", idAsignacionUser)
+
   try {
     const result = await pool.query(`
-      SELECT au.id_asignacion_user, c.nombre_colaborador, c.apellido_colaborador
+      SELECT au.id_asignacion_user, c.nombre_colaborador, c.apellido_colaborador, c.telefono_colaborador
       FROM public.asignacion_user au
       JOIN public.colaboradores c ON au.id_usuario = c.id_colaborador
       WHERE au.id_asignacion_user <> $1;
@@ -295,10 +287,9 @@ app.post('/getUsuariosExcluyendoId', async (req, res) => {
 
     if (result.rows.length > 0) {
       const usuariosExcluyendoId = result.rows;
-      console.log('Resultados de usuarios excluyendo id:', usuariosExcluyendoId);
+      console.log(usuariosExcluyendoId);
       res.json(usuariosExcluyendoId);
     } else {
-      console.log('No se encontraron usuarios excluyendo id.');
       res.json([]);
     }
   } catch (error) {
@@ -312,8 +303,6 @@ app.post('/getUsuariosExcluyendoId', async (req, res) => {
 app.post('/actualizarImagen', async (req, res) => {
   const idAsignacionUser = req.body.id_asignacion_user;
   const urlImagen = req.body.url_imagen; 
-  console.log(idAsignacionUser);
-  console.log(urlImagen);
 
   try {
     // Realizar la actualización en la base de datos
@@ -325,10 +314,10 @@ app.post('/actualizarImagen', async (req, res) => {
 
     // Verificar si se realizó la actualización correctamente
     if (result.rowCount > 0) {
-      console.log(`Imagen del colaborador con idAsignacionUser ${idAsignacionUser} actualizada.`);
+
       res.json({ success: true });
     } else {
-      console.log(`No se encontró el colaborador con idAsignacionUser ${idAsignacionUser}.`);
+
       res.status(404).json({ error: 'Colaborador no encontrado' });
     }
   } catch (error) {
@@ -350,8 +339,7 @@ app.listen(PORT, () => {
 async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
   try {
     const chatId = telefonoColaborador;
-    console.log("Teléfono:", telefonoColaborador);
-    console.log("Mensaje:", mensajeTelegram);
+
     // Enviar mensaje a Telegram
     await bot.sendMessage(chatId, mensajeTelegram);
   } catch (error) {
@@ -362,7 +350,7 @@ async function enviarMensajeTelegram(telefonoColaborador, mensajeTelegram) {
 
 app.post('/obtenerAvatar', async (req, res) => {
   const idAsignacionUser = req.body.id_asignacion_user;
-  console.log(idAsignacionUser);
+
 
   try {
     // Realizar la consulta en la base de datos para obtener la imagen_colaborador
@@ -375,10 +363,10 @@ app.post('/obtenerAvatar', async (req, res) => {
     // Verificar si se encontraron resultados
     if (result.rows.length > 0) {
       const imagenColaborador = result.rows[0].imagen_colaborador;
-      console.log(`Imagen del colaborador con idAsignacionUser ${idAsignacionUser} obtenida.`);
+
       res.json({ imagen_colaborador: imagenColaborador });
     } else {
-      console.log(`No se encontró el colaborador con idAsignacionUser ${idAsignacionUser}.`);
+
       res.status(404).json({ error: 'Colaborador no encontrado' });
     }
   } catch (error) {
@@ -418,7 +406,6 @@ app.post('/cerrarIncidencia', async (req, res) => {
       WHERE id_incidente = $1;
     `, [idIncidencia]);
 
-    console.log(`Incidencia ${idIncidencia} actualizada a estado "Cerrado"`);
 
     // Respuesta exitosa
     res.json({ success: true });
@@ -462,7 +449,7 @@ app.get('/getIncidenciasGrafico', async (req, res) => {
     if (result.rows.length > 0) {
       const incidencias = result.rows;
       
-      console.log('Resultados de incidencias:', incidencias);
+
 
       res.json(incidencias);
     } else {
@@ -506,7 +493,7 @@ app.get('/getUltimosIncidentes', async (req, res) => {
   const fechaIncidencia = req.query.fecha_incidencia; 
   const idAsignacionUser = req.query.id_asignacion_user;
 
-  console.log(fechaIncidencia, "id:", idAsignacionUser);
+
 
   try {
     const result = await pool.query(`
@@ -529,10 +516,10 @@ app.get('/getUltimosIncidentes', async (req, res) => {
 
     if (result.rows.length > 0) {
       const ultimosIncidentes = result.rows;
-      console.log('Resultados de los últimos incidentes:', ultimosIncidentes);
+
       res.json(ultimosIncidentes);
     } else {
-      console.log('No se encontraron incidentes.');
+
       res.json([]);
     }
   } catch (error) {
@@ -541,3 +528,167 @@ app.get('/getUltimosIncidentes', async (req, res) => {
   }
 });
 
+app.get('/getAdministradores', async (req, res) => {
+  try {
+    // Tu lógica para obtener información de administradores
+    const result = await pool.query(`
+      SELECT c.id_colaborador, c.id_departamento, c.nombre_colaborador, c.apellido_colaborador, c.cedula, c.correo_colaborador, c.telefono_colaborador, c.imagen_colaborador, d.nombre_departamento, ca.nombre_cargo
+      FROM public.colaboradores c
+      JOIN public.usuarios u ON c.id_colaborador = u.id_colaborador
+      JOIN public.departamento d ON c.id_departamento = d.id_departamento
+      JOIN public.cargo ca ON u.id_cargo = ca.id_cargo
+      WHERE u.id_perfil = 1
+      ORDER BY c.id_colaborador;
+    `);
+
+    if (result.rows.length > 0) {
+      const administradores = result.rows;
+      res.json(administradores);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener la información de administradores' });
+  }
+});
+
+
+app.post('/eliminarUsuario', async (req, res) => {
+  const tu_id_usuario = req.body.id_usuario;
+  console.log("El id a eliminar es: ", tu_id_usuario)
+
+  try {
+
+    await pool.query(`
+      DELETE FROM public.incidente
+      WHERE id_reportacion_user IN (SELECT id_colaborador FROM public.colaboradores WHERE id_reportacion_user = $1);
+    `, [tu_id_usuario]);
+
+ 
+    await pool.query(`
+      DELETE FROM public.reportacion_user
+      WHERE id_usuario = $1;
+    `, [tu_id_usuario]);
+
+    
+    await pool.query(`
+      DELETE FROM public.usuarios
+      WHERE id_colaborador IN (SELECT id_colaborador FROM public.colaboradores WHERE id_colaborador = $1);
+    `, [tu_id_usuario]);
+
+   
+    await pool.query(`
+      DELETE FROM public.colaboradores
+      WHERE id_colaborador  = $1;
+    `, [tu_id_usuario]);
+
+   
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error en las eliminaciones en la base de datos:', error);
+    res.status(500).json({ error: 'Error al eliminar registros relacionados con el usuario' });
+  }
+});
+
+
+
+app.post('/getAdministradoresPorUsuario', async (req, res) => {
+  const idUsuario = req.body.id_usuario;
+  console.log("Id a modificar" ,idUsuario)
+
+  try { 
+    const result = await pool.query(`
+      SELECT c.id_colaborador, c.id_departamento, c.nombre_colaborador, c.apellido_colaborador, c.cedula, c.correo_colaborador, c.telefono_colaborador, c.imagen_colaborador, d.nombre_departamento, ca.nombre_cargo
+      FROM public.colaboradores c
+      JOIN public.usuarios u ON c.id_colaborador = u.id_colaborador
+      JOIN public.departamento d ON c.id_departamento = d.id_departamento
+      JOIN public.cargo ca ON u.id_cargo = ca.id_cargo
+      WHERE u.id_usuario = $1
+      ORDER BY c.id_colaborador;
+    `, [idUsuario]);
+
+    if (result.rows.length > 0) {
+      const administradores = result.rows;
+      res.json(administradores);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener la información de administradores por usuario' });
+  }
+});
+
+
+app.get('/getDepartamentos', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id_departamento, nombre_departamento, descripcion_departamento
+      FROM public.departamento;
+    `);
+
+    if (result.rows.length > 0) {
+      const departamentos = result.rows;
+      res.json(departamentos);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener la lista de departamentos' });
+  }
+});
+
+app.get('/getCargos', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id_cargo, nombre_cargo
+      FROM public.cargo;
+    `);
+
+    if (result.rows.length > 0) {
+      const cargos = result.rows;
+      res.json(cargos);
+    } else {
+      res.json([]);
+    }
+  } catch (error) {
+    console.error('Error en la consulta a la base de datos:', error);
+    res.status(500).json({ error: 'Error al obtener la lista de cargos' });
+  }
+});
+
+app.put('/actualizarColaborador', async (req, res) => {
+  const { id_colaborador, correo_colaborador, telefono_colaborador, id_departamento } = req.body;
+
+  try {
+    await pool.query(`
+      UPDATE public.colaboradores
+      SET correo_colaborador = $1, telefono_colaborador = $2, id_departamento = $3
+      WHERE id_colaborador = $4
+    `, [correo_colaborador, telefono_colaborador, id_departamento, id_colaborador]);
+
+    res.json({ success: true, message: `Colaborador con ID ${id_colaborador} actualizado correctamente` });
+  } catch (error) {
+    console.error('Error al actualizar el colaborador:', error);
+    res.status(500).json({ error: 'Error al actualizar el colaborador' });
+  }
+});
+
+app.put('/actualizarCargoUsuario', async (req, res) => {
+  const { tu_nuevo_valor, tu_id_usuario } = req.body;
+
+  try {
+    await pool.query(`
+      UPDATE public.usuarios
+      SET id_cargo = $1
+      WHERE id_usuario = $2
+    `, [tu_nuevo_valor, tu_id_usuario]);
+
+    res.json({ success: true, message: `Cargo del usuario con ID ${tu_id_usuario} actualizado correctamente` });
+  } catch (error) {
+    console.error('Error al actualizar el cargo del usuario:', error);
+    res.status(500).json({ error: 'Error al actualizar el cargo del usuario' });
+  }
+});
