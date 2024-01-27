@@ -1028,7 +1028,7 @@ td img {
 }
 
 .GRID_CONTAINER1{
-  margin-top: -20PX;
+  margin-top: -33PX;
   display: grid;
   width: MIN(100%, 1500px);
 
@@ -1059,7 +1059,7 @@ td img {
   align-items: center;
   display: flex;
   box-sizing: border-box;
-  border: 1PX solid black;
+
   text-align: center;
   margin: 10px;
 }

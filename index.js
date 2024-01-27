@@ -511,7 +511,7 @@ app.get('/getUltimosIncidentes', async (req, res) => {
         AND i.id_asignacion_user = $2
       ORDER BY
         i.fecha_incidente DESC
-      LIMIT 4;
+      LIMIT 3;
     `, [fechaIncidencia, idAsignacionUser]);
 
     if (result.rows.length > 0) {
