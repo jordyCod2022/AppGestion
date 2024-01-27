@@ -470,7 +470,15 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   flex: 1;
 }
 
+#contentGraperPrioridad{
+  overflow: hidden;
+  margin-left: 10px;
+  display: flex;
+  gap: 0px 10px;
+}
+
 .label {
+  
   margin-bottom: 10px;
   font-size: 17px;
   color: #ffffff;
@@ -576,7 +584,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 .graficoSemanal_diagrama{
 
-  width: 70%;
+  width: 60%;
 }
 
 
@@ -994,20 +1002,6 @@ td img {
   color: rgb(0, 0, 0); /* Cambia el color del ícono cuando está seleccionado */
 }
 
-@media (max-width: 844px) {
-
-  #menuAside {
-    display: none; 
-  }
-
-  #fechaButton{
-    display: none;
-    
-  }
-
-
-  
-}
 
 #iconosMaterial.material-icons,#iconosMaterial.material-symbols-outlined{
   font-size: 70px;
@@ -1021,7 +1015,7 @@ td img {
   width: MIN(100%, 1500px);
 
   padding: 10px;
-  grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
 
 
 
@@ -1078,4 +1072,69 @@ td img {
   margin-top: -20px;
   width: 100%;
   height: 240px;
+}
+
+@media (max-width: 844px) {
+
+  #menuAside {
+    display: none; 
+  }
+
+  #fechaButton{
+    display: none;
+    
+  }
+  #iconosMaterial.material-icons,#iconosMaterial.material-symbols-outlined{
+    display: none;
+    
+  }
+
+
+  .names {
+    font-weight: bold;
+    font-size: 15px;
+    color: #ffffff;
+  }
+  
+  .value {
+    font-size: 18px;
+    color: #ffffff;
+  }
+  
+  #contentGraperPrioridad{
+    overflow: hidden;
+    display: block;
+    gap: 0px 2px;
+  }
+
+  #GridGraficoSemanal{
+    display: block;
+  }
+
+  .graficoSemanal_Labels {
+    margin-left: 80px;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .tituloSemana{
+    justify-content: center;
+    align-items: center; 
+  }
+
+  .graficoSemanal_diagrama{
+    margin-top: 20px;
+    width: 100%;
+   
+
+  }
+
+  .graficarSemanal{
+    border: 1PX solid black;
+    height:150px;
+  }
+  
+
+  
 }

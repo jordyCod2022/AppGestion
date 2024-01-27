@@ -660,13 +660,13 @@ button {
 
 #btnGuardar {
   background-color: #28a745; /* Verde oscuro */
-  color: white;
+  color: rgb(255, 255, 255);
+  width: 100px;
+
+  
 }
 
-#btnCancelar {
-  background-color: #dc3545; /* Rojo oscuro */
-  color: white;
-}
+
 
 /* Estilo para los selectores */
 select {
