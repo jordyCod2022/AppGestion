@@ -7,8 +7,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 200px;
-  height: 430px;
+  width: 400px;
+  height: 330px;
   padding: 20px;
   background: #fff;
   border-radius: 10px;
@@ -127,7 +127,7 @@ button:hover svg {
 
 
 .detallesTransfer {
-  margin-top: 5px;
+  margin-top: 30px;
   height: 40%;
   padding: 5px; /* Añade relleno para separar el contenido del borde */
 }
@@ -633,9 +633,10 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 }
 
   .tituloPorUsuario{
-margin-top: -40px;
+margin-top: -10px;
   text-align: center;
   height: 30px;
+  display: flex;
 
   }
 
@@ -1085,7 +1086,7 @@ header {
   padding: 10px;
   grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
   gap:0px -30px;
-  height: 360px;
+
 
 
 
@@ -1176,7 +1177,6 @@ header {
   width: 100%;
   height: 240px;
 }
-
 
 
 @media (max-width: 844px) {
@@ -1338,6 +1338,10 @@ header {
   
   .ContenedorAccionesseccion2{
     display: none;
+  }
+
+  .GRID_CONTAINER{
+    height: 380px;
   }
     
   

@@ -122,9 +122,9 @@ function showAndProcessIncidencias(incidencias) {
         }
       }
     ],
-    pageLength: 8,
-    // Agregar control de selección para cambiar la cantidad de registros por página
-    lengthMenu: [8, 15, 30],
+    pageLength: 7,
+
+    lengthMenu: [7, 15, 30],
   });
 
   $('#tablaIncidencias tbody').on('click', 'tr', function () {
