@@ -37,13 +37,18 @@
   color: #ffffff; /* Color del texto en el botón (puedes cambiarlo) */
   border: 2px solid #3498db; /* Borde del botón, coincide con el color de fondo */
   border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
-  padding: 10px 20px; /* Ajuste de relleno para un aspecto más equilibrado */
-  font-size: 16px; /* Tamaño del texto */
+  padding: 5px 5px; /* Ajuste de relleno para un aspecto más equilibrado */
+  font-size: 13px; /* Tamaño del texto */
   cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
   transition: background-color 0.3s ease, color 0.3s ease; 
-  height: 40px;
+  height: 30px;
+  margin-top: 5px;
+
+
 
 }
+
+
 .fechaActual{
   font-family: 'Outfit', sans-serif; 
   color: #000000;
@@ -162,7 +167,7 @@ button:hover svg {
 
 body, html {
   margin: 0;
-  padding: 0;
+  padding: 0px;
   background-color: #f2f2f2;
   display: flex;
   overflow: hidden;
@@ -571,6 +576,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   align-items: center;
   justify-content: space-between;
   background-color: #141d34;
+  height: 150px;
 }
 
 #none{
@@ -918,6 +924,16 @@ td img {
 
 }
 
+header {
+
+  top: 0;
+  width: 93%; /* Ajusta el ancho al 100% */
+  z-index: 1;
+  background-color: #fff; /* Puedes agregar un fondo si lo deseas */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añade sombra si es necesario */
+
+}
+
 
 
 .divCerrar{
@@ -1054,19 +1070,22 @@ td img {
   font-family: 'Outfit', sans-serif; 
   margin-top: 10px;
   font-weight: bold;
-  margin-left: 100PX;
+  margin-left: 10PX;
+
+ 
 
 }
+
+
 
 .GRID_CONTAINER{
   margin-top: -20PX;
   display: grid;
   width: MIN(100%, 1500px);
-
-
   padding: 10px;
   grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
   gap:0px -30px;
+  height: 360px;
 
 
 
@@ -1162,7 +1181,11 @@ td img {
 
 @media (max-width: 844px) {
 
-
+  
+  .GRID_CONTAINER1{
+    display: block;
+  }
+  
 
   #menuAside {
     display: none; 
@@ -1172,6 +1195,8 @@ td img {
     display: none;
     
   }
+
+
   #iconosMaterial.material-icons,#iconosMaterial.material-symbols-outlined{
     display: none;
     
@@ -1195,9 +1220,7 @@ td img {
     gap: 0px 2px;
   }
 
-  #GridGraficoSemanal{
-    display: block;
-  }
+
 
   .graficoSemanal_Labels {
     margin-left: 90px;
@@ -1256,19 +1279,67 @@ td img {
     height: 100%;
   
     margin-left: auto;
-    margin-right: auto;
+    margin-right: 100px;
     
   }
 
   #contenedorImagen{
     display: none;
   }
+
   .connectBtn.flatpickr-input {
     margin-top: -15px;
-   width: 100px;
+    margin-right: 20px;
+    width: 100px;
+  }
+
+  header {
+    position: sticky;
+    top: 0;
+    width: 95%;
+    z-index: 1000; 
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ 
+  }
+
+  html{
+    overflow: none;
+  }
+
+  #totalPrioridad{
+    margin-bottom: 150px;
+
+  }
+
+  #GridGraficoSemanal{
+    display: none;
+  }
+
+    #GridGraficoUsuario{
+      
+    }
+
+    #ticketsPendientes{
+  margin-top: 20px;
+    }
+
+    #ticketsResueltos{
+  margin-top: 20px;
+    }
+
+    .contentDerecho{
+      margin-left: 30px;
+    }
+
+  #GRIDCONTAINEREDIT{
+    margin-top: 10PX;
   }
   
-  
+  .ContenedorAccionesseccion2{
+    display: none;
+  }
+    
   
   
 }

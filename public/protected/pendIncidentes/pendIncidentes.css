@@ -158,6 +158,17 @@ button.realizado {
   color: #555;
 }
 
+header {
+
+  top: 0;
+  width: 100%; /* Ajusta el ancho al 100% */
+  z-index: 1;
+  background-color: #fff; /* Puedes agregar un fondo si lo deseas */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Añade sombra si es necesario */
+
+}
+
+
 
 /* Estilo para la barra de texto dentro del modal */
 .modal-content input[type="text"] {
@@ -577,7 +588,9 @@ aside ul li a span {
   font-family: 'Outfit', sans-serif; 
   margin-top: 10px;
   font-weight: bold;
-  margin-left: 100PX;
+  margin-left: 10PX;
+
+ 
 
 }
 
@@ -593,10 +606,6 @@ body, html {
   background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
   background-size: 30px 30px;
   background-position: -5px -5px;
-
-  
-
-
 
 }
 
@@ -676,4 +685,15 @@ section.main {
 
 #buttonAutogenerarModal:hover {
   background-color: #e0a800; /* Amarillo más oscuro en el hover */
+}
+
+
+@media (max-width: 844px) {
+
+
+  .contentDerecho{
+    display: none;
+  }
+
+
 }
