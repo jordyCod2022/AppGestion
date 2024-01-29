@@ -1,13 +1,27 @@
 let telefonoSeleccionado;
 let descripSeleccionado;
+
 document.addEventListener('DOMContentLoaded', () => {
   const storedDashboardFecha = localStorage.getItem('dashboardFecha');
   const storedIdAsignacionUser = localStorage.getItem('idAsignacionUser');
   const storedAvatarUrl = localStorage.getItem('avatarUrl');
   const items = document.querySelectorAll("#IconosAside li");
   var iconoSegundo = document.querySelector('#IconosAside li:nth-child(2)');
-  iconoSegundo.classList.add('seleccionado');
+  const storedNombreData = localStorage.getItem('nombreData');
+  const nombreData = storedNombreData ? JSON.parse(storedNombreData) : null;
+  console.log(nombreData)
+  const enviarNombre = document.querySelector('.nombreUsuarioActual');
+  
 
+  iconoSegundo.classList.add('seleccionado');
+  nombreSesionActual = `${nombreData.nombre}`;
+  apellidoSesionActual = `${nombreData.apellido}`;
+
+  const nombreCompleto = `${nombreSesionActual} ${apellidoSesionActual}`;
+
+  console.log(nombreCompleto)
+  enviarNombre.textContent = nombreCompleto;
+ 
   items.forEach((item) => {
     const tooltipText = item.querySelector("a").getAttribute("data-tooltip");
     const tooltip = document.createElement("div");
@@ -47,9 +61,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Obtener y mostrar incidencias
   getAndShowIncidencias(storedIdAsignacionUser, storedDashboardFecha);
+
+
+  
+
 });
 
 let filaSeleccionada = null;
+
+
+ 
+
 
 function showAndProcessIncidencias(incidencias) {
   const tablaIncidencias = $('#tablaIncidencias').DataTable({
@@ -237,6 +259,9 @@ async function realizarIncidente(idIncidencia) {
     const responseData = await response.json();
 
     if (responseData.success) {
+
+      alert("Incidente realizado");
+
 
       const mensajes = [
         `✅ Tu incidencia: ${descripSeleccionado} ha sido resuelta. ¡Gracias por tu paciencia! 🎉`,

@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit&display=swap');
-body,
-html {
-  margin: 0;
-  padding: 0;
-  max-height: 100%;
-}
+
 
 section.main {
   height: 100%;
@@ -109,11 +104,6 @@ button:hover {
 }
 
 
-
-
-button:hover {
-  background-color: #267bb5;
-}
 
 .incidentia {
   margin-bottom: 20px;
@@ -231,20 +221,6 @@ button.realizado {
 
 
 
-header {
-  background: linear-gradient(135deg, rgba(4, 0, 255, 1) 0%, rgba(136, 0, 255, 1) 35%, rgba(209, 0, 255, 1) 100%);
-  padding: 10px 20px;
-  box-shadow: 0px -8px 25px #6d6d6d;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  /* Cambiado de 97% a 100% para ajustar completamente al ancho */
-  z-index: 991;
-  display: flex;
-  justify-content: space-between;
-  /* Para alinear los elementos en los extremos */
-}
 
 
 .menu {
@@ -252,14 +228,6 @@ header {
   cursor: pointer;
 }
 
-#buttonSalir{
-  background: linear-gradient(to bottom, #4dc7d9 0%,#66a6ff 100%);
-  color: #fff;
-  border: none;
-  padding: 10px;
-  margin-right: 10px;
-  cursor: pointer;
-}
 
 
 
@@ -296,7 +264,7 @@ button {
 
 button:hover {
   background-color: #555;
-  /* Cambio de color al pasar el ratón */
+  
 }
 
 button i {
@@ -345,22 +313,15 @@ button i {
   align-items: center;
   justify-content: space-between;
   height: 100vh;
-}
-
-
-aside {
-  width: 60px;
-  background: linear-gradient(135deg, rgb(51, 20, 58) 0%, #552e9f 35%, rgb(71, 16, 83) 100%);
-  padding: 0px 0px 10px 0px;
-
-  overflow: hidden;
-  z-index: 99;
-  margin-top: -70px;
   transition: visibility 0.3s, width 0.3s;
-  height: 100%;
-
-
+  margin-top: 0px; 
+  z-index: 99;
+  width: 60px;
+  background: #1b2838;
+  padding: 0px 0px 10px 0px;
+  overflow: hidden;
 }
+
 
 
 aside ul {
@@ -419,6 +380,7 @@ aside ul li a span {
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
   margin: 0 auto; /* Centra el botón horizontalmente */
   margin-left: 0px;
+  background-color: #882121;
 }
 
 .nuevoContenedor {
@@ -430,7 +392,6 @@ aside ul li a span {
 
 
 
-
 #contenedorImagen {
   margin-bottom: 15px;
   display: flex;
@@ -438,28 +399,25 @@ aside ul li a span {
   position: relative;
   justify-content: flex-start;
   text-align: center;
-  width: 45px;
-  /* Ajusta el ancho según tus necesidades */
-  height: 45px;
-  /* Ajusta la altura según tus necesidades */
-  overflow: hidden;
-  /* Esto asegura que cualquier parte de la imagen que exceda las dimensiones del contenedor se oculte */
-  background-color: white;
-  /* Color del fondo blanco */
-  border-radius: 50px;
-  border-color: #000000;
-  /* Añadido para separar el contenedor de imagen de los elementos anteriores */
+  width: 45px; /* Ajusta el ancho según tus necesidades */
+  height: 45px; /* Ajusta la altura según tus necesidades */
+  overflow: hidden; /* Esto asegura que cualquier parte de la imagen que exceda las dimensiones del contenedor se oculte */
+  background-color: white; /* Color del fondo blanco */
+  border-radius: 50px; 
+  border: 2PX solid rgb(7, 9, 133);
+  margin-left: 10px;
+ 
+   /* Añadido para separar el contenedor de imagen de los elementos anteriores */
 }
 
 #imagenColaborador {
   border-color: #000000;
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  /* Esto asegura que la imagen cubra completamente el contenedor sin deformarse */
-  border-radius: 10px;
-  /* Ajusta según tus preferencias */
+  object-fit: cover; /* Esto asegura que la imagen cubra completamente el contenedor sin deformarse */
+  border-radius: 10px; /* Ajusta según tus preferencias */
 }
+
 
 
 /* plus sign */
@@ -560,32 +518,90 @@ aside ul li a span {
   /* Cambia el color del ícono cuando está seleccionado */
 }
 
-
-.tituloApp {
-  margin-top: -50px;
+.contentDerecho{
   display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 50px;
-  align-items: center;
-  padding-left: 20px;
-
+  margin-top: 20px;
+  margin-right: 10px;
 }
 
-.titulo {
+
+.titulo{
   font-size: 30px;
   font-family: 'Outfit', sans-serif; 
   font-weight: bold;
+  margin-left: 50px;
+ 
+  
+
 }
 
 
 
+.tituloApp{
+  margin-top: -70px;
+  margin-left: -20px;
+  display: flex;
+  justify-content: space-between;
+  width: 102%;
+  height: 60px;
+  align-items: center;
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #000;
 
-body,
-html {
+
+  
+}
+
+
+#fechaButton{
+
+  background-color: #ffffff; /* Color de fondo del botón (puedes cambiarlo) */
+  color: #ffffff; /* Color del texto en el botón (puedes cambiarlo) */
+  border: 2px solid #3498db; /* Borde del botón, coincide con el color de fondo */
+  border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
+  padding: 10px 20px; /* Ajuste de relleno para un aspecto más equilibrado */
+  font-size: 16px; /* Tamaño del texto */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  height: 40px;
+
+}
+.fechaActual{
+  font-family: 'Outfit', sans-serif; 
+  color: #000000;
+}
+
+
+
+.nombreUsuarioActual{
+  font-family: 'Outfit', sans-serif; 
+  margin-top: 10px;
+  font-weight: bold;
+  margin-left: 100PX;
+
+}
+
+body, html {
+  width: 100%;
   margin: 0;
   padding: 0;
-  max-height: 100%;
+  background-color: #e1f5fe;
+  display: flex;
+  overflow: hidden;
+
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px;
+
+  
+
+
+
+}
+
+html{
+  overflow: auto;
 }
 
 section.main {
@@ -598,8 +614,8 @@ section.main {
   position: relative;
   top: 50px;
   padding-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
+
+
 }
 
 * {
@@ -607,15 +623,13 @@ section.main {
   padding: 0px;
 }
 
-.ContenedorDashboard {
-  margin-left: 10px;
+
+.ContenedorDashboard{
   height: 100%;
-  width: 90%;
-  align-items: center;
+  margin-right: 10px;
   
-
-
 }
+
 
 /* Estilos para la columna Avatar */
 .avatar-img {

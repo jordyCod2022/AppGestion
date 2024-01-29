@@ -27,78 +27,93 @@
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   </head>
 <body>
+
+  <aside id="menuAside" class="keep">
+    <div class="icono">
+      <li id="iconoLogo" class="material-icons">track_changes</li>
+    </div>
+
+    <ul id="IconosAside">
+
+      <li>
+        <a href="../dashboard/dashboard.html" data-tooltip="Inicio">
+          <span><i class="material-icons">home</i></span>
+        </a>
+      </li>
+
+      <li>
+        <a class="pendientes" href="../pendIncidentes/pendIncidentes.html" data-tooltip="Incidentes reportados">
+          <span> <i class="material-icons">pending_actions</i> </span>
+
+        </a>
+      </li>
+
+      <li>
+        <a href="../usuarios/usuarios.html" data-tooltip="Usuarios">
+          <span><i class="material-icons">people</i></span>
+        </a>
+      </li>
+
+
+      <li>
+        <a href="/" data-tooltip="Asignación de Tareas">
+          <span><i class="material-icons">event</i></span>
+
+        </a>
+      </li>
+
+      <li id="cambiarImagenPerfilLink">
+        <a data-tooltip="Ajustes">
+          <span><i class="material-icons">settings</i></span>
+        </a>
+      </li>
+
+
+    </ul>
+
+    <div class="nuevoContenedor">
+
+      <button id="ButtonSalir" class="salir">
+        <div class="sign"><svg viewBox="0 0 512 512">
+            <path
+              d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
+            </path>
+          </svg></div>
+        <div class="text">Salir</div>
+      </button>
+    </div>
+  </aside>
+
+
 
 
   <section class="main">
 
-    <aside id="menuAside" class="keep">
-      <div class="icono">
-        <li id="iconoLogo" class="material-icons">track_changes</li>
-      </div>
-    
-      <ul id="IconosAside">
+   
+     
+    <div class="tituloApp">
+      <span class="titulo"> Mis pendientes</span>
 
-        <li>
-          <a href="../dashboard/dashboard.html" data-tooltip="Inicio">
-            <span><i class="material-icons">home</i></span>
-          </a>
-        </li>
-
-        <li>
-          <a class="pendientes" href="../pendIncidentes/pendIncidentes.html" data-tooltip="Incidentes reportados">
-            <span> <i class="material-icons">pending_actions</i></span>
-          
-          </a>
-        </li>
-    
-        <li>
-          <a href="../usuarios/usuarios.html" data-tooltip="Usuarios">
-            <span><i class="material-icons">people</i></span>
-          </a>
-        </li>
+      <div class="contentDerecho">
         
-    
-        <li>
-          <a href="/" data-tooltip="Asignación de Tareas">
-            <span><i class="material-icons">event</i></span>
-      
-          </a>
-        </li>
-    
-        <li id="cambiarImagenPerfilLink">
-          <a data-tooltip="Cambiar imagen perfil">
-            <span><i class="material-icons">event</i></span>
-      
-          </a>
-        </li>
-      </ul>
-    
-      <div class="nuevoContenedor">
+        <span class="nombreUsuarioActual"></span>
         <div id="contenedorImagen">
+          
           <img id="imagenColaborador" class="imagenColaborador">
         </div>
-    
-        <!-- Botón de Salir -->
-        <button id="buttonSalir" class="salir">
-          <div class="sign"><svg viewBox="0 0 512 512">
-              <path
-                d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
-              </path>
-            </svg></div>
-          <div class="text">Salir</div>
-        </button>
-      </div>
-    </aside>
+
+    </div>
+  </div>
+   
     
 
     <article class="ContenedorDashboard">
 
-      <div class="tituloApp">
-        <span class="titulo"> Incidentes Reportados</span>
-      </div>
-
+    
 
        
     <div id="incidenciasContainer">

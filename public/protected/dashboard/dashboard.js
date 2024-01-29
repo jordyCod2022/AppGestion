@@ -6,6 +6,7 @@ let telefonoUsuario;
 let telefonoAdmins;
 let nombreTrasfer;
 let nombreSesionActual;
+let fechaGlobal;
 document.addEventListener('DOMContentLoaded', async () => {
   // Recupera los datos almacenados en localStorage
   const storedNombreData = localStorage.getItem('nombreData');
@@ -17,16 +18,28 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Llamas a la función para obtener el historial
   const historialSemana = getHistorialSemana();
   nombreSesionActual = `${nombreData.nombre}`;
+  apellidoSesionActual = `${nombreData.apellido}`;
+  const nombreCompleto = `${nombreSesionActual} ${apellidoSesionActual}`;
+ 
+
   // Muestras el historial en la consola
   console.log('Historial de la semana:', historialSemana);
 
-  // Puedes hacer más cosas con el historial, como mostrarlo en una interfaz gráfica, etc.
+
 
 
   obtenerAdmin(nombreData.id_colaborador);
   const barChartContainer = document.getElementById('barChartContainer');
   const barLineContainer = document.getElementById('barLineContainer');
   const enviarButton = document.querySelector('.enviarButton button');
+  const enviarNombre = document.querySelector('.nombreUsuarioActual');
+  const enviarFecha=document.querySelector('.fechaActual');
+  
+
+
+  enviarNombre.textContent = nombreCompleto;
+  
+
   if (barChartContainer && barLineContainer) {
     barBarrasContainer = barChartContainer;
     lineChartContainer = barLineContainer;
@@ -64,11 +77,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   //Llamada de funciones principales
   const currentDate = getCurrentDate();
 
+  fechaGlobal=currentDate
 
   updateGrafica(currentDate);
   updateGraficaLineal(currentDate);
   updateTotalesIncidencias(currentDate);
   updateUltimosIncidentes(currentDate);
+  actualizarFechaSpan(currentDate)
 
   const incidencias = await getAndShowIncidencias(nombreData.id_colaborador, currentDate);
 
@@ -94,8 +109,8 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
     ],
     paging: true,
-    pageLength: 3,
-    lengthMenu: [3], // Limita las opciones de mostrar en el control de selección a 3
+    pageLength: 2,
+    lengthMenu: [2], // Limita las opciones de mostrar en el control de selección a 3
 
   });
 
@@ -122,7 +137,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     
         // Actualizar asignación de usuario
         actualizarAsignacionUser(nuevoAdmin, globalidAsignacion);
-    
+
+      
         // Enviar mensaje al usuario afectado
         const mensajeTelegramUsuario = `¡Atención! 🚨 Tu incidente ha sido transferido a otro encargado. Ahora está siendo gestionado por ${nombreTransfer} 🕵️‍♂️. ¡Gracias por tu comprensión! 🙌`;
         await enviarMensajeTelegram(telefonoUsuario, mensajeTelegramUsuario);
@@ -188,6 +204,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.error('No se encontró el botón de cerrar sesión');
   }
 
+  
+
+
 
   const dateContainer = document.createElement('span');
 
@@ -212,6 +231,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     onClose: function (selectedDates, dateStr) {
       dateContainer.innerText = dateStr;
 
+      actualizarFechaSpan(dateStr)
+
       // Actualizar los totales de incidencias con la nueva fecha
       updateTotalesIncidencias(dateStr);
       updateGrafica(dateStr);
@@ -221,6 +242,11 @@ document.addEventListener('DOMContentLoaded', async () => {
       getAndShowIncidencias(nombreData.id_colaborador, dateStr)
     },
   });
+
+  function actualizarFechaSpan(currentDate){
+
+    enviarFecha.textContent = currentDate;
+  }
 
 
 
@@ -409,8 +435,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 label: 'Total de Incidentes en la Semana',
                 data: datos,
                 fill: true,
-                backgroundColor: 'rgba(128, 0, 128, 0.3)', // Purple background with 30% opacity
-                borderColor: 'rgba(128, 0, 128, 1)',    // Solid purple border
+                backgroundColor: 'rgba(0, 0, 255, 0.3)', // Blue background with 30% opacity
+                borderColor: 'rgba(0, 0, 255, 1)',    // Solid blue border
+                
                 
                 borderWidth: 2
               }]
@@ -452,7 +479,7 @@ document.addEventListener('DOMContentLoaded', async () => {
               },
               elements: {
                 line: {
-                  tension: 0.4
+                  tension: 0.0
                 }
               }
             }

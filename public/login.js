@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Realizar automáticamente la llamada a /getNombre después del inicio de sesión exitoso
       const nombreResponse = await fetch('/getNombre?username=' + username);
       const nombreData = await nombreResponse.json();
+    
 
       // Almacena los datos en localStorage, incluyendo id_colaborador
       localStorage.setItem('nombreData', JSON.stringify(nombreData));

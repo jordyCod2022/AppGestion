@@ -60,34 +60,36 @@ app.get('/', (req, res) => {
 });
 
 app.get('/getNombre', async (req, res) => {
-  // Obtener la cédula del usuario autenticado desde la solicitud
-  const cedula = req.query.username; // Cambiado de req.body a req.query
-  
-
   try {
+    // Obtener la cédula del usuario autenticado desde la solicitud
+    const cedula = req.query.username; // Cambiado de req.body a req.query
+
     // Realizar la consulta a la base de datos para obtener el nombre y el id_colaborador
-    const result = await pool.query(`
-      SELECT id_colaborador, nombre_colaborador
-      FROM public.colaboradores
-      WHERE cedula = $1
-    `, [cedula]);
+    const result = await pool.query(
+      'SELECT id_colaborador, nombre_colaborador, apellido_colaborador FROM public.colaboradores WHERE cedula = $1',
+      [cedula]
+    );
 
     if (result.rows.length > 0) {
-      const idColaborador = result.rows[0].id_colaborador;
-      const nombre = result.rows[0].nombre_colaborador;
+      // Desestructurar los resultados de la consulta
+      const { id_colaborador, nombre_colaborador, apellido_colaborador } = result.rows[0];
 
       // Imprimir los resultados en la consola del servidor
-      console.log('ID del usuario:', idColaborador);
-      console.log('Nombre del usuario:', nombre);
-      console.log('Nombre de usuario (cedula):', cedula);
+      console.log('ID del usuario:', id_colaborador);
+      console.log('Nombre del usuario:', nombre_colaborador);
+      console.log('Apellido del usuario:', apellido_colaborador);
+      console.log('Cedula de usuario:', cedula);
 
-      res.json({ id_colaborador: idColaborador, nombre: nombre, username: cedula });
+      // Enviar la respuesta JSON con los resultados
+      res.json({ id_colaborador, nombre: nombre_colaborador, apellido: apellido_colaborador, username: cedula });
     } else {
-      res.json({ id_colaborador: null, nombre: null, username: null });
+      // Si no se encuentra un usuario con la cédula proporcionada
+      res.json({ id_colaborador: null, nombre: null, apellido: null, username: null });
     }
   } catch (error) {
+    // Manejar errores durante la consulta a la base de datos
     console.error('Error en la consulta a la base de datos:', error);
-    res.status(500).json({ error: 'Error al obtener el nombre e ID del usuario' });
+    res.status(500).json({ error: 'Error al obtener el nombre, apellido e ID del usuario' });
   }
 });
 

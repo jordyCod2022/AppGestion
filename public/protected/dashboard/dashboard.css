@@ -18,6 +18,7 @@
 }
 
 
+
 .enviarButton{
  
   margin-top: 50px;
@@ -29,19 +30,23 @@
 }
 
 
-button {
+
+#fechaButton{
+
+  background-color: #ffffff; /* Color de fondo del botón (puedes cambiarlo) */
+  color: #ffffff; /* Color del texto en el botón (puedes cambiarlo) */
+  border: 2px solid #3498db; /* Borde del botón, coincide con el color de fondo */
+  border-radius: 5px; /* Bordes redondeados para un aspecto más suave */
+  padding: 10px 20px; /* Ajuste de relleno para un aspecto más equilibrado */
+  font-size: 16px; /* Tamaño del texto */
+  cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+  transition: background-color 0.3s ease, color 0.3s ease; 
+  height: 40px;
+
+}
+.fechaActual{
   font-family: 'Outfit', sans-serif; 
-  font-size: 15px;
-  background: linear-gradient(to bottom, #4dc7d9 0%,#66a6ff 100%);
-  color: white;
-  padding: 0.8em 1.2em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  border-radius: 25px;
-  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
-  transition: all 0.3s;
+  color: #000000;
 }
 
 
@@ -68,6 +73,23 @@ button svg {
   fill: white;
   transition: all 0.3s;
 }
+.graficoSemanal_Labels{
+  
+  width: 40%;
+
+
+ 
+
+}
+
+
+
+.graficoSemanal_diagrama{
+  
+  width: 60%;
+}
+
+
 
 button .svg-wrapper {
   display: flex;
@@ -141,20 +163,43 @@ button:hover svg {
 body, html {
   margin: 0;
   padding: 0;
-  max-height: 100%;
+  background-color: #f2f2f2;
+  display: flex;
+  overflow: hidden;
+  
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(12, 12, 12, 0.171) 2px, transparent 0);
+  background-size: 30px 30px;
+  background-position: -5px -5px;
+
+
+
+
 }
+
+
+
+html{
+  overflow: auto;
+}
+
+
+
+
 
 section.main {
   height: 100%;
   width: 100%;
 
+
 }
 .main {
-  position: relative;
+
   top: 50px;
-  padding-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 20px;
+ 
+
 }
 
 *{
@@ -165,7 +210,9 @@ section.main {
 
 .ContenedorDashboard{
   height: 100%;
-  margin-left: 35px;
+
+  margin-left: 45px;
+  margin-right: 10px;
   
 }
 
@@ -215,9 +262,8 @@ section.main {
 
 aside {
   width: 60px;
-  background: linear-gradient(135deg, rgb(51, 20, 58) 0%, #552e9f 35%, rgb(71, 16, 83) 100%);
+  background: #03254c;
   padding: 0px 0px 10px 0px;
-
   overflow: hidden;
   z-index: 99;
   margin-top: -70px; 
@@ -226,7 +272,9 @@ aside {
  
  
 }
-
+#tituloUsuario{
+  margin-top: 10px;
+}
 
 aside ul {
   list-style: none;
@@ -396,7 +444,16 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   align-items: center;
   justify-content: space-between;
   height: 100vh;
+  transition: visibility 0.3s, width 0.3s;
+  margin-top: 0px; 
+  z-index: 99;
+  width: 60px;
+  background: #1b2838;
+  padding: 0px 0px 10px 0px;
+  overflow: hidden;
 }
+
+
 
 #IconosAside {
   list-style: none;
@@ -429,7 +486,9 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   overflow: hidden; /* Esto asegura que cualquier parte de la imagen que exceda las dimensiones del contenedor se oculte */
   background-color: white; /* Color del fondo blanco */
   border-radius: 50px; 
-  border-color: #000000;
+  border: 2PX solid rgb(7, 9, 133);
+  margin-left: 10px;
+ 
    /* Añadido para separar el contenedor de imagen de los elementos anteriores */
 }
 
@@ -455,10 +514,10 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   overflow: hidden;
   transition-duration: .3s;
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
-
+  margin: 0 auto; /* Centra el botón horizontalmente */
   margin-left: 0px;
+  background-color: #882121;
 }
-
 /* ... (tus estilos actuales) ... */
 .ContenedorDashboard {
   width: 90%;
@@ -497,22 +556,7 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   font-family: 'Outfit', sans-serif; 
 }
 
-.tituloApp{
-  margin-top: -60px;
-  display: flex;
-  justify-content: space-between;
- 
-  width: 100%;
-  height: 50px;
-  align-items: center;
-  
-}
 
-.titulo{
-  font-size: 30px;
-  font-family: 'Outfit', sans-serif; 
-  font-weight: bold;
-}
 
 #ticketsPendientes {
   background-color: #2c4274;
@@ -549,11 +593,13 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
   font-weight: bold;
   font-size: 20px;
   color: #ffffff;
+  font-family: 'Outfit', sans-serif; 
 }
 
 .value {
   font-size: 28px;
   color: #ffffff;
+  font-family: 'Outfit', sans-serif; 
 }
 
 #textPrioridad{
@@ -571,28 +617,6 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 }
 
 
-
-
-.graficoSemanal_Labels{
-  
-  width: 40%;
-
-
- 
-
-}
-
-
-
-.graficoSemanal_diagrama{
-  
-  width: 60%;
-}
-
-
-
-
-
 #ticketsUser{
   margin-top: 10PX;
   font-size: 20PX;
@@ -602,13 +626,12 @@ height: 100%; /* La altura del .info-container será igual a la altura del .dash
 
 }
 
-.tituloPorUsuario{
+  .tituloPorUsuario{
+margin-top: -40px;
+  text-align: center;
+  height: 30px;
 
-
-text-align: center;
-height: 30px;
-
-}
+  }
 
 .graficar{
   margin-top: 10px;
@@ -731,28 +754,9 @@ height: 30px;
   /* Ajusta otros estilos según sea necesario */
 }
 
-#fechaButton{
-  
-}
 
 
 
-.connectBtn {
-  width: 120px;
-  height: 40px;
-  border: none;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  color: white;
-  font-weight: 600;
-  background: linear-gradient(to right, #fc8bc4, #576bff);
-  box-shadow: 0 20px 30px -7px rgba(97, 118, 238, 0.5);
-  transition: all 0.3s ease-in-out;
-  cursor: pointer;
-}
 .factura-label {
   font-size: 15px;
   color: #000000;
@@ -783,16 +787,16 @@ height: 30px;
 
 
 .ContenedorAccionesseccion1{
-  background-color: #faf6ff;
+  background-color: #ffffff;
   width: 100%;
   border-radius: 15px;
 
 }
 
 .ContenedorAccionesseccion2{
-  background-color: #faf6ff;
+  background-color: #ffffff;
   width: 100%;
-  border-radius: 15px;
+  border-radius: 5px;
  
  
 
@@ -901,7 +905,7 @@ td img {
   border: none;
   color: rgb(16, 52, 170);
   cursor: pointer;
-  background-color: rgb(255, 0, 0);
+  background: linear-gradient(to bottom, #4dc7d9 0%,#66a6ff 100%);
   border-radius: 7px;
   font-weight: bold;
   transition: 0.5s;
@@ -913,6 +917,8 @@ td img {
   
 
 }
+
+
 
 .divCerrar{
  
@@ -1012,20 +1018,77 @@ td img {
   
 }
 
+.tituloApp{
+  margin-top: -70px;
+  margin-left: -20px;
+  display: flex;
+  justify-content: space-between;
+  width: 110%;
+  height: 60px;
+  align-items: center;
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #000;
+
+
+  
+}
+
+.contentDerecho{
+  display: flex;
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+
+.titulo{
+  font-size: 30px;
+  font-family: 'Outfit', sans-serif; 
+  font-weight: bold;
+  margin-left: 30px;
+ 
+  
+
+}
+
+.nombreUsuarioActual{
+  font-family: 'Outfit', sans-serif; 
+  margin-top: 10px;
+  font-weight: bold;
+  margin-left: 100PX;
+
+}
+
 .GRID_CONTAINER{
   margin-top: -20PX;
   display: grid;
   width: MIN(100%, 1500px);
 
+
   padding: 10px;
   grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+  gap:0px -30px;
 
 
 
 }
 
+#contentGraperPrioridad {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.priority {
+  width: 30%; /* Ajusta el ancho de las columnas según tus preferencias */
+  padding: 0px;
+
+  
+}
+
+
+
 .GRID_CONTAINER1{
-  margin-top: -33PX;
+  margin-top: -40PX;
   display: grid;
   width: MIN(100%, 1500px);
 
@@ -1033,10 +1096,13 @@ td img {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 
 }
+
+
+
 .GRID_ITEM{
   background-color: #28a745;
-  border: 2PX solid black;
-  border-radius: 15px;
+  border: 1PX solid black;
+  border-radius: 10px;
   height: 150px;
   align-items: center;
   display: flex; 
@@ -1050,25 +1116,40 @@ td img {
 
 
 
+
 .GRID_ITEM1 {
-  
-  border-radius: 15px;
+
+  border-radius: 10px;
   align-items: center;
   display: flex;
   box-sizing: border-box;
-
+  border: 1PX solid black;
   text-align: center;
   margin: 10px;
+ 
 }
 
 .GRID_ITEM1.grande {
   grid-column: span 2;
-  background-color: #e3f2fd; /* Este elemento abarcará dos columnas */
+  background-color: #e5f0e6; /* Este elemento abarcará dos columnas */
+
 }
 
 .GRID_ITEM1.pequeño {
-  background-color: #faf6ff; /* Este elemento abarcará dos columnas */
+  background-color: #e5f0e6; /* Este elemento abarcará dos columnas */
 }
+
+.GRID_ITEM1.grand {
+  grid-column: span 2;
+  background-color: #ffffff; /* Este elemento abarcará dos columnas */
+  border: none;
+}
+
+.GRID_ITEM1.peque {
+  background-color: #ffffff; /* Este elemento abarcará dos columnas */
+  border: none;
+}
+
 
 .ContenedorAcciones{
   display: flex;
@@ -1077,7 +1158,11 @@ td img {
   height: 240px;
 }
 
+
+
 @media (max-width: 844px) {
+
+
 
   #menuAside {
     display: none; 
@@ -1138,6 +1223,52 @@ td img {
     height:150px;
   }
   
+  #contentGraperPrioridad {
+    width: 100%;
+   
+    justify-content: space-around;
+  }
+  
+  .priority {
+    width: 30%; /* Ajusta el ancho de las columnas según tus preferencias */
+    padding: 5px;
+    display: flex;
+    gap: 0PX 10PX;
+   
+    
+  }
+  .priority.alto{
+    gap: 0PX 24PX;
+  }
+  .priority.bajo{
+    gap: 0PX 21PX;
+  }
 
+  .nombreUsuarioActual{
+    display: none;
+    font-family: 'Outfit', sans-serif; 
+    margin-top: 10px;
+    font-weight: bold;
+  
+  }
+
+  .ContenedorDashboard{
+    height: 100%;
+  
+    margin-left: auto;
+    margin-right: auto;
+    
+  }
+
+  #contenedorImagen{
+    display: none;
+  }
+  .connectBtn.flatpickr-input {
+    margin-top: -15px;
+   width: 100px;
+  }
+  
+  
+  
   
 }
