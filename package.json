@@ -9,11 +9,13 @@
   "author": "Raj Kapadia",
   "license": "ISC",
   "dependencies": {
+    "axios": "^1.6.7",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
     "dialogflow-fulfillment": "^0.6.1",
     "dotenv": "^9.0.2",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "multer": "^1.4.5-lts.1",
     "mysql": "^2.18.1",
